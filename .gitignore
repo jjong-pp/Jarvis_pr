@@ -1,0 +1,12 @@
+# Obsidian specific ignores
+.obsidian/workspace
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/core-plugins-migration.json
+.obsidian/app.json
+.obsidian/appearance.json
+.obsidian/hotkeys.json
+
+# OS generated files
+.DS_Store
+Thumbs.db
