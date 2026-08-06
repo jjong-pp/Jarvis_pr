@@ -71,6 +71,6 @@ publish_to_notion: false
 
 ---
 
-## 5. Claude Code 위원회 (자비스 위원회)
+## 5. Claude Code 연동
 
-이 볼트는 Claude Code의 서브에이전트로 구현된 7인 위원회와 함께 운영됩니다. 각 에이전트의 정의는 `.claude/agents/`에 있고, 자동 부팅·오케스트레이션 규칙은 `CLAUDE.md`에 있습니다. 자세한 사용법은 `CLAUDE.md`를 참고하세요.
+이 작업공간은 Claude Code와 함께 운영됩니다. 작업 규칙과 3단계 게이팅은 루트 `CLAUDE.md`에, 서브에이전트 3종(researcher/reviewer/organizer)은 `.claude/agents/`에, 프로젝트 현황판은 `project_state.md`에 있습니다.
