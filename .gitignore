@@ -13,3 +13,6 @@ Thumbs.db
 
 # Claude Code local settings (per-user, not shared)
 .claude/settings.local.json
+
+# 다른 프로젝트 설정 레퍼런스 (읽기 전용 스냅샷, 커밋 제외)
+룰 참고용/
