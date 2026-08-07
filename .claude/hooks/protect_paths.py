@@ -58,6 +58,11 @@ def main() -> None:
     if "/룰 참고용/" in f"/{normalized}/":
         deny("차단: '룰 참고용/' 폴더는 읽기 전용 레퍼런스입니다. 필요한 내용은 복사해서 사용하세요.")
 
+    # 4. 하네스 자기 보호 — 안전장치 자체가 조용히 무력화되는 것을 방지
+    if re.search(r"(^|/)\.claude/(hooks/|settings\.json$)", normalized):
+        deny("차단: 하네스 파일(.claude/hooks/, settings.json)은 자동 수정 금지. "
+             "변경안을 diff로 채팅에 제시하고 사람이 직접 반영하세요.")
+
     sys.exit(0)
 
 

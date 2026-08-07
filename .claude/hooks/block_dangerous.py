@@ -41,11 +41,18 @@ def main() -> None:
          "차단: 광범위 삭제 명령 (rm -rf /, *, ~ 등). 특정 경로를 명시해서 다시 시도하세요."),
         (r"Remove-Item\s+.*-Recurse.*\s+(/|C:\\\s|\*|~)\s*$",
          "차단: 광범위 재귀 삭제. 특정 경로를 명시해서 다시 시도하세요."),
+        # 1-2. Windows 셸 광범위 삭제
+        (r"\b(rd|rmdir)\s+/s\b.*\s([A-Za-z]:\\?\s*$|\*)",
+         "차단: 드라이브 루트/와일드카드 대상 rmdir /s. 특정 폴더를 명시하세요."),
+        (r"\bdel\b\s+(/[a-zA-Z]\s+)*.*\\\*(\s|$)",
+         "차단: 와일드카드 재귀 삭제(del). 특정 파일을 명시하세요."),
         # 2. 커밋 안 된 작업 파괴
         (r"git\s+reset\s+--hard",
          "차단: git reset --hard 금지. 커밋 안 된 작업이 사라집니다. git stash를 사용하세요."),
         (r"git\s+clean\s+-[a-zA-Z]*f",
          "차단: git clean -f 금지. 추적되지 않는 파일(작업 폴더 포함)이 영구 삭제됩니다."),
+        (r"git\s+(checkout|restore)\s+(--\s+)?\.\s*$",
+         "차단: git checkout/restore . 금지. 작업 중인 모든 변경이 폐기됩니다. 파일을 개별 지정하세요."),
         # 3. git hook 우회
         (r"--no-verify\b",
          "차단: --no-verify로 git hook 우회 금지."),
