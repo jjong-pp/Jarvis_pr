@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>KCS 사전 거래정보 신고(TRA) E2E 통합 기획서 (planning_v5 Full Spec)</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body { font-family: 'Inter', -apple-system, sans-serif; background-color: #ffffff; color: #333; line-height: 1.6; padding: 40px; margin:0; }
+        .container { max-width: 1500px; margin: 0 auto; }
+        h1 { color: #111; border-bottom: 3px solid #1a73e8; padding-bottom: 12px; margin-bottom: 20px; font-size: 26px; }
+        h2 { color: #202124; border-bottom: 2px solid #1a73e8; padding-bottom: 8px; margin-top: 40px; font-size: 20px; display:flex; align-items:center; justify-content:space-between; }
+        h3 { color: #3c4043; margin-top: 25px; font-size: 16px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 12px; }
+        th, td { border: 1px solid #eaeaea; padding: 8px 10px; text-align: left; vertical-align: top; }
+        th { background-color: #f8f9fa; font-weight: 600; color: #555; position: sticky; top: 0; z-index:10; }
+        .badge { display: inline-block; padding: 3px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+        .req-y { background-color: #ffeaea; color: #d93025; }
+        .req-n { background-color: #e8f0fe; color: #1a73e8; }
+        .req-c { background-color: #fff3cd; color: #856404; }
+        .src-dongsu { background-color: #e6f4ea; color: #137333; font-weight: bold; }
+        .src-geek { background-color: #e8f0fe; color: #1a73e8; font-weight: bold; }
+        .src-gen { background-color: #fce8e6; color: #c5221f; font-weight: bold; }
+        .src-kcs { background-color: #fff3cd; color: #856404; font-weight: bold; }
+        .nav-btn { display:inline-block; margin-bottom:20px; background:#1a73e8; color:white; padding:10px 18px; text-decoration:none; border-radius:4px; font-weight:bold; cursor:pointer; border:none; font-size:14px; }
+        .nav-btn:hover { background: #1557b0; }
+        
+        /* 시퀀스 다이어그램 카운터 및 오버레이 모달 */
+        .diagram-card { border:2px dashed #1a73e8; padding:20px; border-radius:8px; background:#f8faff; margin-bottom:35px; cursor:pointer; position:relative; transition: all 0.2s ease-in-out; }
+        .diagram-card:hover { background:#eef4ff; border-color:#1557b0; box-shadow: 0 4px 12px rgba(26,115,232,0.15); }
+        .diagram-hint { position:absolute; top:15px; right:20px; background:#1a73e8; color:white; padding:6px 14px; border-radius:20px; font-size:12px; font-weight:bold; pointer-events:none; }
+        
+        /* Modal Style */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.88); z-index: 9999; justify-content: center; align-items: center; cursor: pointer; }
+        .modal-content { background: #ffffff; width: 96vw; height: 94vh; border-radius: 8px; display: flex; flex-direction: column; padding: 15px; position: relative; box-sizing: border-box; cursor: default; overflow: hidden; }
+        .modal-body { flex: 1; overflow: hidden; background: #ffffff; border: 1px solid #ddd; border-radius: 4px; position: relative; cursor: grab; user-select: none; }
+        .modal-body:active { cursor: grabbing; }
+        
+        /* Modal Zoom Container */
+        #modalMermaidContainer { position: absolute; top: 0; left: 0; transform-origin: 0 0; transition: transform 0.05s ease-out; }
+        #modalMermaidContainer svg { max-width: none !important; width: auto !important; height: auto !important; }
+
+        /* 스테이지 상세 설명 박스 */
+        .stage-box { background: #fcfcfc; border: 1px solid #e0e0e0; border-left: 5px solid #1a73e8; padding: 18px 22px; margin-bottom: 20px; border-radius: 4px; }
+        .stage-box p { margin: 0 0 10px 0; font-size: 14px; }
+        .stage-box ul { margin: 0; padding-left: 20px; font-size: 13.5px; }
+        .stage-box li { margin-bottom: 6px; }
+        .time-tag { background: #1a73e8; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; margin-right: 8px; }
+        .rule-highlight { background: #fff3cd; color: #856404; padding: 2px 6px; border-radius: 3px; font-weight: bold; }
+        .api-tag { display:inline-block; padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; white-space:nowrap; }
+        .api-per { background:#f3e8fd; color:#7b1fa2; }
+        .api-tra1 { background:#e8f0fe; color:#1a73e8; }
+        .api-tra3 { background:#fff3cd; color:#856404; }
+        .api-mawb { background:#e6f4ea; color:#137333; }
+        .api-hwb { background:#e6f4ea; color:#0d652d; }
+        .api-item { background:#e0f2f1; color:#00695c; }
+        .api-etc { background:#f1f3f4; color:#555; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div>
+        <a href="./api_field_mapping.html" class="nav-btn">[ → api_field_mapping.html 전수 필드 매핑 문서 보기 ]</a>
+    </div>
+
+    <h1>KCS 사전 거래정보 신고(TRA) E2E 통합 기획서 (planning_v5 Full Spec)</h1>
+
+    <div style="background:#e8f0fe; padding:18px 22px; border-left:5px solid #1a73e8; margin-bottom:20px; border-radius:4px; font-size:13.5px; line-height:1.7;">
+        <strong>[자사몰 메인 E2E 및 동수 시스템 이원화 정의]</strong> 본 기획서는 <strong>Geek Studio(자사몰: 크로네몰) - 동수(EIBE ERP / DS Logistics) - 자이언트 특송사 - 관세청 REST API 간의 직접판매(A유형) 실무 데이터 및 로직</strong>을 기준 집행됩니다.<br>
+        - <strong>EIBE ERP:</strong> 매일 10:00 KST 발송 전 사전 예정 데이터(14개 속성)를 Geek으로 전송 (관세청 TRA001 신고용)<br>
+        - <strong>DS Logistics:</strong> 매일 17:00 KST 실물 출고 후 확정 물류 데이터(MAWB, 실측 중량 등)를 자이언트로 직송 (관세청 세관 수입신고용)
+    </div>
+
+    <div style="background:#e6f4ea; padding:15px 20px; border-left:5px solid #137333; margin-bottom:25px; border-radius:4px; font-size:13px; color:#137333;">
+        <strong>[중량(무게) 오차 리스크 검수 결과]:</strong> 10:00 EIBE ERP 전송 예정 중량(<code>tot_wt</code>)과 17:00 DS Logistics 계량기 실측 중량(<code>weight</code>) 간의 미세한 소수점 오차는 관세청 규정상 <strong>사전 거래정보(예정)와 실물 수입신고(실측)의 정상적 오차 범위(±5~10% 이내)로 인정되어 통관상 아무런 오류나 위험이 없습니다.</strong>
+    </div>
+
+    <!-- 시퀀스 다이어그램 팝업 클릭 영역 -->
+    <div class="diagram-card" onclick="openModal()">
+        <div class="diagram-hint">🔍 클릭하여 크게 보기 (마우스 휠 줌 & 드래그 이동, 바깥 공백 클릭 시 닫기)</div>
+        <h3 style="margin-top:0; color:#1a73e8;">E2E 전체 시퀀스 다이어그램 (자사몰 PER001 사전검증 ~ 반품 CS 전 생애주기)</h3>
+        <p style="font-size:12px; color:#666; margin-bottom:15px;">아래 시퀀스 상자를 클릭하면 전체화면 고해상도 모달이 열립니다.</p>
+        <div class="mermaid" id="mainMermaid">
+sequenceDiagram
+    autonumber
+    actor Customer as 자사몰 고객
+    participant Mall as Geek 자사몰 (크로네몰)
+    participant ERP as 동수 EIBE ERP (사전예정)
+    participant WMS as 동수 DS Logistics (실물물류)
+    participant KCS as 관세청 REST API
+    participant Giant as 자이언트 특송사
+    participant Courier as 롯데택배 (국내)
+
+    Note over Customer, KCS: Stage 1: 결제 시점 PER001 개인통관고유부호 사전 유효성 검증
+    Customer->>Mall: 수하인 통관부호(PER), 성명, 전화번호 기입 및 결제 시도
+    Mall->>KCS: PER001 부호 유효성 검증 요청 (cnsi_pers_ecm, cnsi_nm, cnsi_telno)
+    alt PER001 검증 성공
+        KCS-->>Mall: 검증 완료 응답 (su_crtf_no 6자리 인증번호 수신)
+        Mall-->>Customer: 결제 완료 승인 (주문상태 p1 저장)
+    else PER001 검증 실패
+        KCS-->>Mall: 부호 불일치 / 무효 응답
+        Mall-->>Customer: 결제 승인 차단 및 통관부호 수정 안내 팝업
+    end
+
+    Note over Mall, ERP: Stage 2: 09:00 동수 EIBE ERP 주문 수집 & CS 환불 차단
+    ERP->>Mall: 09:00 KST Open API로 결제완료(p1) 주문 수집
+    Mall-->>ERP: 주문 상태 g1(상품준비중) 변경 (마이페이지 취소/환불 버튼 제거)
+
+    Note over Mall, KCS: Stage 3: 10:00~11:00 EIBE ERP 역수집 & 관세청 TRA001 사전 제출
+    Mall->>ERP: 10:00 KST searchOrderInfo 호출 (가채번 hblNo, tot_wt 예정중량, hsCode, prod_srno 1~5)
+    Note right of Mall: elcm_pcd='A', elcm_ents_sgn='K26000099', puch_vcex_bsmn_sgn=Null (자사몰 규격)
+    Mall->>KCS: 10:00~11:00 TRA001 사전 거래정보 제출 API (100건 청크 전송)
+
+    Note over Mall, KCS: Stage 4 & 5: 11:50 TRA003 오류 조회 및 승인/실패 분기 처리
+    Mall->>KCS: 11:50 KST TRA003 거래정보 오류내역 조회 API 호출
+    alt 관세청 정상 승인 (성공건)
+        KCS-->>Mall: 오류 미발생 정상 승인 (g5 항공발송 변경 및 송장 업데이트)
+        Mall->>Giant: 11:50 자이언트 PER 연동 API 전송 (수하인 통관/주소 정보 송출)
+    else 관세청 오류 발생 (실패건)
+        KCS-->>Mall: 오류 수신 (p1 원복 & 실패 전용 리스트 117/118 에러 적재)
+        Mall->>ERP: EIBE ERP 주문 삭제 API 단건 호출 (customerOrderNo 출고 차단)
+        Note over Giant: 자이언트로 PER 미전송에 따라 가채번 HBL은 24시간 내 자동 미전송 소멸
+    end
+
+    Note over WMS, Giant: Stage 6: 13:00 현장 포장 출고 & 17:00~18:00 DS Logistics MAWB 전송 및 세관 수입신고
+    WMS->>WMS: 13:00 KST 삭제건 제외 정상 승인건 실물 포장 출고
+    WMS->>Giant: 17:00~18:00 KST MAWB 마스터 + weight 실측중량/외포장 스펙 직송
+    Giant->>KCS: PER(자사몰 11:50) + MAWB(DS Logistics 17:00) 결합 세관 수입신고(DKW/DKX) 제출
+
+    Note over Giant, Customer: Stage 7: 국내 배송 인계 및 수령 후 반품 CS
+    Giant->>Courier: 인천공항 수입 통관 완료 후 롯데택배로 화물 인계
+    Courier-->>Customer: 국내 배송 진행 및 물품 수령 완료 (배송완료 상태 업데이트)
+    Customer->>Mall: 마이페이지 반품 접수 및 실물 회수 검수 후 최종 환불
+        </div>
+    </div>
+
+    <!-- Modal View Structure -->
+    <div id="diagramModal" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-body" id="modalBody" onwheel="handleWheel(event)" onmousedown="startPan(event)" onmousemove="doPan(event)" onmouseup="endPan()" onmouseleave="endPan()">
+                <div id="modalMermaidContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- Stage 1 ~ Stage 7 상세 처리 로직 및 자사몰 메인 데이터 필드 명세 -->
+    <!-- ================================================================= -->
+
+    <h2>
+        <span>Stage 1. 결제 시점 PER001 개인통관고유부호 사전 유효성 검증</span>
+        <span class="time-tag">고객 결제 순간 (실시간)</span>
+    </h2>
+    <div class="stage-box">
+        <p><strong>상세 전송 및 처리 로직 (Geek 자사몰 실무):</strong></p>
+        <ul>
+            <li><strong>배경 및 목적:</strong> 통관 거절 및 지연의 주원인인 잘못된 개인통관고유부호 입력이나 명의 불일치를 자사몰 결제 단계에서 사전에 검증하여 불량 주문 인입을 원천 차단함.</li>
+            <li><strong>처리 프로세스:</strong><br>
+                1. 자사몰 고객이 결제 페이지에서 수하인 성명(<code>cnsi_nm</code>), 개인통관고유부호(<code>cnsi_pers_ecm</code>), 전화번호(<code>cnsi_telno</code>)를 입력함.<br>
+                2. 자사몰(Geek) 백엔드가 관세청 <code>PER001</code> API를 실시간 호출하여 성명-부호-전화번호 3자 일치 여부를 동기 검증함.<br>
+                3. <strong>검증 성공 시:</strong> 관세청 응답 6자리 인증번호(<code>su_crtf_no</code>)를 자사몰 DB 주문 테이블에 저장하고 결제를 완료(주문상태 <code>p1</code>)함.<br>
+                4. <strong>검증 실패 시:</strong> 결제 승인을 즉시 차단하고, 화면에 "입력하신 통관부호가 명의와 일치하지 않습니다" 경고 안내 팝업을 노출함.
+            </li>
+        </ul>
+    </div>
+    <table>
+        <thead><tr><th>API 구분</th><th>필드명(코드)</th><th>한글 필드명</th><th>타입</th><th>필수</th><th>데이터 채움 출처</th><th>자사몰 실제 데이터 값</th><th>상세설명 및 처리 로직</th></tr></thead>
+        <tbody>
+            <tr><td><span class="api-tag api-per">PER001</span></td><td><code>cnsi_nm</code></td><td>수하인 성명</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>실물 수령인 한글 성명</td><td>결제 시점 고객 입력. 관세청 PER001 유효성 검증 필수 전송</td></tr>
+            <tr><td><span class="api-tag api-per">PER001</span></td><td><code>cnsi_pers_ecm</code></td><td>개인통관고유부호</td><td>String(13)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>P로 시작 13자리 (예: P123456789012)</td><td>PER001 유효성 검증 대상 핵심 키</td></tr>
+            <tr><td><span class="api-tag api-per">PER001</span></td><td><code>cnsi_telno</code></td><td>수하인 전화번호</td><td>String(60)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>하이픈 제외 숫자 (예: 01012345678)</td><td>관세청 등록 전화번호 일치 검증용</td></tr>
+            <tr><td><span class="api-tag api-per">PER001</span></td><td><code>su_crtf_no</code></td><td>일회용 인증번호</td><td>String(6)</td><td><span class="badge req-y">Y</span></td><td class="src-kcs">관세청 응답</td><td>6자리 숫자 또는 Z99999</td><td>검증 성공 응답 인증번호 (DB 저장 후 TRA001 및 자이언트 송출 사용)</td></tr>
+        </tbody>
+    </table>
+
+    <h2>
+        <span>Stage 2. 09:00 동수 EIBE ERP 주문 수집 및 주문상태 g1(상품준비중) 변경</span>
+        <span class="time-tag">매일 09:00 배치</span>
+    </h2>
+    <div class="stage-box">
+        <p><strong>상세 전송 및 처리 로직 (Geek - 동수 EIBE ERP 연동):</strong></p>
+        <ul>
+            <li><strong>배경 및 목적:</strong> 당일 해외 창고 출고를 위해 동수 EIBE ERP가 주문을 수집하고, 마이페이지 취소를 차단하여 물류 작업 안전성을 확보함.</li>
+            <li><strong>처리 프로세스:</strong><br>
+                1. 매일 09:00 동수 EIBE ERP가 자사몰 Open API를 호출하여 <code>p1</code>(결제완료) 상태 주문을 수집함.<br>
+                2. 자사몰(Geek)은 수집 요청을 수신하는 즉시 해당 주문 상태를 <code>g1</code>(상품준비중)으로 변경함.<br>
+                3. <code>g1</code> 상태부터는 마이페이지 "취소/환불" 버튼이 자동 비활성화되어 고객 직접 취소가 불가능해짐.
+            </li>
+        </ul>
+    </div>
+    <table>
+        <thead><tr><th>API 구분</th><th>필드명(코드)</th><th>한글 필드명</th><th>타입</th><th>필수</th><th>데이터 채움 출처</th><th>자사몰 실제 데이터 값</th><th>상세설명 및 처리 로직</th></tr></thead>
+        <tbody>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_no</code></td><td>주문번호</td><td>String(50)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>ORD20260804001 등</td><td>동수 EIBE ERP 수집 고유 주문 키 (customerOrderNo)</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_cmpl_dttm</code></td><td>주문완료일시</td><td>String(14)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>YYYYMMDDHHMMSS</td><td>결제 완료 시각 14자리 포맷</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ordrr_nm</code></td><td>주문자 성명</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>주문자 한글 성명</td><td>결제 시점 수집</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_nm</code></td><td>수하인 한글 성명</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>수령인 한글 성명</td><td>실물 수령인 성명</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_telno</code></td><td>수하인 전화번호</td><td>String(60)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>수령인 연락처 (하이픈 제외)</td><td>수령인 전화번호</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_psno</code></td><td>수하인 우편번호</td><td>String(5)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>우편번호 5자리</td><td>도로명 우편번호</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_bscs_addr</code></td><td>수하인 기본주소</td><td>String(200)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>도로명 기본주소</td><td>도로명 기본주소</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_dtl_addr</code></td><td>수하인 상세주소</td><td>String(200)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek 자사몰 DB</td><td>상세 주소</td><td>상세 주소</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_pers_ecm</code></td><td>개인통관고유부호</td><td>String(13)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>P로 시작 13자리</td><td>Stage 1 검증 완료 PER 부호</td></tr>
+        </tbody>
+    </table>
+
+    <h2>
+        <span>Stage 3. 10:00 ~ 11:00 동수 EIBE ERP 역수집 & 관세청 TRA001 사전 제출</span>
+        <span class="time-tag">매일 10:00 ~ 11:00 배치</span>
+    </h2>
+    <div class="stage-box">
+        <p><strong>상세 전송 및 처리 로직 (자사몰 전용 TRA001 구축):</strong></p>
+        <ul>
+            <li><strong>처리 프로세스:</strong><br>
+                1. <strong>10:00 EIBE ERP 역수집:</strong> 자사몰(Geek)이 동수 EIBE ERP API(`searchOrderInfo`)를 호출하여 가채번 <code>hbl_no</code>, 예정중량(<code>tot_wt</code>), 매입금액(<code>tot_stlm_amt</code>), HS코드, 상품일련번호(<code>prod_srno</code> 1~5) 등 사전 14개 속성을 수신함.<br>
+                2. <strong>자사몰 부호 및 URL 결합:</strong><br>
+                - <code>elcm_pcd</code> (판매유형코드): 자사몰 전용 <span class="rule-highlight">'A' (직접판매)</span> 주입<br>
+                - <code>elcm_ents_sgn</code> (제출자 부호): <code>K26000099</code> ((주)크로네) 고정 주입<br>
+                - <code>puch_vcex_bsmn_sgn</code> (구매대행업체부호): A유형 직접판매이므로 <span class="rule-highlight">Null (생략)</span><br>
+                - <code>sale_ents_sgn / sale_ents_nm</code> (판매업체 부호/명): 관세청 선택 항목(N)으로 전건 <span class="rule-highlight">Null (생략)</span><br>
+                - <code>prod_sale_pge_url</code> (상품 URL): 자사몰 대표 도메인 <code>https://nutriciastore.co.kr/</code> 주입<br>
+                3. <strong>100건 청크 전송:</strong> 관세청 REST API 규격에 맞춰 100건 단위로 청크를 구성하여 <code>TRA001</code> 사전 제출을 전송함.
+            </li>
+        </ul>
+    </div>
+    <table>
+        <thead><tr><th>API 구분</th><th>필드명(코드)</th><th>한글 필드명</th><th>타입</th><th>필수</th><th>데이터 채움 출처</th><th>자사몰 실제 데이터 값</th><th>상세설명 및 처리 로직</th></tr></thead>
+        <tbody>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>txif_sbmt_no</code></td><td>제출번호</td><td>String(21)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek 자체 생성</td><td>K26000099 + YYMMDD + 시퀀스6자리</td><td>제출자부호(9) + 년월일(6) + 일련번호(6) = 21자리 고유 번호</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>elcm_ents_sgn</code></td><td>제출자 전자상거래업체 부호</td><td>String(9)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek 고정 주입</td><td>K26000099</td><td>(주)크로네 관세청 정식 등록 부호 고정 주입</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>elcm_ents_nm</code></td><td>제출자 전자상거래업체명</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek 고정 주입</td><td>(주)크로네</td><td>등록 상호명 고정 주입</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>elcm_ents_cnty_cd</code></td><td>국가코드</td><td>String(2)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek 고정 주입</td><td>KR</td><td>KR 고정 주입</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>hbl_no</code></td><td>운송장번호 (HBL)</td><td>String(20)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>DS26080400001 등</td><td>10시 EIBE ERP 역수집. 관세청 처리 단위 기준 키</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_no</code></td><td>주문번호</td><td>String(50)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>ORD20260804001 등</td><td>자사몰 고유 주문번호</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>elcm_pcd</code></td><td>전자상거래 판매유형코드</td><td>String(1)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek 고정 주입</td><td>A (직접판매)</td><td>자사몰은 오직 'A' (직접판매) 고정 주입</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_cmpl_dttm</code></td><td>주문완료일시</td><td>String(14)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>YYYYMMDDHHMMSS</td><td>결제 완료 시각</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>puch_vcex_bsmn_sgn</code></td><td>구매대행업체부호</td><td>String(9)</td><td><span class="badge req-c">C</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>A유형 직접판매이므로 전건 생략 (Null)</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>puch_vcex_bsmn_nm</code></td><td>구매대행업체명</td><td>String(300)</td><td><span class="badge req-c">C</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>A유형 직접판매이므로 전건 생략 (Null)</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>dlvr_vcex_bsmn_sgn</code></td><td>배송대행업체부호</td><td>String(9)</td><td><span class="badge req-c">C</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>전건 생략</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>dlvr_vcex_bsmn_nm</code></td><td>배송대행업체명</td><td>String(300)</td><td><span class="badge req-c">C</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>전건 생략</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ordrr_nm</code></td><td>주문자 성명</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>주문자 한글 성명</td><td>결제 시점 수집</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ordrr_telno</code></td><td>주문자 전화번호</td><td>String(60)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek 자사몰 DB</td><td>주문자 연락처</td><td>선택 항목</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ordrr_email</code></td><td>주문자 이메일</td><td>String(100)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek 자사몰 DB</td><td>이메일 주소</td><td>선택 항목</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ordrr_id</code></td><td>주문자 ID</td><td>String(50)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek 자사몰 DB</td><td>자사몰 회원 ID</td><td>선택 항목</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_nm</code></td><td>수하인 성명</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>수령인 성명</td><td>관세청 검증용</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_telno</code></td><td>수하인 전화번호</td><td>String(60)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>수령인 연락처</td><td>관세청 검증용</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_psno</code></td><td>수하인 우편번호</td><td>String(5)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>우편번호 5자리</td><td>관세청 검증용</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_bscs_addr</code></td><td>수하인 기본주소</td><td>String(200)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>도로명 기본주소</td><td>관세청 검증용</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_dtl_addr</code></td><td>수하인 상세주소</td><td>String(200)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek 자사몰 DB</td><td>상세 주소</td><td>선택 항목</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_pers_ecm</code></td><td>개인통관고유부호</td><td>String(13)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>P로 시작 13자리</td><td>PER001 검증 부호</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>su_crtf_no</code></td><td>인증번호</td><td>String(6)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>6자리 숫자 또는 Z99999</td><td>PER001 검증 성공 인증번호</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_srno</code></td><td>상품 일련번호</td><td>String(20)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 EIBE ERP 생성</td><td>1, 2, 3... (HBL 내 상품 순번, 최대 5)</td><td>EIBE ERP 자동 생성 (최대 5개)</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_clsf_nm_stp1</code></td><td>상품분류 1단계</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>식품 등</td><td>10시 EIBE ERP 역수집</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_clsf_nm_stp2</code></td><td>상품분류 2단계</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>분유 등</td><td>10시 EIBE ERP 역수집</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_clsf_nm_stp3~9</code></td><td>상품분류 3~9단계</td><td>String(100)</td><td><span class="badge req-n">N</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>전건 생략</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>hs_cd</code></td><td>HS코드</td><td>String(6)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>190110 등</td><td>선택항목이나 주입 권고</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_prod_nm</code></td><td>주문상품명</td><td>String(300)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>Aptamil Profutura 2 등</td><td>특수문자 제거 동수 DB 고정 상품명</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_sale_pge_url</code></td><td>상품판매 URL</td><td>String(3000)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek 고정 주입</td><td>https://nutriciastore.co.kr/</td><td>자사몰 대표 도메인 URL 고정 주입</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_ord_qty</code></td><td>상품주문수량</td><td>Number(10)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>포장 출고 수량 정수</td><td>실제 포장 출고 확정 수량</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_qty_ut</code></td><td>수량 단위</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek 고정 주입</td><td>EA</td><td>EA 고정 주입</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_unprc</code></td><td>상품단가</td><td>Number(16,3)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>동수 매입 단가 USD</td><td>동수 DB 매입 단가 기준</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_unprc_curr_cd</code></td><td>단가 통화코드</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek 고정 주입</td><td>USD</td><td>USD 고정 주입</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_amt</code></td><td>주문금액</td><td>Number(16,3)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>qty * unitPrice USD</td><td>수량 x 단가 산출</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_amt_curr_cd</code></td><td>주문금액 통화코드</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek 고정 주입</td><td>USD</td><td>USD 고정 주입</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_nm</code></td><td>판매업체명</td><td>String(300)</td><td><span class="badge req-n">N</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>선택 항목. 당사 전건 생략 (Null 통일)</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_id</code></td><td>판매업체 아이디</td><td>String(50)</td><td><span class="badge req-n">N</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>선택 항목. 전건 생략</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_biz_no</code></td><td>판매업체 사업자번호</td><td>String(10)</td><td><span class="badge req-n">N</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>선택 항목. 전건 생략</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_sgn</code></td><td>판매업체부호</td><td>String(9)</td><td><span class="badge req-n">N</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>선택 항목. 당사 전건 생략 (Null 통일)</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_mnfcr_nm</code></td><td>상품 제조사명</td><td>String(200)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>Danone 등 또는 Null</td><td>선택 항목</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_mdl_no</code></td><td>제조사 모델번호</td><td>String(100)</td><td><span class="badge req-n">N</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>선택 항목</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_brnd_nm</code></td><td>상품 브랜드명</td><td>String(200)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>Aptamil 등 또는 Null</td><td>선택 항목</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tot_stlm_amt</code></td><td>총 결제금액</td><td>Number(16,3)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>매입 총액 USD</td><td>구매자 결제 최종 합계 금액</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tot_stlm_amt_curr_cd</code></td><td>결제금액 통화코드</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek 고정 주입</td><td>USD</td><td>USD 고정 주입</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tot_wt</code></td><td>총 중량 (예정)</td><td>Number(16,3)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>예정 무게 kg (예: 2.5)</td><td>10시 EIBE ERP 역수집 예정 무게 (17시 실측 중량과 미세 오차 허용)</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>stlm_mns_cd</code></td><td>결제수단코드</td><td>String(2)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek 자사몰 DB</td><td>10(신용카드) 등</td><td>선택 항목</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>stlm_dttm</code></td><td>결제일시</td><td>String(14)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek 자사몰 DB</td><td>YYYYMMDDHHMMSS</td><td>선택 항목</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>smon_use_amt</code></td><td>적립금 사용금액</td><td>Number(16,3)</td><td><span class="badge req-n">N</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>동수 매입가 기준 전건 생략</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>spfe</code></td><td>배송비</td><td>Number(16,3)</td><td><span class="badge req-n">N</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>동수 매입가 기준 전건 생략</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tot_dscn_amt</code></td><td>총 할인금액</td><td>Number(16,3)</td><td><span class="badge req-n">N</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>동수 매입가 기준 전건 생략</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>insrc_amt</code></td><td>보험료</td><td>Number(16,3)</td><td><span class="badge req-n">N</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>선택 항목</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tax_amt</code></td><td>세금</td><td>Number(16,3)</td><td><span class="badge req-n">N</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>선택 항목</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tot_ord_prod_qty</code></td><td>총 주문상품수량</td><td>Number(10)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>주문 전체 총 수량</td><td>주문 전체 총 수량 기재</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td>예비항목 (3개)</td><td>예비항목</td><td>-</td><td><span class="badge req-n">N</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>관세청 확장 예비 항목. 전건 생략</td></tr>
+        </tbody>
+    </table>
+
+    <h2>
+        <span>Stage 4 & Stage 5. 11:50 TRA003 오류 조회 및 승인/실패 분기 처리</span>
+        <span class="time-tag">매일 11:50 배치</span>
+    </h2>
+    <div class="stage-box">
+        <p><strong>상세 전송 및 처리 로직:</strong></p>
+        <ul>
+            <li><strong>처리기준:</strong> 11:50 TRA003 오류 조회 후 성공건만 자이언트로 PER 통관 정보 송출, 실패건은 <code>p1</code> 원복 및 동수 EIBE ERP 주문 삭제 API 단건 호출.</li>
+        </ul>
+    </div>
+    <table>
+        <thead><tr><th>API 구분</th><th>필드명(코드)</th><th>한글 필드명</th><th>타입</th><th>필수</th><th>데이터 채움 출처</th><th>자사몰 실제 데이터 값</th><th>상세설명 및 처리 로직</th></tr></thead>
+        <tbody>
+            <tr><td><span class="api-tag api-tra3">TRA003</span></td><td><code>txif_sbmt_no</code></td><td>제출번호</td><td>String(21)</td><td><span class="badge req-y">Y</span></td><td class="src-kcs">관세청 응답</td><td>TRA001 제출번호</td><td>TRA001 제출 시 사용한 제출번호</td></tr>
+            <tr><td><span class="api-tag api-tra3">TRA003</span></td><td><code>err_cd</code></td><td>관세청 오류코드</td><td>String(10)</td><td><span class="badge req-n">N</span></td><td class="src-kcs">관세청 응답</td><td>성공시 Null / 오류시 117, 118 등</td><td>관세청 배치 응답 (에러코드 117/118 어드민 적재)</td></tr>
+            <tr><td><span class="api-tag api-tra3">TRA003</span></td><td><code>err_cntn</code></td><td>오류 상세내용</td><td>String(500)</td><td><span class="badge req-n">N</span></td><td class="src-kcs">관세청 응답</td><td>오류 원인 텍스트</td><td>관세청 배치 응답 (오류 원인 텍스트 - 어드민 적재)</td></tr>
+            <tr><td><span class="api-tag api-hwb">자이언트 PER</span></td><td><code>hwbNo</code></td><td>가채번 HBL 번호</td><td>String(20)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 EIBE ERP 가채번 HBL</td><td>DS26080400001 등</td><td>동수 EIBE ERP 가채번 HBL (키값)</td></tr>
+            <tr><td><span class="api-tag api-hwb">자이언트 PER</span></td><td><code>orderNo</code></td><td>자사몰 주문번호</td><td>String(50)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>ORD20260804001 등</td><td>자사몰 주문번호 (g5 항공발송 변경)</td></tr>
+            <tr><td><span class="api-tag api-hwb">자이언트 PER</span></td><td><code>pccCode</code></td><td>개인통관고유부호</td><td>String(13)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>P123456789012</td><td>자이언트 PER 연동 API 송출</td></tr>
+            <tr><td><span class="api-tag api-hwb">자이언트 PER</span></td><td><code>tempAuthNo</code></td><td>일회용 인증번호</td><td>String(6)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>6자리 인증번호 또는 Z99999</td><td>자이언트 송출 인증번호</td></tr>
+            <tr><td><span class="api-tag api-hwb">자이언트 PER</span></td><td><code>ordererName</code></td><td>주문자 성명</td><td>String(150)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>주문자 성명</td><td>자이언트 송출</td></tr>
+            <tr><td><span class="api-tag api-hwb">자이언트 PER</span></td><td><code>consigneeName</code></td><td>수하인 한글명</td><td>String(150)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>수하인 한글명</td><td>자이언트 송출</td></tr>
+            <tr><td><span class="api-tag api-hwb">자이언트 PER</span></td><td><code>consigneeNameEng</code></td><td>수하인 영문명</td><td>String(150)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>HONG GILDONG</td><td>영문 자동변환 송출</td></tr>
+            <tr><td><span class="api-tag api-hwb">자이언트 PER</span></td><td><code>consigneeAddr</code></td><td>수하인 도로명주소</td><td>String(250)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>도로명주소</td><td>자이언트 송출</td></tr>
+            <tr><td><span class="api-tag api-hwb">자이언트 PER</span></td><td><code>consigneeAddressEng</code></td><td>수하인 영문주소</td><td>String(300)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>영문주소</td><td>영문 자동변환 송출</td></tr>
+            <tr><td><span class="api-tag api-hwb">자이언트 PER</span></td><td><code>consigneeZip</code></td><td>수하인 우편번호</td><td>String(5)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>우편번호 5자리</td><td>자이언트 송출</td></tr>
+            <tr><td><span class="api-tag api-hwb">자이언트 PER</span></td><td><code>consigneeTel</code></td><td>수하인 전화번호</td><td>String(60)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>전화번호</td><td>자이언트 송출</td></tr>
+            <tr><td><span class="api-tag api-etc">동수 삭제 API</span></td><td><code>customerOrderNo</code></td><td>고객 주문번호</td><td>String(50)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>주문번호</td><td>오류건 발생 시 동수 EIBE ERP 주문 삭제 API 단건 호출 (p1 원복 및 출고 차단)</td></tr>
+        </tbody>
+    </table>
+
+    <h2>
+        <span>Stage 6. 13:00 현장 출고 & 17:00~18:00 동수 DS Logistics MAWB 전송 및 세관 수입신고</span>
+        <span class="time-tag">13:00 출고 / 17:00 MAWB 전송</span>
+    </h2>
+    <div class="stage-box">
+        <p><strong>상세 전송 및 처리 로직 (DS Logistics 물류 연동):</strong></p>
+        <ul>
+            <li>13:00 삭제건 제외 현장 출고 후 17:00 동수 DS Logistics가 MAWB 및 실측중량(<code>weight</code>) 등 실제 물류스펙을 자이언트로 직송하고 자이언트가 세관 제출(DKW/DKX)집행.</li>
+        </ul>
+    </div>
+    <table>
+        <thead><tr><th>API 구분</th><th>필드명(코드)</th><th>한글 필드명</th><th>타입</th><th>필수</th><th>데이터 채움 출처</th><th>자사몰 실제 데이터 값</th><th>상세설명 및 처리 로직</th></tr></thead>
+        <tbody>
+            <tr><td><span class="api-tag api-mawb">MAWB등록</span></td><td><code>mwbNo</code></td><td>마스터비엘번호</td><td>String(20)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>180-12345678 등</td><td>17시 DS Logistics가 자이언트로 MAWB 번호 직송</td></tr>
+            <tr><td><span class="api-tag api-mawb">MAWB등록</span></td><td><code>carrierCode</code></td><td>항공사 코드</td><td>String(2)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>KE 등</td><td>17시 DS Logistics 직송</td></tr>
+            <tr><td><span class="api-tag api-mawb">MAWB등록</span></td><td><code>conveyanceName</code></td><td>항공 편명</td><td>String(100)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>KE037 등</td><td>17시 DS Logistics 직송</td></tr>
+            <tr><td><span class="api-tag api-mawb">MAWB등록</span></td><td><code>voyageNo</code></td><td>항차 번호</td><td>String(20)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>항차 번호</td><td>17시 DS Logistics 직송</td></tr>
+            <tr><td><span class="api-tag api-mawb">MAWB등록</span></td><td><code>departurePort</code></td><td>출발항 코드</td><td>String(5)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>PVG 등</td><td>17시 DS Logistics 직송</td></tr>
+            <tr><td><span class="api-tag api-mawb">MAWB등록</span></td><td><code>arrivalPort</code></td><td>도착항 코드</td><td>String(5)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>ICN</td><td>17시 DS Logistics 직송 (ICN 고정)</td></tr>
+            <tr><td><span class="api-tag api-mawb">MAWB등록</span></td><td><code>departureDate</code></td><td>출발 일시</td><td>String(14)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>YYYYMMDDHHmmss</td><td>17시 DS Logistics 직송</td></tr>
+            <tr><td><span class="api-tag api-mawb">MAWB등록</span></td><td><code>arrivalDate</code></td><td>도착 일시</td><td>String(14)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>YYYYMMDDHHmmss</td><td>17시 DS Logistics 직송</td></tr>
+            <tr><td><span class="api-tag api-hwb">HWB등록</span></td><td><code>hwbNo</code></td><td>가채번 HBL 번호</td><td>String(20)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 EIBE ERP 채번</td><td>DS26080400001 등</td><td>3사 데이터 통합 핵심 키</td></tr>
+            <tr><td><span class="api-tag api-hwb">HWB등록</span></td><td><code>transportType</code></td><td>운송구분</td><td>String(2)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>AI</td><td>AI 고정 주입 (항공수입)</td></tr>
+            <tr><td><span class="api-tag api-hwb">HWB등록</span></td><td><code>dispatchCountry</code></td><td>발송국가 코드</td><td>String(2)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>CN</td><td>CN 고정 주입 (중국)</td></tr>
+            <tr><td><span class="api-tag api-hwb">HWB등록</span></td><td><code>weight</code></td><td>실측 중량</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>실측 무게 kg (예: 2.5)</td><td>17시 DS Logistics 실측 무게 직송 (세관 신고용 확정 무게)</td></tr>
+            <tr><td><span class="api-tag api-hwb">HWB등록</span></td><td><code>packageCount</code></td><td>외포장 개수</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>박스 수 (예: 1)</td><td>17시 DS Logistics 직송</td></tr>
+            <tr><td><span class="api-tag api-hwb">HWB등록</span></td><td><code>innerPackageCount</code></td><td>내포장 개수</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>내포장 수 (예: 3)</td><td>17시 DS Logistics 직송</td></tr>
+            <tr><td><span class="api-tag api-hwb">HWB등록</span></td><td><code>totalValueUsd</code></td><td>USD 매입 총액</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>USD 총액 (예: 45.00)</td><td>17시 DS Logistics USD 매입 총액 직송</td></tr>
+            <tr><td><span class="api-tag api-item">Item등록</span></td><td><code>itemSeq</code></td><td>상품 순번</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>001, 002 등 3자리</td><td>17시 DS Logistics 직송 (001 포맷)</td></tr>
+            <tr><td><span class="api-tag api-item">Item등록</span></td><td><code>categoryName1</code></td><td>상품 카테고리 1</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>식품 등</td><td>17시 DS Logistics 직송</td></tr>
+            <tr><td><span class="api-tag api-item">Item등록</span></td><td><code>categoryName2</code></td><td>상품 카테고리 2</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>분유 등</td><td>17시 DS Logistics 직송</td></tr>
+            <tr><td><span class="api-tag api-item">Item등록</span></td><td><code>productName</code></td><td>상품명</td><td>String(300)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>고정 상품명</td><td>17시 DS Logistics 직송</td></tr>
+            <tr><td><span class="api-tag api-item">Item등록</span></td><td><code>qty</code></td><td>수량</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>포장 출고 수량</td><td>17시 DS Logistics 직송</td></tr>
+            <tr><td><span class="api-tag api-item">Item등록</span></td><td><code>unitPrice</code></td><td>단가</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>매입 단가 USD</td><td>17시 DS Logistics 직송</td></tr>
+            <tr><td><span class="api-tag api-item">Item등록</span></td><td><code>itemAmount</code></td><td>주문 금액</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>qty * unitPrice USD</td><td>17시 DS Logistics 직송</td></tr>
+            <tr><td><span class="api-tag api-etc">DKW/DKX</span></td><td><code>DKW / DKX</code></td><td>전자상거래 수입신고</td><td>-</td><td><span class="badge req-y">Y</span></td><td class="src-giant">자이언트 특송사</td><td>PER(11:50 자사몰) + MAWB(17:00 DS Logistics) 결합 세관 제출</td><td>세관 제출 신고서 결합</td></tr>
+        </tbody>
+    </table>
+
+    <h2>
+        <span>Stage 7. 국내 배송 인계 및 수령 후 반품 CS 단계</span>
+        <span class="time-tag">통관 완료 후 실시간</span>
+    </h2>
+    <div class="stage-box">
+        <p><strong>상세 전송 및 처리 로직:</strong></p>
+        <ul>
+            <li>인천공항 세관 통관 마친 화물이 롯데택배로 인계되고 배송상태 자동 업데이트 및 반품 CS 접수 처리.</li>
+        </ul>
+    </div>
+    <table>
+        <thead><tr><th>API 구분</th><th>필드명(코드)</th><th>한글 필드명</th><th>타입</th><th>필수</th><th>데이터 채움 출처</th><th>자사몰 실제 데이터 값</th><th>상세설명 및 처리 로직</th></tr></thead>
+        <tbody>
+            <tr><td><span class="api-tag api-hwb">자이언트 HWB</span></td><td><code>domesticCarrierName</code></td><td>국내 배송사</td><td>String(50)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek/동수 고정</td><td>롯데택배 (고정)</td><td>롯데택배 고정 인계</td></tr>
+            <tr><td><span class="api-tag api-etc">자사몰 DB</span></td><td><code>order_status</code></td><td>자사몰 배송 상태</td><td>String(20)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>항공발송 -> 국내배송중 -> 배송완료</td><td>순차 자동 업데이트</td></tr>
+            <tr><td><span class="api-tag api-etc">자사몰 DB</span></td><td><code>return_status</code></td><td>반품 CS 상태</td><td>String(20)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek 자사몰 DB</td><td>반품접수 / 회수중 / 환불완료</td><td>배송완료 시점부터 마이페이지 반품 접수 활성화 및 회수 검수 후 환불</td></tr>
+        </tbody>
+    </table>
+
+    <!-- ================================================================= -->
+    <!-- [참고] 28개 외부 쇼핑몰 채널 부호/유형별 동수 WMS - Geek 자동 분기 로직 -->
+    <!-- ================================================================= -->
+    <h2 style="border-bottom: 2px solid #ffb300; margin-top:50px;">
+        <span style="color:#b78103;">[참고] 외부 쇼핑몰 채널(B유형 구매대행) 부호 및 URL 자동 분기 로직 명세</span>
+    </h2>
+    <div style="background:#fff8e1; border:1px solid #ffe082; border-left:5px solid #ffb300; padding:20px; border-radius:4px; margin-bottom:25px;">
+        <p style="margin-top:0; font-weight:bold; font-size:15px; color:#856404;">동수 EIBE ERP - Geek 간 다채널 부호 컨트롤 및 10시 역수집(searchOrderInfo) 데이터 주입 규칙:</p>
+        <p style="font-size:13.5px; line-height:1.7;">
+            당사는 자사몰(크로네몰) 외에도 <strong>28개 외부 쇼핑몰 채널(네이버 브랜드스토어, 지마켓, 옥션, 11번가, 쿠팡, SSG닷컴 등)</strong>의 주문을 동수 EIBE ERP가 수집하여 수입신고를 집행합니다.<br>
+            동수 EIBE ERP는 주문 수집 시 <strong>'채널코드(Channel Code)'</strong>를 보유하고 있으므로, 10:00 KST 역수집 API (<code>searchOrderInfo</code>) 응답 시 채널코드에 따라 아래 매트릭스 기준으로 <code>elcm_pcd</code>, <code>puch_vcex_bsmn_sgn</code>, <code>puch_vcex_bsmn_nm</code>, <code>prod_sale_pge_url</code>을 자동 분기하여 Geek으로 내려주어야 합니다.
+        </p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width:16%">구분 / 쇼핑몰 채널</th>
+                <th style="width:12%">판매유형 (elcm_pcd)</th>
+                <th style="width:14%">제출자 부호 (elcm_ents_sgn)</th>
+                <th style="width:16%">구매대행업체 부호 (puch_vcex_bsmn_sgn)</th>
+                <th style="width:16%">구매대행업체 상호 (puch_vcex_bsmn_nm)</th>
+                <th style="width:26%">상품 판매 URL (prod_sale_pge_url)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>크로네 자사몰</strong> (메인 E2E)</td>
+                <td><span class="badge req-y">A (직접판매)</span></td>
+                <td><code>K26000099</code> ((주)크로네)</td>
+                <td><span class="rule-highlight">Null (생략)</span></td>
+                <td><span class="rule-highlight">Null (생략)</span></td>
+                <td><code>https://nutriciastore.co.kr/</code></td>
+            </tr>
+            <tr>
+                <td><strong>네이버 브랜드스토어</strong> (아이베 운영)</td>
+                <td><span class="badge req-c">B (구매대행)</span></td>
+                <td><code>K26000099</code> ((주)크로네)</td>
+                <td><code>K26014765</code></td>
+                <td>(주)아이베</td>
+                <td><code>https://brand.naver.com/nutricia</code></td>
+            </tr>
+            <tr>
+                <td><strong>기타 외부 쇼핑몰 (28개 채널)</strong><br><small>(지마켓, 옥션, 11번가, 쿠팡, SSG 등)</small></td>
+                <td><span class="badge req-c">B (구매대행)</span></td>
+                <td><code>K26000099</code> ((주)크로네)</td>
+                <td><code>K26000099</code></td>
+                <td>(주)크로네</td>
+                <td>스토어별 대표 도메인 URL<br><small>(store_url_mapping.csv 참조)</small></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="background:#f8f9fa; padding:15px; border:1px solid #ddd; border-radius:4px; font-size:13px;">
+        <strong>[공통 적용 원칙]</strong><br>
+        1. <code>sale_ents_sgn</code> (판매업체부호) 및 <code>sale_ents_nm</code> (판매업체명)은 관세청 선택 항목(N)이므로 <strong>모든 쇼핑몰 채널 전건 Null로 생략 통일</strong>합니다.<br>
+        2. <code>prod_srno</code> (상품일련번호)는 동수 EIBE ERP가 해외 창고 패킹 시 1개 HBL 당 상품 갯수(1~5)에 맞춰 <strong>자동 순차 채번</strong>하여 내려줍니다.
+    </div>
+
+</div>
+
+<!-- High-Resolution Zoom & Drag Script -->
+<script>
+    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+
+    let currentScale = 1;
+    let panX = 0, panY = 0;
+    let isPanning = false;
+    let startX = 0, startY = 0;
+
+    function openModal() {
+        const modal = document.getElementById('diagramModal');
+        const container = document.getElementById('modalMermaidContainer');
+        modal.style.display = 'flex';
+
+        // Deep High-Res SVG Copy
+        const mainMermaidSvg = document.querySelector('#mainMermaid svg');
+        if (mainMermaidSvg) {
+            container.innerHTML = '';
+            const clonedSvg = mainMermaidSvg.cloneNode(true);
+            clonedSvg.removeAttribute('style');
+            clonedSvg.removeAttribute('width');
+            clonedSvg.style.width = '100%';
+            clonedSvg.style.minWidth = '1200px';
+            clonedSvg.style.height = 'auto';
+            container.appendChild(clonedSvg);
+        }
+        
+        currentScale = 1.2;
+        panX = 30;
+        panY = 30;
+        updateTransform();
+    }
+
+    function closeModal() {
+        document.getElementById('diagramModal').style.display = 'none';
+    }
+
+    function updateTransform() {
+        const container = document.getElementById('modalMermaidContainer');
+        container.style.transform = `translate(${panX}px, ${panY}px) scale(${currentScale})`;
+    }
+
+    function handleWheel(event) {
+        event.preventDefault();
+        const zoomFactor = 0.15;
+        if (event.deltaY < 0) {
+            currentScale = Math.min(currentScale + zoomFactor, 4.0);
+        } else {
+            currentScale = Math.max(currentScale - zoomFactor, 0.4);
+        }
+        updateTransform();
+    }
+
+    function startPan(event) {
+        isPanning = true;
+        startX = event.clientX - panX;
+        startY = event.clientY - panY;
+    }
+
+    function doPan(event) {
+        if (!isPanning) return;
+        panX = event.clientX - startX;
+        panY = event.clientY - startY;
+        updateTransform();
+    }
+
+    function endPan() {
+        isPanning = false;
+    }
+</script>
+</body>
+</html>

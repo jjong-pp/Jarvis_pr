@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>KCS 预先交易信息申报(TRA) E2E 整合策划书 (planning_v5 Full Spec)</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body { font-family: 'Inter', -apple-system, sans-serif; background-color: #ffffff; color: #333; line-height: 1.6; padding: 40px; margin:0; }
+        .container { max-width: 1500px; margin: 0 auto; }
+        h1 { color: #111; border-bottom: 3px solid #1a73e8; padding-bottom: 12px; margin-bottom: 20px; font-size: 26px; }
+        h2 { color: #202124; border-bottom: 2px solid #1a73e8; padding-bottom: 8px; margin-top: 40px; font-size: 20px; display:flex; align-items:center; justify-content:space-between; }
+        h3 { color: #3c4043; margin-top: 25px; font-size: 16px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 12px; }
+        th, td { border: 1px solid #eaeaea; padding: 8px 10px; text-align: left; vertical-align: top; }
+        th { background-color: #f8f9fa; font-weight: 600; color: #555; position: sticky; top: 0; z-index:10; }
+        .badge { display: inline-block; padding: 3px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+        .req-y { background-color: #ffeaea; color: #d93025; }
+        .req-n { background-color: #e8f0fe; color: #1a73e8; }
+        .req-c { background-color: #fff3cd; color: #856404; }
+        .src-dongsu { background-color: #e6f4ea; color: #137333; font-weight: bold; }
+        .src-geek { background-color: #e8f0fe; color: #1a73e8; font-weight: bold; }
+        .src-gen { background-color: #fce8e6; color: #c5221f; font-weight: bold; }
+        .src-kcs { background-color: #fff3cd; color: #856404; font-weight: bold; }
+        .nav-btn { display:inline-block; margin-bottom:20px; background:#1a73e8; color:white; padding:10px 18px; text-decoration:none; border-radius:4px; font-weight:bold; cursor:pointer; border:none; font-size:14px; }
+        .nav-btn:hover { background: #1557b0; }
+        
+        /* 顺序图卡片与弹窗 */
+        .diagram-card { border:2px dashed #1a73e8; padding:20px; border-radius:8px; background:#f8faff; margin-bottom:35px; cursor:pointer; position:relative; transition: all 0.2s ease-in-out; }
+        .diagram-card:hover { background:#eef4ff; border-color:#1557b0; box-shadow: 0 4px 12px rgba(26,115,232,0.15); }
+        .diagram-hint { position:absolute; top:15px; right:20px; background:#1a73e8; color:white; padding:6px 14px; border-radius:20px; font-size:12px; font-weight:bold; pointer-events:none; }
+        
+        /* Modal Style */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.88); z-index: 9999; justify-content: center; align-items: center; cursor: pointer; }
+        .modal-content { background: #ffffff; width: 96vw; height: 94vh; border-radius: 8px; display: flex; flex-direction: column; padding: 15px; position: relative; box-sizing: border-box; cursor: default; overflow: hidden; }
+        .modal-body { flex: 1; overflow: hidden; background: #ffffff; border: 1px solid #ddd; border-radius: 4px; position: relative; cursor: grab; user-select: none; }
+        .modal-body:active { cursor: grabbing; }
+        
+        /* Modal Zoom Container */
+        #modalMermaidContainer { position: absolute; top: 0; left: 0; transform-origin: 0 0; transition: transform 0.05s ease-out; }
+        #modalMermaidContainer svg { max-width: none !important; width: auto !important; height: auto !important; }
+
+        /* 阶段详细说明框 */
+        .stage-box { background: #fcfcfc; border: 1px solid #e0e0e0; border-left: 5px solid #1a73e8; padding: 18px 22px; margin-bottom: 20px; border-radius: 4px; }
+        .stage-box p { margin: 0 0 10px 0; font-size: 14px; }
+        .stage-box ul { margin: 0; padding-left: 20px; font-size: 13.5px; }
+        .stage-box li { margin-bottom: 6px; }
+        .time-tag { background: #1a73e8; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; margin-right: 8px; }
+        .rule-highlight { background: #fff3cd; color: #856404; padding: 2px 6px; border-radius: 3px; font-weight: bold; }
+        .api-tag { display:inline-block; padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; white-space:nowrap; }
+        .api-per { background:#f3e8fd; color:#7b1fa2; }
+        .api-tra1 { background:#e8f0fe; color:#1a73e8; }
+        .api-tra3 { background:#fff3cd; color:#856404; }
+        .api-mawb { background:#e6f4ea; color:#137333; }
+        .api-hwb { background:#e6f4ea; color:#0d652d; }
+        .api-item { background:#e0f2f1; color:#00695c; }
+        .api-etc { background:#f1f3f4; color:#555; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div>
+        <a href="./api_field_mapping_cn.html" class="nav-btn">[ → api_field_mapping_cn.html 查看API全量字段映射文档 (中文) ]</a>
+    </div>
+
+    <h1>KCS 预先交易信息申报(TRA) E2E 整合策划书 (planning_v5 Full Spec)</h1>
+
+    <div style="background:#e8f0fe; padding:18px 22px; border-left:5px solid #1a73e8; margin-bottom:20px; border-radius:4px; font-size:13.5px; line-height:1.7;">
+        <strong>[自营商城主 E2E 及东数系统双轨制定义]</strong> 本策划书是基于 <strong>Geek Studio (自营商城: KRONE) - 东数(EIBE ERP / DS Logistics) - GIANT 特快专递 - 韩国海关 REST API 之间直接销售(A类型) 的实务数据与逻辑</strong>整合编写。<br>
+        - <strong>EIBE ERP:</strong> 每天 10:00 KST 发货前将预估数据 (14个属性) 传输给 Geek (供海关 TRA001 预先申报使用)<br>
+        - <strong>DS Logistics:</strong> 每天 17:00 KST 实物出库后将真实物流数据 (MAWB、实测重量等) 直送至 GIANT (供海关进口申报使用)
+    </div>
+
+    <div style="background:#e6f4ea; padding:15px 20px; border-left:5px solid #137333; margin-bottom:25px; border-radius:4px; font-size:13px; color:#137333;">
+        <strong>[重量微小误差风险核查结果]:</strong> 10:00 EIBE ERP 传输的预估重量(<code>tot_wt</code>)与 17:00 DS Logistics 秤重机测得的实测重量(<code>weight</code>)之间的微小小数位误差，在韩国海关规定中属于<strong>预先交易信息(预估)与实物进口申报(实测)之间的正常误差范围 (±5~10%以内)，在通关中没有任何错误或风险。</strong>
+    </div>
+
+    <!-- 顺序图弹窗点击区域 -->
+    <div class="diagram-card" onclick="openModal()">
+        <div class="diagram-hint">🔍 点击放大查看 (鼠标滚轮缩放 & 拖拽移动，点击空白处关闭)</div>
+        <h3 style="margin-top:0; color:#1a73e8;">E2E 全流程顺序图 (自营商城 PER001 预先验证 ~ 退货 CS 全生命周期)</h3>
+        <p style="font-size:12px; color:#666; margin-bottom:15px;">点击下方顺序图区域可打开全屏高清晰度弹窗。</p>
+        <div class="mermaid" id="mainMermaid">
+sequenceDiagram
+    autonumber
+    actor Customer as 自营商城顾客
+    participant Mall as Geek自营商城 (KRONE)
+    participant ERP as 东数 EIBE ERP (预估数据)
+    participant WMS as 东数 DS Logistics (真实物流)
+    participant KCS as 韩国海关 REST API
+    participant Giant as GIANT特快专递
+    participant Courier as 乐天快递 (韩国国内)
+
+    Note over Customer, KCS: Stage 1: 结账环节 PER001 个人通关固有符号预先有效性验证
+    Customer->>Mall: 填写收件人通关符号(PER)、姓名、电话号码并尝试结账
+    Mall->>KCS: PER001 符号有效性验证请求 (cnsi_pers_ecm, cnsi_nm, cnsi_telno)
+    alt PER001 验证成功
+        KCS-->>Mall: 验证完成响应 (接收 su_crtf_no 6位认证号码)
+        Mall-->>Customer: 结账完成批准 (保存订单状态 p1)
+    else PER001 验证失败
+        KCS-->>Mall: 符号不匹配 / 无效响应
+        Mall-->>Customer: 拦截结账批准并弹出修改通关符号提示
+    end
+
+    Note over Mall, ERP: Stage 2: 09:00 东数 EIBE ERP 订单采集 & CS 退款拦截
+    ERP->>Mall: 09:00 KST Open API 批量采集支付完成(p1)订单
+    Mall-->>ERP: 订单状态变更 g1(商品准备中) (隐藏个人中心取消/退款按钮)
+
+    Note over Mall, KCS: Stage 3: 10:00~11:00 EIBE ERP 逆向采集 & 海关 TRA001 预先申报
+    Mall->>ERP: 10:00 KST searchOrderInfo 逆向采集 (预采番 hblNo, tot_wt 预估重量, hsCode, prod_srno 1~5)
+    Note right of Mall: elcm_pcd='A', elcm_ents_sgn='K26000099', puch_vcex_bsmn_sgn=Null (自营规范)
+    Mall->>KCS: 10:00~11:00 TRA001 预先交易信息申报 API (100条分块发送)
+
+    Note over Mall, KCS: Stage 4 & 5: 11:50 TRA003 错误查询及成功/失败分支处理
+    Mall->>KCS: 11:50 KST TRA003 交易信息错误明细查询 API 调用
+    alt 韩国海关正常批准 (成功件)
+        KCS-->>Mall: 无错误批准 (变更 g5 航空发货并更新运单号)
+        Mall->>Giant: 11:50 发送 GIANT PER 联动 API (发送收件人通关/地址信息)
+    else 韩国海关发生错误 (失败件)
+        KCS-->>Mall: 接收错误 (还原 p1 & 失败专用列表记录 117/118 错误)
+        Mall->>ERP: 单件调用 EIBE ERP 订单删除 API (customerOrderNo 拦截出库)
+        Note over Giant: 因未发送 PER 至 GIANT，预采番 HBL 将在 24小时内自动失效
+    end
+
+    Note over WMS, Giant: Stage 6: 13:00 现场打包出库 & 17:00~18:00 DS Logistics MAWB 发送及海关进口申报
+    WMS->>WMS: 13:00 KST 排除已删除订单，实物打包出库正常批准件
+    WMS->>Giant: 17:00~18:00 KST 直送 MAWB 主运单 + weight 实测重量/外包装规格
+    Giant->>KCS: 结合 PER(自营 11:50) + MAWB(DS Logistics 17:00) 提交海关进口申报(DKW/DKX)
+
+    Note over Giant, Customer: Stage 7: 韩国国内配送交接及签收后退货 CS
+    Giant->>Courier: 仁川机场进口通关完成后交接至乐天快递
+    Courier-->>Customer: 进行韩国国内配送并完成签收 (自动更新配送完成)
+    Customer->>Mall: 个人中心申请退货，实物回收检验后最终退款
+        </div>
+    </div>
+
+    <!-- Modal View Structure -->
+    <div id="diagramModal" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-body" id="modalBody" onwheel="handleWheel(event)" onmousedown="startPan(event)" onmousemove="doPan(event)" onmouseup="endPan()" onmouseleave="endPan()">
+                <div id="modalMermaidContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- Stage 1 ~ Stage 7 详细处理逻辑及自营商城主数据字段规范 -->
+    <!-- ================================================================= -->
+
+    <h2>
+        <span>Stage 1. 结账环节 PER001 个人通关固有符号预先有效性验证</span>
+        <span class="time-tag">顾客结账瞬间 (实时)</span>
+    </h2>
+    <div class="stage-box">
+        <p><strong>详细发送及处理逻辑 (Geek 自营商城实务):</strong></p>
+        <ul>
+            <li><strong>背景及目的:</strong> 在自营商城结账阶段预先验证个人通关固有符号，拦截因错误符号或姓名不符导致的通关被拒及延迟。</li>
+            <li><strong>处理流程:</strong><br>
+                1. 自营商城顾客在结账页面输入收件人姓名(<code>cnsi_nm</code>)、个人通关固有符号(<code>cnsi_pers_ecm</code>)、电话号码(<code>cnsi_telno</code>)。<br>
+                2. 自营商城(Geek)后端实时同步调用海关 <code>PER001</code> API，验证姓名-符号-电话号码三者一致性。<br>
+                3. <strong>验证成功时:</strong> 将海关响应的 6位认证号码(<code>su_crtf_no</code>)保存至自营商城 DB 订单表，并完成结账批准 (订单状态 <code>p1</code>)。<br>
+                4. <strong>验证失败时:</strong> 立即拦截结账批准，并在页面弹出 "您输入的通关符号与姓名不符" 警告提示。
+            </li>
+        </ul>
+    </div>
+    <table>
+        <thead><tr><th>API区分</th><th>字段名(代码)</th><th>中文字段名</th><th>类型</th><th>必填</th><th>数据填充来源</th><th>自营商城实际数据值</th><th>详细说明及处理逻辑</th></tr></thead>
+        <tbody>
+            <tr><td><span class="api-tag api-per">PER001</span></td><td><code>cnsi_nm</code></td><td>收件人姓名</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>实物收件人韩文姓名</td><td>结账时顾客输入。海关 PER001 有效性验证必传</td></tr>
+            <tr><td><span class="api-tag api-per">PER001</span></td><td><code>cnsi_pers_ecm</code></td><td>个人通关固有符号</td><td>String(13)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>P开头的13位字符 (例: P123456789012)</td><td>PER001 有效性验证核心键值</td></tr>
+            <tr><td><span class="api-tag api-per">PER001</span></td><td><code>cnsi_telno</code></td><td>收件人电话号码</td><td>String(60)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>不含连字符的数字 (例: 01012345678)</td><td>用于验证与海关注册的电话号码是否一致</td></tr>
+            <tr><td><span class="api-tag api-per">PER001</span></td><td><code>su_crtf_no</code></td><td>一次性认证号码</td><td>String(6)</td><td><span class="badge req-y">Y</span></td><td class="src-kcs">海关响应</td><td>6位数字或 Z99999</td><td>验证成功响应的认证号码 (保存至DB后用于 TRA001 及 GIANT 发送)</td></tr>
+        </tbody>
+    </table>
+
+    <h2>
+        <span>Stage 2. 09:00 东数 EIBE ERP 订单采集及订单状态变更 g1(商品准备中)</span>
+        <span class="time-tag">每天 09:00 批处理</span>
+    </h2>
+    <div class="stage-box">
+        <p><strong>详细发送及处理逻辑 (Geek - 东数 EIBE ERP 联动):</strong></p>
+        <ul>
+            <li><strong>背景及目的:</strong> 东数 EIBE ERP 采集订单以备当日海外发货，并锁定个人中心取消功能，保障物流作业安全。</li>
+            <li><strong>处理流程:</strong><br>
+                1. 每天 09:00 东数 EIBE ERP 调用自营商城 Open API 批量采集 <code>p1</code>(支付完成) 状态订单。<br>
+                2. 自营商城(Geek)收到采集请求后，立即将对应订单状态更新为 <code>g1</code>(商品准备中)。<br>
+                3. 进入 <code>g1</code> 状态后，个人中心 "取消/退款" 按钮自动隐藏，禁止顾客直接取消。
+            </li>
+        </ul>
+    </div>
+    <table>
+        <thead><tr><th>API区分</th><th>字段名(코드)</th><th>中文字段名</th><th>类型</th><th>必填</th><th>数据填充来源</th><th>自营商城实际数据值</th><th>详细说明及处理逻辑</th></tr></thead>
+        <tbody>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_no</code></td><td>订单编号</td><td>String(50)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>ORD20260804001 等</td><td>东数 EIBE ERP 采集的主键 (customerOrderNo)</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_cmpl_dttm</code></td><td>订单完成时间</td><td>String(14)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>YYYYMMDDHHMMSS</td><td>支付完成时间 14位格式</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ordrr_nm</code></td><td>订购人姓名</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>订购人韩文姓名</td><td>结账时采集</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_nm</code></td><td>收件人韩文姓名</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>收件人韩文姓名</td><td>实物收件人姓名</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_telno</code></td><td>收件人电话号码</td><td>String(60)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>收件人电话 (不含连字符)</td><td>收件人电话号码</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_psno</code></td><td>收件人邮政编码</td><td>String(5)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>5位邮政编码</td><td>道路名邮政编码</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_bscs_addr</code></td><td>收件人基本地址</td><td>String(200)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>道路名基本地址</td><td>道路名基本地址</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_dtl_addr</code></td><td>收件人详细地址</td><td>String(200)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek自营商城DB</td><td>详细地址</td><td>详细地址</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_pers_ecm</code></td><td>个人通关固有符号</td><td>String(13)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>P开头的13位字符</td><td>Stage 1 验证通过的 PER 符号</td></tr>
+        </tbody>
+    </table>
+
+    <h2>
+        <span>Stage 3. 10:00 ~ 11:00 东数 EIBE ERP 逆向采集 & 海关 TRA001 预先申报</span>
+        <span class="time-tag">每天 10:00 ~ 11:00 批处理</span>
+    </h2>
+    <div class="stage-box">
+        <p><strong>详细发送及处理逻辑 (自营商城专用 TRA001 构建):</strong></p>
+        <ul>
+            <li><strong>处理流程:</strong><br>
+                1. <strong>10:00 逆向采集 EIBE ERP:</strong> 自营商城(Geek)调用东数 EIBE ERP API (`searchOrderInfo`)，获取预采番 <code>hbl_no</code>、预估重量(<code>tot_wt</code>)、采购金额(<code>tot_stlm_amt</code>)、HS Code、商品序号(<code>prod_srno</code> 1~5)等预估 14个属性。<br>
+                2. <strong>组合自营符号及 URL:</strong><br>
+                - <code>elcm_pcd</code> (销售类型代码): 自营商城固定注入 <span class="rule-highlight">'A' (直接销售)</span><br>
+                - <code>elcm_ents_sgn</code> (提交者符号): 固定注入 <code>K26000099</code> ((株)KRONE((주)크로네))<br>
+                - <code>puch_vcex_bsmn_sgn</code> (代购企业符号): A类型直接销售全量省略 <span class="rule-highlight">Null</span><br>
+                - <code>sale_ents_sgn / sale_ents_nm</code> (销售企业符号/名): 海关选填项，全量省略 <span class="rule-highlight">Null</span><br>
+                - <code>prod_sale_pge_url</code> (商品 URL): 注入自营商城代表域名 <code>https://nutriciastore.co.kr/</code><br>
+                3. <strong>100条分块发送:</strong> 按海关 REST API 规范，按 100条分块(Chunk)提交 <code>TRA001</code> 预先申报。
+            </li>
+        </ul>
+    </div>
+    <table>
+        <thead><tr><th>API区分</th><th>字段名(代码)</th><th>中文字段名</th><th>类型</th><th>必填</th><th>数据填充来源</th><th>自营商城实际数据值</th><th>详细说明及处理逻辑</th></tr></thead>
+        <tbody>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>txif_sbmt_no</code></td><td>提交编号</td><td>String(21)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek自动生成</td><td>K26000099 + YYMMDD + 6位流水号</td><td>提交者符号(9) + 年月日(6) + 序号(6) = 21位唯一编号</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>elcm_ents_sgn</code></td><td>提交者电子商务企业符号</td><td>String(9)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek固定注入</td><td>K26000099</td><td>(株)KRONE((주)크로네) 海关注册符号</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>elcm_ents_nm</code></td><td>提交者电子商务企业名</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek固定注入</td><td>(株)KRONE((주)크로네)</td><td>注册商号固定注入</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>elcm_ents_cnty_cd</code></td><td>国家代码</td><td>String(2)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek固定注入</td><td>KR</td><td>固定注入 KR</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>hbl_no</code></td><td>运单号 (HBL)</td><td>String(20)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数EIBE ERP采集</td><td>DS26080400001 等</td><td>10点逆向采集 EIBE ERP API。海关处理单位基准 Key</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_no</code></td><td>订单编号</td><td>String(50)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>ORD20260804001 等</td><td>自营商城唯一订单编号</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>elcm_pcd</code></td><td>电子商务销售类型代码</td><td>String(1)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek固定注入</td><td>A (直接销售)</td><td>自营商城固定为 'A' (直接销售)</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_cmpl_dttm</code></td><td>订单完成时间</td><td>String(14)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>YYYYMMDDHHMMSS</td><td>支付完成时间</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>puch_vcex_bsmn_sgn</code></td><td>代购企业符号</td><td>String(9)</td><td><span class="badge req-c">C</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>A类型直接销售全量省略 (Null)</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>puch_vcex_bsmn_nm</code></td><td>代购企业名</td><td>String(300)</td><td><span class="badge req-c">C</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>A类型直接销售全量省略 (Null)</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>dlvr_vcex_bsmn_sgn</code></td><td>配送代行企业符号</td><td>String(9)</td><td><span class="badge req-c">C</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>全量省略</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>dlvr_vcex_bsmn_nm</code></td><td>配送代行企业名</td><td>String(300)</td><td><span class="badge req-c">C</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>全量省略</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ordrr_nm</code></td><td>订购人姓名</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>订购人韩文姓名</td><td>结账时采集</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ordrr_telno</code></td><td>订购人电话号码</td><td>String(60)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek自营商城DB</td><td>订购人电话</td><td>选填项</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ordrr_email</code></td><td>订购人电子邮箱</td><td>String(100)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek自营商城DB</td><td>电子邮箱</td><td>选填项</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ordrr_id</code></td><td>订购人 ID</td><td>String(50)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek自营商城DB</td><td>自营会员 ID</td><td>选填项</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_nm</code></td><td>收件人姓名</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>收件人姓名</td><td>海关验证用</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_telno</code></td><td>收件人电话号码</td><td>String(60)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>收件人电话</td><td>海关验证用</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_psno</code></td><td>收件人邮政编码</td><td>String(5)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>5位邮政编码</td><td>海关验证用</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_bscs_addr</code></td><td>收件人基本地址</td><td>String(200)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>道路名基本地址</td><td>海关验证用</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_dtl_addr</code></td><td>收件人详细地址</td><td>String(200)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek自营商城DB</td><td>详细地址</td><td>选填项</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_pers_ecm</code></td><td>个人通关固有符号</td><td>String(13)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>P开头的13位字符</td><td>PER001 验证符号</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>su_crtf_no</code></td><td>认证号码</td><td>String(6)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>6位数字或 Z99999</td><td>PER001 验证成功认证号码</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_srno</code></td><td>商品序号</td><td>String(20)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数EIBE ERP生成</td><td>1, 2, 3... (HBL内商品序号, 最多5)</td><td>EIBE ERP 自动生成 (最多5个)</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_clsf_nm_stp1</code></td><td>商品分类 1级</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数EIBE ERP采集</td><td>食品 等</td><td>10点逆向采集 EIBE ERP API</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_clsf_nm_stp2</code></td><td>商品分类 2级</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数EIBE ERP采集</td><td>奶粉 等</td><td>10点逆向采集 EIBE ERP API</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_clsf_nm_stp3~9</code></td><td>商品分类 3~9级</td><td>String(100)</td><td><span class="badge req-n">N</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>全量省略</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>hs_cd</code></td><td>HS Code</td><td>String(6)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">东数EIBE ERP采集</td><td>190110 等</td><td>选填项，建议注入</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_prod_nm</code></td><td>订购商品名称</td><td>String(300)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数EIBE ERP采集</td><td>Aptamil Profutura 2 等</td><td>去除特殊字符的东数 DB 固定字符串</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_sale_pge_url</code></td><td>商品销售页面 URL</td><td>String(3000)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek固定注入</td><td>https://nutriciastore.co.kr/</td><td>自营商城代表域名 URL 固定注入</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_ord_qty</code></td><td>商品订购数量</td><td>Number(10)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数EIBE ERP采集</td><td>包装出库数量整数</td><td>实际打包出库确认数量</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_qty_ut</code></td><td>数量单位</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek固定注入</td><td>EA</td><td>固定注入 EA</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_unprc</code></td><td>商品单价</td><td>Number(16,3)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数EIBE ERP采集</td><td>东数采购单价 USD</td><td>基于东数 DB 采购单价</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_unprc_curr_cd</code></td><td>单价货币代码</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek固定注入</td><td>USD</td><td>固定注入 USD</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_amt</code></td><td>订单金额</td><td>Number(16,3)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数EIBE ERP采集</td><td>qty * unitPrice USD</td><td>数量 x 단가 산출</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_amt_curr_cd</code></td><td>订单金额货币代码</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek固定注入</td><td>USD</td><td>固定注入 USD</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_nm</code></td><td>销售企业名</td><td>String(300)</td><td><span class="badge req-n">N</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>选填项，本公司全量省略 (Null统一)</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_id</code></td><td>销售企业 ID</td><td>String(50)</td><td><span class="badge req-n">N</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>选填项，全量省略</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_biz_no</code></td><td>销售企业营业执照号</td><td>String(10)</td><td><span class="badge req-n">N</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>选填项，全量省略</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_sgn</code></td><td>销售企业符号</td><td>String(9)</td><td><span class="badge req-n">N</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>选填项，本公司全量省略 (Null统一)</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_mnfcr_nm</code></td><td>商品制造商名</td><td>String(200)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">东数EIBE ERP采集</td><td>Danone 等或 Null</td><td>选填项</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_mdl_no</code></td><td>制造商型号编号</td><td>String(100)</td><td><span class="badge req-n">N</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>选填项</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_brnd_nm</code></td><td>商品品牌名</td><td>String(200)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">东数EIBE ERP采集</td><td>Aptamil 等或 Null</td><td>选填项</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tot_stlm_amt</code></td><td>总结算金额</td><td>Number(16,3)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数EIBE ERP采集</td><td>采购总额 USD</td><td>买家支付最终合计金额</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tot_stlm_amt_curr_cd</code></td><td>结算金额货币代码</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek固定注入</td><td>USD</td><td>固定注入 USD</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tot_wt</code></td><td>总重量 (预估)</td><td>Number(16,3)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数EIBE ERP采集</td><td>预估重量 kg (例: 2.5)</td><td>10点 EIBE ERP 逆向采集预估重量 (允许与17点实测重量存在微小误差)</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>stlm_mns_cd</code></td><td>支付方式代码</td><td>String(2)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek自营商城DB</td><td>10(信用卡) 等</td><td>选填项</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>stlm_dttm</code></td><td>支付时间</td><td>String(14)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek自营商城DB</td><td>YYYYMMDDHHMMSS</td><td>选填项</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>smon_use_amt</code></td><td>积分使用金额</td><td>Number(16,3)</td><td><span class="badge req-n">N</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>基于东数采购价全量省略</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>spfe</code></td><td>运费</td><td>Number(16,3)</td><td><span class="badge req-n">N</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>基于东数采购价全量省略</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tot_dscn_amt</code></td><td>总优惠金额</td><td>Number(16,3)</td><td><span class="badge req-n">N</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>基于东数采购价全量省略</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>insrc_amt</code></td><td>保险费</td><td>Number(16,3)</td><td><span class="badge req-n">N</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>选填项</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tax_amt</code></td><td>税费</td><td>Number(16,3)</td><td><span class="badge req-n">N</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>选填项</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tot_ord_prod_qty</code></td><td>总订购商品数量</td><td>Number(10)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数EIBE ERP采集</td><td>订单整体总数量</td><td>填写订单整体总数量</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td>预留项目 (3个)</td><td>预留项目</td><td>-</td><td><span class="badge req-n">N</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>海关扩展预留项目，全量省略</td></tr>
+        </tbody>
+    </table>
+
+    <h2>
+        <span>Stage 4 & Stage 5. 11:50 TRA003 错误查询及成功/失败分支处理</span>
+        <span class="time-tag">每天 11:50 批处理</span>
+    </h2>
+    <div class="stage-box">
+        <p><strong>详细发送及处理逻辑:</strong></p>
+        <ul>
+            <li><strong>处理基准:</strong> 11:50 查询 TRA003 错误后，仅成功件向 GIANT 发送 PER 通关信息，失败件还原 <code>p1</code> 并单件调用东数 EIBE ERP 订单删除 API。</li>
+        </ul>
+    </div>
+    <table>
+        <thead><tr><th>API区分</th><th>字段名(代码)</th><th>中文字段名</th><th>类型</th><th>必填</th><th>数据填充来源</th><th>自营商城实际数据值</th><th>详细说明及处理逻辑</th></tr></thead>
+        <tbody>
+            <tr><td><span class="api-tag api-tra3">TRA003</span></td><td><code>txif_sbmt_no</code></td><td>提交编号</td><td>String(21)</td><td><span class="badge req-y">Y</span></td><td class="src-kcs">海关响应</td><td>TRA001 提交编号</td><td>TRA001 提交时使用的提交编号</td></tr>
+            <tr><td><span class="api-tag api-tra3">TRA003</span></td><td><code>err_cd</code></td><td>海关错误代码</td><td>String(10)</td><td><span class="badge req-n">N</span></td><td class="src-kcs">海关响应</td><td>成功时 Null / 错误时 117, 118 等</td><td>海关批处理响应 (错误代码 117/118 记录至后台)</td></tr>
+            <tr><td><span class="api-tag api-tra3">TRA003</span></td><td><code>err_cntn</code></td><td>错误详细内容</td><td>String(500)</td><td><span class="badge req-n">N</span></td><td class="src-kcs">海关响应</td><td>错误原因文本</td><td>海关批处理响应 (错误原因文本记录至后台)</td></tr>
+            <tr><td><span class="api-tag api-hwb">GIANT PER</span></td><td><code>hwbNo</code></td><td>预采番 HBL 号码</td><td>String(20)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 EIBE ERP 预采番 HBL</td><td>DS26080400001 等</td><td>东数 EIBE ERP 预采番 HBL (主键)</td></tr>
+            <tr><td><span class="api-tag api-hwb">GIANT PER</span></td><td><code>orderNo</code></td><td>自营商城订单号</td><td>String(50)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>ORD20260804001 等</td><td>自营商城订单号 (更新为 g5 航空发货)</td></tr>
+            <tr><td><span class="api-tag api-hwb">GIANT PER</span></td><td><code>pccCode</code></td><td>个人通关固有符号</td><td>String(13)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>P123456789012</td><td>发送至 GIANT PER 联动 API</td></tr>
+            <tr><td><span class="api-tag api-hwb">GIANT PER</span></td><td><code>tempAuthNo</code></td><td>一次性认证号码</td><td>String(6)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>6位认证号码或 Z99999</td><td>发送至 GIANT 认证号码</td></tr>
+            <tr><td><span class="api-tag api-hwb">GIANT PER</span></td><td><code>ordererName</code></td><td>订购人姓名</td><td>String(150)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>订购人姓名</td><td>发送至 GIANT</td></tr>
+            <tr><td><span class="api-tag api-hwb">GIANT PER</span></td><td><code>consigneeName</code></td><td>收件人韩文名</td><td>String(150)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>收件人韩文名</td><td>发送至 GIANT</td></tr>
+            <tr><td><span class="api-tag api-hwb">GIANT PER</span></td><td><code>consigneeNameEng</code></td><td>收件人英文名</td><td>String(150)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>HONG GILDONG</td><td>英文自动转换发送</td></tr>
+            <tr><td><span class="api-tag api-hwb">GIANT PER</span></td><td><code>consigneeAddr</code></td><td>收件人道路名地址</td><td>String(250)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>道路名地址</td><td>发送至 GIANT</td></tr>
+            <tr><td><span class="api-tag api-hwb">GIANT PER</span></td><td><code>consigneeAddressEng</code></td><td>收件人英文地址</td><td>String(300)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>英文地址</td><td>英文自动转换发送</td></tr>
+            <tr><td><span class="api-tag api-hwb">GIANT PER</span></td><td><code>consigneeZip</code></td><td>收件人邮政编码</td><td>String(5)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>5位邮政编码</td><td>发送至 GIANT</td></tr>
+            <tr><td><span class="api-tag api-hwb">GIANT PER</span></td><td><code>consigneeTel</code></td><td>收件人电话号码</td><td>String(60)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>电话号码</td><td>发送至 GIANT</td></tr>
+            <tr><td><span class="api-tag api-etc">东数删除API</span></td><td><code>customerOrderNo</code></td><td>客户订单号</td><td>String(50)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>订单编号</td><td>发生错误件时单件调用东数 EIBE ERP 订单删除 API (还原 p1 并拦截出库)</td></tr>
+        </tbody>
+    </table>
+
+    <h2>
+        <span>Stage 6. 13:00 现场打包出库 & 17:00~18:00 东数 DS Logistics MAWB 发送及海关进口申报</span>
+        <span class="time-tag">13:00 出库 / 17:00 MAWB 发送</span>
+    </h2>
+    <div class="stage-box">
+        <p><strong>详细发送及处理逻辑 (DS Logistics 物流联动):</strong></p>
+        <ul>
+            <li>13:00 排除已删除订单后现场出库，17:00 由东数 DS Logistics 将 MAWB 及实测重量(<code>weight</code>)等真实物流规格直送至 GIANT，由 GIANT 结合完成海关申报(DKW/DKX)。</li>
+        </ul>
+    </div>
+    <table>
+        <thead><tr><th>API区分</th><th>字段名(代码)</th><th>中文字段名</th><th>类型</th><th>必填</th><th>数据填充来源</th><th>自营商城实际数据值</th><th>详细说明及处理逻辑</th></tr></thead>
+        <tbody>
+            <tr><td><span class="api-tag api-mawb">MAWB注册</span></td><td><code>mwbNo</code></td><td>主运单号</td><td>String(20)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>180-12345678 等</td><td>17点由 DS Logistics 直接发送 MAWB 号码至 GIANT</td></tr>
+            <tr><td><span class="api-tag api-mawb">MAWB注册</span></td><td><code>carrierCode</code></td><td>航空公司代码</td><td>String(2)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>KE 等</td><td>17点 DS Logistics 直送</td></tr>
+            <tr><td><span class="api-tag api-mawb">MAWB注册</span></td><td><code>conveyanceName</code></td><td>航班号</td><td>String(100)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>KE037 等</td><td>17点 DS Logistics 直送</td></tr>
+            <tr><td><span class="api-tag api-mawb">MAWB注册</span></td><td><code>voyageNo</code></td><td>航次号</td><td>String(20)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>航次号</td><td>17点 DS Logistics 直送</td></tr>
+            <tr><td><span class="api-tag api-mawb">MAWB注册</span></td><td><code>departurePort</code></td><td>起运港代码</td><td>String(5)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>PVG 等</td><td>17点 DS Logistics 直送</td></tr>
+            <tr><td><span class="api-tag api-mawb">MAWB注册</span></td><td><code>arrivalPort</code></td><td>目的港代码</td><td>String(5)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>ICN</td><td>17点 DS Logistics 直送 (固定 ICN)</td></tr>
+            <tr><td><span class="api-tag api-mawb">MAWB注册</span></td><td><code>departureDate</code></td><td>起飞时间</td><td>String(14)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>YYYYMMDDHHmmss</td><td>17点 DS Logistics 直送</td></tr>
+            <tr><td><span class="api-tag api-mawb">MAWB注册</span></td><td><code>arrivalDate</code></td><td>到达时间</td><td>String(14)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>YYYYMMDDHHmmss</td><td>17点 DS Logistics 直送</td></tr>
+            <tr><td><span class="api-tag api-hwb">HWB注册</span></td><td><code>hwbNo</code></td><td>预采番 HBL 号码</td><td>String(20)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 EIBE ERP 采番</td><td>DS26080400001 等</td><td>三方数据整合核心 Key</td></tr>
+            <tr><td><span class="api-tag api-hwb">HWB注册</span></td><td><code>transportType</code></td><td>运输区分</td><td>String(2)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>AI</td><td>固定注入 AI (航空进口)</td></tr>
+            <tr><td><span class="api-tag api-hwb">HWB注册</span></td><td><code>dispatchCountry</code></td><td>发运国家代码</td><td>String(2)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>CN</td><td>固定注入 CN (中国)</td></tr>
+            <tr><td><span class="api-tag api-hwb">HWB注册</span></td><td><code>weight</code></td><td>实测重量</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>实测重量 kg (例: 2.5)</td><td>17点 DS Logistics 实测重量直送 (海关申报确认重量)</td></tr>
+            <tr><td><span class="api-tag api-hwb">HWB注册</span></td><td><code>packageCount</code></td><td>外包装件数</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>箱数 (例: 1)</td><td>17点 DS Logistics 直送</td></tr>
+            <tr><td><span class="api-tag api-hwb">HWB注册</span></td><td><code>innerPackageCount</code></td><td>内包装件数</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>内包装数 (例: 3)</td><td>17点 DS Logistics 直送</td></tr>
+            <tr><td><span class="api-tag api-hwb">HWB注册</span></td><td><code>totalValueUsd</code></td><td>USD 采购总额</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>USD 总额 (例: 45.00)</td><td>17点 DS Logistics USD 采购总额直送</td></tr>
+            <tr><td><span class="api-tag api-item">Item注册</span></td><td><code>itemSeq</code></td><td>商品序号</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 직송</td><td>001, 002 等 3位</td><td>17点 DS Logistics 直送 (001 格式)</td></tr>
+            <tr><td><span class="api-tag api-item">Item注册</span></td><td><code>categoryName1</code></td><td>商品分类 1</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 직송</td><td>食品 等</td><td>17点 DS Logistics 直送</td></tr>
+            <tr><td><span class="api-tag api-item">Item注册</span></td><td><code>categoryName2</code></td><td>商品分类 2</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 직송</td><td>奶粉 等</td><td>17点 DS Logistics 直送</td></tr>
+            <tr><td><span class="api-tag api-item">Item注册</span></td><td><code>productName</code></td><td>商品名称</td><td>String(300)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 직송</td><td>固定商品名称</td><td>17点 DS Logistics 直送</td></tr>
+            <tr><td><span class="api-tag api-item">Item注册</span></td><td><code>qty</code></td><td>数量</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 직송</td><td>打包出库数量</td><td>17点 DS Logistics 直送</td></tr>
+            <tr><td><span class="api-tag api-item">Item注册</span></td><td><code>unitPrice</code></td><td>单价</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 직송</td><td>采购单价 USD</td><td>17点 DS Logistics 직送</td></tr>
+            <tr><td><span class="api-tag api-item">Item注册</span></td><td><code>itemAmount</code></td><td>订单金额</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 직송</td><td>qty * unitPrice USD</td><td>17点 DS Logistics 直送</td></tr>
+            <tr><td><span class="api-tag api-etc">DKW/DKX</span></td><td><code>DKW / DKX</code></td><td>电子商务进口申报</td><td>-</td><td><span class="badge req-y">Y</span></td><td class="src-giant">GIANT特快专递</td><td>结合 PER(11:50 自营) + MAWB(17:00 DS Logistics) 提交海关</td><td>结合海关申报单</td></tr>
+        </tbody>
+    </table>
+
+    <h2>
+        <span>Stage 7. 韩国国内配送交接及签收后退货 CS 阶段</span>
+        <span class="time-tag">通关完成后实时</span>
+    </h2>
+    <div class="stage-box">
+        <p><strong>详细发送及处理逻辑:</strong></p>
+        <ul>
+            <li>仁川机场进口通关完成后交接至乐天快递，自动更新配送状态并受理退货 CS。</li>
+        </ul>
+    </div>
+    <table>
+        <thead><tr><th>API区分</th><th>字段名(代码)</th><th>中文字段名</th><th>类型</th><th>必填</th><th>数据填充来源</th><th>自营商城实际数据值</th><th>详细说明及处理逻辑</th></tr></thead>
+        <tbody>
+            <tr><td><span class="api-tag api-hwb">GIANT HWB</span></td><td><code>domesticCarrierName</code></td><td>韩国国内快递公司</td><td>String(50)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek/东数固定</td><td>乐天快递 (固定)</td><td>固定交接至乐天快递</td></tr>
+            <tr><td><span class="api-tag api-etc">自营商城 DB</span></td><td><code>order_status</code></td><td>自营商城配送状态</td><td>String(20)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>航空发货 -> 韩国国内配送中 -> 配送完成</td><td>依次自动更新</td></tr>
+            <tr><td><span class="api-tag api-etc">自营商城 DB</span></td><td><code>return_status</code></td><td>退货 CS 状态</td><td>String(20)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek自营商城DB</td><td>退货申请 / 回收中 / 退款完成</td><td>配送完成时点起激活个人中心退货申请，回收检验后退款</td></tr>
+        </tbody>
+    </table>
+
+    <!-- ================================================================= -->
+    <!-- [参考] 28个外部购物商城渠道符号/类型自动分发逻辑规范 -->
+    <!-- ================================================================= -->
+    <h2 style="border-bottom: 2px solid #ffb300; margin-top:50px;">
+        <span style="color:#b78103;">[参考] 外部购物商城渠道(B类型代购)符号及 URL 自动分发逻辑规范</span>
+    </h2>
+    <div style="background:#fff8e1; border:1px solid #ffe082; border-left:5px solid #ffb300; padding:20px; border-radius:4px; margin-bottom:25px;">
+        <p style="margin-top:0; font-weight:bold; font-size:15px; color:#856404;">东数 (EIBE ERP) - Geek 之间多渠道符号控制及 10点逆向采集 (searchOrderInfo) 数据注入规则:</p>
+        <p style="font-size:13.5px; line-height:1.7;">
+            我司除了自营商城 (KRONE) 外，还由东数 EIBE ERP 采集 <strong>28个外部购物商城渠道 (Naver 品牌店, Gmarket, Auction, 11st, Coupang, SSG 等)</strong> 的订单并执行进口申报。<br>
+            东数 EIBE ERP 在采集订单时拥有 <strong>'渠道代码 (Channel Code)'</strong>，因此在 10:00 KST 逆向采集 API (<code>searchOrderInfo</code>) 响应中，必须根据渠道代码按照下表矩阵自动分发 <code>elcm_pcd</code>, <code>puch_vcex_bsmn_sgn</code>, <code>puch_vcex_bsmn_nm</code>, <code>prod_sale_pge_url</code> 并返回给 Geek。
+        </p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width:16%">区分 / 购物商城渠道</th>
+                <th style="width:12%">销售类型 (elcm_pcd)</th>
+                <th style="width:14%">提交者符号 (elcm_ents_sgn)</th>
+                <th style="width:16%">代购企业符号 (puch_vcex_bsmn_sgn)</th>
+                <th style="width:16%">代购企业商号 (puch_vcex_bsmn_nm)</th>
+                <th style="width:26%">商品销售页面 URL (prod_sale_pge_url)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>KRONE 自营商城</strong> (主 E2E)</td>
+                <td><span class="badge req-y">A (直接销售)</span></td>
+                <td><code>K26000099</code> ((株)KRONE)</td>
+                <td><span class="rule-highlight">Null (省略)</span></td>
+                <td><span class="rule-highlight">Null (省略)</span></td>
+                <td><code>https://nutriciastore.co.kr/</code></td>
+            </tr>
+            <tr>
+                <td><strong>Naver 品牌店</strong> (iBae 运营)</td>
+                <td><span class="badge req-c">B (代购)</span></td>
+                <td><code>K26000099</code> ((株)KRONE)</td>
+                <td><code>K26014765</code></td>
+                <td>(株)iBae ((주)아이베)</td>
+                <td><code>https://brand.naver.com/nutricia</code></td>
+            </tr>
+            <tr>
+                <td><strong>其他外部购物商城 (28个渠道)</strong><br><small>(Gmarket, Auction, 11st, Coupang, SSG 等)</small></td>
+                <td><span class="badge req-c">B (代购)</span></td>
+                <td><code>K26000099</code> ((株)KRONE)</td>
+                <td><code>K26000099</code></td>
+                <td>(株)KRONE ((주)크로네)</td>
+                <td>各商城代表域名 URL<br><small>(参阅 store_url_mapping.csv)</small></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="background:#f8f9fa; padding:15px; border:1px solid #ddd; border-radius:4px; font-size:13px;">
+        <strong>[通用原则]</strong><br>
+        1. <code>sale_ents_sgn</code> (销售企业符号) 及 <code>sale_ents_nm</code> (销售企业名) 为海关选填项 (N)，<strong>所有购物商城渠道全量省略 (Null统一)</strong>。<br>
+        2. <code>prod_srno</code> (商品序号) 由东数 EIBE ERP 在海外仓库打包时，按 1个 HBL 内商品件数 (1~5) <strong>自动顺序采番</strong>并返回。
+    </div>
+
+</div>
+
+<!-- High-Resolution Zoom & Drag Script -->
+<script>
+    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+
+    let currentScale = 1;
+    let panX = 0, panY = 0;
+    let isPanning = false;
+    let startX = 0, startY = 0;
+
+    function openModal() {
+        const modal = document.getElementById('diagramModal');
+        const container = document.getElementById('modalMermaidContainer');
+        modal.style.display = 'flex';
+
+        // Deep High-Res SVG Copy
+        const mainMermaidSvg = document.querySelector('#mainMermaid svg');
+        if (mainMermaidSvg) {
+            container.innerHTML = '';
+            const clonedSvg = mainMermaidSvg.cloneNode(true);
+            clonedSvg.removeAttribute('style');
+            clonedSvg.removeAttribute('width');
+            clonedSvg.style.width = '100%';
+            clonedSvg.style.minWidth = '1200px';
+            clonedSvg.style.height = 'auto';
+            container.appendChild(clonedSvg);
+        }
+        
+        currentScale = 1.2;
+        panX = 30;
+        panY = 30;
+        updateTransform();
+    }
+
+    function closeModal() {
+        document.getElementById('diagramModal').style.display = 'none';
+    }
+
+    function updateTransform() {
+        const container = document.getElementById('modalMermaidContainer');
+        container.style.transform = `translate(${panX}px, ${panY}px) scale(${currentScale})`;
+    }
+
+    function handleWheel(event) {
+        event.preventDefault();
+        const zoomFactor = 0.15;
+        if (event.deltaY < 0) {
+            currentScale = Math.min(currentScale + zoomFactor, 4.0);
+        } else {
+            currentScale = Math.max(currentScale - zoomFactor, 0.4);
+        }
+        updateTransform();
+    }
+
+    function startPan(event) {
+        isPanning = true;
+        startX = event.clientX - panX;
+        startY = event.clientY - panY;
+    }
+
+    function doPan(event) {
+        if (!isPanning) return;
+        panX = event.clientX - startX;
+        panY = event.clientY - startY;
+        updateTransform();
+    }
+
+    function endPan() {
+        isPanning = false;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>类型代码及符号体系整理</title>
+    <style>
+        body { font-family: 'Inter', -apple-system, sans-serif; background-color: #ffffff; color: #333; line-height: 1.5; padding: 30px; margin:0; }
+        .container { max-width: 1600px; margin: 0 auto; }
+        h1 { color: #111; border-bottom: 3px solid #1a73e8; padding-bottom: 12px; margin-bottom: 15px; font-size: 24px; }
+        h2 { color: #1a73e8; border-bottom: 2px solid #e8f0fe; padding-bottom: 8px; margin-top: 40px; margin-bottom: 15px; font-size: 18px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; vertical-align: top; line-height: 1.4; }
+        th { background-color: #f1f3f4; font-weight: 600; color: #333; }
+        .nav-btn { display:inline-block; margin-bottom:20px; background:#1a73e8; color:white; padding:8px 12px; text-decoration:none; border-radius:4px; font-weight:bold; font-size:13px; }
+        .nav-btn:hover { background:#1557b0; }
+        p, li { font-size: 14px; margin-bottom: 8px; }
+        ul { padding-left: 20px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="./api_field_mapping_cn.html" class="nav-btn">[ -> api_field_mapping_cn.html 查看API字段映射文档 ]</a>
+    <h1>类型代码及符号体系整理</h1>
+
+    <h2>1. 销售类型代码 (elcm_pcd) 详细说明</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:10%">代码</th>
+                <th style="width:20%">类型名称</th>
+                <th style="width:40%">定义</th>
+                <th style="width:30%">我司适用情况</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>A</strong></td>
+                <td>代购(购买代行)</td>
+                <td>代替消费者从海外卖家处购买商品并进口至韩国国内。不拥有商品所有权/库存。使用消费者个人通关固有符号</td>
+                <td>Naver Store((株)AIBE((주)아이베)运营)、其他外部购物商城代购渠道</td>
+            </tr>
+            <tr>
+                <td><strong>B</strong></td>
+                <td>直接销售(电子商务)</td>
+                <td>在海外网络商城直接向消费者销售/发送商品。卖家预先采购商品，直接管理所有权/库存</td>
+                <td>(株)KRONE((주)크로네) 自营商城</td>
+            </tr>
+            <tr>
+                <td><strong>C</strong></td>
+                <td>配送代行</td>
+                <td>消费者在海外直接购买的商品，由海外物流中心代为接收并配送至韩国国内</td>
+                <td>我司未使用</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>2. 企业符号体系 (K代码)</h2>
+    <p><strong>K26XXXXXX 格式说明:</strong></p>
+    <ul>
+        <li>K = 大韩民国</li>
+        <li>26 = 电子商务分类</li>
+        <li>XXXXXX = 固有识别号码</li>
+    </ul>
+
+    <p><strong>三种符号对比表:</strong></p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:15%">区分</th>
+                <th style="width:20%">字段名</th>
+                <th style="width:30%">作用</th>
+                <th style="width:15%">填写条件</th>
+                <th style="width:20%">我司值</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>提交者(电子商务企业)符号</td>
+                <td><code>elcm_ents_sgn</code></td>
+                <td>识别向海关提交通关清单的主体</td>
+                <td>全部必填</td>
+                <td>K26000099 ((株)KRONE((주)크로네))</td>
+            </tr>
+            <tr>
+                <td>代购企业符号</td>
+                <td><code>puch_vcex_bsmn_sgn</code></td>
+                <td>识别实施代购的经营者。与外汇交易监控联动</td>
+                <td>仅B类型(代购)时必填</td>
+                <td>Naver Store: K26014765 ((株)AIBE((주)아이베))<br>其他代购: K26000099 ((株)KRONE((주)크로네))<br>自营商城: Null</td>
+            </tr>
+            <tr>
+                <td>销售企业符号</td>
+                <td><code>sale_ents_sgn</code></td>
+                <td>识别实际销售商品的主体(网络商城/入驻卖家)</td>
+                <td>选填项目</td>
+                <td>Null (本公司全部省略)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>3. 各渠道符号填写矩阵</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:15%">渠道</th>
+                <th style="width:10%">elcm_pcd</th>
+                <th style="width:15%">elcm_ents_sgn</th>
+                <th style="width:15%">puch_vcex_bsmn_sgn</th>
+                <th style="width:15%">puch_vcex_bsmn_nm</th>
+                <th style="width:15%">sale_ents_sgn</th>
+                <th style="width:15%">sale_ents_nm</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>(株)KRONE((주)크로네) 自营商城</td>
+                <td>A (直接销售)</td>
+                <td>K26000099</td>
+                <td>Null</td>
+                <td>Null</td>
+                <td>Null</td>
+                <td>Null</td>
+            </tr>
+            <tr>
+                <td>Naver Store ((株)AIBE((주)아이베)运营)</td>
+                <td>B (代购)</td>
+                <td>K26000099</td>
+                <td>K26014765</td>
+                <td>(株)AIBE((주)아이베)</td>
+                <td>Null</td>
+                <td>Null</td>
+            </tr>
+            <tr>
+                <td>其他外部购物商城代购</td>
+                <td>B (代购)</td>
+                <td>K26000099</td>
+                <td>K26000099</td>
+                <td>(株)KRONE((주)크로네)</td>
+                <td>Null</td>
+                <td>Null</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>4. 商品销售页面URL (prod_sale_pge_url / productPageUrl / orderSiteUrl)</h2>
+    <p>说明: 海关TRA001的prod_sale_pge_url、GIANT Item的productPageUrl、HWB的orderSiteUrl均使用相同值。不使用包含单个商品ID的详细URL，而是统一注入各商城的代表域名URL。</p>
+    <p>原因: 东数(Dongsu)WMS不管理单个商品URL，海关仅要求能确认商品销售来源的代表URL。</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:20%">渠道</th>
+                <th style="width:30%">代表URL</th>
+                <th style="width:50%">备注</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>(株)KRONE((주)크로네) 自营商城</td>
+                <td>https://nutriciastore.co.kr/</td>
+                <td>自营购物商城代表域名</td>
+            </tr>
+            <tr>
+                <td>Naver Store</td>
+                <td>https://brand.naver.com/nutricia</td>
+                <td>Naver品牌店代表域名</td>
+            </tr>
+            <tr>
+                <td>其他代购渠道(28个)</td>
+                <td>各商城代表URL</td>
+                <td>新增渠道时需在URL映射表(CSV)中登记。详见 store_url_mapping.csv</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>此URL映射以单独的Excel(CSV)文件管理，新增渠道时在该Excel中登记商城代码和代表URL，用于基于东数(Dongsu)WMS渠道代码的自动映射。</p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>유형코드 및 부호체계 정리</title>
+    <style>
+        body { font-family: 'Inter', -apple-system, sans-serif; background-color: #ffffff; color: #333; line-height: 1.5; padding: 30px; margin:0; }
+        .container { max-width: 1600px; margin: 0 auto; }
+        h1 { color: #111; border-bottom: 3px solid #1a73e8; padding-bottom: 12px; margin-bottom: 15px; font-size: 24px; }
+        h2 { color: #1a73e8; border-bottom: 2px solid #e8f0fe; padding-bottom: 8px; margin-top: 40px; margin-bottom: 15px; font-size: 18px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; vertical-align: top; line-height: 1.4; }
+        th { background-color: #f1f3f4; font-weight: 600; color: #333; }
+        .nav-btn { display:inline-block; margin-bottom:20px; background:#1a73e8; color:white; padding:8px 12px; text-decoration:none; border-radius:4px; font-weight:bold; font-size:13px; }
+        .nav-btn:hover { background:#1557b0; }
+        p, li { font-size: 14px; margin-bottom: 8px; }
+        ul { padding-left: 20px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="./api_field_mapping.html" class="nav-btn">[ -> api_field_mapping.html 기획서 보기 ]</a>
+    <h1>유형코드 및 부호체계 정리</h1>
+
+    <h2>1. 판매유형코드 (elcm_pcd) 상세</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:10%">코드</th>
+                <th style="width:20%">유형명</th>
+                <th style="width:40%">정의</th>
+                <th style="width:30%">당사 적용</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>A</strong></td>
+                <td>구매대행</td>
+                <td>소비자를 대신하여 해외 판매자로부터 물품을 구매하고 국내로 반입. 상품 소유권/재고 없음. 소비자 개인통관고유부호 사용</td>
+                <td>네이버스토어(아이베), 기타 외부 쇼핑몰 구매대행 채널</td>
+            </tr>
+            <tr>
+                <td><strong>B</strong></td>
+                <td>직접판매(전자상거래)</td>
+                <td>해외 사이버몰에서 소비자에게 직접 상품을 판매/발송. 판매자가 상품을 미리 매입하여 소유권/재고 직접 관리</td>
+                <td>크로네 자사몰</td>
+            </tr>
+            <tr>
+                <td><strong>C</strong></td>
+                <td>배송대행</td>
+                <td>소비자가 해외에서 직접 구매한 물품을 해외 물류센터에서 대신 수령하여 국내로 배송만 대행</td>
+                <td>당사 미사용</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>2. 업체 부호 체계 (K코드)</h2>
+    <p><strong>K26XXXXXX 형태 설명:</strong></p>
+    <ul>
+        <li>K = 대한민국</li>
+        <li>26 = 전자상거래 분류</li>
+        <li>XXXXXX = 고유 식별번호</li>
+    </ul>
+
+    <p><strong>3개 부호 비교표:</strong></p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:15%">구분</th>
+                <th style="width:20%">필드명</th>
+                <th style="width:30%">역할</th>
+                <th style="width:15%">기재 조건</th>
+                <th style="width:20%">당사 값</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>제출자(전자상거래업체) 부호</td>
+                <td><code>elcm_ents_sgn</code></td>
+                <td>관세청에 통관목록을 제출하는 주체 식별</td>
+                <td>전건 필수</td>
+                <td>K26000099 (크로네)</td>
+            </tr>
+            <tr>
+                <td>구매대행업체 부호</td>
+                <td><code>puch_vcex_bsmn_sgn</code></td>
+                <td>구매를 대행한 사업자 식별. 외환거래 모니터링 연계</td>
+                <td>B유형(구매대행)일 때만 필수</td>
+                <td>Null</td>
+            </tr>
+            <tr>
+                <td>판매업체 부호</td>
+                <td><code>sale_ents_sgn</code></td>
+                <td>실제 물품을 판매한 주체(사이버몰/입점판매자) 식별</td>
+                <td>선택 항목</td>
+                <td>Null (당사 전건 생략)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>3. 채널별 부호 기재 매트릭스</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:15%">채널</th>
+                <th style="width:10%">elcm_pcd</th>
+                <th style="width:15%">elcm_ents_sgn</th>
+                <th style="width:15%">puch_vcex_bsmn_sgn</th>
+                <th style="width:15%">puch_vcex_bsmn_nm</th>
+                <th style="width:15%">sale_ents_sgn</th>
+                <th style="width:15%">sale_ents_nm</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>크로네 자사몰</td>
+                <td>A (직접판매)</td>
+                <td>K26000099</td>
+                <td>Null</td>
+                <td>Null</td>
+                <td>Null</td>
+                <td>Null</td>
+            </tr>
+            <tr>
+                <td>네이버스토어 (아이베 운영)</td>
+                <td>B (구매대행)</td>
+                <td>K26000099</td>
+                <td>K26014765</td>
+                <td>(주)아이베</td>
+                <td>Null</td>
+                <td>Null</td>
+            </tr>
+            <tr>
+                <td>기타 외부 쇼핑몰 구매대행</td>
+                <td>B (구매대행)</td>
+                <td>K26000099</td>
+                <td>K26000099</td>
+                <td>(주)크로네</td>
+                <td>Null</td>
+                <td>Null</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>4. 상품 판매 페이지 URL (prod_sale_pge_url / productPageUrl / orderSiteUrl)</h2>
+    <p>설명: 관세청 TRA001의 prod_sale_pge_url, 자이언트 Item의 productPageUrl, HWB의 orderSiteUrl은 모두 동일한 값을 사용한다. 개별 상품 ID를 포함한 상세 URL이 아닌 스토어별 대표 도메인 URL을 통일 주입한다.</p>
+    <p>이유: 동수 WMS에서 개별 상품 URL을 관리하지 않으며, 관세청은 상품 판매 출처를 확인할 수 있는 대표 URL만 요구한다.</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:20%">채널</th>
+                <th style="width:30%">대표 URL</th>
+                <th style="width:50%">비고</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>크로네 자사몰</td>
+                <td>https://nutriciastore.co.kr/</td>
+                <td>자사 쇼핑몰 대표 도메인</td>
+            </tr>
+            <tr>
+                <td>네이버 브랜드스토어</td>
+                <td>https://brand.naver.com/nutricia</td>
+                <td>네이버 브랜드스토어 대표 도메인</td>
+            </tr>
+            <tr>
+                <td>기타 구매대행 채널 (28개)</td>
+                <td>각 스토어별 대표 URL</td>
+                <td>지마켓, 옥션, 11번가, 쿠팡, SSG닷컴 등 28개 채널. 상세 목록은 store_url_mapping.csv 참조</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>이 URL 매핑은 별도 엑셀(CSV) 파일로 관리하며, 채널 추가 시 해당 엑셀에 스토어 코드와 대표 URL을 등록하여 동수 WMS 채널코드 기반 자동 매핑에 활용한다.</p>
+
+</div>
+</body>
+</html>

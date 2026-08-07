@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개인정보 처리방침 & 결제창 UI 시안 | 뉴트리시아 온라인 스토어</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #003366;
+            --secondary-color: #0066cc;
+            --text-color: #1e293b;
+            --bg-color: #f8fafc;
+            --border-color: #cbd5e1;
+            --table-header-bg: #f1f5f9;
+            --accent-box-bg: #eff6ff;
+            --warning-bg: #fffbeb;
+            --warning-border: #f59e0b;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            line-height: 1.75;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .privacy-container {
+            max-width: 1040px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 50px 60px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .privacy-header {
+            text-align: center;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 25px;
+            margin-bottom: 35px;
+        }
+
+        .privacy-header h1 {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin: 0 0 10px 0;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        .privacy-header p {
+            font-size: 15px;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .update-date {
+            background-color: #f1f5f9;
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-weight: 700;
+            color: #334155;
+            margin-top: 15px;
+            font-size: 13.5px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .term-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 45px 0 18px 0;
+            padding-left: 14px;
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .term-cont {
+            font-size: 14px;
+            color: #334155;
+            margin-bottom: 25px;
+        }
+
+        .term-cont p {
+            margin-bottom: 12px;
+        }
+
+        .term-cont ul, .term-cont ol {
+            padding-left: 22px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+        }
+
+        .term-cont li {
+            margin-bottom: 8px;
+        }
+
+        /* 테이블 공통 스타일 */
+        table.policy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 30px 0;
+            font-size: 13.5px;
+            background: #ffffff;
+        }
+
+        table.policy-table th, table.policy-table td {
+            border: 1px solid var(--border-color);
+            padding: 12px 14px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        table.policy-table th {
+            background-color: var(--table-header-bg);
+            color: #0f172a;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        /* 개정/신규 변경사항 시각적 하이라이트 스타일 */
+        .updated-row {
+            background-color: #f0f7ff !important;
+            border-left: 4px solid #0066cc !important;
+        }
+
+        .update-badge {
+            background: #0066cc;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 4px;
+            margin-right: 6px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .highlight-text {
+            color: #d97706;
+            font-weight: 700;
+        }
+
+        .strong-text {
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .alert-box {
+            background-color: var(--warning-bg);
+            border-left: 4px solid var(--warning-border);
+            padding: 18px 22px;
+            margin: 22px 0;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #92400e;
+            line-height: 1.7;
+        }
+
+        .legal-notice {
+            background-color: var(--accent-box-bg);
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid #0066cc;
+            padding: 18px 22px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            color: #1e40af;
+            margin-top: 18px;
+            line-height: 1.7;
+        }
+
+        .footer-info {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e2e8f0;
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.8;
+            background: #f8fafc;
+            padding: 25px 30px;
+            border-radius: 10px;
+        }
+
+        /* ================================================================= */
+        /* To-Be 결제창 UI/UX 및 인터랙티브 모달 팝업 시안 스타일 */
+        /* ================================================================= */
+        .checkout-demo-wrapper {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 3px dashed #0066cc;
+        }
+
+        .checkout-card {
+            max-width: 480px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 16px;
+            box-shadow: 0 12px 32px rgba(0, 51, 102, 0.08);
+            overflow: hidden;
+        }
+
+        .checkout-header {
+            background: #003366;
+            color: #ffffff;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .checkout-header h3 {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .checkout-body {
+            padding: 24px;
+        }
+
+        .price-summary {
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+
+        .price-row.total {
+            font-size: 18px;
+            font-weight: 900;
+            color: #0f172a;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed #cbd5e1;
+        }
+
+        .tax-notice-bar {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 13.5px;
+            color: #92400e;
+        }
+
+        .btn-view-more {
+            background: none;
+            border: none;
+            color: #0066cc;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 0;
+            text-decoration: underline;
+        }
+
+        .consent-section-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .consent-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .consent-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 13.5px;
+        }
+
+        .consent-item label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #1e293b;
+        }
+
+        .consent-item input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .cs-disclaimer-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 12.5px;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .btn-submit-order {
+            width: 100%;
+            background: #003366;
+            color: #ffffff;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-submit-order:hover {
+            background: #002244;
+        }
+
+        /* 인터랙티브 모달 팝업 오버레이 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(3px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            width: 100%;
+            max-width: 620px;
+            max-height: 85vh;
+            border-radius: 14px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h4 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .btn-close-modal {
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: #64748b;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .modal-body {
+            padding: 22px;
+            overflow-y: auto;
+            font-size: 13.5px;
+            color: #334155;
+            line-height: 1.7;
+        }
+
+        .modal-footer {
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            padding: 14px 22px;
+            text-align: right;
+        }
+
+        .btn-modal-confirm {
+            background: #003366;
+            color: #ffffff;
+            border: none;
+            padding: 9px 24px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 13.5px;
+        }
+
+        table.modal-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 12.5px;
+        }
+
+        table.modal-table th, table.modal-table td {
+            border: 1px solid #cbd5e1;
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        table.modal-table th {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+    </style>
+</head>
+<body>
+
+<div class="privacy-container">
+
+    <!-- 문서 헤더 -->
+    <div class="privacy-header">
+        <h1>개인정보 처리방침</h1>
+        <p>뉴트리시아 사우스코리아(“뉴트리시아”)는 귀하의 개인정보를 안전하게 보호하며 관련 법령을 엄격히 준수합니다.</p>
+        <div class="update-date"><span class="update-badge">[2026-08 개정]</span>본 개인정보 처리방침은 2026년 8월 15일에 마지막으로 업데이트되었습니다. (이전 개정일: 2024년 2월 9일)</div>
+    </div>
+
+    <!-- 서문 -->
+    <div class="term-cont">
+        <p>뉴트리시아는 귀하가 귀하의 개인정보가 어떻게 사용되는지 중요하게 생각하며, 개인정보 보호의 중요성을 인식하고 있습니다.</p>
+        <p>본 개인정보 처리방침은 뉴트리시아 사우스코리아(“뉴트리시아”)가 뉴트리시아 스토어(이하 “몰”)를 이용하는 사용자의 개인정보를 수집하고 관리하는 방법을 설명합니다.</p>
+        <p>여기에는 당사가 수집하는 데이터의 종류, 데이터의 사용 방법, 데이터가 필요한 이유 및 사용자에게 어떤 이점이 있는지에 대한 정보가 포함되어 있습니다.</p>
+        <p>문의사항이나 의견이 있거나 데이터 주체의 권리와 관련하여 요청하려면 [<a href="mailto:help@nutriciastore.co.kr">help@nutriciastore.co.kr</a>]으로 문의하세요.</p>
+    </div>
+
+    <!-- 기본 원칙 -->
+    <div class="term-title">기본 원칙 및 개인정보 보호 약속</div>
+    <div class="term-cont">
+        <p>몰에서는 회원님의 개인정보 보호 권리를 보호하기 위해 최선을 다하고 있습니다. 당사는 당사가 보유한 모든 개인 데이터를 보호하고, 책임감 있는 방식으로 개인 데이터를 관리하며, 투명하게 업무를 처리하는 것을 목표로 합니다. 당사는 회원님의 신뢰를 중요하게 생각합니다. 따라서 당사는 다음과 같은 기본 원칙을 준수합니다.</p>
+        <ul>
+            <li>귀하는 당사가 요청하는 개인 데이터를 제공할 의무가 없습니다. 그러나 귀하가 원하지 않는 경우 일부 서비스 또는 제품을 제공하지 못할 수 있습니다.</li>
+            <li>당사는 본 개인정보 처리방침에 명시된 목적 또는 당사가 귀하와 공유하거나 귀하가 동의한 특정 목적을 위해서만 귀하의 데이터를 수집하고 처리합니다.</li>
+            <li>당사는 가능한 한 적은 개인정보를 수집, 처리 및 사용하는 것을 목표로 합니다.</li>
+            <li>당사는 회원님의 개인정보를 수집하는 경우 가능한 한 정확하고 최신 상태로 유지하는 것을 목표로 합니다.</li>
+            <li>수집한 개인정보가 더 이상 어떤 목적으로도 필요하지 않고 법적으로 보관할 의무가 없는 경우, 삭제, 파기 또는 영구적으로 비식별화하기 위해 최선을 다할 것입니다.</li>
+            <li>회원님의 개인정보는 본 개인정보 처리방침에 명시된 경우를 제외하고는 공유, 판매, 대여 또는 공개되지 않습니다.</li>
+        </ul>
+    </div>
+
+    <!-- [별첨 1 통합] 수집하는 개인 데이터 및 사용 목적 -->
+    <div class="term-title">수집하는 개인 데이터 및 사용 목적</div>
+    <div class="term-cont">
+        <p>당사가 수집하는 개인정보는 수집 목적과 제공하는 제품 또는 서비스에 따라 다릅니다.</p>
+
+        <table class="policy-table">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">분류</th>
+                    <th style="width: 33%;">수집항목</th>
+                    <th style="width: 12%;">필수/선택여부</th>
+                    <th style="width: 25%;">목적</th>
+                    <th style="width: 15%;">보유기간</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="updated-row">
+                    <td class="strong-text" rowspan="3" style="text-align:center; background-color: #ffffff;">주문프로세스</td>
+                    <td><span class="update-badge">[별첨 1]</span>주문자 성명, 휴대폰번호, 이메일, 수취인 성명, 국내 배송지 주소, 연락처</td>
+                    <td style="text-align:center;">필수</td>
+                    <td>상품 주문 확인, 결제 및 서비스 제공, 국내 배송 업무 처리 및 CS 상담, AS 요청 대응</td>
+                    <td>회원 탈퇴 시 즉시 파기.<br>(단, 전자상거래법 시행령 제6조 제1항에 따라 대금결제/재화공급 기록 <strong>5년간 보관</strong>)</td>
+                </tr>
+                <tr class="updated-row">
+                    <td><span class="update-badge">[별첨 1]</span>개인통관고유부호(PCCC), 주문번호, 본인확인기관 연계정보(CI), 일회용 인증번호(6자리)</td>
+                    <td style="text-align:center;">필수<br>(해외직구 시)</td>
+                    <td>관세법 제254조 제2항 및 제3항에 따른 특별통관 유효성 검증 및 거래정보 제출 데이터 매핑 (본인확인기관 NICE평가정보(주)를 통한 수하인 인증 및 인증번호 발급 중계)</td>
+                    <td><strong class="highlight-text">관세청 실시간 API 전송 완료 후 시스템에서 즉시 파기</strong><br>(저장 시 회원 탈퇴 시까지 보관)</td>
+                </tr>
+                <tr>
+                    <td>카드 결제 정보(카드사명, 카드 번호), 계좌이체 결제 정보(은행명, 계좌번호, 예금주명), N페이 결제 정보(네이버 회원 정보)</td>
+                    <td style="text-align:center;">필수</td>
+                    <td>주문한 제품에 대한 결제 처리</td>
+                    <td>서비스 제공 목적 달성시까지</td>
+                </tr>
+                <tr>
+                    <td class="strong-text" rowspan="2" style="text-align:center;">카카오 간편가입</td>
+                    <td>카카오 계정(아이디), 이름, 전화번호</td>
+                    <td style="text-align:center;">필수</td>
+                    <td>SNS 및 제3의 계정과의 연결을 통한 간소화된 로그인</td>
+                    <td>회원 자격 해지시까지</td>
+                </tr>
+                <tr>
+                    <td>성별</td>
+                    <td style="text-align:center;">선택</td>
+                    <td>고객에게 개인화된 제품 및 커뮤니케이션과 제품 추천</td>
+                    <td>회원 자격 해지시까지</td>
+                </tr>
+                <tr>
+                    <td class="strong-text" style="text-align:center;">압타클럽 멤버십</td>
+                    <td>이름, 생년월일, 자녀유무 및 임신여부, 출산예정일, 산모수첩 사진, 출생증명서, 가입경로</td>
+                    <td style="text-align:center;">필수</td>
+                    <td>압타클럽 가입을 위한 정보 확인, 고객에게 맞춤화된 제품 및 커뮤니케이션, 제품 추천 제공</td>
+                    <td>멤버십 회원 자격 해지시까지</td>
+                </tr>
+                <tr>
+                    <td class="strong-text" style="text-align:center;">고객 서비스</td>
+                    <td>이름, 이메일주소, 주소, 전화번호</td>
+                    <td style="text-align:center;">필수</td>
+                    <td>고객의 문의를 처리하고 답변하거나 고객의 질문 및/또는 요청에 답변하기 위함</td>
+                    <td>서비스 목적 달성시까지</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- [별첨 2, 별첨 4 통합] 개인정보 처리의 위임 및 제3자 제공 -->
+    <div class="term-title">개인정보 처리의 위임 및 제3자 제공</div>
+    <div class="term-cont">
+        <p>당사는 원활한 서비스 제공을 위하여 다음과 같이 개인정보 처리를 위탁하고 있으며, 법령에 의거하여 개인정보를 제3자에게 제공합니다.</p>
+
+        <table class="policy-table">
+            <thead>
+                <tr>
+                    <th style="width: 25%;">제공처 / 위탁 수탁자</th>
+                    <th style="width: 32%;">제공 / 위탁 항목</th>
+                    <th style="width: 23%;">이용 목적</th>
+                    <th style="width: 20%;">보유 및 이용 기간</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="updated-row">
+                    <td class="strong-text"><span class="update-badge">[별첨 2]</span>대한민국 관세청<br>(제3자 제공)</td>
+                    <td>주문번호, 구매자 및 수하인 성명, 수하인 휴대폰번호, 수하인 우편번호, 수하인 주소, 수하인 개인통관고유부호(PCCC), 일회용 인증번호, 상품정보(품명·수량·단가), 운송장 번호(HBL)</td>
+                    <td>관세법령에 따른 특별통관 거래정보(TRA) 직접 제출 및 통관 유효성 확인</td>
+                    <td>관세법 시행령 제258조 제7항에 따른 의무 제공 기간 동안 보관 후 파기</td>
+                </tr>
+                <tr class="updated-row">
+                    <td class="strong-text"><span class="update-badge">[별첨 2]</span>자이언트네트워크그룹<br>(통관 대행사 제3자 제공)</td>
+                    <td>쇼핑몰 주문번호, 수하인 성명, 연락처, 국내 배송 주소, 개인통관고유부호(PCCC), 상품명·수량·가격, 운송장 번호(HBL)</td>
+                    <td>관세청 API 연동 통관망 제공 및 수입신고/목록통관 접수 대행 업무 수행</td>
+                    <td><strong>통관 업무 수행 완료 및 수입신고 수리 후 즉시 파기</strong></td>
+                </tr>
+                <tr class="updated-row">
+                    <td class="strong-text"><span class="update-badge">[별첨 4]</span>(주)크로네</td>
+                    <td>주문번호, 주문자 성명, 수취인 성명, 수취인 핸드폰번호, 수취인 전체 주소, 우편번호, 국내 운송장 번호, 결제 및 마케팅 정보</td>
+                    <td>고객 주문 정보 처리, 결제, 뉴스레터, SMS 발송, 해외직배송 상품의 국내 수입신고 대행 보조, 라스트마일 택배 배송 및 CS 처리, 홈페이지 운영</td>
+                    <td><strong>물품 배송 완료 및 서비스 목적 달성 시까지</strong></td>
+                </tr>
+                <tr>
+                    <td class="strong-text">(주)아이베</td>
+                    <td>마케팅 활동을 위한 개인 정보</td>
+                    <td>고객 주문 정보 처리, 뉴스레터 및 SMS 발송, 고객 서비스</td>
+                    <td>서비스 목적 달성 시까지</td>
+                </tr>
+                <tr class="updated-row">
+                    <td class="strong-text"><span class="update-badge">[별첨 3]</span>Yantai Dongshu Supply Chain Management Co.,Ltd.</td>
+                    <td>통관 및 제품 주문 정보, 수하인 성명, 휴대폰번호, 국내 배송지 전체 주소, 구매 상품 정보(품명, Qty)</td>
+                    <td>통관, 해외 현지 창고 물품 출고 배정, 패킹 처리 및 국제 운송 연동 데이터 활용</td>
+                    <td><strong>물품 출고 및 국제 운송 목적 달성 후 즉시 파기</strong> (현지 법령 의무 기간 보유)</td>
+                </tr>
+                <tr class="updated-row">
+                    <td class="strong-text"><span class="update-badge">[개정]</span>일양 익스프레스</td>
+                    <td>주문자/수취인 성명, 수취인 휴대폰번호, 국내 배송지 전체 주소, 상품 배송 정보</td>
+                    <td>중국에서의 제품 배송, 해외 직배송 상품의 국제 특송 및 현지 배송 업무 수행</td>
+                    <td><strong>물품 배송 완료 및 서비스 목적 달성 시 즉시 파기</strong></td>
+                </tr>
+                <tr>
+                    <td>NHN DATA</td>
+                    <td>고객 행동 데이터, 분석</td>
+                    <td>고객 행동 분석 및 전반적인 분석에 데이터 활용</td>
+                    <td>서비스 목적 달성 시까지</td>
+                </tr>
+                <tr>
+                    <td>NHN Commerce (godomall)</td>
+                    <td>회원 정보</td>
+                    <td>회원 데이터 정보 저장 서버</td>
+                    <td>회원 탈퇴 시까지</td>
+                </tr>
+                <tr>
+                    <td>Google</td>
+                    <td>회원 정보</td>
+                    <td>회원 데이터 보관, 고객 행동 분석, 전반적인 분석을 위한 데이터 활용</td>
+                    <td>서비스 목적 달성 시까지</td>
+                </tr>
+                <tr>
+                    <td>AWS</td>
+                    <td>회원 정보 휴대폰 번호, 출산예정일</td>
+                    <td>회원 정보를 처리하여 자동화된 CRM에 전달, 회원 휴대폰 번호 및 출산예정일을 클라우드서버와 연결</td>
+                    <td>회원 탈퇴 시까지</td>
+                </tr>
+                <tr>
+                    <td>AMC ASIA</td>
+                    <td>압타클럽 회원 정보</td>
+                    <td>압타클럽 회원을 위한 이벤트 및 캠페인 운영</td>
+                    <td>회원 자격 해지 시까지</td>
+                </tr>
+                <tr>
+                    <td>Naver Pay</td>
+                    <td>결제 정보(카드 번호, 계좌 번호, 휴대폰 번호), 배송 정보(주문자/수취인 이름, 연락처 정보, 기본 주소, 배송지 주소, 기본 우편번호, 배송지 우편번호)</td>
+                    <td>구매 및 결제, 배송지</td>
+                    <td>회원 탈퇴 시까지</td>
+                </tr>
+                <tr>
+                    <td>Kakao</td>
+                    <td>개인정보</td>
+                    <td>고객 주문 정보 처리, 뉴스레터 및 SMS 전송, 고객 서비스, 고객 주문 정보 처리</td>
+                    <td>회원 탈퇴 시까지</td>
+                </tr>
+                <tr>
+                    <td>(주)포그리트</td>
+                    <td>고객 여정 및 행동 데이터, 분석, 회원 정보, 주문 정보</td>
+                    <td>고객 여정 및 행동 분석 및 전반적인 분석에 데이터 활용</td>
+                    <td>서비스 목적 달성 시까지</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- [별첨 4 법정 고지 문구] -->
+        <div class="legal-notice">
+            <span class="update-badge">[별첨 4 법정고지]</span><strong>📌 개인정보 보호법 제26조에 따른 수탁자 관리·감독 고지:</strong><br>
+            당사는 위탁계약 체결 시 개인정보 보호법 제26조에 따라 위탁업무 수행목적 외 개인정보 처리금지, 기술적ㆍ관리적 보호조치, 재위탁 제한, 수탁자에 대한 관리ㆍ감독, 손해배상 등 책임에 관한 사항을 계약서 등 문서에 명시하고, 수탁자가 개인정보를 안전하게 처리하는지를 감독하고 있습니다.<br>
+            개인정보 보호법 제26조 제6항에 따라 수탁자가 당사의 개인정보 처리 업무를 재위탁하는 경우 당사의 동의를 받고 있으며, 본 처리방침을 통하여 재수탁자와 재수탁하는 업무의 내용을 공개하고 있습니다.
+        </div>
+    </div>
+
+    <!-- [별첨 3 통합] 국외 개인정보 공유 (국외 이전 동의) -->
+    <div class="term-title">국외 개인정보 공유 (국외 이전 동의)</div>
+    <div class="term-cont">
+        <p>개인정보는 대한민국 국외에서 처리될 수 있습니다. 뉴트리시아는 국외에서 개인정보를 처리할 경우, 국경을 넘는 데이터 처리가 대한민국 개인정보 보호법(PIPA) 제28조의8 요건을 준수하도록 합니다.</p>
+        <p>귀하의 개인 데이터는 설명된 목적을 위해 다음 수신자에게 전송됩니다.</p>
+        
+        <div class="alert-box">
+            <span class="update-badge">[별첨 3 거부권]</span><strong>⚠️ 국외 이전 거부권 및 불이익 고지:</strong><br>
+            국외 이전을 거부할 경우 해외직구 서비스 이용 및 배송이 불가능합니다. 국외 이전을 원치 않을 경우 홈페이지 및 모바일에서 회원 탈퇴를 진행하거나 고객센터를 통하여 회원 탈퇴를 요청할 수 있습니다.
+        </div>
+
+        <table class="policy-table">
+            <thead>
+                <tr>
+                    <th style="width: 22%;">수신자 이름 (국가)</th>
+                    <th style="width: 25%;">이전 항목</th>
+                    <th style="width: 20%;">이전 목적 및 방법</th>
+                    <th style="width: 18%;">보유 및 이용 기간</th>
+                    <th style="width: 15%;">전송 일시</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="updated-row">
+                    <td class="strong-text"><span class="update-badge">[별첨 3]</span>Yantai Dongshu Supply Chain Management Co., Ltd<br>(중국)</td>
+                    <td>수하인 성명, 휴대폰번호, 국내 배송지 전체 주소, 구매 상품 정보(품명, Qty)</td>
+                    <td>해외 현지 창고 물품 출고 배정, 패킹 처리 및 국제 운송 연동<br>(실시간 전자 전송)</td>
+                    <td><strong class="highlight-text">물품 출고 및 국제 운송 목적 달성 후 즉시 파기</strong><br>(현지 법령 의무 기간 보유)</td>
+                    <td>상품 구매 및 결제 완료 시점</td>
+                </tr>
+                <tr>
+                    <td class="strong-text">일양 익스프레스<br>(중국 - Live)</td>
+                    <td>이름, 주소, 휴대폰번호</td>
+                    <td>중국에서의 제품 배송<br>(서비스 약관 적용)</td>
+                    <td>서비스 목적 달성까지</td>
+                    <td>배송 요청 시</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 사업자 정보 & 푸터 전문 -->
+    <div class="footer-info">
+        <p><strong>뉴트리시아사우스코리아 유한회사</strong> | 사업자등록번호 : 369-87-01160 | 대표 : 프랭크톰홀트 외 2명 | 주소 : 서울특별시 중구 세종대로 4길 25, 이프라자 7F</p>
+        <p><strong>주식회사 크로네(Krone)</strong> | 사업자등록번호 : 776-87-00068 | 대표 : 강병현 | 주소 : 경기도 남양주시 진접읍 경복대로512번길 7-1 | 통신판매업신고번호 : 2018-진접오남-1052</p>
+        <p style="margin-top: 10px; font-size:12.5px; color:#94a3b8;">
+            ※ 뉴트리시아사우스코리아 유한회사는 통신판매의 당사자가 아닙니다. 따라서 상품 거래 정보 및 가격에 대하여 책임을 지지 않습니다.<br>
+            뉴트리시아 공식스토어는 (주)크로네가 위임받아 직접 운영하고 있습니다.<br>
+            Copyright © Nutricia 2025. All Rights Reserved.
+        </p>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- 🛒 To-Be 결제창 UI/UX 및 5대 인터랙티브 모달 팝업 시안 컴포넌트 -->
+    <!-- ================================================================= -->
+    <div class="checkout-demo-wrapper">
+        <div style="text-align:center; margin-bottom: 25px;">
+            <span class="update-badge" style="font-size:13px; padding:4px 10px;">To-Be UI/UX 상용 결제창 시안</span>
+            <h2 style="font-size: 22px; color: #003366; margin: 8px 0 4px 0;">주문 결제 페이지 약관 동의 및 팝업 5종 인터랙티브 시안</h2>
+            <p style="font-size: 13.5px; color: #64748b;">전체 동의 체크박스 기능 및 각 [보기 >] 팝업 1~5 동작 시안입니다.</p>
+        </div>
+<div class="checkout-container">
+    <div class="checkout-header">
+        <h3>주문/결제</h3>
+        <span style="font-size:12px; opacity:0.8;">뉴트리시아 공식스토어</span>
+    </div>
+    
+    <div class="checkout-body">
+        <div class="price-summary">
+            <div class="price-row"><span>상품 금액</span><span>138,800 원</span></div>
+            <div class="price-row"><span>배송비 (해외직구)</span><span>0 원</span></div>
+            <div class="price-row total"><span>최종 결제금액</span><span style="color:#0066cc;">138,800 원</span></div>
+        </div>
+
+        <!-- 합산과세 주의 안내 바 -->
+        <div class="tax-notice-bar">
+            <span>💡 <strong>합산과세 주의 안내</strong> (관세법 유의사항)</span>
+            <button class="btn-view-more" onclick="openModal('modal1')">더보기 ></button>
+        </div>
+
+        <!-- 전체 동의 체크박스 영역 -->
+        <div class="consent-all-box">
+            <label for="ck_all">
+                <input type="checkbox" id="ck_all" checked onchange="toggleSelectAll(this)">
+                위 주문 내용과 이용약관을 확인하였으며, 아래 내용에 모두 동의합니다. (전체 동의)
+            </label>
+        </div>
+
+        <ul class="consent-list">
+            <li class="consent-item">
+                <label for="ck_collect">
+                    <input type="checkbox" id="ck_collect" class="sub-ck" checked onchange="updateMasterState()">
+                    개인정보 수집 및 이용 안내
+                </label>
+                <button class="btn-view-more" onclick="openModal('modal2')">보기 ></button>
+            </li>
+            <li class="consent-item">
+                <label for="ck_third_party">
+                    <input type="checkbox" id="ck_third_party" class="sub-ck" checked onchange="updateMasterState()">
+                    개인정보 제3자 제공 동의
+                </label>
+                <button class="btn-view-more" onclick="openModal('modal3')">보기 ></button>
+            </li>
+            <li class="consent-item">
+                <label for="ck_overseas">
+                    <input type="checkbox" id="ck_overseas" class="sub-ck" checked onchange="updateMasterState()">
+                    개인정보 국외 이전 동의
+                </label>
+                <button class="btn-view-more" onclick="openModal('modal4')">보기 ></button>
+            </li>
+            <li class="consent-item">
+                <label for="ck_supplier">
+                    <input type="checkbox" id="ck_supplier" class="sub-ck" checked onchange="updateMasterState()">
+                    (필수) 상품 공급사 개인정보 제공 동의
+                </label>
+                <button class="btn-view-more" onclick="openModal('modal5')">보기 ></button>
+            </li>
+        </ul>
+
+        <!-- 해외배송 통관 및 CS 면책 고지 박스 -->
+        <div class="cs-disclaimer-box">
+            <strong>⚠️ 해외배송 통관 및 CS 면책 고지:</strong><br>
+            수취인 정보 오입력 및 본인 불일치에 따른 통관 지연, 세관 과태료, 물품 폐기 처분에 대한 책임과 비용은 구매자 본인에게 귀속됩니다.
+        </div>
+
+        <button class="btn-submit-order" onclick="submitOrder()">138,800원 결제하기</button>
+    </div>
+</div>
+
+<!-- 상용 결제창 팝업 레이어 모달 -->
+
+<div class="modal-overlay" id="modal1">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>해외직구 합산과세 주의 안내</h4>
+            <button class="btn-close-modal" onclick="closeModal('modal1')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p><strong>■ 합산과세란?</strong><br>물품종류, 주문일자가 다르더라도 ‘국내 입항일(통관일)’이 동일한 경우, 해당 물품들의 가격을 세관에서 합산하여 관세 및 부가가치세를 부과하는 제도입니다.</p>
+            <p><strong>■ 주요 면세 한도 기준:</strong><br>- 미국발 물품: 미화 200달러 이하 면세<br>- 중국 및 기타 국가 발 물품: <strong>미화 150달러 이하 면세</strong></p>
+            <div class="alert-box">
+                <strong>⚠️ 필독 및 고객 책임 고지:</strong><br>
+                본 뉴트리시아몰 외에 타 쇼핑몰(네이버, 쿠팡, 오픈마켓, 타 직구몰 등)에서 구매하신 해외직구 상품이 당사 상품과 같은 날 국내 세관에 도착할 경우 합산과세가 발생할 수 있습니다.<br>
+                타사 구매 건과의 입항일 일치로 인해 발생하는 관/부가세는 전액 구매자(수하인) 본인이 납부하셔야 하며, <strong>이로 인한 통관 지연 및 주문 반품/환불은 절대 불가능합니다.</strong>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-modal-confirm" onclick="closeModal('modal1')">확인</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal2">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>개인정보 수집 및 이용 안내</h4>
+            <button class="btn-close-modal" onclick="closeModal('modal2')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="modal-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">수집 및 이용 항목</th>
+                        <th style="width: 40%;">이용 목적</th>
+                        <th style="width: 30%;">보유 및 이용 기간</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>주문자 성명, 휴대폰번호, 이메일, 수취인 성명, 국내 배송지 주소, 연락처</td>
+                        <td>상품 주문 확인, 결제 및 서비스 제공, 국내 배송 업무 처리 및 CS 상담, AS 요청 대응</td>
+                        <td>회원 탈퇴 시 즉시 파기 (단, 관계 법령에 따라 5년간 보관)</td>
+                    </tr>
+                    <tr style="background:#eff6ff;">
+                        <td><strong>개인통관고유부호(PCCC), 주문번호, 본인확인 연계정보(CI), 일회용 인증번호(6자리)</strong></td>
+                        <td>관세법 제254조의2에 따른 특별통관 유효성 검증 및 거래정보 제출 데이터 매핑 (NICE평가정보(주) 수하인 인증 중계)</td>
+                        <td><strong>관세청 실시간 API 전송 완료 후 시스템에서 즉시 파기</strong> (DB 저장 시 회원 탈퇴 시까지)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-modal-confirm" onclick="closeModal('modal2')">확인</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal3">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>개인정보 제3자 제공 동의</h4>
+            <button class="btn-close-modal" onclick="closeModal('modal3')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="modal-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">개인정보 제공받는 자</th>
+                        <th style="width: 30%;">개인정보 제공 항목</th>
+                        <th style="width: 25%;">제공 목적</th>
+                        <th style="width: 20%;">보유 및 이용 기간</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>대한민국 관세청</strong></td>
+                        <td>주문번호, 구매자 및 수하인 성명, 수하인 휴대폰번호, 수하인 우편번호, 수하인 주소, 수하인 개인통관고유부호, 일회용 인증번호, 상품정보(품명, 수량, 단가), 운송장 번호(HBL)</td>
+                        <td>관세법령에 따른 특별통관 거래정보(TRA) 직접 제출 및 통관 유효성 확인</td>
+                        <td>관세법 시행령 제289조에 따른 의무 보유 기간 동안 보관 후 파기</td>
+                    </tr>
+                    <tr>
+                        <td><strong>자이언트네트워크그룹 (통관 대행사)</strong></td>
+                        <td>쇼핑몰 주문번호, 수하인 성명, 연락처, 국내 배송 주소, 개인통관고유부호, 상품명, 수량, 가격, 운송장 번호(HBL)</td>
+                        <td>관세청 API 연동 통관망 제공 및 수입신고/목록통관 접수 대행 업무 수행</td>
+                        <td>통관 업무 수행 완료 및 수입신고 수리 후 즉시 파기</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-modal-confirm" onclick="closeModal('modal3')">확인</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal4">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>개인정보 국외 이전 동의</h4>
+            <button class="btn-close-modal" onclick="closeModal('modal4')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="modal-table">
+                <thead>
+                    <tr>
+                        <th>이전받는 자 (국가)</th>
+                        <th>이전 일시 및 방법</th>
+                        <th>이전하는 개인정보 항목</th>
+                        <th>이전 목적</th>
+                        <th>보유 및 이용 기간</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Yantai Dongshu Supply Chain Management Co.,Ltd (중국)</strong></td>
+                        <td>상품 구매 및 결제 완료 시점에 네트워크를 통해 실시간 전자 전송</td>
+                        <td>수하인 성명, 휴대폰번호, 국내 배송지 전체 주소, 구매 상품 정보(품명, Qty)</td>
+                        <td>해외 현지 창고 물품 출고 배정, 패킹 처리 및 국제 운송 연동</td>
+                        <td>물품 출고 및 국제 운송 목적 달성 후 즉시 파기 (현지 법령 규정이 있는 경우 해당 기간 보유)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-modal-confirm" onclick="closeModal('modal4')">확인</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal5">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>(필수) 상품 공급사 개인정보 제공 동의</h4>
+            <button class="btn-close-modal" onclick="closeModal('modal5')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="modal-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">제공받는 자</th>
+                        <th style="width: 30%;">제공하는 개인정보 항목</th>
+                        <th style="width: 25%;">제공받는 자의 이용 목적</th>
+                        <th style="width: 20%;">제공받는 자의 보유 및 이용 기간</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>㈜크로네, 국내 위탁 배송사 (롯데택배 등)</strong></td>
+                        <td>주문번호, 주문자 성명, 수취인 성명, 수취인 핸드폰번호, 수취인 전체 주소, 수취인 우편번호, 국내 운송장 번호</td>
+                        <td>해외직배송 상품의 국내 수입신고 대행 보조, 국내 라스트마일 택배 배송 업무 수행, 송장 매핑 및 CS 피드백 처리</td>
+                        <td>물품 배송 완료 및 민원 처리 종료 후 즉시 파기 (단, 소송이나 법령 보존 의무가 있는 경우 해당 기간까지 보관)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="alert-box">
+                <strong>⚠️ 거부권 안내:</strong> 이용자는 동의를 거부할 권리가 있으나, 거부 시 상품 배송 및 CS 서비스 이용이 제한됩니다.
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-modal-confirm" onclick="closeModal('modal5')">확인</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 전체 동의 체크박스 제어
+    function toggleSelectAll(master) {
+        const subCks = document.querySelectorAll('.sub-ck');
+        subCks.forEach(function(ck) {
+            ck.checked = master.checked;
+        });
+    }
+
+    // 하위 체크박스 개별 변경 시 전체 동의 상태 갱신
+    function updateMasterState() {
+        const master = document.getElementById('ck_all');
+        const subCks = document.querySelectorAll('.sub-ck');
+        let allChecked = true;
+        subCks.forEach(function(ck) {
+            if (!ck.checked) allChecked = false;
+        });
+        master.checked = allChecked;
+    }
+
+    // 결제하기 버튼 클릭 핸들러
+    function submitOrder() {
+        const master = document.getElementById('ck_all');
+        const subCks = document.querySelectorAll('.sub-ck');
+        let allChecked = true;
+        subCks.forEach(function(ck) {
+            if (!ck.checked) allChecked = false;
+        });
+
+        if (!allChecked) {
+            alert('필수 약관 동의 항목에 모두 동의하셔야 결제를 진행할 수 있습니다.');
+            return;
+        }
+
+        alert('138,800원 결제 요청 API가 호출됩니다. (NICE OTP/PCCC 검증 연동)');
+    }
+
+    function openModal(id) {
+        document.getElementById(id).classList.add('active');
+    }
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('active');
+    }
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal-overlay').forEach(function(m) {
+                m.classList.remove('active');
+            });
+        }
+    });
+</script>
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문/결제 | 뉴트리시아 온라인 스토어</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 40px 15px;
+            color: #1e293b;
+        }
+
+        .checkout-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 16px;
+            box-shadow: 0 12px 32px rgba(0, 51, 102, 0.08);
+            overflow: hidden;
+        }
+
+        .checkout-header {
+            background: #003366;
+            color: #ffffff;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .checkout-header h3 {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .checkout-body {
+            padding: 24px;
+        }
+
+        .price-summary {
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+
+        .price-row.total {
+            font-size: 18px;
+            font-weight: 900;
+            color: #0f172a;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed #cbd5e1;
+        }
+
+        .tax-notice-bar {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 13.5px;
+            color: #92400e;
+        }
+
+        .btn-view-more {
+            background: none;
+            border: none;
+            color: #0066cc;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 0;
+            text-decoration: underline;
+        }
+
+        /* 전체 동의 상자 스타일 */
+        .consent-all-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 16px;
+        }
+
+        .consent-all-box label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 14px;
+            color: #003366;
+            font-weight: 700;
+        }
+
+        .consent-all-box input[type="checkbox"] {
+            width: 19px;
+            height: 19px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .consent-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .consent-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 13.5px;
+        }
+
+        .consent-item label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #1e293b;
+        }
+
+        .consent-item input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .cs-disclaimer-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 12.5px;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .btn-submit-order {
+            width: 100%;
+            background: #003366;
+            color: #ffffff;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-submit-order:hover {
+            background: #002244;
+        }
+
+        /* 프로덕션 모달 팝업 스타일 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(3px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            width: 100%;
+            max-width: 620px;
+            max-height: 85vh;
+            border-radius: 14px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h4 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .btn-close-modal {
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: #64748b;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .modal-body {
+            padding: 22px;
+            overflow-y: auto;
+            font-size: 13.5px;
+            color: #334155;
+            line-height: 1.7;
+        }
+
+        .modal-footer {
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            padding: 14px 22px;
+            text-align: right;
+        }
+
+        .btn-modal-confirm {
+            background: #003366;
+            color: #ffffff;
+            border: none;
+            padding: 9px 24px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 13.5px;
+        }
+
+        table.modal-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 12.5px;
+        }
+
+        table.modal-table th, table.modal-table td {
+            border: 1px solid #cbd5e1;
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        table.modal-table th {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .alert-box {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 14px 18px;
+            margin-top: 15px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #92400e;
+        }
+    </style>
+</head>
+<body>
+
+<div class="checkout-container">
+    <div class="checkout-header">
+        <h3>주문/결제</h3>
+        <span style="font-size:12px; opacity:0.8;">뉴트리시아 공식스토어</span>
+    </div>
+    
+    <div class="checkout-body">
+        <div class="price-summary">
+            <div class="price-row"><span>상품 금액</span><span>138,800 원</span></div>
+            <div class="price-row"><span>배송비 (해외직구)</span><span>0 원</span></div>
+            <div class="price-row total"><span>최종 결제금액</span><span style="color:#0066cc;">138,800 원</span></div>
+        </div>
+
+        <!-- 합산과세 주의 안내 바 -->
+        <div class="tax-notice-bar">
+            <span>💡 <strong>합산과세 주의 안내</strong> (관세법 유의사항)</span>
+            <button class="btn-view-more" onclick="openModal('modal1')">더보기 ></button>
+        </div>
+
+        <!-- 전체 동의 체크박스 영역 -->
+        <div class="consent-all-box">
+            <label for="ck_all">
+                <input type="checkbox" id="ck_all" checked onchange="toggleSelectAll(this)">
+                위 주문 내용과 이용약관을 확인하였으며, 아래 내용에 모두 동의합니다. (전체 동의)
+            </label>
+        </div>
+
+        <ul class="consent-list">
+            <li class="consent-item">
+                <label for="ck_collect">
+                    <input type="checkbox" id="ck_collect" class="sub-ck" checked onchange="updateMasterState()">
+                    개인정보 수집 및 이용 안내
+                </label>
+                <button class="btn-view-more" onclick="openModal('modal2')">보기 ></button>
+            </li>
+            <li class="consent-item">
+                <label for="ck_third_party">
+                    <input type="checkbox" id="ck_third_party" class="sub-ck" checked onchange="updateMasterState()">
+                    개인정보 제3자 제공 동의
+                </label>
+                <button class="btn-view-more" onclick="openModal('modal3')">보기 ></button>
+            </li>
+            <li class="consent-item">
+                <label for="ck_overseas">
+                    <input type="checkbox" id="ck_overseas" class="sub-ck" checked onchange="updateMasterState()">
+                    개인정보 국외 이전 동의
+                </label>
+                <button class="btn-view-more" onclick="openModal('modal4')">보기 ></button>
+            </li>
+            <li class="consent-item">
+                <label for="ck_supplier">
+                    <input type="checkbox" id="ck_supplier" class="sub-ck" checked onchange="updateMasterState()">
+                    (필수) 상품 공급사 개인정보 제공 동의
+                </label>
+                <button class="btn-view-more" onclick="openModal('modal5')">보기 ></button>
+            </li>
+        </ul>
+
+        <!-- 해외배송 통관 및 CS 면책 고지 박스 -->
+        <div class="cs-disclaimer-box">
+            <strong>⚠️ 해외배송 통관 및 CS 면책 고지:</strong><br>
+            수취인 정보 오입력 및 본인 불일치에 따른 통관 지연, 세관 과태료, 물품 폐기 처분에 대한 책임과 비용은 구매자 본인에게 귀속됩니다.
+        </div>
+
+        <button class="btn-submit-order" onclick="submitOrder()">138,800원 결제하기</button>
+    </div>
+</div>
+
+<!-- 상용 결제창 팝업 레이어 모달 -->
+
+<div class="modal-overlay" id="modal1">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>해외직구 합산과세 주의 안내</h4>
+            <button class="btn-close-modal" onclick="closeModal('modal1')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p><strong>■ 합산과세란?</strong><br>물품종류, 주문일자가 다르더라도 ‘국내 입항일(통관일)’이 동일한 경우, 해당 물품들의 가격을 세관에서 합산하여 관세 및 부가가치세를 부과하는 제도입니다.</p>
+            <p><strong>■ 주요 면세 한도 기준:</strong><br>- 미국발 물품: 미화 200달러 이하 면세<br>- 중국 및 기타 국가 발 물품: <strong>미화 150달러 이하 면세</strong></p>
+            <div class="alert-box">
+                <strong>⚠️ 필독 및 고객 책임 고지:</strong><br>
+                본 뉴트리시아몰 외에 타 쇼핑몰(네이버, 쿠팡, 오픈마켓, 타 직구몰 등)에서 구매하신 해외직구 상품이 당사 상품과 같은 날 국내 세관에 도착할 경우 합산과세가 발생할 수 있습니다.<br>
+                타사 구매 건과의 입항일 일치로 인해 발생하는 관/부가세는 전액 구매자(수하인) 본인이 납부하셔야 하며, <strong>이로 인한 통관 지연 및 주문 반품/환불은 절대 불가능합니다.</strong>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-modal-confirm" onclick="closeModal('modal1')">확인</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal2">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>개인정보 수집 및 이용 안내</h4>
+            <button class="btn-close-modal" onclick="closeModal('modal2')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="modal-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">수집 및 이용 항목</th>
+                        <th style="width: 40%;">이용 목적</th>
+                        <th style="width: 30%;">보유 및 이용 기간</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>주문자 성명, 휴대폰번호, 이메일, 수취인 성명, 국내 배송지 주소, 연락처</td>
+                        <td>상품 주문 확인, 결제 및 서비스 제공, 국내 배송 업무 처리 및 CS 상담, AS 요청 대응</td>
+                        <td>회원 탈퇴 시 즉시 파기 (단, 관계 법령에 따라 5년간 보관)</td>
+                    </tr>
+                    <tr style="background:#eff6ff;">
+                        <td><strong>개인통관고유부호(PCCC), 주문번호, 본인확인 연계정보(CI), 일회용 인증번호(6자리)</strong></td>
+                        <td>관세법 제254조의2에 따른 특별통관 유효성 검증 및 거래정보 제출 데이터 매핑 (NICE평가정보(주) 수하인 인증 중계)</td>
+                        <td><strong>관세청 실시간 API 전송 완료 후 시스템에서 즉시 파기</strong> (DB 저장 시 회원 탈퇴 시까지)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-modal-confirm" onclick="closeModal('modal2')">확인</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal3">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>개인정보 제3자 제공 동의</h4>
+            <button class="btn-close-modal" onclick="closeModal('modal3')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="modal-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">개인정보 제공받는 자</th>
+                        <th style="width: 30%;">개인정보 제공 항목</th>
+                        <th style="width: 25%;">제공 목적</th>
+                        <th style="width: 20%;">보유 및 이용 기간</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>대한민국 관세청</strong></td>
+                        <td>주문번호, 구매자 및 수하인 성명, 수하인 휴대폰번호, 수하인 우편번호, 수하인 주소, 수하인 개인통관고유부호, 일회용 인증번호, 상품정보(품명, 수량, 단가), 운송장 번호(HBL)</td>
+                        <td>관세법령에 따른 특별통관 거래정보(TRA) 직접 제출 및 통관 유효성 확인</td>
+                        <td>관세법 시행령 제289조에 따른 의무 보유 기간 동안 보관 후 파기</td>
+                    </tr>
+                    <tr>
+                        <td><strong>자이언트네트워크그룹 (통관 대행사)</strong></td>
+                        <td>쇼핑몰 주문번호, 수하인 성명, 연락처, 국내 배송 주소, 개인통관고유부호, 상품명, 수량, 가격, 운송장 번호(HBL)</td>
+                        <td>관세청 API 연동 통관망 제공 및 수입신고/목록통관 접수 대행 업무 수행</td>
+                        <td>통관 업무 수행 완료 및 수입신고 수리 후 즉시 파기</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-modal-confirm" onclick="closeModal('modal3')">확인</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal4">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>개인정보 국외 이전 동의</h4>
+            <button class="btn-close-modal" onclick="closeModal('modal4')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="modal-table">
+                <thead>
+                    <tr>
+                        <th>이전받는 자 (국가)</th>
+                        <th>이전 일시 및 방법</th>
+                        <th>이전하는 개인정보 항목</th>
+                        <th>이전 목적</th>
+                        <th>보유 및 이용 기간</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Yantai Dongshu Supply Chain Management Co.,Ltd (중국)</strong></td>
+                        <td>상품 구매 및 결제 완료 시점에 네트워크를 통해 실시간 전자 전송</td>
+                        <td>수하인 성명, 휴대폰번호, 국내 배송지 전체 주소, 구매 상품 정보(품명, Qty)</td>
+                        <td>해외 현지 창고 물품 출고 배정, 패킹 처리 및 국제 운송 연동</td>
+                        <td>물품 출고 및 국제 운송 목적 달성 후 즉시 파기 (현지 법령 규정이 있는 경우 해당 기간 보유)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-modal-confirm" onclick="closeModal('modal4')">확인</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal5">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>(필수) 상품 공급사 개인정보 제공 동의</h4>
+            <button class="btn-close-modal" onclick="closeModal('modal5')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="modal-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">제공받는 자</th>
+                        <th style="width: 30%;">제공하는 개인정보 항목</th>
+                        <th style="width: 25%;">제공받는 자의 이용 목적</th>
+                        <th style="width: 20%;">제공받는 자의 보유 및 이용 기간</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>㈜크로네, 국내 위탁 배송사 (롯데택배 등)</strong></td>
+                        <td>주문번호, 주문자 성명, 수취인 성명, 수취인 핸드폰번호, 수취인 전체 주소, 수취인 우편번호, 국내 운송장 번호</td>
+                        <td>해외직배송 상품의 국내 수입신고 대행 보조, 국내 라스트마일 택배 배송 업무 수행, 송장 매핑 및 CS 피드백 처리</td>
+                        <td>물품 배송 완료 및 민원 처리 종료 후 즉시 파기 (단, 소송이나 법령 보존 의무가 있는 경우 해당 기간까지 보관)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="alert-box">
+                <strong>⚠️ 거부권 안내:</strong> 이용자는 동의를 거부할 권리가 있으나, 거부 시 상품 배송 및 CS 서비스 이용이 제한됩니다.
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-modal-confirm" onclick="closeModal('modal5')">확인</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 전체 동의 체크박스 제어
+    function toggleSelectAll(master) {
+        const subCks = document.querySelectorAll('.sub-ck');
+        subCks.forEach(function(ck) {
+            ck.checked = master.checked;
+        });
+    }
+
+    // 하위 체크박스 개별 변경 시 전체 동의 상태 갱신
+    function updateMasterState() {
+        const master = document.getElementById('ck_all');
+        const subCks = document.querySelectorAll('.sub-ck');
+        let allChecked = true;
+        subCks.forEach(function(ck) {
+            if (!ck.checked) allChecked = false;
+        });
+        master.checked = allChecked;
+    }
+
+    // 결제하기 버튼 클릭 핸들러
+    function submitOrder() {
+        const master = document.getElementById('ck_all');
+        const subCks = document.querySelectorAll('.sub-ck');
+        let allChecked = true;
+        subCks.forEach(function(ck) {
+            if (!ck.checked) allChecked = false;
+        });
+
+        if (!allChecked) {
+            alert('필수 약관 동의 항목에 모두 동의하셔야 결제를 진행할 수 있습니다.');
+            return;
+        }
+
+        alert('138,800원 결제 요청 API가 호출됩니다. (NICE OTP/PCCC 검증 연동)');
+    }
+
+    function openModal(id) {
+        document.getElementById(id).classList.add('active');
+    }
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('active');
+    }
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal-overlay').forEach(function(m) {
+                m.classList.remove('active');
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
