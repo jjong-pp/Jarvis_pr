@@ -62,12 +62,13 @@
         <strong>[전제]</strong> planning_v5의 E2E 단계·배치 시각·프로세스는 협력사 간 합의된 현행 기준으로 두고 <u>변경하지 않았습니다.</u>
         이 문서는 그 기획을 <u>실행했을 때 터지는 지점</u>만 다룹니다.<br>
         <strong>[구성]</strong> A. 리스크 대장 / B. 지금 결정·확인해야 할 것 / C. NotebookLM 질문 리스트<br>
-        <strong>[기준일]</strong> 2026-08-10 · <strong>오픈 예정일</strong> 2026-08-28 09:00 · <strong>계도기간 종료</strong> 2026-09-14 24:00
+        <strong>[기준일]</strong> 2026-08-10 · <strong>테스트 종료</strong> 2026-08-21 · <strong>오픈</strong> 2026-08-28 09:00 · <strong>계도기간 종료</strong> 2026-09-14 24:00
     </div>
 
     <div class="stage-box">
         <p><strong>가장 먼저 볼 것 — 캘린더 리스크</strong></p>
         <ul>
+            <li><span class="time-tag">D-11</span> <strong>2026-08-21</strong> 관세청 테스트 서버 이용 종료. 이 날까지 PER·TRA 전 분기 검증을 마쳐야 함.</li>
             <li><span class="time-tag">D-18</span> <strong>2026-08-28 09:00</strong> 자사몰 오픈. 이 시각 이후 주문만 신규 프로세스 대상. → 동수 API 조회 필터 기준일이 8/15로 남아 있지 않은지 확인 (R-12)</li>
             <li><span class="time-tag">D-35</span> <strong>2026-09-14 24:00</strong> <code>Z99999</code> 계도기간 종료. 이후 비갱신자(<code>rspn_tp=03</code>) 유예가 사라지고 <strong>Track B(일반인증) 비중이 증가</strong>합니다. <span class="rule-highlight">결제 차단은 발생하지 않습니다</span> — NICE 팝업이 점유확인을 처리하고 6자리 OTP 전체를 반환하며 인증 모달은 이미 구현되어 있습니다 (R-01 해결).</li>
             <li>따라서 남은 실질 리스크는 <strong>인증 모달 노출 빈도 증가에 따른 결제 이탈</strong>과, 아래 A-2의 미해결 쟁점(자이언트 sellerName · NICE 오동작 · 테스트 데이터 부재)입니다.</li>
@@ -105,7 +106,7 @@
                 <td>v1.4.1 [붙임1]: TRA002로 0000 조회 이력이 있으면 TRA003에 나오지 않음 / TRA003으로 조회한 제출번호는 재호출해도 안 나옴 / <code>txif_rgsr_err_cnt</code>가 0이어도 <u>상품정보 개별 오류가 존재할 수 있음</u></td>
                 <td>실제로는 반려된 건이 "승인"으로 처리되어 자이언트로 넘어가고 출고됩니다. 통관 단계에서야 발각됩니다.</td>
                 <td><span class="st-open">미해결</span></td>
-                <td>권위 있는 조회는 <code>TRA002 GET /v1/transactions/results/{txif_sbmt_no}</code>입니다. 제출 건마다 TRA002로 <code>txif_prcs_stcd</code> 01/02/03을 확인하고, TRA003은 누락분 보조 수집기로만 사용합니다. 3030(검증 미완료)은 재조회 대기.</td>
+                <td><strong>[2026-08-10 규격 재확인]</strong> "성공은 TRA002, 오류는 TRA003"이라는 이분법은 규격에 없습니다. <u>TRA002 하나가 성공·부분오류·전체반려를 모두 반환</u>합니다(<code>txif_prcs_stcd</code> 01/02/03 + <code>errors[]</code>). TRA003은 [붙임1]에 <u>"TRA002 API의 호출을 최소화하고 편의성을 제공하기 위한 API"</u>로 정의된 보조 수단이고, 규격도 "TRA002 <u>또는</u> TRA003"이라 <strong>택일 관계</strong>입니다. <span class="rule-highlight">더구나 TRA002를 먼저 호출해 0000을 받은 제출번호는 TRA003에 더 이상 나오지 않으므로, "TRA002 → TRA003" 순차 호출은 TRA003이 항상 빈 값을 반환합니다.</span> 권장: ① 제출 건마다 <code>TRA002 GET /v1/transactions/results/{txif_sbmt_no}</code> 1회(3030이면 백오프 재조회) → <code>txif_prcs_stcd</code>로 분기 ② TRA003은 <u>TRA002를 놓친 건을 잡는 안전망</u>으로 별도 스케줄 운영(<code>unread_cnt</code>가 0이 아니면 누락 발생 신호) ③ <code>txif_rgsr_err_cnt</code>가 0이어도 상품 개별 오류가 있을 수 있으므로 <code>errors[]</code>를 반드시 확인.</td>
             </tr>
         </tbody>
     </table>
@@ -232,10 +233,7 @@
             <tr><td><strong>R-29</strong></td><td><span class="badge p2">P2</span></td><td><span class="api-tag api-per">자격</span></td>
                 <td><strong>협력인정업체 자격 미확인.</strong> Track A(구매간소화)의 전제 조건인데 K26000099의 등록 여부를 확인한 문서가 없습니다. 미등록이면 관세청 <code>3100</code>, NICE <code>0004</code>로 거부됩니다.</td>
                 <td><span class="st-hold">보류 (대기)</span> <strong>[2026-08-10]</strong> 협력인정업체용 CI 인증 프로세스는 <strong>NICE 통합인증 앱/모듈 추가 개발이 선행</strong>되어야 하므로 현재 보류하고 대기합니다. Track A(간소화)를 사용하지 않아도 Track B(일반인증) 경로만으로 결제·통관이 성립하므로 오픈 일정에는 영향이 없습니다. 재개 시 필요한 것: ① K26000099 협력인정업체 자격 조회·신청 ② NICE 통합인증(<code>POST /ido/intc/v1.0/auth/url</code> → <code>/auth/result</code>)으로 <code>ci</code> 획득 모듈 ③ SMARTPCC_10 <code>ord_info.ordrr_key</code>에 CI 주입 ④ 일회용 개인통관부호(O로 시작) 처리 분기. <strong>D-03.</strong></td></tr>
-            <tr><td><strong>R-30</strong></td><td><span class="badge p2">P2</span></td><td><span class="api-tag api-etc">계약</span></td>
-                <td><strong>계약 정합성.</strong> 본문 고객사는 "Krone", 서명부는 "IBe/아이베"로 불일치합니다. 제14조가 비밀유지로 제8조(지식재산권)를, 권리침해로 제12조(하자보증)를 인용하는 등 상호참조 오류가 있고, 지연배상이 제4조·제9조에 1일당 3/1000으로 중복됩니다. 원견적(32,311,505원)에 PER/NICE/CI·TRA 기능이 이미 포함되어 있는데 추가견적이 일부를 다시 청구합니다. 추가견적서도 표지 4,800,000원과 상세 합계 4,865,538원이 불일치합니다.</td>
-                <td>변경합의서로 정정. 삭제·유지·추가 기능 목록, 중복금액 조정, 검수 합격기준, 롤백 일정을 포함합니다. <strong>D-10.</strong></td></tr>
-        </tbody>
+                    </tbody>
     </table>
 
     <h2>
@@ -302,7 +300,7 @@
             <li><strong>소스 1</strong> 관세청 전자상거래 전용 REST API 명세서 v1.4.1 (<code>documents/</code>)</li>
             <li><strong>소스 2</strong> 개인통관고유부호_CI활용_기관.pdf, NICE [CI] 유효성 검증 API 가이드_20260724.pdf</li>
             <li><strong>소스 3</strong> 전자상거래전용 통관플랫폼 사업소개 v1.6, 전자상거래업자 간담회 안건</li>
-            <li><strong>소스 4</strong> 계약서, 추가개발 가견적서</li>
+            <li><strong>소스 4</strong> <s>계약서, 추가개발 가견적서</s> — 계약 3차 진행 중, 검증 범위에서 제외</li>
             <li><strong>소스 5</strong> planning_v5.html, api_field_mapping.html (본 기획 문서)</li>
         </ul>
     </div>
@@ -355,19 +353,6 @@
     </div>
 
     <div class="qbox">
-        <h4>C-4. 계약서 · 견적서 대상</h4>
-        <ol>
-            <li>계약 당사자 표기가 본문과 서명부에서 일치하는지 확인해줘.</li>
-            <li>조문 상호참조가 잘못된 곳을 전부 찾아줘 (특히 제14조가 인용하는 조항들).</li>
-            <li>지연배상 조항이 중복 규정된 곳이 있는지 확인해줘.</li>
-            <li>원계약 견적에 PER·NICE·CI·TRA 제출·결과조회·재제출·관리자 기능이 포함되어 있는지 항목별로 확인해줘.</li>
-            <li>추가견적서의 표지 금액과 상세 합계가 일치하는지 확인해줘.</li>
-            <li>원계약과 추가견적에서 중복 청구되는 기능이 있는지 대조해줘.</li>
-            <li>검수 기준·하자보증 기간·법령 변경 시 무상보완 범위가 어떻게 규정되어 있는지 정리해줘.</li>
-        </ol>
-    </div>
-
-    <div class="qbox">
         <h4>C-5. 교차 검증 (소스 전체)</h4>
         <ol>
             <li>planning_v5의 TRA001 필드 목록과 관세청 v1.4.1 규격을 대조해서, 누락된 필수 필드와 규격에 없는 필드를 각각 나열해줘.</li>
@@ -388,7 +373,7 @@
             <li><strong>C-1 관세청</strong> — 절반 정확. 체크디지트 알고리즘·계산 예시는 <u>정확</u>. 그러나 필드 스펙 오류 11건, <span class="rule-highlight">치명적 날조 2건</span>.</li>
             <li><strong>C-2 NICE</strong> — 대체로 정확. 다품목·통화·HS 4자리·CI 길이 불일치는 제 검증과 일치. 암복호화 KDF 입력값과 우편번호 조언은 오류.</li>
             <li><strong>C-3 사업소개</strong> — 계도기간 서술은 <u>유용</u>(신규 정보 포함). 단계적 적용 일정은 축약·누락. 거래유형 A 해석은 오류.</li>
-            <li><strong>C-4 계약·견적</strong> — <span class="rule-highlight">거의 전부 날조. 사용 금지.</span> 금액·공수·협상 이력이 실제 문서와 전혀 다릅니다.</li>
+            <li><strong>C-4 계약·견적</strong> — <span class="st-hold">검증 대상에서 제외</span>. 계약은 1·2차에 이어 <strong>3차가 진행 중</strong>이며 최신 계약서·견적서가 본 폴더에 없어 대조가 불가합니다. NotebookLM 답변의 금액·공수·협상 이력은 근거를 확인할 수 없으므로 <u>참고하지 않습니다</u>.</li>
             <li><strong>C-5 교차검증</strong> — 3사 불일치 표는 유용. 결론부의 "100% 완벽" · "개정 완료" 주장은 사실과 다름.</li>
         </ul>
     </div>
@@ -432,18 +417,6 @@
                 <td>"판매유형코드 <code>elcm_pcd: A</code> 화물의 통관목록(DKX) 유예가 1개월이며 이후 수입신고서(DKW)로 전환"</td>
                 <td><strong>다른 개념을 혼동.</strong> 간담회 원문은 <u>장애 시 기존 서식(GOVCBR936) 폴백</u>에서 "<u>거래유형</u> 항목 값을 A(전자상거래물품)로 제출, A 값은 오픈 후 1개월 유효, 이후 D(개인물품)". 판매유형코드 A(직접판매)와 무관</td>
                 <td>DKX→DKW 전환이라는 없는 과업이 생김</td>
-            </tr>
-            <tr>
-                <td><strong>C-4 #5</strong></td>
-                <td>"추가견적 직접인건비 <strong>11,692,535원</strong>, 총 <strong>36일</strong>, 합계 <strong>15,434,146원</strong>, 표지 <strong>15,400,000원</strong>, 정합성 완전 일치"</td>
-                <td><strong>실제 견적서 PDF 원문:</strong> 직접인건비 <strong>3,686,014원</strong> · 제경비 737,203원 · 기술료 442,322원 · 합계 <strong>4,865,538원</strong> · 표지 제안금액 <strong>4,800,000원</strong>. 공수는 기획 2일 + 개발 9일 = <strong>11일</strong>, 구축기간 2주, 투입 1명. 표지와 상세가 <u>65,538원 불일치</u></td>
-                <td>금액이 3배 이상 부풀려진 수치. 협상·정산에 쓰면 즉시 문제</td>
-            </tr>
-            <tr>
-                <td><strong>C-4 #1·#4·#6·#7</strong></td>
-                <td>"계약 당사자 완전 일치 보증" · "원계약 17,013,815원" · "중복 청구 2건 적발 및 감액 관철" · "관세법 제254조의2 개정"</td>
-                <td><strong>근거 없음.</strong> 계약서 PDF 본문은 제2조에서 업무 범위를 "첨부 견적서"로 위임할 뿐 기능 목록이 없음. 원계약 금액·협상 이력은 어떤 소스에도 없음. 관세법 조문은 <u>제254조</u>(제254조의2 아님)</td>
-                <td>있지도 않은 합의를 근거로 협상하게 됨</td>
             </tr>
             <tr>
                 <td><strong>C-1 #11 · C-3 #5</strong></td>
@@ -499,7 +472,6 @@
             <tr><td><strong>C-3 #1</strong></td><td>단계적 적용 일정에서 <strong>2028-02-01 전 국민 전면 적용</strong> 단계가 빠짐. 사업소개 v1.6 원문은 4구간: ①~26.8.15 통관정보 검증강화 ②26.8.15~26.12.31 신규·정보변경 국민 대상 <u>부분</u> 적용 ③27.1.1~28.1.31 생일 기준 <u>확대</u> ④28.2.1~ <u>전면</u> 적용. 검증체계 대상이 넓어질수록 Track B 비중이 커지므로 이 곡선이 핵심</td></tr>
             <tr><td><strong>C-1 #8 · C-3 #7</strong></td><td>제출 시간대 권고에서 간담회 원문의 구체 문구가 빠짐 — <span class="rule-highlight">"신고서 등의 제출이 많은 <u>9~18시를 제외한 시간</u>으로 거래정보 제출시간 분산 요청"</span>. 현재 배치가 10:00~11:00으로 이 구간 한복판</td></tr>
             <tr><td><strong>C-1 #10</strong></td><td>응답코드표에 <code>3141</code>(해지) · <code>3150</code>(유효기간 만료) · <code>3160</code>(정지) · <code>3190</code> · <code>3200</code> 및 공통코드 <code>1000/1600/1800/2000/2100</code> 누락</td></tr>
-            <tr><td><strong>C-4 #2·#3</strong></td><td>"소스 내 세부 조문 없음"이라고 답했으나 계약서 PDF는 <code>documents/</code>에 존재하며 제1~14조 본문을 포함. <strong>NotebookLM에 계약서가 업로드되지 않았거나 텍스트 추출에 실패한 것으로 보임</strong> — 재업로드 후 재질의 필요</td></tr>
         </tbody>
     </table>
 
@@ -509,6 +481,7 @@
     <table>
         <thead><tr><th>일자</th><th>내용</th></tr></thead>
         <tbody>
+            <tr><td>2026-08-10<br>(4차)</td><td>계약 섹션(R-30, C-4 질문·검증 블록) 제거 — 계약 1·2차에 이어 <strong>3차 진행 중</strong>이라 현 폴더 자료로는 대조 불가. 일정 정정: <strong>테스트 종료 2026-08-21</strong>, 오픈 2026-08-28 09:00. TRA002/TRA003 관계를 규격 원문으로 재확인하여 R-03 대응 방향 정정(성공/오류 이분법이 아니라 택일 관계이며 TRA002 선호출 시 TRA003 무력화). 자이언트 필수값(<code>sellerName</code> 등)을 planning_v5·api_field_mapping에 반영하고 각 문서에 개정이력 신설. 판매업체명 채널별 기재 규칙을 유형코드 문서와 planning_v5 참고 매트릭스에 정리.</td></tr>
             <tr><td>2026-08-10<br>(3차)</td><td><strong>NotebookLM 답변 검증(C-6 신설).</strong> 소스 원문 대조 결과 <u>치명적 오류 10건</u>(sale_ents_id 하드코딩 날조, TRA003 단일경로 조언, 30분 룰 오독, 견적금액 3배 부풀림, 계약 사실관계 날조, KDF 입력값 오류, 우편번호 패딩 조언, 거래유형 A 혼동, stat_sgn 삭제필드, 개인정보 "개정 완료" 허위), <u>필드 스펙 오류 12건</u>, <u>정확·채택 6건</u>, <u>보완 필요 4건</u>으로 분류. 채택 항목 중 <strong>계도기간이 신고서 제출일 기준</strong>이라는 점과 <strong>8차 정기협의회 Q&amp;A(일회용 부호와 PCCC는 N:1, 둘 중 무엇을 적어도 통관 무방)</strong>는 신규 확보 정보 — 후자는 원문 미보유로 확인 필요.</td></tr>
             <tr><td>2026-08-10<br>(2차)</td><td><strong>지시 반영 및 자이언트 API 전수 재확인.</strong> R-01(OTP 앞 2자리) — NICE 경유 구조에서는 해당하지 않으며 인증 모달 기구현 확인, <strong>해결</strong>. R-02/D-01 — 관세청 신고금액은 <strong>동수 ERP USD 단가</strong>로 확정. R-05/D-05 — <code>PATCH /api/hwb/:hwbNo</code> 수정 API 존재 확인, <strong>해결</strong>. R-06/D-04 — 자이언트 <code>hsCode</code> 전송으로 확정. R-07 — HWB 검색 응답에 <code>mwbNo</code> 포함 확인, <strong>해결</strong>. R-29/D-03 — 협력인정업체 CI 인증(NICE 앱 추가 개발)은 <strong>보류·대기</strong>. 컬렉션 원본 JSON 기준 요청 7개 전수 등재(A-5 신설). 1차 검토의 "요청 4개·수정 API 없음" 기재를 정정.</td></tr>
             <tr><td>2026-08-10</td><td>최초 작성. 관세청 v1.4.1 · NICE CI 가이드 · NICE 통합인증 · 자이언트 GGATE v1.3.5 전수 대조. 리스크 30건, 결정사항 12건, 질의 41건 정리. 기존 <code>00_자료안내</code>·<code>90_재평가결과</code>·<code>99_외부수집원본</code> 폴더의 검토 내용을 본 문서로 통합하고 폴더는 정리함.</td></tr>

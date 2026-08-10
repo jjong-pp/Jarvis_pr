@@ -173,6 +173,84 @@
     </table>
     <p>이 URL 매핑은 별도 엑셀(CSV) 파일로 관리하며, 채널 추가 시 해당 엑셀에 스토어 코드와 대표 URL을 등록하여 동수 WMS 채널코드 기반 자동 매핑에 활용한다.</p>
 
+    <h2>5. 판매업체명 기재 규칙 (sale_ents_nm / sellerName) <span style="background:#fff3cd;color:#856404;padding:2px 6px;border-radius:3px;font-size:13px;font-weight:bold;">[2026-08-10 신설]</span></h2>
+    <p><strong>배경:</strong> Geek은 자사몰(A유형) 데이터만 보유한다. 반면 동수 EIBE ERP는 자사몰과 입점 채널을 모두 수집하므로
+    <strong>A유형과 B유형을 동시에 대응해야 하는 유일한 주체</strong>이다. 따라서 입점 채널의 판매업체명은 동수가 채널코드 기준으로 내려주어야 한다.</p>
+    <p><strong>규격 차이가 핵심이다.</strong> 관세청은 A(직접판매)일 때만 필수지만, 자이언트는 A·B 구분 없이 항상 필수다.
+    즉 관세청 기준으로는 생략 가능한 B유형도 <span style="background:#fff3cd;color:#856404;padding:1px 5px;border-radius:3px;font-weight:bold;">자이언트에 값이 없으면 HWB 등록이 거부</span>된다.</p>
+    <table>
+        <thead>
+            <tr><th>구분</th><th>관세청 <code>sale_ents_nm</code></th><th>자이언트 <code>items[].sellerName</code></th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>필수 여부</td>
+                <td><strong>A 직접판매인 경우 필수</strong> (B·C는 선택)</td>
+                <td><strong>A·B·C 무관 항상 필수 (Y)</strong></td>
+            </tr>
+            <tr>
+                <td>값의 정의</td>
+                <td>A: 상품 판매 페이지에 표시되는 판매업체명<br>B: 구매대행업자가 상품을 구매한 판매업체명<br>C: 고객이 입력한 판매업체명</td>
+                <td>판매 채널 상호명 (가이드 예시값 <code>TAOBAO SHOP</code>)</td>
+            </tr>
+            <tr>
+                <td>규격</td>
+                <td>String(250)</td>
+                <td>String(300)</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>5.1 채널별 기재값 및 채움 주체</h3>
+    <table>
+        <thead>
+            <tr><th>채널</th><th>elcm_pcd</th><th>sale_ents_nm / sellerName 값</th><th>채움 주체</th><th>비고</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>크로네 자사몰</td>
+                <td>A (직접판매)</td>
+                <td><strong>(주)크로네</strong></td>
+                <td>Geek 고정 주입</td>
+                <td>관세청·자이언트 모두 필수. 값 확정 필요 (아래 5.3)</td>
+            </tr>
+            <tr>
+                <td>네이버 브랜드스토어 (아이베 운영)</td>
+                <td>B (구매대행)</td>
+                <td>실제 구매한 <strong>해외 판매업체명</strong></td>
+                <td><strong>동수 EIBE ERP</strong> (채널DB)</td>
+                <td>관세청은 선택이나 자이언트는 필수 → 누락 시 HWB 등록 거부</td>
+            </tr>
+            <tr>
+                <td>기타 외부 쇼핑몰 (28개 채널)</td>
+                <td>B (구매대행)</td>
+                <td>실제 구매한 <strong>해외 판매업체명</strong></td>
+                <td><strong>동수 EIBE ERP</strong> (채널DB)</td>
+                <td>동일</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>5.2 운영 원칙</h3>
+    <ul>
+        <li>관세청 <code>sale_ents_nm</code>과 자이언트 <code>sellerName</code>은 <strong>동일 값으로 통일</strong>한다. 두 값이 다르면 3사 데이터 대사가 불가능해진다.</li>
+        <li>A유형은 Geek이 고정 주입하고, B유형은 10:00 역수집 응답에 동수가 채널코드 기반으로 실어 내려준다. <code>store_url_mapping.csv</code>와 같은 방식으로 <strong>채널 → 판매업체명 매핑표</strong>를 별도 관리한다.</li>
+        <li>종전 문서의 "판매업체명·판매업체부호는 선택 항목이므로 전건 Null 통일" 지침은 <strong>폐기</strong>한다. A유형 관세청 필수 조건과 자이언트 전건 필수 조건을 모두 위반하기 때문이다.</li>
+        <li>판매업체부호 <code>sale_ents_sgn</code> / <code>sellerCode</code>는 성격이 다르다. 관세청 규격은 "판매업체가 관세청에 전자상거래업자로 <u>등록되어 있는 경우에만</u> 제출"이므로, 등록 부호가 있을 때만 기재하고 없으면 미입력한다. 해외 판매처는 통상 미등록이므로 B유형은 미입력이 원칙이다.</li>
+    </ul>
+    <h3>5.3 미확정 사항</h3>
+    <ul>
+        <li>A유형(자사몰) 판매업체명을 <strong>"(주)크로네"</strong>로 할지 <strong>"뉴트리시아몰"</strong>로 할지 확정이 필요하다. 실제 TRA001 전송 JSON에는 제출자명(<code>elcm_ents_nm</code>)이 "뉴트리시아몰"로 들어가 있었다. 관세청 등록 상호와 상품 판매 페이지의 판매자 표기를 확인해 통일한다.</li>
+        <li>B유형 해외 판매업체명의 표기 언어(원문 / 영문 / 한글)와 특수문자 처리 기준을 동수와 합의해야 한다. 상품명에서 이미 <code>*</code> 등 특수문자 이슈가 있었다.</li>
+    </ul>
+
+    <h2>[개정 이력]</h2>
+    <table>
+        <thead><tr><th>일자</th><th>변경 내용</th></tr></thead>
+        <tbody>
+            <tr><td>2026-08-10</td><td><strong>1절 A/B 정의 역전 정정.</strong> 종전 문서는 A=구매대행, B=직접판매로 기재되어 있어 같은 문서 3절 매트릭스 및 관세청 v1.4.1 규격과 모순되었다. 관세청 기준 <strong>A=직접판매, B=구매대행, C=배송대행</strong>으로 바로잡았다.</td></tr>
+            <tr><td>2026-08-10</td><td><strong>5절 판매업체명 기재 규칙 신설.</strong> 관세청은 A유형만 필수이나 자이언트는 전건 필수라는 규격 차이를 반영하고, 동수가 A·B 양쪽을 대응하는 주체이므로 B유형 값을 동수 채널DB에서 수신하도록 정리했다. 종전 "전건 Null 통일" 지침은 폐기.</td></tr>
+        </tbody>
+    </table>
+
 </div>
 </body>
 </html>

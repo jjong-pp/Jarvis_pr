@@ -173,6 +173,52 @@
     </table>
     <p>此URL映射以单独的Excel(CSV)文件管理，新增渠道时在该Excel中登记商城代码和代表URL，用于基于东数(Dongsu)WMS渠道代码的自动映射。</p>
 
+    <h2>5. 销售企业名称填写规则 (sale_ents_nm / sellerName) <span style="background:#fff3cd;color:#856404;padding:2px 6px;border-radius:3px;font-size:13px;font-weight:bold;">[2026-08-10 新增]</span></h2>
+    <p><strong>背景：</strong>Geek 仅掌握自营商城(A类型)数据，而东数 EIBE ERP 同时采集自营商城与各入驻渠道订单，
+    是<strong>唯一需要同时应对 A 类型与 B 类型的主体</strong>。因此入驻渠道的销售企业名称必须由东数依据渠道代码提供。</p>
+    <p><strong>关键在于规格差异。</strong>韩国关税厅仅在 A(直接销售)时要求必填，而捷安特(GIANT)不区分 A/B 一律必填。
+    也就是说，关税厅可以省略的 B 类型，<span style="background:#fff3cd;color:#856404;padding:1px 5px;border-radius:3px;font-weight:bold;">在捷安特若无值则 HWB 登记会被拒绝</span>。</p>
+    <table>
+        <thead>
+            <tr><th>区分</th><th>关税厅 <code>sale_ents_nm</code></th><th>捷安特 <code>items[].sellerName</code></th></tr>
+        </thead>
+        <tbody>
+            <tr><td>是否必填</td><td><strong>A 直接销售时必填</strong>（B·C 为选填）</td><td><strong>A·B·C 一律必填 (Y)</strong></td></tr>
+            <tr><td>取值定义</td><td>A：商品销售页面显示的销售企业名称<br>B：代购业者实际购买的销售企业名称<br>C：客户输入的销售企业名称</td><td>销售渠道商号（指南示例值 <code>TAOBAO SHOP</code>）</td></tr>
+            <tr><td>规格</td><td>String(250)</td><td>String(300)</td></tr>
+        </tbody>
+    </table>
+    <h3>5.1 各渠道填写值与提供主体</h3>
+    <table>
+        <thead><tr><th>渠道</th><th>elcm_pcd</th><th>sale_ents_nm / sellerName 取值</th><th>提供主体</th><th>备注</th></tr></thead>
+        <tbody>
+            <tr><td>KRONE 自营商城</td><td>A（直接销售）</td><td><strong>(株)KRONE</strong></td><td>Geek 固定注入</td><td>关税厅与捷安特均必填。取值待确认（见 5.3）</td></tr>
+            <tr><td>Naver 品牌商城（AIBE 运营）</td><td>B（代购）</td><td>实际购买的<strong>海外销售企业名称</strong></td><td><strong>东数 EIBE ERP</strong>（渠道DB）</td><td>关税厅为选填但捷安特必填 → 缺失将导致 HWB 登记被拒</td></tr>
+            <tr><td>其他外部商城（28个渠道）</td><td>B（代购）</td><td>实际购买的<strong>海外销售企业名称</strong></td><td><strong>东数 EIBE ERP</strong>（渠道DB）</td><td>同上</td></tr>
+        </tbody>
+    </table>
+    <h3>5.2 运营原则</h3>
+    <ul>
+        <li>关税厅 <code>sale_ents_nm</code> 与捷安特 <code>sellerName</code> <strong>必须统一为同一取值</strong>，否则三方数据无法核对。</li>
+        <li>A 类型由 Geek 固定注入；B 类型由东数在 10:00 回采响应中依据渠道代码提供。参照 <code>store_url_mapping.csv</code> 方式，单独维护<strong>渠道 → 销售企业名称映射表</strong>。</li>
+        <li>旧版"销售企业名称与销售企业代码为选填项，故全部填 Null 统一处理"的方针<strong>予以废止</strong>，因其同时违反关税厅 A 类型必填条件与捷安特全量必填条件。</li>
+        <li>销售企业代码 <code>sale_ents_sgn</code> / <code>sellerCode</code> 性质不同。关税厅规格为"仅在销售企业已在关税厅登记为电子商务经营者时提交"，故仅在持有登记代码时填写。海外销售方通常未登记，B 类型原则上不填。</li>
+    </ul>
+    <h3>5.3 待确认事项</h3>
+    <ul>
+        <li>A 类型（自营商城）销售企业名称应填 <strong>"(株)KRONE"</strong> 还是 <strong>"Nutricia Mall"</strong> 需确认。实际 TRA001 发送 JSON 中提交者名称(<code>elcm_ents_nm</code>)为"Nutricia Mall"。需核对关税厅登记商号与商品销售页面的卖家标示后统一。</li>
+        <li>B 类型海外销售企业名称的标示语言（原文／英文／韩文）及特殊字符处理基准需与东数协商。商品名称已出现过 <code>*</code> 等特殊字符问题。</li>
+    </ul>
+
+    <h2>[修订履历]</h2>
+    <table>
+        <thead><tr><th>日期</th><th>变更内容</th></tr></thead>
+        <tbody>
+            <tr><td>2026-08-10</td><td><strong>更正第1节 A/B 定义颠倒。</strong>旧版记载为 A=代购、B=直接销售，与同一文件第3节矩阵及关税厅 v1.4.1 规格矛盾。已按关税厅标准更正为 <strong>A=直接销售、B=代购、C=配送代行</strong>。</td></tr>
+            <tr><td>2026-08-10</td><td><strong>新增第5节 销售企业名称填写规则。</strong>反映关税厅仅 A 类型必填而捷安特全量必填的规格差异；因东数是同时应对 A·B 的主体，B 类型取值由东数渠道DB提供。废止旧版"全部填 Null"方针。</td></tr>
+        </tbody>
+    </table>
+
 </div>
 </body>
 </html>

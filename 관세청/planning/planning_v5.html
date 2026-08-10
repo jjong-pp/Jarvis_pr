@@ -298,13 +298,13 @@ sequenceDiagram
         <p><strong>상세 전송 및 처리 로직:</strong></p>
         <ul>
             <li><strong>처리기준:</strong> 11:50 TRA003 오류 조회 후 성공건만 자이언트로 PER 통관 정보 송출, 실패건은 <code>p1</code> 원복 및 동수 EIBE ERP 주문 삭제 API 단건 호출.</li>
-            <li><strong>[검증 결과 · 미결] TRA003 단독 판정의 한계:</strong> v1.4.1 [붙임1]에 따르면 TRA003은 <u>한 번도 조회하지 않은</u> 오류만 응답합니다. ⓐ TRA002로 이미 정상 조회한 제출번호는 TRA003에 나오지 않고, ⓑ TRA003으로 한 번 조회한 제출번호는 재호출해도 나오지 않으며, ⓒ 거래정보오류건수(<code>txif_rgsr_err_cnt</code>)가 0이어도 상품정보 개별 오류가 존재할 수 있습니다. 따라서 <span class="rule-highlight">"TRA003에 없음 = 승인"은 거짓 양성(false positive)을 만듭니다.</span> 권위 있는 판정은 <code>TRA002 GET /v1/transactions/results/{txif_sbmt_no}</code>의 <code>txif_prcs_stcd</code>(01 등록완료 / 02 부분오류반려 / 03 전체오류반려)입니다. 아래 표에 TRA002 항목을 <strong>도입 검토용</strong>으로 병기합니다. 실제 배치 반영 여부는 <a href="./risk_list.html">risk_list.html</a>의 <strong>R-03 / D-07</strong> 결정 후 확정합니다.</li>
+            <li><strong>[검증 결과 · 미결] TRA003 단독 판정의 한계:</strong> v1.4.1 [붙임1]에 따르면 TRA003은 <u>한 번도 조회하지 않은</u> 오류만 응답합니다. ⓐ TRA002로 이미 정상 조회한 제출번호는 TRA003에 나오지 않고, ⓑ TRA003으로 한 번 조회한 제출번호는 재호출해도 나오지 않으며, ⓒ 거래정보오류건수(<code>txif_rgsr_err_cnt</code>)가 0이어도 상품정보 개별 오류가 존재할 수 있습니다. 따라서 <span class="rule-highlight">"TRA003에 없음 = 승인"은 거짓 양성(false positive)을 만듭니다.</span> 권위 있는 판정은 <code>TRA002 GET /v1/transactions/results/{txif_sbmt_no}</code>의 <code>txif_prcs_stcd</code>(01 등록완료 / 02 부분오류반려 / 03 전체오류반려)입니다. <span class="rule-highlight">[2026-08-10 규격 재확인]</span> "성공은 TRA002, 오류는 TRA003"이라는 분류는 규격에 없습니다. TRA002 하나가 성공·부분오류·전체반려를 모두 반환하며(<code>txif_prcs_stcd</code> + <code>errors[]</code>), TRA003은 [붙임1]상 <u>"TRA002 호출을 최소화하고 편의성을 제공하기 위한"</u> 보조 API이고 규격 문구도 "TRA002 <u>또는</u> TRA003"으로 <strong>택일</strong>입니다. <strong>TRA002를 먼저 호출한 제출번호는 TRA003에 나오지 않으므로 두 API를 순차로 부르면 TRA003은 항상 빈 값입니다.</strong> 권장 구성은 ① 제출 건마다 TRA002 1회 → <code>txif_prcs_stcd</code>로 01/02/03 분기, ② TRA003은 TRA002 누락분을 잡는 안전망(별도 스케줄), ③ <code>txif_rgsr_err_cnt</code>=0이어도 <code>errors[]</code> 확인. 반영 여부는 <a href="./risk_list.html">risk_list.html</a>의 <strong>R-03 / D-07</strong> 결정 후 확정합니다.</li>
         </ul>
     </div>
     <table>
         <thead><tr><th>API 구분</th><th>필드명(코드)</th><th>한글 필드명</th><th>타입</th><th>필수</th><th>데이터 채움 출처</th><th>자사몰 실제 데이터 값</th><th>상세설명 및 처리 로직</th></tr></thead>
         <tbody>
-            <tr><td><span class="api-tag api-tra1">TRA002</span></td><td><code>txif_prcs_stcd</code></td><td>거래정보 처리상태코드</td><td>String(2)</td><td><span class="badge req-n">N</span></td><td class="src-kcs">관세청 응답</td><td>01 / 02 / 03</td><td><span class="rule-highlight">도입 검토 (D-07)</span> 01 등록완료 · 02 부분오류반려 · 03 전체오류반려. 승인/실패 판정의 권위 있는 기준</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA002</span></td><td><code>txif_prcs_stcd</code></td><td>거래정보 처리상태코드</td><td>String(2)</td><td><span class="badge req-n">N</span></td><td class="src-kcs">관세청 응답</td><td>01 / 02 / 03</td><td><span class="rule-highlight">도입 검토 (D-07)</span> 01 등록완료 · 02 부분오류반려 · 03 전체오류반려. <strong>이 한 필드로 성공·부분오류·전체반려가 모두 판정</strong>되며, 특정 제출번호의 결과를 알 수 있는 유일한 수단</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA002</span></td><td><code>txif_rgsr_cnt</code></td><td>거래정보 등록건수</td><td>Integer(10)</td><td><span class="badge req-n">N</span></td><td class="src-kcs">관세청 응답</td><td>정상 접수된 주문정보 건수</td><td>제출건수와 대조하여 부분 접수 여부 확인</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA002</span></td><td><code>txif_rgsr_err_cnt</code></td><td>거래정보 오류건수</td><td>Integer(10)</td><td><span class="badge req-n">N</span></td><td class="src-kcs">관세청 응답</td><td>오류 주문정보 건수</td><td><span class="rule-highlight">0이어도 상품 개별 오류가 존재할 수 있으므로 errors 배열을 반드시 확인</span></td></tr>
             <tr><td><span class="api-tag api-tra1">TRA002</span></td><td><code>errors[].hbl_no</code></td><td>오류 운송장번호</td><td>String(20)</td><td><span class="badge req-n">N</span></td><td class="src-kcs">관세청 응답</td><td>오류 발생 HBL</td><td>주문정보 단위 오류 식별</td></tr>
@@ -409,7 +409,7 @@ sequenceDiagram
                 <th style="width:14%">제출자 부호 (elcm_ents_sgn)</th>
                 <th style="width:16%">구매대행업체 부호 (puch_vcex_bsmn_sgn)</th>
                 <th style="width:16%">구매대행업체 상호 (puch_vcex_bsmn_nm)</th>
-                <th style="width:26%">상품 판매 URL (prod_sale_pge_url)</th>
+                <th style="width:15%">판매업체명 (sale_ents_nm)</th><th style="width:13%">자이언트 (sellerName)</th><th style="width:18%">상품 판매 URL (prod_sale_pge_url)</th>
             </tr>
         </thead>
         <tbody>
@@ -419,7 +419,7 @@ sequenceDiagram
                 <td><code>K26000099</code> ((주)크로네)</td>
                 <td><span class="rule-highlight">Null (생략)</span></td>
                 <td><span class="rule-highlight">Null (생략)</span></td>
-                <td><code>https://nutriciastore.co.kr/</code></td>
+                <td><strong>(주)크로네</strong><br><span class="badge req-c">C</span> A유형 필수</td><td><strong>(주)크로네</strong><br><span class="badge req-y">Y</span> 항상 필수</td><td><code>https://nutriciastore.co.kr/</code></td>
             </tr>
             <tr>
                 <td><strong>네이버 브랜드스토어</strong> (아이베 운영)</td>
@@ -427,7 +427,7 @@ sequenceDiagram
                 <td><code>K26000099</code> ((주)크로네)</td>
                 <td><code>K26014765</code></td>
                 <td>(주)아이베</td>
-                <td><code>https://brand.naver.com/nutricia</code></td>
+                <td>구매대행으로 <u>실제 구매한 해외 판매업체명</u><br><span class="badge req-n">N</span> B유형은 선택</td><td>동일 값<br><span class="badge req-y">Y</span> 항상 필수</td><td><code>https://brand.naver.com/nutricia</code></td>
             </tr>
             <tr>
                 <td><strong>기타 외부 쇼핑몰 (28개 채널)</strong><br><small>(지마켓, 옥션, 11번가, 쿠팡, SSG 등)</small></td>
@@ -435,10 +435,22 @@ sequenceDiagram
                 <td><code>K26000099</code> ((주)크로네)</td>
                 <td><code>K26000099</code></td>
                 <td>(주)크로네</td>
-                <td>스토어별 대표 도메인 URL<br><small>(store_url_mapping.csv 참조)</small></td>
+                <td>구매대행으로 <u>실제 구매한 해외 판매업체명</u><br><span class="badge req-n">N</span> B유형은 선택</td><td>동일 값<br><span class="badge req-y">Y</span> 항상 필수</td><td>스토어별 대표 도메인 URL<br><small>(store_url_mapping.csv 참조)</small></td>
             </tr>
         </tbody>
     </table>
+    <div class="stage-box">
+        <p><strong>[2026-08-10 추가] 판매업체명 채널별 기재 규칙 — 동수 전달 시 유의</strong></p>
+        <ul>
+            <li><strong>왜 동수가 채워야 하는가:</strong> Geek은 자사몰(A유형) 데이터만 보유합니다. 반면 동수 EIBE ERP는 자사몰과 입점 채널 29개를 모두 수집하므로 <u>A유형과 B유형을 동시에 대응해야 하는 유일한 주체</u>입니다. 따라서 B유형 채널의 판매업체명은 동수가 채널코드 기준으로 내려주어야 합니다.</li>
+            <li><strong>관세청 규격:</strong> <code>sale_ents_nm</code>은 <span class="rule-highlight">A 직접판매인 경우 필수</span>이며, 유형별 의미가 다릅니다. A는 "상품 판매 페이지에 표시되는 판매업체명", B는 "구매대행업자가 상품을 구매한 판매업체명"(= 해외 판매처), C는 "고객이 입력한 판매업체명".</li>
+            <li><strong>자이언트 규격:</strong> <code>items[].sellerName</code>은 <span class="rule-highlight">A·B 구분 없이 항상 필수(Y)</span>입니다(GGATE v1.3.5, 예시값 <code>TAOBAO SHOP</code>). 즉 관세청에서는 선택인 B유형도 자이언트에는 값이 반드시 있어야 하므로, <strong>B 채널의 판매업체명 누락 시 HWB 등록이 거부</strong>됩니다.</li>
+            <li><strong>운영 규칙:</strong> 관세청 <code>sale_ents_nm</code>과 자이언트 <code>sellerName</code>은 <u>동일 값으로 통일</u>합니다. A유형은 Geek 고정 주입, B유형은 동수 WMS 채널DB에서 수신합니다.</li>
+            <li><strong>미확정:</strong> A유형 값을 "(주)크로네"로 할지 "뉴트리시아몰"로 할지는 관세청 등록 상호와 상품 판매 페이지 표기를 확인해 확정해야 합니다(risk_list R-22). 실제 TRA001 전송 JSON에는 <code>elcm_ents_nm</code>이 "뉴트리시아몰"로 들어가 있었습니다.</li>
+            <li>부호 체계 전반은 <a href="./유형코드_부호체계_정리.html">유형코드_부호체계_정리.html</a> 참조.</li>
+        </ul>
+    </div>
+
 
     <div style="background:#f8f9fa; padding:15px; border:1px solid #ddd; border-radius:4px; font-size:13px;">
         <strong>[공통 적용 원칙]</strong><br>
