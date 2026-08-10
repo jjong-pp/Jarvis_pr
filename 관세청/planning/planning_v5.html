@@ -147,6 +147,18 @@ sequenceDiagram
     <!-- Stage 1 ~ Stage 7 상세 처리 로직 및 자사몰 메인 데이터 필드 명세 -->
     <!-- ================================================================= -->
 
+    <div style="background:#fff4e5; padding:18px 22px; border-left:5px solid #e8710a; margin-bottom:25px; border-radius:4px; font-size:13.5px; line-height:1.8;">
+        <strong style="font-size:15px;">[적용 일정]</strong> <span style="color:#888;">2026-08-10 기준</span><br>
+        <table style="margin:10px 0 0 0; width:auto; font-size:13px;">
+            <thead><tr><th style="padding:6px 14px;">일자</th><th style="padding:6px 14px;">내용</th><th style="padding:6px 14px;">본 기획서와의 관계</th></tr></thead>
+            <tbody>
+                <tr><td style="padding:6px 14px;"><strong>2026-08-21</strong></td><td style="padding:6px 14px;">관세청 테스트 서버 이용 종료</td><td style="padding:6px 14px;">이 날까지 PER·TRA 전 분기 검증 완료 필요</td></tr>
+                <tr><td style="padding:6px 14px;"><strong>2026-08-28 09:00</strong></td><td style="padding:6px 14px;"><strong>자사몰 오픈 (운영 적용)</strong></td><td style="padding:6px 14px;"><span class="rule-highlight">이 시각 이후 결제 완료된 주문만 본 E2E 프로세스 대상</span>. 이전 주문은 기존 통관 방식 유지. 동수 API 조회 대상 필터의 기준 일시를 <strong>2026-08-28 09:00</strong>으로 설정</td></tr>
+                <tr><td style="padding:6px 14px;"><strong>2026-09-14 24:00</strong></td><td style="padding:6px 14px;">일회용 인증번호 계도기간 종료</td><td style="padding:6px 14px;"><code>Z99999</code> 임시 코드 사용 종료. 적용 기준은 주문일이 아니라 <u>세관에 수입신고서·통관목록이 제출되는 날짜</u></td></tr>
+            </tbody>
+        </table>
+    </div>
+
     <h2>
         <span>Stage 1. 결제 시점 PER001 개인통관고유부호 사전 유효성 검증</span>
         <span class="time-tag">고객 결제 순간 (실시간)</span>
@@ -192,6 +204,8 @@ sequenceDiagram
                 2. 자사몰(Geek)은 수집 요청을 수신하는 즉시 해당 주문 상태를 <code>g1</code>(상품준비중)으로 변경함.<br>
                 3. <code>g1</code> 상태부터는 마이페이지 "취소/환불" 버튼이 자동 비활성화되어 고객 직접 취소가 불가능해짐.
             </li>
+        
+            <li style="background:#e6f4ea; border-left:3px solid #137333; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[동수 확인사항 · 2026-08-10 추가]</strong> 동수 EIBE ERP가 <code>p1</code>(결제완료) 주문을 수집할 때 <strong>2026-08-28 09:00 이후 결제 건만</strong> 대상으로 필터링해야 함. 그 이전 주문이 섞이면 기존 통관 방식과 충돌함. 수집 직후 <code>g1</code>로 상태를 되돌려주는 응답이 누락되면 마이페이지 취소가 열린 채로 남으므로 응답 확인 필요.</li>
         </ul>
     </div>
     <table>
@@ -226,6 +240,8 @@ sequenceDiagram
                 - <code>prod_sale_pge_url</code> (상품 URL): 자사몰 대표 도메인 <code>https://nutriciastore.co.kr/</code> 주입<br>
                 3. <strong>100건 청크 전송:</strong> 관세청 REST API 규격에 맞춰 100건 단위로 청크를 구성하여 <code>TRA001</code> 사전 제출을 전송함.
             </li>
+        
+            <li style="background:#e6f4ea; border-left:3px solid #137333; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[동수 확인사항 · 2026-08-10 추가]</strong> 이 단계가 <strong>동수 의존도가 가장 높은 구간</strong>임. 동수가 반드시 내려주어야 하는 값: <code>hbl_no</code>(가채번) · 중량 · <code>hsCode</code> · <code>prod_srno</code>(HBL 내 1부터 연속) · 상품명(특수문자 제거된 DB 고정값) · <code>prod_sale_pge_url</code>(채널코드 기반) · <strong><code>sale_ents_nm</code>(B유형 입점채널의 해외 판매업체명)</strong> · USD 단가. <span class="rule-highlight">특이사항</span> ① 상품명에 <code>*</code> 등 특수문자가 있으면 <code>x</code>로 치환 후 전달 ② 1 HBL당 상품이 6개 이상인 경우 처리 방식 미정(관세청 규격은 999개까지 허용하나 현행 채번은 1~5) ③ B유형 판매업체명이 비면 자이언트 HWB 등록이 거부되므로 <u>Null 허용 불가</u>.</li>
         </ul>
     </div>
     <table>
@@ -298,13 +314,37 @@ sequenceDiagram
         <p><strong>상세 전송 및 처리 로직:</strong></p>
         <ul>
             <li><strong>처리기준:</strong> 11:50 TRA003 오류 조회 후 성공건만 자이언트로 PER 통관 정보 송출, 실패건은 <code>p1</code> 원복 및 동수 EIBE ERP 주문 삭제 API 단건 호출.</li>
-            <li><strong>[검증 결과 · 미결] TRA003 단독 판정의 한계:</strong> v1.4.1 [붙임1]에 따르면 TRA003은 <u>한 번도 조회하지 않은</u> 오류만 응답합니다. ⓐ TRA002로 이미 정상 조회한 제출번호는 TRA003에 나오지 않고, ⓑ TRA003으로 한 번 조회한 제출번호는 재호출해도 나오지 않으며, ⓒ 거래정보오류건수(<code>txif_rgsr_err_cnt</code>)가 0이어도 상품정보 개별 오류가 존재할 수 있습니다. 따라서 <span class="rule-highlight">"TRA003에 없음 = 승인"은 거짓 양성(false positive)을 만듭니다.</span> 권위 있는 판정은 <code>TRA002 GET /v1/transactions/results/{txif_sbmt_no}</code>의 <code>txif_prcs_stcd</code>(01 등록완료 / 02 부분오류반려 / 03 전체오류반려)입니다. <span class="rule-highlight">[2026-08-10 규격 재확인]</span> "성공은 TRA002, 오류는 TRA003"이라는 분류는 규격에 없습니다. TRA002 하나가 성공·부분오류·전체반려를 모두 반환하며(<code>txif_prcs_stcd</code> + <code>errors[]</code>), TRA003은 [붙임1]상 <u>"TRA002 호출을 최소화하고 편의성을 제공하기 위한"</u> 보조 API이고 규격 문구도 "TRA002 <u>또는</u> TRA003"으로 <strong>택일</strong>입니다. <strong>TRA002를 먼저 호출한 제출번호는 TRA003에 나오지 않으므로 두 API를 순차로 부르면 TRA003은 항상 빈 값입니다.</strong> 권장 구성은 ① 제출 건마다 TRA002 1회 → <code>txif_prcs_stcd</code>로 01/02/03 분기, ② TRA003은 TRA002 누락분을 잡는 안전망(별도 스케줄), ③ <code>txif_rgsr_err_cnt</code>=0이어도 <code>errors[]</code> 확인. 반영 여부는 <a href="./risk_list.html">risk_list.html</a>의 <strong>R-03 / D-07</strong> 결정 후 확정합니다.</li>
+            <li><strong>[검증 결과 · 미결] TRA003 단독 판정의 한계:</strong> v1.4.1 [붙임1]에 따르면 TRA003은 <u>한 번도 조회하지 않은</u> 오류만 응답합니다. ⓐ TRA002로 이미 정상 조회한 제출번호는 TRA003에 나오지 않고, ⓑ TRA003으로 한 번 조회한 제출번호는 재호출해도 나오지 않으며, ⓒ 거래정보오류건수(<code>txif_rgsr_err_cnt</code>)가 0이어도 상품정보 개별 오류가 존재할 수 있습니다. 따라서 <span class="rule-highlight">"TRA003에 없음 = 승인"은 거짓 양성(false positive)을 만듭니다.</span> 권위 있는 판정은 <code>TRA002 GET /v1/transactions/results/{txif_sbmt_no}</code>의 <code>txif_prcs_stcd</code>(01 등록완료 / 02 부분오류반려 / 03 전체오류반려)입니다. <span class="rule-highlight">[2026-08-10 규격 재확인]</span> "성공은 TRA002, 오류는 TRA003"이라는 분류는 규격에 없습니다. TRA002 하나가 성공·부분오류·전체반려를 모두 반환하며(<code>txif_prcs_stcd</code> + <code>errors[]</code>), TRA003은 [붙임1]상 <u>"TRA002 호출을 최소화하고 편의성을 제공하기 위한"</u> 보조 API이고 규격 문구도 "TRA002 <u>또는</u> TRA003"으로 <strong>택일</strong>입니다. <strong>TRA002를 먼저 호출한 제출번호는 TRA003에 나오지 않으므로 두 API를 순차로 부르면 TRA003은 항상 빈 값입니다.</strong> 권장 구성은 ① 제출 건마다 TRA002 1회 → <code>txif_prcs_stcd</code>로 01/02/03 분기, ② TRA003은 TRA002 누락분을 잡는 안전망(별도 스케줄), ③ <code>txif_rgsr_err_cnt</code>=0이어도 <code>errors[]</code> 확인. 반영 여부는 <a href="./risk_list.html">risk_list.html</a>의 TRA002 도입 항목 결정 후 확정합니다.</li>
+        
+            <li style="background:#e6f4ea; border-left:3px solid #137333; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[동수 확인사항 · 2026-08-10 추가]</strong> 오류 발생 건은 동수 EIBE ERP 주문 삭제 API를 <strong>단건</strong>으로 호출함(<code>customerOrderNo</code> 기준). <span class="rule-highlight">특이사항</span> 재제출 시 <code>ord_no</code>와 <code>hbl_no</code>는 <u>유지</u>하고 <code>txif_sbmt_no</code>만 신규 채번하므로, 동수 측에서 HBL을 새로 채번할 필요가 없음. 다만 HBL 자체가 오류 원인인 경우에만 재등록함.</li>
         </ul>
+    </div>
+    <div style="background:#f8faff; border:1px solid #d2e3fc; border-left:5px solid #1a73e8; padding:18px 22px; margin-bottom:20px; border-radius:4px;">
+        <p style="margin:0 0 10px 0; font-size:14px;"><strong>[2026-08-10 추가] TRA002 기반 판정 — 구체적 구현 방법</strong></p>
+        <p style="margin:0 0 10px 0; font-size:13.5px;">TRA003만으로 승인 여부를 판정할 수 없는 이유와 대안을 실행 단위로 정리함. 도입 여부는 <a href="./risk_list.html">risk_list.html</a>의 TRA002 도입 항목에서 결정.</p>
+        <ol style="font-size:13.5px; padding-left:20px; margin:0 0 12px 0;">
+            <li><strong>제출번호 큐 적재</strong> — TRA001을 1회 호출할 때마다 반환된 <code>txif_sbmt_no</code>를 판정 대기 큐에 1건 적재함. 규격상 "TRA001을 호출한 건수만큼 TRA002를 호출"하므로 <strong>제출 1건 : 조회 1건</strong>으로 대응됨.</li>
+            <li><strong>대기 후 첫 조회</strong> — 검증은 제출 즉시 시작되나 완료까지 시간이 걸림. 제출 직후 조회하면 대부분 <code>3030</code>이 반환되므로 첫 조회는 제출 후 수 분 뒤에 실행함.</li>
+            <li><strong>조회</strong> — <code>GET /v1/transactions/results/{txif_sbmt_no}</code>. 초당 10건 이내 권고를 준수함.</li>
+            <li><strong>미완료 처리</strong> — <code>res_code=3030</code>이면 검증이 끝나지 않은 것이므로 <u>실패가 아님</u>. 지수 백오프(30초 → 1분 → 2분 → 5분)로 재조회하고, 최대 재시도 횟수를 넘기면 운영자 알림으로 전환함.</li>
+            <li><strong>상태 분기</strong> — <code>res_code=0000</code>이면 <code>res_data.txif_prcs_stcd</code>로 분기함.
+                <ul style="margin:6px 0;">
+                    <li><code>01</code> <strong>등록완료</strong> → 전건 정상 접수. 다만 아래 6번을 반드시 함께 확인함.</li>
+                    <li><code>02</code> <strong>부분오류반려</strong> → 정상 접수분과 오류분이 섞여 있음. <code>errors[]</code>를 순회해 오류분만 분리 보류하고 정상분은 진행함.</li>
+                    <li><code>03</code> <strong>전체오류반려</strong> → 해당 제출 전체가 미접수. 전건 보류함.</li>
+                </ul>
+            </li>
+            <li><strong>오류 단위 식별</strong> — <span class="rule-highlight">거래정보오류건수(<code>txif_rgsr_err_cnt</code>)가 0이어도 상품 개별 오류가 존재할 수 있으므로 <code>errors[]</code> 배열을 항상 확인함.</span> 배열 안에서 <code>error_data[].prod_srno</code>가 <code>null</code>이면 주문정보(<code>order_info</code>) 단위 오류라 <u>해당 주문의 상품이 유효해도 전부 미접수</u>이고, 값이 있으면 그 상품만 미접수임. 대상은 <code>hbl_no</code>·<code>ord_no</code>로 식별함.</li>
+            <li><strong>재제출</strong> — 원천 데이터를 수정한 뒤 <code>txif_sbmt_no</code>만 신규 채번해 TRA001로 다시 제출함. <code>ord_no</code>·<code>hbl_no</code>는 유지함. 기존 번호를 재사용하면 <code>3000</code>(중복 제출)이 반환됨.</li>
+            <li><strong>TRA003의 위치</strong> — 오류 수집용 주 경로가 아니라 <strong>누락 감시용 안전망</strong>으로만 별도 스케줄에서 운영함. TRA002를 정상적으로 돌리고 있다면 <code>unread_cnt</code>는 0이어야 하며, <u>0이 아니면 TRA002를 놓친 제출 건이 있다는 신호</u>이므로 알림 대상임.</li>
+        </ol>
+        <p style="margin:0; font-size:13.5px;"><strong>현행 11:50 배치와의 관계</strong> — 11:50 TRA003 단일 호출을 TRA002 루프로 교체하거나, 최소한 자이언트 송출 판정 전에 TRA002 루프를 먼저 돌려 <code>txif_prcs_stcd</code>로 판정하고 TRA003은 안전망으로만 남기는 형태가 되어야 함.
+        <span class="rule-highlight">주의: TRA002로 조회한 제출번호는 이후 TRA003에 나오지 않으므로, 두 API를 순차로 호출해 교차 확인하는 방식은 성립하지 않음.</span></p>
     </div>
     <table>
         <thead><tr><th>API 구분</th><th>필드명(코드)</th><th>한글 필드명</th><th>타입</th><th>필수</th><th>데이터 채움 출처</th><th>자사몰 실제 데이터 값</th><th>상세설명 및 처리 로직</th></tr></thead>
         <tbody>
-            <tr><td><span class="api-tag api-tra1">TRA002</span></td><td><code>txif_prcs_stcd</code></td><td>거래정보 처리상태코드</td><td>String(2)</td><td><span class="badge req-n">N</span></td><td class="src-kcs">관세청 응답</td><td>01 / 02 / 03</td><td><span class="rule-highlight">도입 검토 (D-07)</span> 01 등록완료 · 02 부분오류반려 · 03 전체오류반려. <strong>이 한 필드로 성공·부분오류·전체반려가 모두 판정</strong>되며, 특정 제출번호의 결과를 알 수 있는 유일한 수단</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA002</span></td><td><code>txif_prcs_stcd</code></td><td>거래정보 처리상태코드</td><td>String(2)</td><td><span class="badge req-n">N</span></td><td class="src-kcs">관세청 응답</td><td>01 / 02 / 03</td><td><span class="rule-highlight">도입 검토 (TRA002 도입 항목 참조)</span> 01 등록완료 · 02 부분오류반려 · 03 전체오류반려. <strong>이 한 필드로 성공·부분오류·전체반려가 모두 판정</strong>되며, 특정 제출번호의 결과를 알 수 있는 유일한 수단</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA002</span></td><td><code>txif_rgsr_cnt</code></td><td>거래정보 등록건수</td><td>Integer(10)</td><td><span class="badge req-n">N</span></td><td class="src-kcs">관세청 응답</td><td>정상 접수된 주문정보 건수</td><td>제출건수와 대조하여 부분 접수 여부 확인</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA002</span></td><td><code>txif_rgsr_err_cnt</code></td><td>거래정보 오류건수</td><td>Integer(10)</td><td><span class="badge req-n">N</span></td><td class="src-kcs">관세청 응답</td><td>오류 주문정보 건수</td><td><span class="rule-highlight">0이어도 상품 개별 오류가 존재할 수 있으므로 errors 배열을 반드시 확인</span></td></tr>
             <tr><td><span class="api-tag api-tra1">TRA002</span></td><td><code>errors[].hbl_no</code></td><td>오류 운송장번호</td><td>String(20)</td><td><span class="badge req-n">N</span></td><td class="src-kcs">관세청 응답</td><td>오류 발생 HBL</td><td>주문정보 단위 오류 식별</td></tr>
@@ -337,6 +377,8 @@ sequenceDiagram
         <p><strong>상세 전송 및 처리 로직 (DS Logistics 물류 연동):</strong></p>
         <ul>
             <li>13:00 삭제건 제외 현장 출고 후 17:00 동수 DS Logistics가 MAWB 및 실측중량(<code>weight</code>) 등 실제 물류스펙을 자이언트로 직송하고 자이언트가 세관 제출(DKW/DKX)집행.</li>
+        
+            <li style="background:#e6f4ea; border-left:3px solid #137333; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[동수 확인사항 · 2026-08-10 추가]</strong> 동수 DS Logistics가 자이언트로 직송하는 구간. <span class="rule-highlight">특이사항</span> ① <code>mwbNo</code>·<code>departureDate</code>·<code>arrivalDate</code>는 2026-07-25 협의로 자이언트 필수값에서 해제 예정이며 동수·자이언트 간 직접 처리하기로 정리됨 — 최신 규격 재확인 필요 ② <code>weight</code>는 17:00 실측값이며 10:00에 받은 예정 중량과 다를 수 있음(관세청 TRA001에는 중량 항목이 없으므로 관세청 신고와는 무관) ③ <code>shipperName</code>·<code>shipperAddr</code>는 동수 고정값으로 자이언트 필수 항목임.</li>
         </ul>
     </div>
     <table>
@@ -446,7 +488,7 @@ sequenceDiagram
             <li><strong>관세청 규격:</strong> <code>sale_ents_nm</code>은 <span class="rule-highlight">A 직접판매인 경우 필수</span>이며, 유형별 의미가 다릅니다. A는 "상품 판매 페이지에 표시되는 판매업체명", B는 "구매대행업자가 상품을 구매한 판매업체명"(= 해외 판매처), C는 "고객이 입력한 판매업체명".</li>
             <li><strong>자이언트 규격:</strong> <code>items[].sellerName</code>은 <span class="rule-highlight">A·B 구분 없이 항상 필수(Y)</span>입니다(GGATE v1.3.5, 예시값 <code>TAOBAO SHOP</code>). 즉 관세청에서는 선택인 B유형도 자이언트에는 값이 반드시 있어야 하므로, <strong>B 채널의 판매업체명 누락 시 HWB 등록이 거부</strong>됩니다.</li>
             <li><strong>운영 규칙:</strong> 관세청 <code>sale_ents_nm</code>과 자이언트 <code>sellerName</code>은 <u>동일 값으로 통일</u>합니다. A유형은 Geek 고정 주입, B유형은 동수 WMS 채널DB에서 수신합니다.</li>
-            <li><strong>미확정:</strong> A유형 값을 "(주)크로네"로 할지 "뉴트리시아몰"로 할지는 관세청 등록 상호와 상품 판매 페이지 표기를 확인해 확정해야 합니다(risk_list R-22). 실제 TRA001 전송 JSON에는 <code>elcm_ents_nm</code>이 "뉴트리시아몰"로 들어가 있었습니다.</li>
+            <li><strong>미확정:</strong> A유형 값을 "(주)크로네"로 할지 "뉴트리시아몰"로 할지는 관세청 등록 상호와 상품 판매 페이지 표기를 확인해 확정해야 합니다(risk_list의 제출자 상호 항목). 실제 TRA001 전송 JSON에는 <code>elcm_ents_nm</code>이 "뉴트리시아몰"로 들어가 있었습니다.</li>
             <li>부호 체계 전반은 <a href="./유형코드_부호체계_정리.html">유형코드_부호체계_정리.html</a> 참조.</li>
         </ul>
     </div>
@@ -457,6 +499,81 @@ sequenceDiagram
         1. <code>sale_ents_sgn</code> (판매업체부호) 및 <code>sale_ents_nm</code> (판매업체명)은 관세청 선택 항목(N)이므로 <strong>모든 쇼핑몰 채널 전건 Null로 생략 통일</strong>합니다.<br>
         2. <code>prod_srno</code> (상품일련번호)는 동수 EIBE ERP가 해외 창고 패킹 시 1개 HBL 당 상품 갯수(1~5)에 맞춰 <strong>자동 순차 채번</strong>하여 내려줍니다.
     </div>
+
+
+    <h2 style="border-bottom: 2px solid #137333; margin-top:50px;">
+        <span>[참고] 자이언트 HWB 등록 필수값(Y) 채움 가이드</span>
+        <span class="time-tag" style="background:#137333;">2026-08-10 신설</span>
+    </h2>
+    <div class="stage-box" style="border-left-color:#137333;">
+        <p><strong>작성 기준:</strong> GGATE API V2 컬렉션 원본(v1.3.5) 기준으로 <code>POST /api/hwb/bulk-sync</code>의 <strong>필수(Y) 항목 전수</strong>를 정리함.
+        "자사몰에서 무엇을 보낼 수 있는가"가 아니라 <strong>"자이언트가 수입신고서를 작성하려면 이 칸에 무엇이 들어가야 하는가"</strong> 관점으로 값을 정의함.
+        조건부(C) 항목은 <code>ecTypeCode</code>에 따라 달라지므로 하단에 별도 표기함.</p>
+    </div>
+    <table>
+        <thead><tr><th>필드명(코드)</th><th>한글 필드명</th><th>타입</th><th>필수</th><th>채움 주체</th><th>넣어야 하는 값</th><th>판단 근거 및 주의</th></tr></thead>
+        <tbody>
+            <tr><td><code>hwbNo</code></td><td>하우스 운송장번호</td><td>String(20)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 EIBE ERP</td><td>동수 가채번 HBL</td><td>v1.3.5부터 <u>미입력 시 택배사 코드 기준 자동 채번</u>됨. 3사 공통 키로 쓰려면 동수 채번값을 명시적으로 넣어야 하며, 빈 값으로 보내면 자이언트가 만든 번호와 관세청에 신고한 <code>hbl_no</code>가 어긋남</td></tr>
+            <tr><td><code>transportType</code></td><td>운송구분</td><td>String(2)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">고정</td><td><code>AI</code></td><td>항공수입 고정. 해상은 <code>OI</code></td></tr>
+            <tr><td><code>dispatchCountry</code></td><td>발송국가</td><td>String(2)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">고정</td><td><code>CN</code></td><td>중국 현지 창고 발송</td></tr>
+            <tr><td><code>weight</code></td><td>중량(kg)</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics</td><td>17:00 계량 실측값</td><td>수입신고 확정 중량. 10:00 예정 중량이 아님. <code>0</code>이면 신고 불가</td></tr>
+            <tr><td><code>packageCount</code></td><td>외포장 개수</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics</td><td>실제 박스 수</td><td>운송 단위 박스 수</td></tr>
+            <tr><td><code>innerPackageCount</code></td><td>내포장 개수</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics</td><td>박스 내 개별 포장 수</td><td>외포장과 혼동 주의. 세트 상품은 구성품 수가 아니라 <u>포장 단위</u> 기준</td></tr>
+            <tr><td><code>ordererName</code></td><td>주문자 성명</td><td>String(150)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>결제자 한글 성명</td><td>수하인과 다를 수 있음. 관세청 <code>ordrr_nm</code>과 동일 값</td></tr>
+            <tr><td><code>domesticCarrierName</code></td><td>국내 택배사명</td><td>String(50)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">고정</td><td>롯데택배</td><td>v1.3.1부터 한글 택배사명 입력 가능</td></tr>
+            <tr><td><code>consigneeName</code></td><td>수하인 한글명</td><td>String(150)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>개인통관고유부호 등록 명의</td><td>PER 검증을 통과한 명의여야 함</td></tr>
+            <tr><td><code>consigneeNameEng</code></td><td>수하인 영문명</td><td>String(150)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자동 변환</td><td>로마자 성명 (예: HONG GILDONG)</td><td><span class="rule-highlight">변환 규칙 고정 필요</span> — 관세청은 영문 성명 등록 시 성/이름을 분리 관리하므로 표기가 흔들리면 통관 대조에서 걸림. PER 검증 성공 시점의 값을 저장해 재사용</td></tr>
+            <tr><td><code>consigneeAddr</code></td><td>수하인 도로명주소</td><td>String(250)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>도로명 기본주소</td><td>우편번호의 도로명주소와 일치해야 함</td></tr>
+            <tr><td><code>consigneeAddressEng</code></td><td>수하인 영문주소</td><td>String(300)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">행안부 API 변환</td><td>영문 도로명주소</td><td>자체 음차 변환이 아니라 <u>행정안전부 영문주소 API 결과</u>를 사용해야 표기가 일관됨</td></tr>
+            <tr><td><code>consigneeZip</code></td><td>수하인 우편번호</td><td>String(5)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>도로명 우편번호 5자리</td><td>구 우편번호(6자리) 입력 차단 필요</td></tr>
+            <tr><td><code>consigneeTel</code></td><td>수하인 전화번호</td><td>String(60)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>휴대폰번호</td><td><span class="rule-highlight">포맷 주의</span> — 자이언트 수정 API 가이드 예시는 <code>010-4024-3740</code>으로 <u>대시 포함</u>인 반면 관세청은 하이픈 제외임. 전송처별 분기 필요</td></tr>
+            <tr><td><code>shipperName</code></td><td>송하인명</td><td>String(150)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 고정</td><td>중국 현지 발송 법인명</td><td>수입신고서 해외거래처란에 기재됨. 동수 법인 정식명칭으로 고정</td></tr>
+            <tr><td><code>shipperAddr</code></td><td>송하인 주소</td><td>String(250)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 고정</td><td>중국 현지 창고 주소</td><td>창고 이전 시 갱신 필요</td></tr>
+            <tr><td><code>totalValueUsd</code></td><td>총 신고금액(USD)</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 ERP</td><td>동수 ERP USD 단가 기준 총액</td><td>관세청 <code>tot_stlm_amt</code>와 <strong>동일 값</strong>이어야 함. 하위 <code>itemAmount</code> 합계와도 일치해야 함</td></tr>
+            <tr><td><code>ecTypeCode</code></td><td>전자상거래 판매유형</td><td>String(1)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 채널코드 분기</td><td>자사몰 <code>A</code> / 입점채널 <code>B</code></td><td>관세청 <code>elcm_pcd</code>와 동일. 이 값에 따라 아래 조건부 항목이 갈림</td></tr>
+            <tr><td><code>orderNo</code></td><td>주문번호</td><td>String(52)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>자사몰 고유 주문번호</td><td>관세청 <code>ord_no</code>와 동일 값. 3사 대사 기준 키</td></tr>
+            <tr><td><code>orderCompletionDate</code></td><td>주문완료일시</td><td>String(14)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td><code>YYYYMMDDHHmmss</code></td><td>관세청 <code>ord_cmpl_dttm</code>과 동일 값</td></tr>
+            <tr><td><code>pccCode</code></td><td>개인통관고유부호</td><td>String(13)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>NICE 검증 결과의 <code>pers_ecm</code></td><td>일반인증은 <code>P</code>로 시작하는 실제 부호, 간소화는 <code>O</code>로 시작하는 일회용 부호가 반환됨. <u>NICE가 돌려준 값을 그대로</u> 사용</td></tr>
+            <tr><td><code>tempAuthNo</code></td><td>일회용 인증번호</td><td>String(6)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>NICE 검증 결과의 <code>otp</code> 6자리</td><td>계도기간 중 발급 실패 건은 <code>Z99999</code>. PER 미완료 상태로는 HWB 등록 자체가 불가</td></tr>
+            <tr><td colspan="7" style="background:#f8f9fa; font-weight:bold;">items[] — 상품 배열 (전 항목 필수)</td></tr>
+            <tr><td><code>itemGroupOrderNo</code></td><td>품목그룹 주문번호</td><td>String(52)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td><code>orderNo</code>와 동일 값</td><td>HWB 내에서 상품을 주문 단위로 묶는 키</td></tr>
+            <tr><td><code>itemSeq</code></td><td>상품 일련번호</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 채번</td><td><code>001</code>, <code>002</code> …</td><td>자이언트는 <strong>3자리 문자열</strong>, 관세청 <code>prod_srno</code>는 <strong>Integer(3)</strong>로 형식이 다름. 같은 순번을 형식만 바꿔 전송</td></tr>
+            <tr><td><code>categoryName1</code></td><td>상품 대분류</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 WMS</td><td>예: 식품</td><td>관세청 <code>prod_clsf_nm_stp1</code>과 동일</td></tr>
+            <tr><td><code>categoryName2</code></td><td>상품 중분류</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 WMS</td><td>예: 분유</td><td>관세청 <code>prod_clsf_nm_stp2</code>와 동일</td></tr>
+            <tr><td><code>productName</code></td><td>상품명</td><td>String(300)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 WMS</td><td>동수 DB 고정 상품명</td><td>특수문자(<code>*</code> 등) 제거 후 전송. 관세청 <code>ord_prod_nm</code>은 600바이트까지 허용되나 자이언트는 300</td></tr>
+            <tr><td><code>productPageUrl</code></td><td>상품 판매 페이지 URL</td><td>String(3000)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 채널 매핑</td><td>채널별 대표 도메인</td><td>관세청 <code>prod_sale_pge_url</code>과 동일 값</td></tr>
+            <tr><td><code>hsCode</code></td><td>HS코드</td><td>String(6)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 WMS</td><td>6자리 HS코드</td><td><span class="rule-highlight">2026-08-10 확정</span> 자이언트로 <u>전송함</u>. 종전 "제거하고 보낸다"는 지침은 폐기. 관세청 TRA001에는 해당 항목이 없으므로 자이언트에만 보냄</td></tr>
+            <tr><td><code>qty</code></td><td>수량</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 WMS</td><td>실제 출고 수량</td><td>관세청 <code>prod_ord_qty</code>와 동일</td></tr>
+            <tr><td><code>qtyUnit</code></td><td>수량 단위</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">고정</td><td><code>EA</code></td><td>관세청 TRA001에는 수량 단위 항목이 없으므로 자이언트 전용</td></tr>
+            <tr><td><code>unitPrice</code></td><td>단가(USD)</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 ERP</td><td>동수 ERP USD 단가</td><td>관세청 <code>prod_unprc</code>와 동일 값</td></tr>
+            <tr><td><code>itemAmount</code></td><td>물품 금액(USD)</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 ERP</td><td><code>qty × unitPrice</code></td><td>합계가 <code>totalValueUsd</code>와 일치해야 함. 관세청 <code>ord_amt</code>는 여기서 <u>상품할인금액을 뺀</u> 값이 규격이므로 할인 운영 시 두 값이 달라질 수 있음</td></tr>
+            <tr><td><code>sellerName</code></td><td>판매업체명</td><td>String(300)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">A: Geek 고정 / B: 동수 채널DB</td><td>A: (주)크로네<br>B: 실제 구매한 해외 판매업체명</td><td><span class="rule-highlight">2026-08-10 정정</span> A·B 무관 <strong>항상 필수</strong>. 종전 "전건 Null" 지침 폐기. 관세청은 A일 때만 필수지만 자이언트는 전건 필수이므로 <u>B유형 값이 비면 HWB 등록 거부</u>. 관세청 <code>sale_ents_nm</code>과 동일 값 통일</td></tr>
+            <tr><td colspan="7" style="background:#f8f9fa; font-weight:bold;">조건부(C) — ecTypeCode에 따라 결정</td></tr>
+            <tr><td><code>brokerCode</code> / <code>brokerName</code></td><td>제출자 부호 / 상호</td><td>String(9) / (100)</td><td><span class="badge req-c">C</span></td><td class="src-geek">Geek 고정</td><td>K26000099 / (주)크로네</td><td><code>ecTypeCode=A</code>일 때 필수</td></tr>
+            <tr><td><code>buyingAgentCode</code> / <code>buyingAgentName</code></td><td>구매대행업체 부호 / 상호</td><td>String(9) / (100)</td><td><span class="badge req-c">C</span></td><td class="src-dongsu">동수 채널 분기</td><td>네이버스토어 K26014765 / (주)아이베<br>기타 K26000099 / (주)크로네</td><td><code>ecTypeCode=B</code>일 때 필수</td></tr>
+            <tr><td><code>deliveryAgentCode</code> / <code>deliveryAgentName</code></td><td>배송대행업체 부호 / 상호</td><td>String(9) / (100)</td><td><span class="badge req-c">C</span></td><td class="src-gen">해당 없음</td><td>미입력</td><td><code>ecTypeCode=C</code>일 때만 필수. 당사는 C유형 미운영</td></tr>
+            <tr><td><code>sellerCode</code></td><td>판매업체 부호</td><td>String(9)</td><td><span class="badge req-c">C</span></td><td class="src-geek">A: Geek / B: 미입력</td><td>등록 부호가 있을 때만</td><td>관세청 <code>sale_ents_sgn</code>은 "판매업체가 관세청에 전자상거래업자로 <u>등록되어 있는 경우에만</u> 제출". 해외 판매처는 통상 미등록이므로 B유형은 미입력</td></tr>
+        </tbody>
+    </table>
+
+
+    <h2 style="border-bottom: 2px solid #5f6368; margin-top:50px;">
+        <span>[개정 이력]</span>
+        <span class="time-tag" style="background:#5f6368;">문서 변경 기록</span>
+    </h2>
+    <table>
+        <thead><tr><th style="width:12%">일자</th><th style="width:16%">구분</th><th>변경 내용</th></tr></thead>
+        <tbody>
+            <tr><td>2026-08-10</td><td>적용 일정</td><td>문서 상단에 적용 일정 블록 신설. 관세청 테스트 서버 종료 <strong>2026-08-21</strong>, 자사몰 오픈 <strong>2026-08-28 09:00</strong>, 계도기간 종료 2026-09-14 24:00. 동수 API 조회 대상 필터 기준 일시를 2026-08-28 09:00으로 명시.</td></tr>
+            <tr><td>2026-08-10</td><td>동수 확인사항</td><td>Stage 2·3·4&amp;5·6에 동수가 확인해야 할 항목과 특이사항을 단계별로 추가.</td></tr>
+            <tr><td>2026-08-10</td><td>자이언트 필수값</td><td>HWB 등록 필수(Y) 항목 전수 채움 가이드 신설. <code>items[].sellerName</code>은 A·B 무관 <strong>항상 필수</strong>로 정정하고 종전 "전건 Null" 지침 폐기. <code>hsCode</code> 6자리 전송 확정. <code>consigneeTel</code> 대시 포맷 차이, <code>consigneeNameEng</code>·<code>consigneeAddressEng</code> 변환 기준, <code>hwbNo</code> 자동채번 주의사항 명시.</td></tr>
+            <tr><td>2026-08-10</td><td>TRA002</td><td>Stage 4·5에 TRA002 기반 판정의 구체적 구현 방법(큐 적재 → 백오프 조회 → 상태 분기 → 오류 단위 식별 → 재제출 → TRA003 안전망) 추가. "성공은 TRA002, 오류는 TRA003" 분류는 규격에 없으며 TRA002 선호출 시 해당 제출번호가 TRA003에서 제외됨을 명시.</td></tr>
+            <tr><td>2026-08-10</td><td>판매업체명</td><td>참고 매트릭스에 채널별 <code>sale_ents_nm</code> / <code>sellerName</code> 컬럼 추가. 동수가 A·B 양쪽을 대응하는 주체이므로 B유형 값은 동수 채널DB에서 수신.</td></tr>
+            <tr><td>2026-08-10</td><td>신고금액</td><td>관세청 신고금액을 <strong>동수 ERP USD 단가</strong> 기준으로 확정. 자이언트 <code>totalValueUsd</code>와 동일 값으로 정합 유지.</td></tr>
+            <tr><td>2026-08-10</td><td>PER001</td><td>요청 필수 항목 <code>reqt_no</code>·<code>reqt_tp</code>·<code>ordrr_fnm</code>·<code>ordrr_ci</code>·<code>dlvrpl_psno</code>·<code>ord_no_icln_tp</code> 6건을 Stage 1에 추가. 응답구분 <code>rspn_tp</code> 01/02/03 분기 명시. NICE 경유 구조에서는 SMARTPCC_11이 <code>otp</code> 6자리 전체를 반환하므로 자체 체크디지트 검증 불필요.</td></tr>
+            <tr><td>2026-08-10</td><td>TRA001 필드</td><td>v1.4.1 대조 정정 — 필수 <code>ord_site_url</code> 추가, <code>dlvr_vcex_bsmn_*</code>→<code>shpn_vcex_bsmn_*</code>, <code>sale_ents_biz_no</code>→<code>sale_ents_bsns_no</code>, <code>prod_mnfcr_nm</code>→<code>prod_mkr_nm</code>, <code>prod_mdl_no</code>→<code>prod_mkr_mdl_no</code>. <code>ordrr_telno</code> 필수(Y), <code>prod_srno</code> Integer(3), <code>ord_prod_nm</code> 600, <code>tot_ord_prod_qty</code> Integer(6). 규격 외 8개 항목 표기.</td></tr>
+        </tbody>
+    </table>
 
 </div>
 
