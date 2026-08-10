@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>관세청 연동 리스크 대장 · 결정사항 · 질의 리스트 (Risk List)</title>
+    <style>
+        body { font-family: 'Inter', -apple-system, sans-serif; background-color: #ffffff; color: #333; line-height: 1.6; padding: 40px; margin:0; }
+        .container { max-width: 1500px; margin: 0 auto; }
+        h1 { color: #111; border-bottom: 3px solid #d93025; padding-bottom: 12px; margin-bottom: 20px; font-size: 26px; }
+        h2 { color: #202124; border-bottom: 2px solid #d93025; padding-bottom: 8px; margin-top: 45px; font-size: 20px; display:flex; align-items:center; justify-content:space-between; }
+        h3 { color: #3c4043; margin-top: 25px; font-size: 16px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 12px; }
+        th, td { border: 1px solid #eaeaea; padding: 8px 10px; text-align: left; vertical-align: top; }
+        th { background-color: #f8f9fa; font-weight: 600; color: #555; position: sticky; top: 0; z-index:10; }
+        .badge { display: inline-block; padding: 3px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; white-space:nowrap; }
+        .p0 { background-color: #d93025; color: #fff; }
+        .p1 { background-color: #ffeaea; color: #d93025; }
+        .p2 { background-color: #fff3cd; color: #856404; }
+        .p3 { background-color: #e8f0fe; color: #1a73e8; }
+        .st-open { background-color: #fce8e6; color: #c5221f; font-weight:bold; }
+        .st-doc { background-color: #fff3cd; color: #856404; font-weight:bold; }
+        .st-fixed { background-color: #e6f4ea; color: #137333; font-weight:bold; }
+        .nav-btn { display:inline-block; margin-bottom:20px; margin-right:8px; background:#1a73e8; color:white; padding:10px 18px; text-decoration:none; border-radius:4px; font-weight:bold; cursor:pointer; border:none; font-size:14px; }
+        .nav-btn:hover { background: #1557b0; }
+        .nav-btn.alt { background:#d93025; }
+        .nav-btn.alt:hover { background:#a50e0e; }
+        .stage-box { background: #fcfcfc; border: 1px solid #e0e0e0; border-left: 5px solid #d93025; padding: 18px 22px; margin-bottom: 20px; border-radius: 4px; }
+        .stage-box p { margin: 0 0 10px 0; font-size: 14px; }
+        .stage-box ul { margin: 0; padding-left: 20px; font-size: 13.5px; }
+        .stage-box li { margin-bottom: 6px; }
+        .time-tag { background: #d93025; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; margin-right: 8px; }
+        .rule-highlight { background: #fff3cd; color: #856404; padding: 2px 6px; border-radius: 3px; font-weight: bold; }
+        .api-tag { display:inline-block; padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; white-space:nowrap; }
+        .api-per { background:#f3e8fd; color:#7b1fa2; }
+        .api-tra1 { background:#e8f0fe; color:#1a73e8; }
+        .api-tra3 { background:#fff3cd; color:#856404; }
+        .api-hwb { background:#e6f4ea; color:#0d652d; }
+        .api-etc { background:#f1f3f4; color:#555; }
+        .api-law { background:#fce8e6; color:#c5221f; }
+        code { background:#f1f3f4; padding:1px 4px; border-radius:3px; font-size:11.5px; }
+        .qbox { background:#f8faff; border:1px solid #d2e3fc; border-radius:6px; padding:16px 20px; margin-bottom:18px; }
+        .qbox h4 { margin:0 0 10px 0; color:#1a73e8; font-size:14px; }
+        .qbox ol { margin:0; padding-left:22px; font-size:13px; }
+        .qbox li { margin-bottom:7px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div>
+        <a href="./planning_v5.html" class="nav-btn">[ → planning_v5.html E2E 통합 기획서 ]</a>
+        <a href="./api_field_mapping.html" class="nav-btn">[ → api_field_mapping.html 전수 필드 매핑 ]</a>
+    </div>
+
+    <h1>관세청 연동 리스크 대장 · 결정사항 · 질의 리스트 (Risk List)</h1>
+
+    <div style="background:#fce8e6; padding:18px 22px; border-left:5px solid #d93025; margin-bottom:20px; border-radius:4px; font-size:13.5px; line-height:1.7;">
+        <strong>[문서 목적]</strong> <code>planning_v5.html</code>(현행 확정 기획)과 <code>api_field_mapping.html</code>(전수 필드 매핑)을
+        <strong>관세청 REST API 명세서 v1.4.1</strong>, <strong>NICE 개인통관고유부호 유효성 검증 API 가이드(CI 활용기관)</strong>,
+        <strong>NICE 통합인증 API</strong>, <strong>자이언트 GGATE API V2 (v1.3.5)</strong>에 대조하여 검증한 결과입니다.<br>
+        <strong>[전제]</strong> planning_v5의 E2E 단계·배치 시각·프로세스는 협력사 간 합의된 현행 기준으로 두고 <u>변경하지 않았습니다.</u>
+        이 문서는 그 기획을 <u>실행했을 때 터지는 지점</u>만 다룹니다.<br>
+        <strong>[구성]</strong> A. 리스크 대장 / B. 지금 결정·확인해야 할 것 / C. NotebookLM 질문 리스트<br>
+        <strong>[기준일]</strong> 2026-08-10 · <strong>오픈 예정일</strong> 2026-08-28 09:00 · <strong>계도기간 종료</strong> 2026-09-14 24:00
+    </div>
+
+    <div class="stage-box">
+        <p><strong>가장 먼저 볼 것 — 캘린더 리스크</strong></p>
+        <ul>
+            <li><span class="time-tag">D-18</span> <strong>2026-08-28 09:00</strong> 자사몰 오픈. 이 시각 이후 주문만 신규 프로세스 대상.</li>
+            <li><span class="time-tag">D-35</span> <strong>2026-09-14 24:00</strong> <code>Z99999</code> 계도기간 종료. <span class="rule-highlight">이 시점에 R-01이 터집니다.</span> 오픈 후 17일밖에 없습니다.</li>
+            <li>즉 <strong>오픈 자체보다 오픈 17일 뒤가 진짜 위험 구간</strong>입니다. 현재 공수 산정과 일정에 이 구간이 반영되어 있는지 확인이 필요합니다.</li>
+        </ul>
+    </div>
+
+    <h2>
+        <span>A. 리스크 대장 (Risk Register)</span>
+        <span class="time-tag">총 26건 · P0 3건</span>
+    </h2>
+
+    <h3>A-1. P0 — 서비스가 멈추거나 법적 노출이 발생하는 항목</h3>
+    <table>
+        <thead><tr><th>ID</th><th>등급</th><th>구분</th><th>리스크 내용</th><th>공식 근거</th><th>영향</th><th>상태</th><th>대응 방향</th></tr></thead>
+        <tbody>
+            <tr>
+                <td><strong>R-01</strong></td><td><span class="badge p0">P0</span></td><td><span class="api-tag api-per">PER001</span></td>
+                <td><strong>계도기간 종료 시 결제 전면 실패.</strong> planning_v5 Stage 1은 "PER001 검증 성공 → 6자리 인증번호(<code>su_crtf_no</code>) 수신 → DB 저장 → 결제 완료"입니다. 그러나 일반용(<code>rspn_tp=01</code>) 응답은 <span class="rule-highlight">인증번호 앞 2자리만</span> 내려옵니다. 6자리 전체는 수하인 이메일로만 발송됩니다. 현재는 <code>Z99999</code> 계도기간과 비갱신자(<code>rspn_tp=03</code>) 응답 덕분에 대부분 통과하고 있을 뿐입니다.</td>
+                <td>v1.4.1 [붙임2] ⑤ / 응답 예시 <code>"su_crtf_no": "72"</code></td>
+                <td><strong>2026-09-15부터</strong> 갱신·신규·정보변경 고객의 결제가 전부 차단됩니다. 계도기간 중에는 증상이 보이지 않아 발견이 늦습니다.</td>
+                <td><span class="st-open">미해결</span></td>
+                <td>OTP 6자리 입력 UI + 2단계 검증 구현. ① 입력값 앞 2자리 == 관세청 제공 2자리 ② 체크디지트: 수하인 전화 끝 4자리 + 인증번호 앞 5자리 = 9자리 → (홀수자리합)×3 + (짝수자리합) → mod 10 → 10에서 뺀 값 == 6번째 자리 (mod 10 == 0이면 0)</td>
+            </tr>
+            <tr>
+                <td><strong>R-02</strong></td><td><span class="badge p0">P0</span></td><td><span class="api-tag api-law">관세법</span></td>
+                <td><strong>과세가격 과소신고 소지.</strong> 2026-07-22 협의로 <code>tot_stlm_amt</code>에 고객 실결제 KRW가 아닌 <u>USD 공급가</u>를 넣고 <code>tot_stlm_amt_curr_cd</code>를 USD로 고정하기로 했습니다. 실제 사례로 고객 결제 <strong>159,300 KRW</strong> 건이 <strong>69 USD</strong>(약 9.5만원)로 전송되었습니다.</td>
+                <td>v1.4.1 <code>tot_stlm_amt</code> = "구매자가 주문단계에서 결제한 해외직구 상품의 <u>최종 결제 금액</u>"</td>
+                <td>신고 과세가격이 실거래가보다 약 40% 낮게 신고됩니다. 150 USD 면세한도 판정도 왜곡되어 면세 대상이 아닌 건이 면세로 처리될 수 있습니다. 사후 추징·가산세·처벌 리스크.</td>
+                <td><span class="st-open">미해결</span></td>
+                <td><strong>사용자 결정 필요(D-01).</strong> 원칙은 고객 실결제 통화·금액 그대로 전송이며, 조달가는 <code>prod_unprc</code>가 아닌 별도 원장에서 관리합니다. 현 방식 유지를 원한다면 관세청 서면 확인이 선행되어야 합니다.</td>
+            </tr>
+            <tr>
+                <td><strong>R-03</strong></td><td><span class="badge p0">P0</span></td><td><span class="api-tag api-tra3">TRA003</span></td>
+                <td><strong>"오류 없음 = 성공" 거짓 양성.</strong> planning_v5 Stage 4·5는 11:50에 TRA003을 1회 호출해 오류가 없으면 승인 처리합니다. TRA003은 <u>한 번도 조회하지 않은</u> 오류만 응답하는 보조 API입니다.</td>
+                <td>v1.4.1 [붙임1]: TRA002로 0000 조회 이력이 있으면 TRA003에 나오지 않음 / TRA003으로 조회한 제출번호는 재호출해도 안 나옴 / <code>txif_rgsr_err_cnt</code>가 0이어도 <u>상품정보 개별 오류가 존재할 수 있음</u></td>
+                <td>실제로는 반려된 건이 "승인"으로 처리되어 자이언트로 넘어가고 출고됩니다. 통관 단계에서야 발각됩니다.</td>
+                <td><span class="st-open">미해결</span></td>
+                <td>권위 있는 조회는 <code>TRA002 GET /v1/transactions/results/{txif_sbmt_no}</code>입니다. 제출 건마다 TRA002로 <code>txif_prcs_stcd</code> 01/02/03을 확인하고, TRA003은 누락분 보조 수집기로만 사용합니다. 3030(검증 미완료)은 재조회 대기.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>A-2. P1 — 미해결 상태로 남아 있는 협력사 간 쟁점</h3>
+    <table>
+        <thead><tr><th>ID</th><th>등급</th><th>구분</th><th>리스크 내용</th><th>제기 시점</th><th>영향</th><th>상태</th><th>대응 방향</th></tr></thead>
+        <tbody>
+            <tr>
+                <td><strong>R-04</strong></td><td><span class="badge p1">P1</span></td><td><span class="api-tag api-hwb">자이언트</span></td>
+                <td><code>items[].sellerName</code>이 <strong>필수(Y)</strong>인데 기획·매핑은 전건 Null로 지정하고 있습니다. <code>sellerCode</code>도 <code>ecTypeCode='A'</code>일 때 조건부 필수입니다.</td>
+                <td>2026-08-07 강명제</td>
+                <td>HWB 등록 자체가 거부됩니다. A유형(자사몰) 전건 영향.</td>
+                <td><span class="st-open">미해결</span></td>
+                <td>A 직접판매의 판매업체명을 확정해 주입합니다. 관세청 <code>sale_ents_nm</code>도 동일하게 A유형 필수이므로 <strong>같은 값으로 통일</strong>해야 합니다.</td>
+            </tr>
+            <tr>
+                <td><strong>R-05</strong></td><td><span class="badge p1">P1</span></td><td><span class="api-tag api-hwb">자이언트</span></td>
+                <td><strong>동일 <code>hwbNo</code> 재제출 차단.</strong> 자이언트 선제출 구조로 바뀌면서, TRA003 오류 수정 후 재제출 시 자이언트가 동일 hwbNo를 거부합니다. 기존 수정 API는 <u>개인통관부호·인증번호·신고금액·수하인 전화번호 4개 필드만</u> 수정 가능합니다.</td>
+                <td>2026-07-29 강명제</td>
+                <td>상품명·수량·주소 등 4개 필드 외 오류는 자이언트 쪽에 반영할 방법이 없습니다. 관세청과 자이언트 데이터가 영구히 어긋납니다.</td>
+                <td><span class="st-open">미해결</span></td>
+                <td>자이언트에 ① 전체 수정 API 또는 ② hwbNo 취소·재등록 절차를 요청해야 합니다. <strong>D-05 결정 필요.</strong></td>
+            </tr>
+            <tr>
+                <td><strong>R-06</strong></td><td><span class="badge p1">P1</span></td><td><span class="api-tag api-hwb">자이언트</span></td>
+                <td><strong><code>hsCode</code> 지침 충돌.</strong> "고도몰 HS코드는 관세청·자이언트 제출에 쓰지 않으니 제거하고 보내라"고 정리되었으나, 자이언트 <code>items[].hsCode</code>는 필수값입니다.</td>
+                <td>2026-07-27 강명제</td>
+                <td>제거하면 등록 실패, 보내면 지침 위반. 현재 개발이 멈추는 지점.</td>
+                <td><span class="st-open">미해결</span></td>
+                <td>동수 값을 그대로 통과시킬지, 자이언트가 자체 매핑할지 확정합니다. <strong>D-04 결정 필요.</strong></td>
+            </tr>
+            <tr>
+                <td><strong>R-07</strong></td><td><span class="badge p1">P1</span></td><td><span class="api-tag api-hwb">자이언트</span></td>
+                <td><strong>동수 미전송분 판별 불가.</strong> 18:00 역수집 시 동수가 아직 자이언트로 보내지 않은 건을 제외해야 하는데, 판별 기준으로 지정된 <code>MAWB</code> 필드가 HWB 다건 조회 응답에 존재하지 않습니다.</td>
+                <td>2026-07-29 강명제</td>
+                <td>미완성 데이터를 관세청에 제출하게 됩니다.</td>
+                <td><span class="st-open">미해결</span></td>
+                <td>자이언트 조회 응답에 존재하는 완결 플래그를 지정받거나, <code>weight</code>/<code>hsCode</code> 채움 여부를 대체 기준으로 확정합니다.</td>
+            </tr>
+            <tr>
+                <td><strong>R-08</strong></td><td><span class="badge p1">P1</span></td><td><span class="api-tag api-per">NICE</span></td>
+                <td><strong>다품목 주문 검증 방법 부재.</strong> NICE <code>ord_info</code>의 <code>ord_prod_nm</code>·<code>ord_prod_price</code>·<code>ord_prod_class</code>가 배열이 아닌 단일 값입니다. 여러 상품을 주문하면 상품 수만큼 검증을 반복해야 하는 구조입니다.</td>
+                <td>2026-07-27 김동섭</td>
+                <td>다품목 주문에서 인증이 여러 번 뜨거나, 대표상품 1건만 보내는 편법이 필요해집니다. 장바구니 주문 대부분이 해당됩니다.</td>
+                <td><span class="st-open">미해결</span></td>
+                <td>NICE에 대표상품 기재 허용 여부를 서면 확인합니다. <strong>C-2 질의 포함.</strong></td>
+            </tr>
+            <tr>
+                <td><strong>R-09</strong></td><td><span class="badge p1">P1</span></td><td><span class="api-tag api-per">NICE</span></td>
+                <td><strong>NICE 동작이 가이드와 불일치.</strong> 주문자≠수하인이라 일반인증으로 요청했는데도 구매간소화로 응답이 내려옵니다. 가이드상으로는 <code>0005</code>(주문자/수하인 불일치)이거나 일반인증으로 강등되어야 합니다.</td>
+                <td>2026-08-06 김동섭</td>
+                <td>점유확인 없이 인증이 통과됩니다. 도용방지 목적 자체가 무력화되고, 관세청 감사 시 문제가 될 수 있습니다.</td>
+                <td><span class="st-open">미해결</span></td>
+                <td>NICE 서면 회신 전까지 이 경로를 신뢰할 수 없습니다. 결함이면 수정 일정을, 사양이면 근거를 받아야 합니다.</td>
+            </tr>
+            <tr>
+                <td><strong>R-10</strong></td><td><span class="badge p1">P1</span></td><td><span class="api-tag api-per">NICE</span></td>
+                <td><strong>검증 가능한 테스트 데이터 부재.</strong> 제공된 테스트 데이터의 90% 이상이 실패하고, 비갱신자(03) 시나리오는 테스트 자체가 불가능합니다. 일반용 C는 팝업은 뜨나 관세청 임시 인증번호를 NICE가 내려주지 않아 인증이 완료되지 않습니다.</td>
+                <td>2026-07-22~23 김동섭</td>
+                <td>오픈 전 검증이 불가능한 경로가 남습니다. R-01이 계도기간 종료 시 터지는데, 그 경로를 테스트해본 적이 없는 상태가 됩니다.</td>
+                <td><span class="st-open">미해결</span></td>
+                <td>NICE·관세청에 유효 테스트 계정 세트를 요청합니다. 특히 <strong>rspn_tp=01(2자리 응답) 시나리오</strong>는 반드시 확보해야 합니다.</td>
+            </tr>
+            <tr>
+                <td><strong>R-11</strong></td><td><span class="badge p1">P1</span></td><td><span class="api-tag api-per">NICE</span></td>
+                <td><strong>사후처리(SMARTPCC_30) 미검증.</strong> 호출 시 <code>3011: 내부 로직 처리 오류</code>만 반환되어 정상 동작을 확인하지 못했습니다.</td>
+                <td>2026-07-23 김동섭</td>
+                <td>관세청·NICE 장애 시의 유일한 복구 경로가 검증되지 않은 상태입니다. 장애가 실제로 나면 주문이 통째로 묶입니다.</td>
+                <td><span class="st-open">미해결</span></td>
+                <td>NICE에 3011 원인과 정상 응답 재현 조건을 확인합니다.</td>
+            </tr>
+            <tr>
+                <td><strong>R-12</strong></td><td><span class="badge p1">P1</span></td><td><span class="api-tag api-etc">일정</span></td>
+                <td><strong>대상 기준일 코드 반영 확인 필요.</strong> 2026-07-23에 "상품준비중 & <u>8/15 09:00</u> 이후 주문"으로 필터를 구현했는데, 2026-08-03에 오픈일이 <u>8/28</u>로 변경되었습니다.</td>
+                <td>2026-07-23 → 08-03</td>
+                <td>기준일이 8/15로 남아 있으면 8/15~8/27 사이 주문이 신규 프로세스로 잘못 유입됩니다.</td>
+                <td><span class="st-doc">확인 필요</span></td>
+                <td>동수 API 조회 대상 필터의 기준 일시를 <strong>2026-08-28 09:00</strong>으로 재확인합니다.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>A-3. P2 — 문서와 실제 구현·공식 규격의 불일치</h3>
+    <p style="font-size:13px; color:#666; margin-top:-10px;">
+        이 항목들은 <strong>개발은 이미 올바르게 되어 있으나 문서가 뒤처진 경우</strong>가 섞여 있습니다.
+        2026-07-22 공유된 실제 TRA001 JSON에는 <code>ord_site_url</code>·<code>shpn_vcex_bsmn_sgn</code>이 정상 포함되어 있었습니다.
+        협력사가 문서를 보고 개발하므로 문서 동기화가 필요합니다.
+    </p>
+    <table>
+        <thead><tr><th>ID</th><th>등급</th><th>항목</th><th>기획·매핑 문서</th><th>공식 규격 (v1.4.1)</th><th>실제 구현</th><th>조치</th></tr></thead>
+        <tbody>
+            <tr><td><strong>R-13</strong></td><td><span class="badge p2">P2</span></td><td>배송대행업체 태그</td><td><code>dlvr_vcex_bsmn_sgn</code> / <code>_nm</code></td><td><code>shpn_vcex_bsmn_sgn</code> / <code>_nm</code></td><td>정상 (JSON 확인)</td><td><span class="st-fixed">문서 정정 완료</span></td></tr>
+            <tr><td><strong>R-14</strong></td><td><span class="badge p2">P2</span></td><td>주문 사이트 주소</td><td>항목 없음</td><td><code>ord_site_url</code> String(200) <strong>필수</strong></td><td>정상 (JSON 확인)</td><td><span class="st-fixed">문서 추가 완료</span></td></tr>
+            <tr><td><strong>R-15</strong></td><td><span class="badge p2">P2</span></td><td>판매업체 사업자번호</td><td><code>sale_ents_biz_no</code> String(10)</td><td><code>sale_ents_bsns_no</code> String(30)</td><td>미확인</td><td><span class="st-fixed">문서 정정 완료</span></td></tr>
+            <tr><td><strong>R-16</strong></td><td><span class="badge p2">P2</span></td><td>제조사 태그</td><td><code>prod_mnfcr_nm</code> / <code>prod_mdl_no</code></td><td><code>prod_mkr_nm</code> / <code>prod_mkr_mdl_no</code></td><td>미확인</td><td><span class="st-fixed">문서 정정 완료</span></td></tr>
+            <tr><td><strong>R-17</strong></td><td><span class="badge p2">P2</span></td><td>상품 일련번호</td><td><code>prod_srno</code> String(20)</td><td>Integer(3), 1부터 연속</td><td>미확인</td><td><span class="st-fixed">문서 정정 완료</span></td></tr>
+            <tr><td><strong>R-18</strong></td><td><span class="badge p2">P2</span></td><td>주문자 전화번호</td><td><code>ordrr_telno</code> 선택(N)</td><td><strong>필수(Y)</strong> String(60)</td><td>미확인</td><td><span class="st-fixed">문서 정정 완료</span> — 값 누락 시 반려</td></tr>
+            <tr><td><strong>R-19</strong></td><td><span class="badge p2">P2</span></td><td>판매업체명</td><td><code>sale_ents_nm</code> 선택, 전건 Null</td><td>선택이나 <strong>A 직접판매인 경우 필수</strong></td><td>Null 추정</td><td><span class="st-open">값 확정 필요</span> — R-04와 동일 사안</td></tr>
+            <tr><td><strong>R-20</strong></td><td><span class="badge p2">P2</span></td><td>상품 개수 상한</td><td>HBL당 최대 5개</td><td><code>product_info</code> Array [1, <strong>999</strong>]</td><td>동수 채번 1~5</td><td><span class="st-open">확인 필요</span> — 6개 이상 주문 처리 방식</td></tr>
+            <tr><td><strong>R-21</strong></td><td><span class="badge p2">P2</span></td><td>주문금액 계산식</td><td><code>qty × unitPrice</code></td><td><code>주문수량 × 상품단가 − 상품할인금액</code></td><td>할인 미반영</td><td><span class="st-open">할인 정책 확인</span></td></tr>
+            <tr><td><strong>R-22</strong></td><td><span class="badge p2">P2</span></td><td>제출자 상호</td><td>(주)크로네</td><td>관세청 등록 상호와 일치해야 함</td><td>JSON은 <strong>뉴트리시아몰</strong></td><td><span class="st-open">D-11 확정 필요</span></td></tr>
+            <tr><td><strong>R-23</strong></td><td><span class="badge p2">P2</span></td><td>스키마 외 필드</td><td><code>hs_cd</code>, <code>ord_qty_ut</code>, <code>tot_wt</code>, <code>stlm_mns_cd</code>, <code>stlm_dttm</code>, <code>insrc_amt</code>, <code>tax_amt</code>, <code>ordrr_email</code>, 예비항목 3개</td><td>TRA001에 <strong>존재하지 않는 필드</strong></td><td>JSON 미포함</td><td><span class="st-fixed">문서에서 제외 표기</span> — <code>tot_wt</code>가 없으므로 "중량 ±5~10% 허용" 서술은 근거 없음</td></tr>
+            <tr><td><strong>R-24</strong></td><td><span class="badge p2">P2</span></td><td>30분 룰 근거</td><td>"동일 주문 30분 내 중복 제출 시 3000 에러·IP 차단"</td><td>3000은 <u>동일 <code>txif_sbmt_no</code></u> 중복. 30분 규정은 PER001에서 <code>ord_no_icln_tp=01</code>로 발급 시 <u>30분 내 주문완료</u> 의무</td><td>0.5일 공수 투입</td><td><span class="st-doc">근거 정정</span> — 방어로직 자체는 무해하나 진짜 30분 규정은 별개로 필요</td></tr>
+        </tbody>
+    </table>
+
+    <h3>A-4. P3 — 법무 · 계약 · 운영</h3>
+    <table>
+        <thead><tr><th>ID</th><th>등급</th><th>구분</th><th>리스크 내용</th><th>대응 방향</th></tr></thead>
+        <tbody>
+            <tr><td><strong>R-25</strong></td><td><span class="badge p1">P1</span></td><td><span class="api-tag api-law">개인정보</span></td>
+                <td><strong>전송하는데 고지에 없는 항목 2건.</strong> ① 개인통관고유부호가 동수(중국 Yantai)로 이전되는데 국외이전 동의 항목에 PCCC가 없습니다. ② 자이언트 <code>tempAuthNo</code>(일회용 인증번호)가 필수 전송인데 제3자 제공 항목에 없습니다.</td>
+                <td>국외이전 동의 항목에 PCCC 추가, 자이언트 제공 항목에 일회용 인증번호 추가. 변호사 검토 후 반영.</td></tr>
+            <tr><td><strong>R-26</strong></td><td><span class="badge p1">P1</span></td><td><span class="api-tag api-law">전상법</span></td>
+                <td><strong>청약철회 제한 문구.</strong> 결제창에 "통관 지연 및 주문 반품/환불은 <u>절대 불가능</u>"이 남아 있습니다. 추가로 상품준비중 단계부터 교환/환불 버튼을 비노출 처리하는 개발이 진행 중입니다.</td>
+                <td>전자상거래법상 청약철회권을 특약으로 배제할 수 없습니다. 문구 삭제 및 버튼 비노출 정책의 법적 검토가 필요합니다. <strong>D-09.</strong></td></tr>
+            <tr><td><strong>R-27</strong></td><td><span class="badge p2">P2</span></td><td><span class="api-tag api-law">고지</span></td>
+                <td><strong>합산과세 안내 구기준.</strong> "입항일이 동일하면 합산과세"는 2022-11-17 개정으로 더 이상 맞지 않습니다. 현재는 동일 B/L 분할, 동일 해외공급자 동일자 구매 분할 반입 등이 기준입니다. 관세법 조문도 "제254조의2", "시행령 제289조"로 잘못 인용되어 있습니다.</td>
+                <td>배너·팝업 문구를 현행 기준으로 교체하고 조문을 관세법 제254조·시행령 제258조로 정정합니다.</td></tr>
+            <tr><td><strong>R-28</strong></td><td><span class="badge p2">P2</span></td><td><span class="api-tag api-etc">운영</span></td>
+                <td><strong>운영 서버 허위 주문 테스트.</strong> "허수를 올려도 관세청·자이언트에서 자동 소멸되므로 상관없다"는 전제로 오픈 당일 새벽 테스트가 계획되어 있습니다. 자동 소멸 근거는 확인되지 않았습니다.</td>
+                <td>「국가관세종합정보망의 이용 및 운영 등에 관한 고시」 제11조상 이용 제한 사유가 될 수 있습니다. 서면 승인된 테스트 절차를 확보하거나 테스트 계정으로 한정합니다. <strong>D-08.</strong></td></tr>
+            <tr><td><strong>R-29</strong></td><td><span class="badge p2">P2</span></td><td><span class="api-tag api-per">자격</span></td>
+                <td><strong>협력인정업체 자격 미확인.</strong> Track A(구매간소화)의 전제 조건인데 K26000099의 등록 여부를 확인한 문서가 없습니다. 미등록이면 관세청 <code>3100</code>, NICE <code>0004</code>로 거부됩니다.</td>
+                <td>UNI-PASS 기업포털에서 신청·확인. 2026년은 "CI 제공 가능 업자"에게 제공되나 '27.1.31 협력인정업체 선정 전까지라는 단서가 있습니다. <strong>D-03.</strong></td></tr>
+            <tr><td><strong>R-30</strong></td><td><span class="badge p2">P2</span></td><td><span class="api-tag api-etc">계약</span></td>
+                <td><strong>계약 정합성.</strong> 본문 고객사는 "Krone", 서명부는 "IBe/아이베"로 불일치합니다. 제14조가 비밀유지로 제8조(지식재산권)를, 권리침해로 제12조(하자보증)를 인용하는 등 상호참조 오류가 있고, 지연배상이 제4조·제9조에 1일당 3/1000으로 중복됩니다. 원견적(32,311,505원)에 PER/NICE/CI·TRA 기능이 이미 포함되어 있는데 추가견적이 일부를 다시 청구합니다. 추가견적서도 표지 4,800,000원과 상세 합계 4,865,538원이 불일치합니다.</td>
+                <td>변경합의서로 정정. 삭제·유지·추가 기능 목록, 중복금액 조정, 검수 합격기준, 롤백 일정을 포함합니다. <strong>D-10.</strong></td></tr>
+        </tbody>
+    </table>
+
+    <h2>
+        <span>B. 지금 결정 · 확인해야 할 것</span>
+        <span class="time-tag">사용자 액션 12건</span>
+    </h2>
+    <div class="stage-box">
+        <p><strong>읽는 법:</strong> 위에서부터 순서대로가 우선순위입니다. D-01~D-03은 <u>다른 결정의 전제</u>가 되므로 먼저 확정해야 나머지가 풀립니다.</p>
+    </div>
+    <table>
+        <thead><tr><th>No</th><th>결정 사항</th><th>왜 지금인가</th><th>선택지</th><th>내 권고</th><th>기한</th></tr></thead>
+        <tbody>
+            <tr><td><strong>D-01</strong></td><td><strong>관세청 신고금액 기준</strong><br><code>tot_stlm_amt</code>를 USD 공급가로 보낼 것인가, 고객 실결제 KRW로 보낼 것인가 (R-02)</td><td>이미 그렇게 개발되어 운영에 들어갑니다. 되돌리려면 금액 모델 자체를 바꿔야 하므로 오픈 전에 결정해야 합니다.</td><td>① 고객 실결제 KRW·실통화로 정정<br>② USD 공급가 유지<br>③ 관세청 서면 확인 후 결정</td><td><strong>①</strong>. 규격 문언이 "구매자가 결제한 최종 결제 금액"으로 명확합니다. 유지하려면 최소한 ③이 선행되어야 합니다.</td><td>오픈 전</td></tr>
+            <tr><td><strong>D-02</strong></td><td><strong>OTP 입력 UI 개발 착수 여부·일정</strong> (R-01)</td><td>계도기간이 <strong>2026-09-14 24:00</strong>에 끝납니다. 오픈 17일 뒤입니다. 지금 착수하지 않으면 9/15에 결제가 멈춥니다.</td><td>① 오픈 전 함께 개발<br>② 오픈 후 9/14 이전까지 별도 배포<br>③ 협력인정업체 승인으로 우회 (D-03 성공 시)</td><td><strong>②를 최소선, ①이 안전.</strong> ③은 자격 승인이 불확실하고 주문자≠수하인 건은 어차피 일반인증으로 떨어지므로 단독 해법이 될 수 없습니다.</td><td>즉시</td></tr>
+            <tr><td><strong>D-03</strong></td><td><strong>협력인정업체 신청 여부</strong> (R-29)</td><td>Track A 전체의 전제입니다. 미등록이면 간소화 경로가 통째로 무효입니다.</td><td>① 즉시 UNI-PASS 신청<br>② 현재 자격 상태만 조회 후 판단</td><td><strong>②를 먼저, 결과에 따라 ①.</strong> 조회는 즉시 가능합니다.</td><td>즉시</td></tr>
+            <tr><td><strong>D-04</strong></td><td><strong>자이언트 <code>hsCode</code> 전송 여부</strong> (R-06)</td><td>개발이 멈춰 있는 지점입니다.</td><td>① 동수 값 그대로 전송<br>② 제거하고 자이언트가 매핑</td><td><strong>①</strong>. 자이언트가 필수로 요구하므로 제거는 선택지가 아닙니다.</td><td>즉시</td></tr>
+            <tr><td><strong>D-05</strong></td><td><strong>TRA003 오류 수정분의 자이언트 반영 방식</strong> (R-05)</td><td>재제출 경로가 막혀 있습니다.</td><td>① 자이언트에 전체 수정 API 요청<br>② hwbNo 취소 후 재등록 절차 요청<br>③ 4개 필드 외 오류는 수기 처리</td><td><strong>① 요청, ②를 대안으로.</strong> ③은 건수가 늘면 감당이 안 됩니다.</td><td>오픈 전</td></tr>
+            <tr><td><strong>D-06</strong></td><td><strong>대상 기준일 8/28 09:00 코드 반영 확인</strong> (R-12)</td><td>7/23에 8/15로 구현되었고 이후 오픈일이 변경되었습니다.</td><td>확인 후 수정</td><td>강명제님께 필터 기준 일시 재확인 요청</td><td>오픈 전</td></tr>
+            <tr><td><strong>D-07</strong></td><td><strong>TRA002 병행 도입</strong> (R-03)</td><td>현재 승인 판정이 거짓 양성을 만듭니다.</td><td>① TRA002 기반으로 전환<br>② TRA003 유지</td><td><strong>①</strong>. 공수가 들지만 잘못된 출고를 막는 유일한 방법입니다.</td><td>오픈 전</td></tr>
+            <tr><td><strong>D-08</strong></td><td><strong>운영 서버 테스트 방식</strong> (R-28)</td><td>오픈 당일 새벽 테스트가 계획되어 있습니다.</td><td>① 관세청 서면 승인 확보<br>② 테스터 회원 한정 (강명제님 제안)<br>③ 계획대로 진행</td><td><strong>② + ①</strong>. 테스터 회원 한정은 이미 공수 없이 가능하다고 확인되었습니다.</td><td>오픈 전</td></tr>
+            <tr><td><strong>D-09</strong></td><td><strong>취소·환불 차단 정책 법적 검토</strong> (R-26)</td><td>0.5일 공수로 개발이 진행 중입니다.</td><td>① 변호사 검토 의뢰<br>② 현행 진행</td><td><strong>①</strong>. 이미 최앤리 검토 이력이 있으므로 이어서 문의하면 됩니다.</td><td>오픈 전</td></tr>
+            <tr><td><strong>D-10</strong></td><td><strong>공수·견적 확정</strong> (R-30)</td><td>PER CI 4일 견적에 일반인증 경로·OTP UI·CI 생애주기가 포함되지 않은 것으로 보입니다.</td><td>① 범위 명시 후 재산정<br>② 4일 수용</td><td><strong>①</strong>. D-02가 확정되어야 정확한 산정이 가능합니다.</td><td>D-02 직후</td></tr>
+            <tr><td><strong>D-11</strong></td><td><strong>제출자 상호 확정</strong> (R-22)</td><td>문서는 (주)크로네, 실제 전송은 뉴트리시아몰입니다.</td><td>관세청 등록 상호 조회 후 통일</td><td>등록 상호와 다르면 반려 사유가 됩니다.</td><td>오픈 전</td></tr>
+            <tr><td><strong>D-12</strong></td><td><strong>개인정보 고지 보완</strong> (R-25)</td><td>전송하는데 고지에 없는 항목이 2건입니다.</td><td>고지 추가 후 변호사 확인</td><td>PCCC 국외이전, tempAuthNo 제3자 제공 추가</td><td>오픈 전</td></tr>
+        </tbody>
+    </table>
+
+    <h2>
+        <span>C. NotebookLM 질문 리스트</span>
+        <span class="time-tag">소스별 정리</span>
+    </h2>
+    <div class="stage-box">
+        <p><strong>사용법:</strong> NotebookLM에 아래 소스를 올리고 그룹별로 질문합니다. 답이 문서에 없으면 그 자체가 "서면 질의 대상"이라는 신호입니다.</p>
+        <ul>
+            <li><strong>소스 1</strong> 관세청 전자상거래 전용 REST API 명세서 v1.4.1 (<code>documents/</code>)</li>
+            <li><strong>소스 2</strong> 개인통관고유부호_CI활용_기관.pdf, NICE [CI] 유효성 검증 API 가이드_20260724.pdf</li>
+            <li><strong>소스 3</strong> 전자상거래전용 통관플랫폼 사업소개 v1.6, 전자상거래업자 간담회 안건</li>
+            <li><strong>소스 4</strong> 계약서, 추가개발 가견적서</li>
+            <li><strong>소스 5</strong> planning_v5.html, api_field_mapping.html (본 기획 문서)</li>
+        </ul>
+    </div>
+
+    <div class="qbox">
+        <h4>C-1. 관세청 명세서 v1.4.1 대상</h4>
+        <ol>
+            <li><code>su_crtf_no</code>가 앞 2자리만 제공되는 조건을 전부 나열하고, 6자리 전체가 제공되는 조건과 대조해 표로 만들어줘.</li>
+            <li>인증번호 체크디지트 검증 알고리즘을 단계별로 설명하고, 전화번호 <code>01055557777</code>·인증번호 <code>34xxxx</code> 예시로 계산 과정을 보여줘.</li>
+            <li><code>rspn_tp</code> 01/02/03 각각에 대해 쇼핑몰이 취해야 할 후속 처리를 분기별로 정리해줘.</li>
+            <li>TRA001 요청 본문에 들어갈 수 있는 필드를 <u>빠짐없이</u> 나열하고 각각의 필수 여부·타입·길이를 표로 만들어줘. 조건부 필수는 조건도 함께 적어줘.</li>
+            <li><code>elcm_pcd</code>가 A일 때 필수가 되는 필드만 따로 뽑아줘.</li>
+            <li>TRA002와 TRA003의 차이를 "언제 무엇이 조회되지 않는가" 관점에서 설명해줘.</li>
+            <li><code>txif_prcs_stcd</code> 02(부분오류반려)일 때 정상 상품과 오류 상품의 처리가 각각 어떻게 되는지 설명해줘.</li>
+            <li>거래정보 제출 시 권장/제한되는 시간대와 호출 방식(동시호출 가능 여부, 건수 상한, 본문 크기)을 정리해줘.</li>
+            <li>PER001에서 <code>ord_no_icln_tp</code> 01과 02의 차이와, 01 선택 시 지켜야 하는 시간 제약을 설명해줘.</li>
+            <li>응답코드 3000·3010·3030·3100·3110·3120·3130·3140·3170·3180이 각각 언제 발생하고 어떻게 복구하는지 표로 만들어줘.</li>
+            <li>PER003(사후처리)를 쓸 수 있는 조건과 <code>call_dttm</code> 검증 실패 시 처리 절차를 설명해줘.</li>
+            <li>일회용 개인통관부호(<code>su_pers_cscl_sgn</code>)는 언제 발급되며, 발급받은 경우 TRA001 <code>cnsi_pers_ecm</code>에 무엇을 넣어야 하는지 문서에 근거가 있는지 확인해줘.</li>
+        </ol>
+    </div>
+
+    <div class="qbox">
+        <h4>C-2. NICE CI 활용 가이드 대상</h4>
+        <ol>
+            <li><code>svc_type</code> A(간소화)로 요청했을 때 B(일반인증)로 강등되는 조건을 전부 나열해줘.</li>
+            <li>SMARTPCC_10 요청 필드를 전부 나열하고, 관세청 PER001 필드와 1:1 대응표를 만들어줘. 대응되지 않는 필드는 따로 표시해줘.</li>
+            <li><code>ord_prod_nm</code>·<code>ord_prod_price</code>·<code>ord_prod_class</code>가 단일 값인데 <u>다품목 주문</u>은 어떻게 처리하라고 안내하는지 찾아줘. 없으면 "문서에 없음"이라고 명확히 답해줘.</li>
+            <li><code>ord_prod_price</code>의 통화 단위와 <code>ord_prod_class</code>의 자릿수 규칙을 정확히 알려줘.</li>
+            <li><code>cnsi_psno</code>의 길이 규격이 관세청 <code>dlvrpl_psno</code>와 다른지 비교해줘.</li>
+            <li><code>ordrr_key</code>(CI)의 길이가 API별로 다르게 기재된 곳이 있는지 찾아줘.</li>
+            <li>transaction_id·auth_url의 유효시간이 문서 내에서 서로 다르게 기술된 부분을 모두 찾아 대조해줘.</li>
+            <li>암복호화 절차(KDF·대칭키·무결성키·IV 추출)를 구현 순서대로 정리하고, API별로 이용기관이 암호화할 대상과 복호화할 대상을 표로 만들어줘.</li>
+            <li>응답코드 0001~0009가 각각 무엇이고 쇼핑몰이 어떻게 대응해야 하는지 정리해줘.</li>
+            <li>CI를 얻는 방법이 이 문서 안에 설명되어 있는지 확인해줘. 없다면 어디를 참조하라고 되어 있는지 찾아줘.</li>
+        </ol>
+    </div>
+
+    <div class="qbox">
+        <h4>C-3. 사업소개 · 간담회 안건 대상</h4>
+        <ol>
+            <li>개인통관고유부호 체계 개선의 단계적 적용 일정을 기간별 표로 만들고, 각 기간에 인증번호 검증체계가 적용되는 대상을 명확히 구분해줘.</li>
+            <li>협력인정업체가 되면 무엇이 달라지는지, 신청은 어디서 하는지 정리해줘.</li>
+            <li>일회용 개인통관부호와 일회용 인증번호의 정의 차이를 설명해줘.</li>
+            <li>계도기간·유예 관련 서술을 전부 찾아서 적용 대상과 종료 시점을 정리해줘.</li>
+            <li>관세청·수탁기관 장애 시의 처리 절차를 단계별로 정리해줘.</li>
+            <li>거래유형 "A(전자상거래물품)" 값의 유효기간과 이후 처리 방법을 설명해줘.</li>
+            <li>거래정보 제출 시간대에 대한 관세청의 요청사항을 찾아줘.</li>
+        </ol>
+    </div>
+
+    <div class="qbox">
+        <h4>C-4. 계약서 · 견적서 대상</h4>
+        <ol>
+            <li>계약 당사자 표기가 본문과 서명부에서 일치하는지 확인해줘.</li>
+            <li>조문 상호참조가 잘못된 곳을 전부 찾아줘 (특히 제14조가 인용하는 조항들).</li>
+            <li>지연배상 조항이 중복 규정된 곳이 있는지 확인해줘.</li>
+            <li>원계약 견적에 PER·NICE·CI·TRA 제출·결과조회·재제출·관리자 기능이 포함되어 있는지 항목별로 확인해줘.</li>
+            <li>추가견적서의 표지 금액과 상세 합계가 일치하는지 확인해줘.</li>
+            <li>원계약과 추가견적에서 중복 청구되는 기능이 있는지 대조해줘.</li>
+            <li>검수 기준·하자보증 기간·법령 변경 시 무상보완 범위가 어떻게 규정되어 있는지 정리해줘.</li>
+        </ol>
+    </div>
+
+    <div class="qbox">
+        <h4>C-5. 교차 검증 (소스 전체)</h4>
+        <ol>
+            <li>planning_v5의 TRA001 필드 목록과 관세청 v1.4.1 규격을 대조해서, 누락된 필수 필드와 규격에 없는 필드를 각각 나열해줘.</li>
+            <li>같은 데이터가 관세청·NICE·자이언트에서 서로 다른 필드명·타입·통화로 요구되는 경우를 전부 찾아줘.</li>
+            <li>planning_v5의 각 Stage에서 호출하는 API가 해당 시점에 실제로 호출 가능한지(선행 데이터가 준비되었는지) 검증해줘.</li>
+            <li>개인정보 처리방침에 고지된 제공 항목과 실제 API에서 전송하는 항목을 대조해서 차이를 찾아줘.</li>
+            <li>"6자리 인증번호를 받는다"는 전제가 성립하는 경우와 성립하지 않는 경우를 구분해줘.</li>
+        </ol>
+    </div>
+
+    <h2>
+        <span>D. 문서 이력</span>
+    </h2>
+    <table>
+        <thead><tr><th>일자</th><th>내용</th></tr></thead>
+        <tbody>
+            <tr><td>2026-08-10</td><td>최초 작성. 관세청 v1.4.1 · NICE CI 가이드 · NICE 통합인증 · 자이언트 GGATE v1.3.5 전수 대조. 리스크 30건, 결정사항 12건, 질의 41건 정리. 기존 <code>00_자료안내</code>·<code>90_재평가결과</code>·<code>99_외부수집원본</code> 폴더의 검토 내용을 본 문서로 통합하고 폴더는 정리함.</td></tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
