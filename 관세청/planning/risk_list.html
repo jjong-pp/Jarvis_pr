@@ -379,11 +379,137 @@
     </div>
 
     <h2>
+        <span>C-6. NotebookLM 답변 검증 결과</span>
+        <span class="time-tag">2026-08-10 · 소스 원문 대조</span>
+    </h2>
+    <div class="stage-box">
+        <p><strong>판정 요약</strong> — NotebookLM 답변을 관세청 v1.4.1 원문, NICE CI 가이드, 자이언트 컬렉션 JSON, 견적서·계약서 PDF 원문과 1:1 대조했습니다.</p>
+        <ul>
+            <li><strong>C-1 관세청</strong> — 절반 정확. 체크디지트 알고리즘·계산 예시는 <u>정확</u>. 그러나 필드 스펙 오류 11건, <span class="rule-highlight">치명적 날조 2건</span>.</li>
+            <li><strong>C-2 NICE</strong> — 대체로 정확. 다품목·통화·HS 4자리·CI 길이 불일치는 제 검증과 일치. 암복호화 KDF 입력값과 우편번호 조언은 오류.</li>
+            <li><strong>C-3 사업소개</strong> — 계도기간 서술은 <u>유용</u>(신규 정보 포함). 단계적 적용 일정은 축약·누락. 거래유형 A 해석은 오류.</li>
+            <li><strong>C-4 계약·견적</strong> — <span class="rule-highlight">거의 전부 날조. 사용 금지.</span> 금액·공수·협상 이력이 실제 문서와 전혀 다릅니다.</li>
+            <li><strong>C-5 교차검증</strong> — 3사 불일치 표는 유용. 결론부의 "100% 완벽" · "개정 완료" 주장은 사실과 다름.</li>
+        </ul>
+    </div>
+
+    <h3>C-6-1. 절대 그대로 구현하면 안 되는 항목</h3>
+    <table>
+        <thead><tr><th>출처</th><th>NotebookLM 주장</th><th>실제 (원문 근거)</th><th>구현 시 결과</th></tr></thead>
+        <tbody>
+            <tr>
+                <td><strong>C-1 #5</strong></td>
+                <td><span class="rule-highlight">"세관 테스트 서버 검증 엔진의 로직 버그로 <code>sale_ents_id</code> 누락 시 전체 반려. 우회로 <code>K26000127</code>(테스트용 <code>K26000099</code>)을 하드코딩 매핑"</span></td>
+                <td><strong>전부 날조.</strong> v1.4.1에 그런 버그 기술 없음. <code>K26000127</code>이라는 부호는 <u>어떤 소스에도 등장하지 않음</u>. <code>sale_ents_id</code>는 String(30) 판매업체 <u>상점 아이디</u>이지 업체부호 필드가 아님. 공식 조건은 "플랫폼에 <u>입점한</u> 업체의 직접판매인 경우 필수" — 자사몰 직접판매는 입점이 아니므로 해당 없음</td>
+                <td>업체부호를 상점아이디 필드에 넣으면 <code>3010</code> 또는 값 유효성 오류. 잘못된 부호가 신고 데이터에 영구 기록됨</td>
+            </tr>
+            <tr>
+                <td><strong>C-1 #6</strong></td>
+                <td><span class="rule-highlight">"오류 수집용 배치는 철저히 TRA003 단일 경로로만 제어되어야 한다"</span></td>
+                <td><strong>결론이 정반대.</strong> 전제(TRA002 조회 건은 TRA003에 안 나옴)는 맞으나, [붙임1]은 TRA003을 <u>"TRA002 호출을 최소화하고 편의성을 제공하기 위한 API"</u>로 규정하고 <u>"특정 제출번호의 검증결과를 조회하려면 TRA002를 사용"</u>이라고 명시. TRA003은 최근 7일·최대 50건·1회 조회 후 재조회 불가</td>
+                <td><strong>R-03을 고착화.</strong> 반려된 건이 "승인"으로 처리되어 출고됨. 현재 설계의 가장 큰 결함을 정당화하는 조언</td>
+            </tr>
+            <tr>
+                <td><strong>C-1 #9</strong></td>
+                <td>"01 방식은 30분 이내에 <u>TRA001 데이터가 세관에 제출 완료</u>되어야 한다"</td>
+                <td><strong>오독.</strong> [붙임2] 1항: "인증번호 발급 <u>30분 이내 주문을 완료 처리</u>해야 하고 관세청은 주문완료일시로 검증". <u>주문 완료</u> 기한이지 TRA001 제출 기한이 아님</td>
+                <td>10:00~11:00 일배치 구조에서는 30분 내 TRA001 제출이 물리적으로 불가능. 설계를 통째로 뒤엎을 뻔한 오독</td>
+            </tr>
+            <tr>
+                <td><strong>C-2 #5</strong></td>
+                <td>"NICE는 6자리 규격이므로 백엔드에서 <u>자릿수 포맷 보완</u>하여 6자리로 전송"</td>
+                <td><code>String(6)</code>은 <strong>최대 길이</strong>이지 고정 길이가 아님. 5자리 우편번호를 그대로 넣으면 됨</td>
+                <td>패딩하면 우편번호가 훼손되어 관세청 <code>3180</code>(수하인 정보 불일치) 유발</td>
+            </tr>
+            <tr>
+                <td><strong>C-2 #8</strong></td>
+                <td>"<code>client_secret</code> 값을 키 유도 함수(KDF)에 대입"</td>
+                <td><strong>틀림.</strong> KDF 입력은 <code>ticket</code>(토큰 API 응답) + <code>transaction_id</code>(verify/url 응답) + <code>iterators</code>. 대칭키 = keyString[0:32], 무결성키 = keyString[48:80], IV = enc_data 앞 16byte</td>
+                <td>복호화 전량 실패</td>
+            </tr>
+            <tr>
+                <td><strong>C-3 #6</strong></td>
+                <td>"판매유형코드 <code>elcm_pcd: A</code> 화물의 통관목록(DKX) 유예가 1개월이며 이후 수입신고서(DKW)로 전환"</td>
+                <td><strong>다른 개념을 혼동.</strong> 간담회 원문은 <u>장애 시 기존 서식(GOVCBR936) 폴백</u>에서 "<u>거래유형</u> 항목 값을 A(전자상거래물품)로 제출, A 값은 오픈 후 1개월 유효, 이후 D(개인물품)". 판매유형코드 A(직접판매)와 무관</td>
+                <td>DKX→DKW 전환이라는 없는 과업이 생김</td>
+            </tr>
+            <tr>
+                <td><strong>C-4 #5</strong></td>
+                <td>"추가견적 직접인건비 <strong>11,692,535원</strong>, 총 <strong>36일</strong>, 합계 <strong>15,434,146원</strong>, 표지 <strong>15,400,000원</strong>, 정합성 완전 일치"</td>
+                <td><strong>실제 견적서 PDF 원문:</strong> 직접인건비 <strong>3,686,014원</strong> · 제경비 737,203원 · 기술료 442,322원 · 합계 <strong>4,865,538원</strong> · 표지 제안금액 <strong>4,800,000원</strong>. 공수는 기획 2일 + 개발 9일 = <strong>11일</strong>, 구축기간 2주, 투입 1명. 표지와 상세가 <u>65,538원 불일치</u></td>
+                <td>금액이 3배 이상 부풀려진 수치. 협상·정산에 쓰면 즉시 문제</td>
+            </tr>
+            <tr>
+                <td><strong>C-4 #1·#4·#6·#7</strong></td>
+                <td>"계약 당사자 완전 일치 보증" · "원계약 17,013,815원" · "중복 청구 2건 적발 및 감액 관철" · "관세법 제254조의2 개정"</td>
+                <td><strong>근거 없음.</strong> 계약서 PDF 본문은 제2조에서 업무 범위를 "첨부 견적서"로 위임할 뿐 기능 목록이 없음. 원계약 금액·협상 이력은 어떤 소스에도 없음. 관세법 조문은 <u>제254조</u>(제254조의2 아님)</td>
+                <td>있지도 않은 합의를 근거로 협상하게 됨</td>
+            </tr>
+            <tr>
+                <td><strong>C-1 #11 · C-3 #5</strong></td>
+                <td><code>stat_sgn = 02</code>를 관세청 규격상 장애 선승인 코드로 서술</td>
+                <td><code>stat_sgn</code>은 <strong>v1.3에서 PER001 요청데이터에서 삭제된 필드</strong>(개정이력: "요청데이터 stat_sgn, ord_cmpl_dttm 삭제")</td>
+                <td>내부 플래그로 쓰는 건 무방하나 관세청 규격으로 오인하면 안 됨</td>
+            </tr>
+            <tr>
+                <td><strong>C-5 #4</strong></td>
+                <td>"관세청 제공 항목 100% 일치, 갭 없음" · "Yantai 국외이전 약관 개정 완료"</td>
+                <td><strong>사실과 다름.</strong> <code>planning/checkout_ui_mockup.html</code> 현행 국외이전 동의 항목은 "수하인 성명, 휴대폰번호, 국내 배송지 주소, 구매 상품 정보(품명, Qty)"뿐 — <u>PCCC도 공급단가도 없음</u>. 자이언트 제3자 제공 항목에도 <code>tempAuthNo</code> 누락 (R-25)</td>
+                <td>미고지 항목 전송 상태가 그대로 유지됨</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>C-6-2. 필드 스펙 오류 (C-1 #4 마스터 테이블)</h3>
+    <table>
+        <thead><tr><th>필드</th><th>NotebookLM</th><th>v1.4.1 원문</th></tr></thead>
+        <tbody>
+            <tr><td><code>ord_site_url</code></td><td>String(300)</td><td><strong>String(200)</strong></td></tr>
+            <tr><td><code>ordrr_telno</code></td><td>필수 <strong>N</strong></td><td><strong>Y (필수)</strong> — 누락 시 해당 주문정보 반려</td></tr>
+            <tr><td><code>ordrr_id</code></td><td>String(100)</td><td><strong>String(50)</strong></td></tr>
+            <tr><td><code>cnsi_bscs_addr</code></td><td>String(500)</td><td><strong>String(250)</strong></td></tr>
+            <tr><td><code>cnsi_dtl_addr</code></td><td>String(150)</td><td><strong>String(250)</strong></td></tr>
+            <tr><td><code>cnsi_pers_ecm</code></td><td>필수 C</td><td><strong>Y (필수)</strong></td></tr>
+            <tr><td><code>su_crtf_no</code></td><td>필수 Y</td><td><strong>N (선택)</strong> — 단 자이언트 tempAuthNo는 필수이므로 실무상 확보</td></tr>
+            <tr><td><code>sale_ents_nm</code></td><td>String(150)</td><td><strong>String(250)</strong>, A 직접판매인 경우 필수</td></tr>
+            <tr><td><code>sale_ents_sgn</code></td><td>A유형 필수</td><td><strong>N</strong> — "판매업체가 관세청에 전자상거래업자로 <u>등록되어 있는 경우에만</u> 제출"</td></tr>
+            <tr><td><code>sale_ents_id</code></td><td>A유형 필수</td><td><strong>N</strong> — "<u>플랫폼에 입점한</u> 업체의 직접판매인 경우 필수". 자사몰은 해당 없음</td></tr>
+            <tr><td><code>prod_clsf_nm_stp3~9</code></td><td>"1·2단계 복제 가능"</td><td>그런 규칙 없음 (미입력이 정상)</td></tr>
+            <tr><td>응답코드 3010</td><td>"sale_ents_id 누락 에러"</td><td>접근토큰 업체부호 ↔ 제출 데이터 업체부호 불일치, 또는 제출번호 앞 9자리 불일치. <u>sale_ents_id와 무관</u></td></tr>
+        </tbody>
+    </table>
+
+    <h3>C-6-3. 정확하며 채택할 항목</h3>
+    <table>
+        <thead><tr><th>출처</th><th>내용</th><th>활용</th></tr></thead>
+        <tbody>
+            <tr><td><strong>C-1 #2</strong></td><td><strong>체크디지트 알고리즘과 계산 예시 모두 정확.</strong> 전화 <code>01055557777</code> + 인증번호 앞5 <code>34123</code> → <code>777734123</code> → (7+7+3+1+3)×3 + (7+7+4+2) = 63+20 = 83 → 83 mod 10 = 3 → 10−3 = <strong>7</strong> → 올바른 인증번호 <code>341237</code>. v1.4.1 자체 예시(<code>123456789</code> → 95 → 5)와도 일치</td><td>관세청 직접 연동 전환 시 그대로 사용 가능. 현재 NICE 경유 구조에서는 불필요</td></tr>
+            <tr><td><strong>C-1 #12</strong></td><td><span class="rule-highlight">제 미해결 질문에 대한 답.</span> <em>8차 정기협의회 Q&amp;A</em> 인용: "일회용 인증번호를 입력한 상태에서 개인통관고유부호가 유효하다면 일회용 개인통관부호 대신 개인통관고유부호를 입력해도 됩니다. 일회용 개인통관부호와 개인통관고유부호는 <strong>N:1 관계</strong>" / "CI로 일회용 개인통관부호를 받았어도 수입신고서에 개인통관고유부호를 작성해도 통관에 문제없음"</td><td><strong>원문 확보 필요.</strong> 해당 Q&amp;A 문서가 <code>documents/</code>에 없어 교차검증 불가. 확보되면 협력인정업체 전환 시 <code>cnsi_pers_ecm</code>·<code>pccCode</code> 적재 규칙이 확정됨</td></tr>
+            <tr><td><strong>C-3 #4</strong></td><td>계도기간 <strong>2026-08-15 09:00 ~ 2026-09-14 24:00</strong>, 적용 기준은 <span class="rule-highlight">세관에 수입신고서·통관목록이 <u>제출되는 날짜</u> 기준</span>(주문일 아님). <code>su_crtf_no</code>에 <code>Z99999</code> 적재 시 정상 수리</td><td><strong>채택.</strong> "제출일 기준"은 신규 정보 — 9/14 직전 주문의 통관 타이밍 관리에 직결</td></tr>
+            <tr><td><strong>C-2 #3·#4·#6·#10</strong></td><td>다품목 처리 방법 "문서에 없음" / <code>ord_prod_price</code>는 KRW / <code>ord_prod_class</code>는 HS 앞 4자리 / <code>ordrr_key</code> 88 vs 107 불일치 / CI 수집은 별도 본인확인 연동 필요</td><td><strong>제 검증과 완전 일치.</strong> 교차검증 완료로 확정 처리</td></tr>
+            <tr><td><strong>C-5 #2</strong></td><td>3사(관세청·NICE·자이언트) 필드명·자릿수·통화 불일치 대조표</td><td><strong>유용.</strong> 우편번호 5 vs 6, 통화 KRW vs USD 충돌 지점이 정확</td></tr>
+            <tr><td><strong>C-2 #9</strong></td><td>NICE 응답코드 0001·0002·0003 정의와 복구 절차</td><td>정확. 단 <strong>0004(협력인정업체 아님)·0005(주문자/수하인 불일치)·0007(관세청 통신오류)·0008(관세청 점검→사후처리)</strong>이 누락되어 보완 필요</td></tr>
+        </tbody>
+    </table>
+
+    <h3>C-6-4. 축약·누락되어 보완이 필요한 항목</h3>
+    <table>
+        <thead><tr><th>출처</th><th>누락 내용</th></tr></thead>
+        <tbody>
+            <tr><td><strong>C-3 #1</strong></td><td>단계적 적용 일정에서 <strong>2028-02-01 전 국민 전면 적용</strong> 단계가 빠짐. 사업소개 v1.6 원문은 4구간: ①~26.8.15 통관정보 검증강화 ②26.8.15~26.12.31 신규·정보변경 국민 대상 <u>부분</u> 적용 ③27.1.1~28.1.31 생일 기준 <u>확대</u> ④28.2.1~ <u>전면</u> 적용. 검증체계 대상이 넓어질수록 Track B 비중이 커지므로 이 곡선이 핵심</td></tr>
+            <tr><td><strong>C-1 #8 · C-3 #7</strong></td><td>제출 시간대 권고에서 간담회 원문의 구체 문구가 빠짐 — <span class="rule-highlight">"신고서 등의 제출이 많은 <u>9~18시를 제외한 시간</u>으로 거래정보 제출시간 분산 요청"</span>. 현재 배치가 10:00~11:00으로 이 구간 한복판</td></tr>
+            <tr><td><strong>C-1 #10</strong></td><td>응답코드표에 <code>3141</code>(해지) · <code>3150</code>(유효기간 만료) · <code>3160</code>(정지) · <code>3190</code> · <code>3200</code> 및 공통코드 <code>1000/1600/1800/2000/2100</code> 누락</td></tr>
+            <tr><td><strong>C-4 #2·#3</strong></td><td>"소스 내 세부 조문 없음"이라고 답했으나 계약서 PDF는 <code>documents/</code>에 존재하며 제1~14조 본문을 포함. <strong>NotebookLM에 계약서가 업로드되지 않았거나 텍스트 추출에 실패한 것으로 보임</strong> — 재업로드 후 재질의 필요</td></tr>
+        </tbody>
+    </table>
+
+    <h2>
         <span>D. 문서 이력</span>
     </h2>
     <table>
         <thead><tr><th>일자</th><th>내용</th></tr></thead>
         <tbody>
+            <tr><td>2026-08-10<br>(3차)</td><td><strong>NotebookLM 답변 검증(C-6 신설).</strong> 소스 원문 대조 결과 <u>치명적 오류 10건</u>(sale_ents_id 하드코딩 날조, TRA003 단일경로 조언, 30분 룰 오독, 견적금액 3배 부풀림, 계약 사실관계 날조, KDF 입력값 오류, 우편번호 패딩 조언, 거래유형 A 혼동, stat_sgn 삭제필드, 개인정보 "개정 완료" 허위), <u>필드 스펙 오류 12건</u>, <u>정확·채택 6건</u>, <u>보완 필요 4건</u>으로 분류. 채택 항목 중 <strong>계도기간이 신고서 제출일 기준</strong>이라는 점과 <strong>8차 정기협의회 Q&amp;A(일회용 부호와 PCCC는 N:1, 둘 중 무엇을 적어도 통관 무방)</strong>는 신규 확보 정보 — 후자는 원문 미보유로 확인 필요.</td></tr>
             <tr><td>2026-08-10<br>(2차)</td><td><strong>지시 반영 및 자이언트 API 전수 재확인.</strong> R-01(OTP 앞 2자리) — NICE 경유 구조에서는 해당하지 않으며 인증 모달 기구현 확인, <strong>해결</strong>. R-02/D-01 — 관세청 신고금액은 <strong>동수 ERP USD 단가</strong>로 확정. R-05/D-05 — <code>PATCH /api/hwb/:hwbNo</code> 수정 API 존재 확인, <strong>해결</strong>. R-06/D-04 — 자이언트 <code>hsCode</code> 전송으로 확정. R-07 — HWB 검색 응답에 <code>mwbNo</code> 포함 확인, <strong>해결</strong>. R-29/D-03 — 협력인정업체 CI 인증(NICE 앱 추가 개발)은 <strong>보류·대기</strong>. 컬렉션 원본 JSON 기준 요청 7개 전수 등재(A-5 신설). 1차 검토의 "요청 4개·수정 API 없음" 기재를 정정.</td></tr>
             <tr><td>2026-08-10</td><td>최초 작성. 관세청 v1.4.1 · NICE CI 가이드 · NICE 통합인증 · 자이언트 GGATE v1.3.5 전수 대조. 리스크 30건, 결정사항 12건, 질의 41건 정리. 기존 <code>00_자료안내</code>·<code>90_재평가결과</code>·<code>99_외부수집원본</code> 폴더의 검토 내용을 본 문서로 통합하고 폴더는 정리함.</td></tr>
         </tbody>
