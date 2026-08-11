@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>협의 이력 · 확정사항 대장 (2026-07-31 ~ 08-11)</title>
+<style>
+  *{box-sizing:border-box}
+  body{font-family:'Inter',-apple-system,'Malgun Gothic',sans-serif;background:#f6f7f9;color:#202124;line-height:1.65;margin:0;padding:32px 20px}
+  .wrap{max-width:1120px;margin:0 auto}
+  h1{font-size:24px;margin:0 0 6px}
+  .sub{color:#5f6368;font-size:13px;margin-bottom:20px}
+  .nav a{display:inline-block;background:#1a73e8;color:#fff;padding:8px 14px;border-radius:4px;text-decoration:none;font-size:13px;font-weight:600;margin:0 6px 18px 0}
+  .nav a.r{background:#d93025}.nav a.g{background:#137333}.nav a.y{background:#a56a00}
+  .board{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:28px}
+  .kpi{background:#fff;border:1px solid #e3e5e8;border-radius:8px;padding:14px 16px}
+  .kpi .n{font-size:26px;font-weight:700;line-height:1.2}
+  .kpi .l{font-size:12px;color:#5f6368;margin-top:2px}
+  .kpi.red .n{color:#c5221f}.kpi.amber .n{color:#a56a00}.kpi.green .n{color:#137333}.kpi.blue .n{color:#1a73e8}
+  h2{font-size:19px;margin:36px 0 14px;padding-bottom:8px;border-bottom:2px solid #202124}
+  h3{font-size:15px;margin:24px 0 8px;color:#3c4043}
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin-bottom:18px}
+  th,td{border:1px solid #e3e5e8;padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:#f6f7f9;font-weight:600;color:#5f6368;font-size:12px}
+  td.d{white-space:nowrap;font-variant-numeric:tabular-nums;color:#5f6368;font-size:12px}
+  code{background:#f1f3f4;padding:1px 5px;border-radius:3px;font-size:12.5px;font-family:Consolas,monospace}
+  .hi{background:#fff3cd;padding:1px 4px;border-radius:3px;font-weight:600}
+  .no{color:#c5221f;font-weight:700}.ok{color:#137333;font-weight:700}
+  .chip{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap}
+  .c-fix{background:#e6f4ea;color:#137333}
+  .c-open{background:#fce8e6;color:#c5221f}
+  .c-conf{background:#fef7e0;color:#a56a00}
+  .c-sup{background:#eceff1;color:#5f6368}
+  .box{border-radius:6px;padding:12px 15px;margin:12px 0;font-size:13.5px}
+  .box.r{background:#fce8e6;border-left:4px solid #c5221f}
+  .box.g{background:#e6f4ea;border-left:4px solid #137333}
+  .box.y{background:#fef7e0;border-left:4px solid #a56a00}
+  .box.b{background:#e8f0fe;border-left:4px solid #1a73e8}
+  .said{background:#f1f3f4;border-radius:5px;padding:9px 12px;font-size:12.5px;color:#3c4043;margin:8px 0}
+  footer{margin-top:40px;padding-top:16px;border-top:1px solid #dadce0;font-size:12px;color:#80868b}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>협의 이력 · 확정사항 대장</h1>
+<div class="sub">2026-07-31 ~ 2026-08-11 단체 채팅방 협의 내용 정리 · 참여: 박종혁(총괄) · 강명제(Geek) · 김현진(자이언트) · 孔祥兵 小熊(동수 EIBE ERP/DS Logistics) · AN.(동수)</div>
+
+<div class="nav">
+  <a href="./planning_v5.html">planning_v5.html E2E 기획서</a>
+  <a href="./api_field_mapping.html" class="g">api_field_mapping.html 전수 매핑</a>
+  <a href="./risk_list.html" class="r">risk_list.html 리스크 대장</a>
+  <a href="./협력사_질의응답.html" class="y">협력사_질의응답.html</a>
+</div>
+
+<div class="board">
+  <div class="kpi green"><div class="n">17</div><div class="l">확정 합의 사항</div></div>
+  <div class="kpi red"><div class="n">4</div><div class="l">미답변 · 미결</div></div>
+  <div class="kpi amber"><div class="n">2</div><div class="l">신규 확인 필요</div></div>
+  <div class="kpi blue"><div class="n">5</div><div class="l">2026-08-11 해소</div></div>
+</div>
+
+<div class="box r">
+  <strong>이 문서를 만든 이유</strong> — <code>planning_v5.html</code>·<code>api_field_mapping.html</code>은 <u>결과 스펙</u>만 담고 있어, <strong>언제 누가 무엇을 합의했는지</strong>가 남아 있지 않았습니다. 그 결과 이미 합의된 사항이 재논의되거나(예: <code>expressNo</code> 필터링), 번복된 결정이 협력사에 통보되지 않는 문제(예: 자이언트 병합 구조)가 발생했습니다. 앞으로 협의가 생기면 <strong>이 문서에 먼저 한 줄 추가</strong>하고 기획서에 반영합니다.
+</div>
+
+<!-- ===================== 확정 ===================== -->
+<h2>A. 확정 합의 사항</h2>
+
+<h3>A-1. 일정 · 운영</h3>
+<table>
+  <thead><tr><th style="width:9%">일자</th><th style="width:16%">항목</th><th>내용</th><th style="width:9%">상태</th></tr></thead>
+  <tbody>
+    <tr><td class="d">07-31</td><td>오픈일</td><td>관세청 오픈 연기 확정. <strong>실제 오픈 2026-08-28(금) 09:00 KST</strong>. 테스트 가능 기간은 <u>1주 추가 연장 가능성 있으나 확정 아님</u></td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">07-31</td><td><span class="hi">오픈일 새벽 테스트</span></td><td><strong>관세청 요청 사항</strong> — 오픈일 실제 시스템 가동은 <strong>새벽 03~04시</strong>이며, 이 시간대에 대외 오픈 전 <u>각 업체별 데이터 테스트가 가능</u>함. <span class="ok">risk_list의 "운영 서버 허위 주문 테스트" 리스크는 관세청이 공식 허용한 창구가 있으므로 해소 가능</span></td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">07-31</td><td>WMS 취소 반영 마감</td><td>당초 한국시간 <s>12:30</s> → <strong>12:00</strong>으로 변경(AN. 요청, 향후 물량 증가 고려). 이 시각까지 취소 통보를 받지 못한 주문은 <u>기본값으로 정상 출고</u>. <span class="ok">[2026-08-11 확인] 11:50 통보 → 12:00 취소 반영 마감 → 13:00 라벨 부착·포장 출고 순서로 확정</span></td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">07-31</td><td>오류 전송 시각</td><td>관세청 신고 실패 건은 <strong>11:50 정각 일괄 전송</strong>(Negative Push)</td><td><span class="chip c-fix">확정</span></td></tr>
+  </tbody>
+</table>
+
+<h3>A-2. 주문 흐름 · 상태값</h3>
+<table>
+  <thead><tr><th style="width:9%">일자</th><th style="width:16%">항목</th><th>내용</th><th style="width:9%">상태</th></tr></thead>
+  <tbody>
+    <tr><td class="d">07-31</td><td>09:00 수집</td><td>동수 ERP가 자사몰 Open API로 <strong><code>p1</code>(결제완료)</strong> 주문만 수집 → 동수 내부 상태를 <strong><code>d1</code></strong>로 업데이트. 수집된 주문에 <strong>HBL 및 송장번호(<code>expressNo</code>) 할당</strong></td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">07-31</td><td>정상 승인 건</td><td><strong>관세청 TRA 제출이 완료된 건만</strong> 자사몰 주문 상태 <code>g1</code> → <strong><code>g5</code>(항공발송중)</strong> 변경 + 송장번호 업데이트. <span class="ok">[2026-08-11 확인] <code>g5</code>는 고도몰 표준 코드가 아니라 본 프로젝트를 위해 자사몰에 <b>별도 튜닝하여 신설한 커스텀 상태값</b>임</span></td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">07-31<br>→ 08-11</td><td>오류 발생 건</td><td><strong><code>g1</code>(상품준비중) 유지</strong> + 송장번호 미업데이트 + 거래실패리스트 적재. 동수 주문 삭제 API 단건 호출로 동수 WMS/ERP 주문·가채번 HBL 삭제.<br><span class="no">[미결] 익일 재수집 경로</span> — 동수는 <code>p1</code>만 조회하므로 <code>g1</code>에 남은 오류 건은 수집 대상에 잡히지 않음. C-5 참조</td><td><span class="chip c-open">미결</span></td></tr>
+    <tr><td class="d">07-31</td><td>취소·환불 차단</td><td>강명제 정정 요청 — <s><code>p1</code>(결제완료)부터 차단</s> → <strong><code>g1</code>(상품준비중)부터 차단</strong>. <span class="ok">[2026-08-11 확인] 동수 수집 시 <code>p1</code>→<code>g1</code>으로 변경되므로 <code>g1</code> 기준이 맞음</span></td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">07-31</td><td>오류 사유 3분류</td><td>① <strong>PCCC 오류</strong> → 고객에게 인증 재발송 문자 필요(문자 발송 기능 검토 대상) ② <strong>필수데이터 누락</strong> → 거래실패리스트 기반 정보 업데이트 ③ <strong>기타 시스템 오류</strong> → 다음날 수집 루프 재수행</td><td><span class="chip c-fix">확정</span></td></tr>
+  </tbody>
+</table>
+
+<h3>A-3. 오류 건 처리 — 동수 주문 삭제 API</h3>
+<div class="box y">
+  <strong>협의 경과</strong> — 초기에는 ⓐ 동수가 하루 2회 조회하여 <code>g5</code>만 출고하는 방식과 ⓑ 자사몰이 실패 건을 동수 신규 API로 Push하는 방식이 검토되었고, <strong>ⓑ가 채택</strong>되었습니다(07-31). 이후 "삭제인가 취소인가", "송장번호 재사용 문제", "<code>p1</code> 원복 시 고객 취소 대응" 쟁점이 제기되어(07-31~08-03) 최종적으로 <strong>주문 삭제 API 신설</strong>로 정리되었습니다.
+</div>
+<table>
+  <thead><tr><th style="width:9%">일자</th><th style="width:16%">항목</th><th>내용</th><th style="width:9%">상태</th></tr></thead>
+  <tbody>
+    <tr><td class="d">08-03</td><td><span class="hi">주문 삭제 API 스펙</span></td><td><code>POST {base}/api/openAPI/erp/orderInfo/orderDelete</code><br>Header: <code>accessToken</code> · <code>Content-Type: application/json</code><br>Body: <code>{"customerOrderNo": "202606290000001-1"}</code><br><strong>1회 요청당 1건만 삭제.</strong> WMS 주문 삭제 → ERP 주문 삭제 순으로 처리, 모두 성공 시 Success / 중간 실패 시 Fail 반환</td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">08-03</td><td>가송장 폐기 무방</td><td>동수 우려("이미 발급된 송장번호가 낭비됨")에 대해 — <strong>09:00 발급 송장은 13:00 라벨 부착 전까지 예비 할당 상태(가송장)</strong>이며 실제 택배사 DB에 할당되지 않으므로 <u>폐기해도 위약금·데이터 이상 없음</u>(택배사 확인 완료)</td><td><span class="chip c-fix">확정</span></td></tr>
+  </tbody>
+</table>
+
+<h3>A-4. 동수 제공 데이터 — 14개 속성</h3>
+<table>
+  <thead><tr><th style="width:9%">일자</th><th style="width:16%">항목</th><th>내용</th><th style="width:9%">상태</th></tr></thead>
+  <tbody>
+    <tr><td class="d">08-05</td><td><span class="hi">시스템 이원화</span></td><td>동수 小熊 명확화 — <strong>① EIBE ERP</strong>: 발송 <u>전</u> 예정 데이터를 <strong>자사몰(Geek)</strong>에 전송 / <strong>② DS Logistics</strong>: 발송 <u>후</u> 실제 데이터를 <strong>GNG(자이언트)</strong>에 전송</td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">08-05</td><td>14개 속성 확정</td><td>ERP <code>searchOrderInfo</code> API 응답으로 <strong>14개 속성</strong> 제공. 동수 08-03 입장은 "기존 확정 속성만 제공 가능, 추가 요청 속성은 제공 불가"였으며, 08-04 화상회의를 거쳐 14개로 합의</td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">08-05</td><td><span class="hi">스냅샷 일치 보장</span></td><td>동수 확답 — <strong>14개 속성 중 실측 무게(<code>weight</code>)만 10:00과 17:00 값이 다르고, 나머지 13개는 100% 동일</strong>. 수량·금액·HBL·상품일련번호가 변하면 관세청이 신고 불일치로 판정하는 문제 제기에 대한 회신</td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">08-05</td><td>신고 금액 기준</td><td>동수 질의(수신 금액이 KRW인데 USD 환산 환율은?)에 대해 — <strong>각 상품에 매핑된 ERP 매입가액</strong> 사용. 동수는 ERP의 <strong>신고가격(申报价格)</strong> 필드를 사용하기로 회신</td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">07-31</td><td>expressNo 필터링</td><td>협의록 [5] 동수 개발 요청 — "자사몰이 주문정보를 조회할 때 <strong>송장번호(<code>expressNo</code>) 값이 없는 주문은 응답에서 제외</strong>". 동수도 "WMS에서 송장번호가 아직 할당되지 않은 경우 <code>expressNo</code> 값이 존재하지 않습니다"로 확인</td><td><span class="chip c-open">미이행</span></td></tr>
+    <tr><td class="d">07-31</td><td>영문 SKU 매핑</td><td>협의록 [5] — "특수문자 에러 방지를 위해 <strong>한글 상품명이 아닌 플랫폼 영문 SKU 코드로 매핑</strong>하여 전달". 08-03 예시값 <code>Aptamil Profutura 2 * 3</code><br><span class="no">주의</span> 여기서 "SKU 코드"는 불투명한 코드가 아니라 <u>영문 상품명 + 수량 표기</u> 형태이며 <code>*</code>는 곱하기 기호임</td><td><span class="chip c-fix">확정</span></td></tr>
+  </tbody>
+</table>
+
+<h3>A-5. 상품 구성 · 분할 출고 (2026-08-06)</h3>
+<table>
+  <thead><tr><th style="width:9%">일자</th><th style="width:16%">항목</th><th>내용</th><th style="width:9%">상태</th></tr></thead>
+  <tbody>
+    <tr><td class="d">08-06</td><td><span class="hi">1주문 분할 출고</span></td><td>1개 주문을 여러 상자로 분할 출고해도 <strong>관세청 신고상 문제 없음</strong>. 통관 기본 단위는 주문번호(<code>ord_no</code>)가 아니라 <strong>HBL 운송장번호</strong>. 동수가 <u>HBL을 상자 수만큼 각각 채번</u>하여 10:00 API에서 복수 레코드로 내려주고, 자사몰은 <strong>TRA001을 HBL 건수만큼 각각 제출</strong>. 각 HBL 내 상품 정보는 <u>해당 박스에 실제 포장된 실물과 1:1 일치</u>해야 함</td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">08-06</td><td>세트 상품</td><td>세트 상품(예: TABS + Clip, Fortimel + Design Box)은 <strong>세트 단위가 아니라 세트 내 개별 단품 정보</strong>로 전송. 동수 <code>goodsList</code>가 이미 단품별로 분리되어 있으며(예: APTAMIL TAB FO / Plastic clip), 그 형태 그대로 제공</td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">08-06</td><td>국내·해외 혼재</td><td>한 주문에 해외직구와 국내 상품이 섞여 분할 출고되는 경우, 동수는 <strong>해외직구 발송 정보만 자사몰에 제공</strong>하고 국내 창고 발송 정보는 제공하지 않음. → 이에 따라 동수가 <u>API 1개 추가 및 응답 포맷 조정</u> 예정</td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">08-11</td><td>국내건 응답 제외 재확인</td><td>동수 재질의 "국내 주문은 응답을 내려주지 않아도 되는가" → "내려주지 않아도 됨" 재확인. <span class="no">단, 필터 판정 주체가 동수로 이관되므로 해외직구 건 누락을 자사몰이 감지할 수 없음 → 건수 대사 필요</span></td><td><span class="chip c-fix">확정</span></td></tr>
+  </tbody>
+</table>
+
+<!-- ===================== 번복 ===================== -->
+<h2>B. 번복된 결정 — 협력사 통보 확인 필요</h2>
+
+<div class="box r">
+  <strong>B-1. 자이언트 병합 구조 <span class="chip c-fix">통보 완료 (2026-08-11 확인)</span></strong>
+  <table style="margin-top:10px">
+    <thead><tr><th style="width:12%">시점</th><th style="width:30%">구조</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td class="d">07-31 15:58</td><td><s>자사몰이 동수 MAWB를 수집 → PER과 병합 → 자이언트 HWB 벌크 API로 일괄 전송</s></td><td>협의록 [3]에 <strong>자이언트 안내용으로 명시</strong> — "동수가 자이언트에게 직접 쏘는 로직은 없습니다" / "기존 HWB 벌크 API 스펙을 수정 없이 그대로 사용, 자이언트 측 추가 개발 부담 없음"</td></tr>
+      <tr><td class="d">08-03 17:21</td><td><strong>동수 → 자이언트 직송(17~18시)</strong> + 자사몰 → 자이언트 PER 전송 → 자이언트 병합안</td><td>당시 협의록 개정본. 이후 실제 <code>addField</code>에 PCCC가 존재하고 자이언트 공개 등록 경로가 <code>bulk-sync</code>뿐임이 확인되어 <strong>11:50 Geek 직접 전송은 실행 불가·중복</strong>으로 재검토</td></tr>
+      <tr><td class="d">08-11 17:54</td><td><strong>구현 기준안: 동수 단일 <code>bulk-sync</code></strong></td><td>Geek이 PCCC·OTP를 <code>addField</code>에 저장 → 동수가 09:00 수신 → 17:00~18:00 물류·상품 데이터와 함께 자이언트에 직송. 자이언트에는 별도 PER 호출 필요 여부만 최종 확인</td></tr>
+    </tbody>
+  </table>
+  <strong>→ [2026-08-11 재정리] 08-03 구조 변경 통보 자체는 완료.</strong> 다만 공개 스펙상 Geek이 11:50에 호출할 PER 전용 엔드포인트가 없고 <code>bulk-sync</code>에는 당시 보유하지 않은 물류 필수값이 필요함. 따라서 동수 단일 전송을 기준으로 하고, 자이언트에는 <u>별도 PER 호출 없이 동수 bulk-sync만으로 완료되는지</u>만 확인합니다.
+</div>
+
+<div class="box y">
+  <strong>B-2. 오류 건 동수 전달 방식 <span class="chip c-sup">정리 완료</span></strong><br>
+  <s>① 동수가 하루 2회 조회하여 <code>g5</code> 상태만 출고</s> → <s>② 동수 신규 API로 실패 건 Push 후 <u>취소</u></s> → <strong>③ 동수 신규 API로 실패 건 Push 후 <u>삭제</u>(주문 삭제 API)</strong><br>
+  <span style="font-size:12.5px;color:#5f6368">②에서 ③으로 바뀐 이유 — 동수 ERP는 취소된 주문의 동일 주문번호 재발송을 지원하지 않고, <code>p1</code> 원복 시 고객 취소 대응 문제가 있어 "삭제 후 익일 신규 수집"이 안전하다고 판단됨</span>
+</div>
+
+<!-- ===================== 충돌 ===================== -->
+<h2>C. 문서 간 충돌 — 확정 필요</h2>
+<table>
+  <thead><tr><th style="width:16%">항목</th><th style="width:30%">A안</th><th style="width:30%">B안</th><th>판단</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>물리적 출고 시각</strong></td>
+      <td><strong>12:00</strong> 출고 마감<br><span style="font-size:12px;color:#5f6368">07-31 15:41 AN. 요청("물량 증가 고려") · 07-31 15:58 협의록 [1]-4</span></td>
+      <td><strong>13:00</strong> 현장 출고<br><span style="font-size:12px;color:#5f6368">08-03 17:21 협의록 · <code>planning_v5.html</code> Stage 6</span></td>
+      <td class="ok">[2026-08-11 해소] <strong>충돌이 아니라 서로 다른 시점임.</strong> <b>11:50</b> 자사몰이 관세청 제출 결과(오류 건)를 동수에 통보 → <b>12:00</b> 동수 WMS 취소 반영 마감(의사결정 컷오프) → <b>13:00</b> 현장 실물 라벨 부착·포장·출고. 2026-08-03 중문 협의문의 "13:00 贴单(라벨 부착) 전까지는 예비 할당 송장"과도 일치함</td>
+    </tr>
+    <tr>
+      <td><strong>09:00 수집 후 상태</strong></td>
+      <td><code>p1</code> 유지, 정상 시 <code>p1 → g5</code><br><span style="font-size:12px;color:#5f6368">07-31 14:31 · 15:58 협의록</span></td>
+      <td>수집 즉시 <code>g1</code>(상품준비중) 변경<br><span style="font-size:12px;color:#5f6368">08-03 17:21 협의록 · <code>planning_v5.html</code> Stage 2</span></td>
+      <td class="no">강명제가 "취소·환불 차단은 <code>g1</code>부터"로 요청했으므로 <strong>B안이 유력</strong>하나, 동수 ERP는 <code>p1</code>을 조회해 <code>d1</code>로 바꾸는 로직이므로 <u>동수 수집 조건과 정합 확인 필요</u></td>
+    </tr>
+    <tr>
+      <td><strong><code>hblNo</code> vs <code>expressNo</code></strong></td>
+      <td>07-31 합의: <code>expressNo</code> 없는 건 응답 제외</td>
+      <td>08-11 실 응답: <code>hblNo</code>가 전건 <code>null</code>, 동수 회신 "<code>hblNo</code>는 null로 리턴됩니다"</td>
+      <td class="no"><strong>두 필드가 서로 다른 값일 가능성.</strong> 07-31 협의록은 "HBL <u>및</u> 송장번호(<code>expressNo</code>) 할당"으로 병기되어 있음. 관계와 각각의 채번 시점 확인 필요 — TRA001 <code>hbl_no</code>는 필수라 값이 없으면 제출 불가</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="box g">
+  <strong>C-4. 고도몰 주문상태코드 <code>g5</code> <span class="chip c-fix">해소 (2026-08-11)</span></strong><br>
+  고도몰5 「7.1 주문상태코드」 표준 목록에 <code>g5</code>가 없어 확인이 필요했으나, <strong><code>g5</code>(항공발송중)는 본 프로젝트를 위해 자사몰에 별도 튜닝하여 신설한 커스텀 상태값</strong>임이 확인되었습니다. 상태 전이·조회 로직은 고도몰 표준 API가 아니라 자사몰 내부 구현을 기준으로 합니다.<br>
+  <strong>확정 전이</strong> — <code>p1</code> 결제완료 → (09:00 동수 수집) <code>g1</code> 상품준비중 → (관세청 TRA 제출 완료 건만) <code>g5</code> 항공발송중 → 12:00 동수 취소 반영 마감 → 13:00 출고
+</div>
+
+<div class="box r">
+  <strong>C-5. [2026-08-11 신규] 오류 건의 익일 재수집 경로가 성립하지 않음</strong><br>
+  오류 발생 건은 <code>g1</code>(상품준비중)에 남습니다. 그런데 동수 EIBE ERP는 <u><code>p1</code>(결제완료) 상태만 조회</u>합니다(2026-07-31 동수 확인: "상태가 <code>p1</code>인 주문을 조회하여 저장 성공 시 <code>d1</code>로 업데이트"). <strong>따라서 <code>g1</code>에 남은 오류 건은 익일 09:00 수집 대상에 잡히지 않습니다.</strong><br>
+  <strong>→ 해소 방법 3가지</strong><br>
+  &nbsp;&nbsp;<b>ⓐ 자사몰이 오류 건을 <code>g1</code> → <code>p1</code>으로 되돌림</b> — 고도몰 표준 주문상태변경 API로는 불가(「7.1」표에서 <code>p1</code>은 사용 가능 여부 X, 「4.2」는 "<code>g1</code>~<code>g4</code>, <code>d1</code>, <code>d2</code>로의 변경만 가능"). <u>다만 <code>g5</code>처럼 자사몰 내부 로직으로 처리한다면 가능</u> → <b class="ok">유력</b><br>
+  &nbsp;&nbsp;ⓑ 동수 수집 조건에 <code>g1</code> 추가 — 당일 정상 처리 중인 건까지 걸리므로 별도 구분자 필요<br>
+  &nbsp;&nbsp;ⓒ 동수 재수집 없이 자사몰이 보유한 <code>hbl_no</code>로 익일 TRA001만 재제출 — 주문 삭제 API로 가채번 HBL이 이미 삭제되므로 성립하지 않음<br>
+  <strong>확인 필요</strong> — 자사몰 내부 상태 변경으로 <code>p1</code> 원복이 가능한지 (GeekStudio)
+</div>
+
+<!-- ===================== 미결 ===================== -->
+<h2>D. 미답변 · 미결</h2>
+<table>
+  <thead><tr><th style="width:9%">일자</th><th style="width:9%">제기자</th><th style="width:30%">내용</th><th>조치</th></tr></thead>
+  <tbody>
+    <tr><td class="d">08-06 19:16</td><td>박종혁 → 동수</td><td><strong>상품코드 값 불일치 3건</strong> — <code>708112</code>·<code>708113</code>·<code>708117</code> (Aptamil Pronutra 2 / 3 / Pre 800g)의 ERP 상품 코드 값이 자사몰과 맞지 않음</td><td class="ok">[2026-08-11] 해소 — 전달 완료</td></tr>
+    <tr><td class="d">08-06 15:31<br>08-07 09:44</td><td>동수 → 박종혁</td><td><strong>3개 SKU의 신고용 USD 단가</strong> 확인 요청 (708112 / 708113 / 708117)</td><td class="ok">[2026-08-11] 해소 — 신고 USD 단가 전달 완료</td></tr>
+    <tr><td class="d">08-11 09:22</td><td>김현진 → 전체</td><td><strong>HWB 등록 API 사용하시는건가요?</strong></td><td class="no">미회신. 기준안은 동수의 기존 <code>bulk-sync</code> 단일 전송. <u>PCCC·OTP 포함 시 별도 PER 호출이 불필요한지만 확인</u></td></tr>
+    <tr><td class="d">08-11 11:47</td><td>동수 → Geek</td><td><code>hs_cd</code>·<code>ord_prod_nm</code> 필드 추가 요청에 대해 "확인 후 알려달라"</td><td class="no">13:10에 구체 질문으로 재제기됨. 회신안 준비 완료</td></tr>
+    <tr><td class="d">08-11 12:31<br>16:08</td><td>동수 ↔ Geek</td><td>주문에 개인통관고유부호 정보가 없다는 문의 후 운영·개발 <code>addField</code> 실제 JSON 확인</td><td class="no"><strong>PCCC는 동수 전달 대상이 맞고 양쪽 서버에 존재.</strong> 운영·개발의 명칭·키가 다르므로 두 명칭 허용. 단 <code>tempAuthNo</code> 원천인 OTP 항목이 양쪽 모두 없어 Geek 추가 개발 필요</td></tr>
+    <tr><td class="d">08-11 17:26~17:54</td><td>Geek 강명제 → 전체</td><td>혼재 주문 필터 주체·<code>ord_qty_ut</code> 제외·<code>brokerCode/Name</code>·자이언트 전송 시점/데이터·동수 API 명세·자이언트 HWB API 변경 여부 질의</td><td class="no">해외직구 필터는 동수로 확정. <code>ord_qty_ut</code>는 KCS 미전송, 자이언트 <code>qtyUnit=EA</code>는 동수 주입. broker 값·별도 PER 필요 여부·PATCH 외 정정은 자이언트 회신 대기. 동수 최종 API 명세 수령 필요</td></tr>
+    <tr><td class="d">08-11 13:10</td><td>동수 → 박종혁</td><td><code>hs_cd</code>가 필수 속성인지 / 한국 HS Code인지 · <code>ord_prod_nm</code>이 영문인지 한글인지</td><td class="no">회신안 준비 완료 (<code>협력사_질의응답.html</code>)</td></tr>
+    <tr><td class="d">07-31</td><td>박종혁</td><td>PCCC 오류 건 <strong>고객 인증 재발송 문자 기능</strong> 필요 여부 — "추후 검토 필요"로 남김</td><td class="no">계도기간 종료(09-14) 후 PCCC 오류가 늘면 필수 기능이 됨. 개발 범위 확정 필요</td></tr>
+  </tbody>
+</table>
+
+<!-- ===================== 타임라인 ===================== -->
+<h2>E. 협의 타임라인</h2>
+<table>
+  <thead><tr><th style="width:10%">일자</th><th>주요 내용</th></tr></thead>
+  <tbody>
+    <tr><td class="d">07-31</td><td>전체 E2E 사이클 초안 공유 → 오픈일 8/28 09:00 확정 통보 → <strong>TRA 취합 주체를 자이언트에서 자사몰로 이관</strong>(동수가 TRA 필요 정보를 직접 제공 가능해짐) → 오류 건 처리 방식 논의(2회 조회 vs Push API) → <strong>Push API 채택</strong>, 11:50 전송·12:00 마감 → 협의록 최종본 [1]~[5] 공유 → 상품명 특수문자 문제 제기, <strong>영문 SKU 매핑 요청</strong> → 오류 건 재출고·송장 재사용 쟁점 발생</td></tr>
+    <tr><td class="d">08-03</td><td>가송장 폐기 무방 확인 → <strong>주문 삭제 API 신설 합의 및 스펙 공유</strong> → <strong>구조 변경: 동수 → 자이언트 직송</strong> → 10:00 역수집 필요 필드 목록 공유 → 동수 "기존 확정 속성만 제공 가능" 회신 → 동수가 ERP 미보유 필드 캡처로 지적</td></tr>
+    <tr><td class="d">08-04</td><td><code>api_field_mapping_detailed_v3.xlsx</code> 공유 → <strong>화상회의(텐센트)</strong> 진행 → 중문판 <code>api_field_mapping_cn.html</code>·<code>유형코드_부호체계_정리_cn.html</code> 공유 → 동수가 <strong>14개 속성</strong>으로 정리</td></tr>
+    <tr><td class="d">08-05</td><td>14개 속성 확정 → <strong>동수 시스템 이원화 명확화</strong>(EIBE ERP → Geek / DS Logistics → GNG) → <strong>스냅샷 일치 보장</strong>(weight 외 13개 동일) → 금액 기준을 <strong>ERP 매입가액(신고가격)</strong>으로 확정 → 세트 상품·분할 출고 질의 제기</td></tr>
+    <tr><td class="d">08-06</td><td><strong>세트 상품은 단품 정보로 전송</strong> 확정 → <strong>1주문 분할 출고 시 HBL 복수 채번, TRA001 복수 제출</strong> 확정 → <strong>국내·해외 혼재 시 해외직구만 제공</strong> 확정 → 동수 API 1개 추가·응답 포맷 조정 예고 → 3개 SKU 신고 USD 단가 요청 / 상품코드 불일치 지적</td></tr>
+    <tr><td class="d">08-07</td><td>동수가 SKU 단가 재요청 → GNG 신규 API 연동 테스트 일정 문의</td></tr>
+    <tr><td class="d">08-10</td><td>연동 테스트 가능 회신 → 동수가 테스트 주문 푸시 3회 요청</td></tr>
+    <tr><td class="d">08-11</td><td>테스트 주문 2건 전송(국내발송 건이라 재요청) → <code>hs_cd</code>·<code>ord_prod_nm</code> 추가 요청 → <code>hblNo</code> null 회신 → <strong>국내 주문 응답 제외 재확인</strong> → 운영·개발 <code>addField</code>에서 PCCC 확인(명칭·키 불일치, OTP 미존재) → <code>hs_cd</code>/<code>ord_prod_nm</code> 해결 → <strong>동수 단일 bulk-sync 기준안</strong>으로 재정리, 자이언트·동수 잔여 질의 확정</td></tr>
+  </tbody>
+</table>
+
+<footer>
+  2026-08-11 작성 · 출처: 단체 채팅방 로그 2026-07-31 ~ 2026-08-11 전문 · 관련 문서 <code>planning_v5.html</code> · <code>api_field_mapping.html</code> · <code>risk_list.html</code> · <code>협력사_질의응답.html</code>
+</footer>
+
+</div>
+</body>
+</html>
