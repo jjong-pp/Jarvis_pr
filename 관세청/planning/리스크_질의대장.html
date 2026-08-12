@@ -55,14 +55,14 @@
 </div>
 
 <div class="board">
-  <div class="kpi red"><div class="n">5</div><div class="l">P0 — 오픈 차단</div></div>
+  <div class="kpi red"><div class="n">4</div><div class="l">P0 — 오픈 차단</div></div>
   <div class="kpi amber"><div class="n">17</div><div class="l">P1 — 오픈 전 필수</div></div>
   <div class="kpi blue"><div class="n">6</div><div class="l">P2 — 확인 권고</div></div>
-  <div class="kpi green"><div class="n">21</div><div class="l">해결 · 기준 확정</div></div>
+  <div class="kpi green"><div class="n">22</div><div class="l">해결 · 기준 확정</div></div>
 </div>
 
 <div class="box g">
-  <strong>2026-08-12 신규 해결</strong> — ⑬ <strong><code>hblNo</code> null은 버그가 아님</strong>. 같은 주문의 <code>packageList[]</code>에서도 먼저 준비된 포장은 값이 있고 후속 포장은 null인 실응답 확인 ⑭ 동수가 <strong>TRA001 전용 신규 API <code>getTRA001OrderInfo</code></strong> 개설 ⑮ <strong>PCCC는 DS ERP에 저장</strong> 확정 ⑯ <strong><code>shipperName</code>·<code>shipperAddr</code>는 동수 고정값</strong> 확정 ⑰ 주문 삭제 API 명세 재확인(<code>orderDelete</code>, 파라미터 <code>customerOrderNo</code>) ⑱ <strong>HWB 검색 상한은 500건으로 확정</strong>(증설 불가, 500건 단위 분할 구현) ⑲ <strong>OTP는 <code>addField</code>·동수 전달 대상이 아님</strong>(Geek DB 보관 후 자이언트 직접 전송) ⑳ <strong><code>p1</code> 반복 재처리는 의도된 정책</strong>(재시도 상한 없이 CS팀 매일 확인) ㉑ <strong>계도기간 종료는 2026-09-14 24:00 그대로 확정</strong>
+  <strong>2026-08-12 신규 해결</strong> — ⑬ <strong><code>hblNo</code> null은 버그가 아님</strong>. 같은 주문의 <code>packageList[]</code>에서도 먼저 준비된 포장은 값이 있고 후속 포장은 null인 실응답 확인 ⑭ 동수가 <strong>TRA001 전용 신규 API <code>getTRA001OrderInfo</code></strong> 개설 ⑮ <strong>PCCC는 DS ERP에 저장</strong> 확정 ⑯ <strong><code>shipperName</code>·<code>shipperAddr</code>는 동수 고정값</strong> 확정 ⑰ 주문 삭제 API 명세 재확인(<code>orderDelete</code>, 파라미터 <code>customerOrderNo</code>) ⑱ <strong>HWB 검색 상한은 500건으로 확정</strong>(증설 불가, 500건 단위 분할 구현) ⑲ <strong>OTP는 <code>addField</code>·동수 전달 대상이 아님</strong>(Geek DB 보관 후 자이언트 직접 전송) ⑳ <strong><code>p1</code> 반복 재처리는 의도된 정책</strong>(재시도 상한 없이 CS팀 매일 확인) ㉑ <strong>계도기간 종료는 2026-09-14 24:00 그대로 확정</strong> ㉒ <strong>국내·해외 혼재 주문 분리 및 국내 송장 반환 확정</strong> — 동수가 국내/해외별 별도 주문 객체로 분리하고 각 <code>packageList[]</code>는 단일 배송유형만 포함하며 국내건도 <code>expressNo</code> 반환
   <br><span style="color:#5f6368;font-size:12px;">08-11 확정분 ①~⑫는 하단 각주 참조 — 자이언트 구조 통보 · SKU 단가 · 상품코드 · <code>ord_prod_nm</code> · <code>hs_cd</code> 동수 매핑 · <code>addField</code> PCCC · PCCC 두 명칭 허용 · <s>국내건 제외 합의</s>(08-12 플래그 방식으로 재협의) · <code>p1</code> 원복 · <code>g5</code> 커스텀 · <code>ord_qty_ut</code> · PCC 검증 GET/POST</span>
 </div>
 
@@ -105,14 +105,6 @@
       <strong>선택지</strong> ⓐ 비공개 PER 전용 엔드포인트(스펙 수령 필요) ⓑ 동수 선등록 후 <code>PATCH /api/hwb/:hwbNo</code> — 이 경우 <u>자사몰 전송을 17:00 이후로 이동</u>해야 하고 수하인 성명·주소는 <code>PATCH</code>로 갱신 불가.<br>
       <strong>이 답이 Geek 개발 범위와 배치 시각을 동시에 결정함.</strong></td>
     </tr>
-    <tr>
-      <td><span class="pri p0">P0</span></td>
-      <td class="who w-in">내부<br>3사 합의</td>
-      <td><strong>ERP 주문 수신 즉시 USD 150 분할·전 HBL 선발급</strong><span class="new">동수 확인 중</span></td>
-      <td>2026-08-12 우선 구현안 — 동수 ERP가 주문을 받자마자 품목을 <strong>신고금액 USD 150 이하</strong>의 포장으로 전부 배분하고, 원 주문번호/<code>-1</code>/<code>-2</code>별 가HBL을 모두 즉시 발급한다. 가HBL은 이후 WMS 실제 송장과 자이언트 <code>hwbNo</code>에 <strong>1:1로 이어져야 하며 변경·재사용 금지</strong>다.<br>
-      첨부 실응답은 포장금액이 <code>17.676 / 143.136</code>, <code>53.028 / 143.136</code> USD로 모두 150 이하이나, 후속 <code>-1</code> 포장의 <code>hblNo</code>는 null이다. 즉 <u>포장 분할은 보이지만 전 HBL 선발급은 아직 구현되지 않은 상태</u>다.<br>
-      목표가 가능하면 Geek은 최초 조회에서 모든 HBL을 받아 <strong>1 HBL = 1 TRA001</strong>로 관리하고, WMS는 해당 포장을 여러 날에 걸쳐 순차 출고하면서 동일 HBL로 자이언트 API를 호출한다. HBL 발견용 추가 배치는 제거 가능하지만 실제 출고·자이언트 등록 상태 대사는 유지한다. 동수는 USD 150 계산 기준(할인·배송비·환율·경계값), 주문 수신 시 전체 품목 배분 가능 여부, 가HBL↔실송장 연결·취소 규칙을 회신해야 한다. 불가하면 Push 또는 재조회 배치가 필수다.</td>
-    </tr>
   </tbody>
 </table>
 
@@ -124,10 +116,10 @@
     <tr>
       <td><span class="pri p1">P1</span></td>
       <td class="who w-ds">동수<br>EIBE ERP</td>
-      <td><strong>국내/해외 배송구분 플래그 부재 및 응답범위 재결정</strong><span class="new">UPDATED</span></td>
-      <td>08-06·08-11에는 국내건 제외로 합의했으나, 2026-08-12 10:08~10:11 Geek이 <strong>국내 송장번호 채번 경로가 사라지는 문제</strong>를 제기했다. 현재 조회에는 국내건도 내려오는 것으로 보여, 국내·해외를 모두 반환하되 명시적 플래그를 추가하는 방향으로 재협의 중이다.<br>
-      <strong>권고 계약</strong> — 포장별 <code>deliveryType=DOMESTIC|OVERSEAS</code> 또는 <code>overseasDirectPurchaseYn=Y|N</code>과 <code>expressNo</code>를 반환. 해외직구 포장만 <code>hblNo</code>를 사용하며 준비 전에는 null 허용. Geek은 <u>해외 플래그 + <code>hblNo</code> 비-null</u>만 TRA001에 제출하고 국내건은 절대 제출하지 않는다.<br>
-      <code>prod_clsf_nm_stp1</code>은 관세청 상품분류 필드이므로 배송 플래그로 재사용하면 안 된다. 동수가 국내건 제외를 유지한다면 별도의 국내 송장 조회 API가 필요하다. <strong>동수 회의·필드명 확정 대기.</strong></td>
+      <td><strong>전 HBL 선발급 또는 후속 수집 방식 확정</strong><span class="new">P0→P1</span></td>
+      <td>3사 정책은 <strong>1 HBL = 1 USD 150 이하 포장 = 1 TRA001 = 1 자이언트 HWB</strong>로 정리되었으므로 종전의 “내부 3사 합의” P0는 종료한다. 남은 것은 동수·Geek 구현 선택이다.<br>
+      <strong>우선안</strong> 동수 ERP가 주문 수신 즉시 전체 분할 포장과 가HBL을 발급하고 WMS 실제 송장·자이언트 <code>hwbNo</code>까지 1:1 유지. <strong>대안</strong> 선발급이 불가하면 후속 HBL 채번 Push 또는 Geek 미완료 주문 재조회 배치를 구현한다.<br>
+      현재 실응답은 후속 <code>-1</code> 포장의 <code>hblNo=null</code>이므로 어느 방식도 없이 최초 조회만 수행하면 후속 TRA001이 누락된다. 동수 가능 여부와 Geek 폴백 구현 중 하나를 오픈 전 확정해야 한다.</td>
     </tr>
     <tr>
       <td><span class="pri p1">P1</span></td>
@@ -182,8 +174,8 @@
     <tr>
       <td><span class="pri p1">P1</span></td>
       <td class="who w-geek">Geek<br>자사몰</td>
-      <td>혼재 주문의 <strong>포장 단위 건수 대사</strong> 로직</td>
-      <td>국내·해외를 모두 반환하더라도 상위 주문 수만 비교하면 분할 포장 누락을 찾을 수 없다. <strong>"원주문 품목·수량·금액 vs ERP가 선확정한 USD 150 이하 <code>packageList[]</code> vs 비-null 고유 HBL 수 vs TRA001 제출 수 vs WMS/자이언트 출고 수"</strong>를 대사해야 한다. HBL null·150 초과·품목 중복/누락·HBL 변경·미제출/미출고 건은 별도 누적해 알림한다.</td>
+      <td>분리 주문의 <strong>포장 단위 건수 대사</strong> 로직</td>
+      <td>국내·해외 혼재 원주문은 동수에서 배송유형별 별도 주문 객체로 분리하고 각 <code>packageList[]</code>는 단일 유형만 포함한다. 그래도 상위 주문 수만 비교하면 분할 포장 누락을 찾을 수 없으므로 <strong>"분리 주문 품목·수량·금액 vs USD 150 이하 <code>packageList[]</code> vs 비-null 고유 HBL 수 vs TRA001 제출 수 vs WMS/자이언트 출고 수"</strong>를 대사해야 한다. HBL null·150 초과·품목 중복/누락·HBL 변경·미제출/미출고 건은 별도 누적해 알림한다.</td>
     </tr>
     <tr>
       <td><span class="pri p1">P1</span></td>
@@ -315,7 +307,7 @@
     <tr><td class="d">08-05</td><td>동수 시스템 이원화</td><td>EIBE ERP는 발송 전 예정 데이터를 Geek에 제공하고, DS Logistics는 발송 후 실측·물류 데이터를 자이언트에 전송. 기존 합의 필드는 실측 <code>weight</code> 외에는 사전·실제 스냅샷이 같아야 함</td><td><span class="chip c-fix">확정</span></td></tr>
     <tr><td class="d">08-05<br>→ 08-11</td><td>상품 · 신고 데이터</td><td>금액은 ERP 신고가격(USD), 상품명은 동수 영문명, HS코드는 동수 매핑. 세트 상품은 구성 단품별 전송. PCCC는 <code>addField</code>에서 두 명칭을 허용해 동수에 전달하고, OTP는 Geek DB에만 저장하여 동수에는 전달하지 않음</td><td><span class="chip c-fix">확정</span></td></tr>
     <tr><td class="d">08-12</td><td>HWB 검색 상한</td><td>자이언트 <code>POST /api/hwb/search</code>는 <strong>최대 500건이며 증설 불가</strong>. 항상 500건 이하로 분할 조회</td><td><span class="chip c-fix">확정</span></td></tr>
-    <tr><td class="d">08-12</td><td>분할 출고 우선안</td><td><strong>1 HBL = 1 USD 150 이하 포장 = 1 TRA001 = 1 자이언트 HWB</strong>. ERP가 주문 수신 즉시 전체 포장·가HBL을 확정하고 WMS가 동일 HBL로 순차 출고하는 안. 실응답은 후속 HBL이 null이므로 동수 가능 여부 확인 중</td><td><span class="chip c-open">확인 중</span></td></tr>
+    <tr><td class="d">08-12</td><td>분할 출고 기준</td><td><strong>1 HBL = 1 USD 150 이하 포장 = 1 TRA001 = 1 자이언트 HWB</strong>. 국내·해외 혼재 원주문은 동수에서 유형별 별도 주문 객체로 분리하고 각 <code>packageList[]</code>에는 한 배송유형만 포함. 국내건도 <code>expressNo</code> 반환. 전 HBL 선발급 여부만 구현 확인 중</td><td><span class="chip c-fix">정책 확정</span></td></tr>
   </tbody>
 </table>
 
@@ -325,7 +317,7 @@
   <tbody>
     <tr><td>자이언트 전송 주체</td><td><s>자사몰이 동수 물류정보와 PER 정보를 모두 병합해 HWB 등록</s> → <s>동수 단일 <code>bulk-sync</code></s></td><td>PCCC는 동수, OTP는 Geek 보관·직접 전송 후 자이언트가 HBL 기준으로 병합하는 안. 다만 자이언트 API 변경 불가 통보로 <strong>직접 전송 엔드포인트와 병합 가능 여부는 P0 미결</strong></td><td><span class="chip c-open">회신 대기</span></td></tr>
     <tr><td>오류 건 전달</td><td><s>동수 2회 조회</s> → <s>실패 건 취소 Push</s></td><td>자사몰이 실패 건을 동수 <code>orderDelete</code>로 삭제 요청하고 <code>p1</code>로 원복해 익일 신규 수집</td><td><span class="chip c-fix">확정</span></td></tr>
-    <tr><td>국내·해외 혼재 주문</td><td><s>국내건은 동수 API 응답에서 제외</s></td><td>국내 송장번호 경로가 사라지므로 국내·해외 모두 반환하고 명시적 배송 플래그와 <code>expressNo</code>를 제공하는 안으로 재협의. Geek은 해외 플래그 + HBL 비-null 포장만 TRA001 제출</td><td><span class="chip c-open">동수 확인</span></td></tr>
+    <tr><td>국내·해외 혼재 주문</td><td><s>국내건은 동수 API 응답에서 제외</s></td><td>국내·해외별 별도 주문 객체로 분리하고 각 <code>packageList[]</code>에는 한 배송유형만 포함. 상위 <code>isCrossBorder:Y|N</code>으로 Geek이 분기하며 국내건도 <code>expressNo</code> 반환. <code>isCrossBorder</code>는 동수 <code>getTRA001OrderInfo</code> 응답 전용 커스텀 필드로 관세청·자이언트에는 전송하지 않음</td><td><span class="chip c-fix">확정</span></td></tr>
     <tr><td>HBL 수집 시점</td><td><s>포장 준비 시 순차 채번 후 Geek 재조회</s></td><td>ERP가 주문 수신 즉시 USD 150 이하 전체 포장과 전 가HBL을 확정하는 안을 우선 검토. 불가 시 채번 Push 또는 재조회 유지</td><td><span class="chip c-open">동수 확인</span></td></tr>
   </tbody>
 </table>
@@ -341,7 +333,7 @@
     <tr><td class="d">08-06</td><td>세트는 단품별 전송 → 1주문 복수 HBL·복수 TRA001 원칙 확인 → 국내건 제외안 채택(08-12 재검토)</td></tr>
     <tr><td class="d">08-07~10</td><td>SKU 단가 재확인 → 자이언트 신규 API 연동 테스트 일정 확인 → 동수 테스트 주문 요청</td></tr>
     <tr><td class="d">08-11</td><td><code>hblNo</code> null 확인 → 운영·개발 <code>addField</code>의 PCCC 구조 차이 확인 → 영문 상품명·HS코드 해결 → 자이언트·동수 잔여 질의 정리</td></tr>
-    <tr><td class="d">08-12</td><td><code>getTRA001OrderInfo</code>의 <code>packageList[]</code>와 후속 HBL null 확인 → 국내/해외 플래그 방식 재협의 → 다일 분할 출고 확인 → ERP 전 HBL 선발급 우선안 등록 → HWB 검색 500건 확정 → OTP 동수 제외·<code>p1</code> 반복·09-14 종료 정책 확정 → 금액·분할 총액 관세청 질의 추가</td></tr>
+    <tr><td class="d">08-12</td><td><code>getTRA001OrderInfo</code>의 <code>packageList[]</code>와 후속 HBL null 확인 → <strong>국내·해외 혼재 주문은 유형별 별도 주문 객체로 분리, 단일 유형 packageList, 국내 <code>expressNo</code> 반환 확정</strong> → <code>isCrossBorder:Y|N</code>은 Geek 분기용 동수 커스텀 필드로 정리 → 다일 분할 출고 및 1 HBL=1 TRA001 확인 → 전 HBL 선발급/재조회 선택은 P1로 조정 → HWB 검색 500건 확정 → OTP 동수 제외·<code>p1</code> 반복·09-14 종료 정책 확정 → 금액·분할 총액 관세청 질의 추가</td></tr>
   </tbody>
 </table>
 

@@ -14,6 +14,27 @@ Thumbs.db
 # Claude Code local settings (per-user, not shared)
 .claude/settings.local.json
 
+# Codex 로컬 검사·작업 파일 (대용량 의존성·바이너리 포함 가능)
+/.codex_tmp/
+
+# 패키지 매니저 의존성·로컬 캐시 (모든 프로젝트 폴더)
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/cache/
+
+# Python 가상환경·생성 캐시 (모든 프로젝트 폴더)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+
+# 로컬 로그·Office 잠금 파일
+*.log
+~$*
+
 # 다른 프로젝트 설정 레퍼런스 (읽기 전용 스냅샷, 커밋 제외)
 룰 참고용/
 
@@ -25,7 +46,6 @@ Thumbs.db
 
 # 문서 도구가 생성하는 검사·잠금·임시 파일
 /관세청/**/*.xlsx.inspect.ndjson
-/관세청/**/~$*
 /관세청/**/*.tmp
 /관세청/**/*.bak
 

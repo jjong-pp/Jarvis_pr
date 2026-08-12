@@ -74,6 +74,18 @@
         .api-hwb { background:#e6f4ea; color:#0d652d; }
         .api-item { background:#e0f2f1; color:#00695c; }
         .api-etc { background:#f1f3f4; color:#555; }
+        .api-ds { background:#e8f5e9; color:#137333; }
+        .api-nice { background:#fff0f6; color:#ad1457; }
+        .api-auth { background:#ede7f6; color:#512da8; }
+        .cls-kcs { background:#fff3cd; color:#856404; font-weight:700; text-align:center; }
+        .cls-giant { background:#fce8e6; color:#c5221f; font-weight:700; text-align:center; }
+        .cls-geek { background:#e8f0fe; color:#1a73e8; font-weight:700; text-align:center; }
+        .cls-dongsu { background:#e6f4ea; color:#137333; font-weight:700; text-align:center; }
+        .cls-nice { background:#fff0f6; color:#ad1457; font-weight:700; text-align:center; }
+        .mapping-code { color:#0b57d0; font-family:Consolas, monospace; font-size:11px; }
+        .stage-field-table { min-width:1380px; }
+        .stage-field-wrap { overflow-x:auto; margin-bottom:25px; }
+        .stage-field-wrap > .stage-field-table { margin-bottom:0; }
     </style>
 </head>
 <body>
@@ -94,8 +106,8 @@
         - <strong>DS Logistics:</strong> 매일 17:00 KST 실물 출고 후 확정 물류 데이터(MAWB, 실측 중량 등)를 자이언트로 직송 (관세청 세관 수입신고용)
     </div>
 
-    <div style="background:#e6f4ea; padding:15px 20px; border-left:5px solid #137333; margin-bottom:25px; border-radius:4px; font-size:13px; color:#137333;">
-        <strong>[중량(무게) 오차 리스크 검수 결과]:</strong> 10:00 EIBE ERP 전송 예정 중량(<code>tot_wt</code>)과 17:00 DS Logistics 계량기 실측 중량(<code>weight</code>) 간의 미세한 소수점 오차는 관세청 규정상 <strong>사전 거래정보(예정)와 실물 수입신고(실측)의 정상적 오차 범위(±5~10% 이내)로 인정되어 통관상 아무런 오류나 위험이 없습니다.</strong>
+    <div style="background:#fff3cd; padding:15px 20px; border-left:5px solid #856404; margin-bottom:25px; border-radius:4px; font-size:13px; color:#6b5200;">
+        <strong>[중량 필드 정정]:</strong> 관세청 TRA001 v1.4.1에는 중량 필드가 없어 동수 예정중량(<code>totWt</code>)을 관세청으로 보내지 않습니다. 자이언트 <code>weight</code>만 WMS 실측 확정값으로 전송하며, 종전의 “±5~10% 허용” 문구는 근거가 없어 폐기합니다.
     </div>
 
     <!-- 시퀀스 다이어그램 팝업 클릭 영역 -->
@@ -108,22 +120,34 @@ sequenceDiagram
     autonumber
     actor Customer as 자사몰 고객
     participant Mall as Geek 자사몰 (크로네몰)
+    participant NICE as NICE (본인확인·PCCC 수탁)
     participant ERP as 동수 EIBE ERP (사전예정)
     participant WMS as 동수 DS Logistics (실물물류)
     participant KCS as 관세청 REST API
     participant Giant as 자이언트 특송사
     participant Courier as 롯데택배 (국내)
 
-    Note over Customer, KCS: Stage 1: 결제 시점 PER001 개인통관고유부호 사전 유효성 검증
+    Note over Customer, NICE: Stage 0-A: 최초 1회 NICE 통합인증 및 NICE KEY 확보
+    Customer->>Mall: 회원가입 또는 최초 직구 시 휴대폰 본인확인
+    Mall->>NICE: 통합인증 API 호출 (PCCC 검증용 Key와 별도 계약·권한)
+    NICE-->>Mall: NICE KEY 반환 (CI는 Geek이 직접 보유하지 않는 우선안)
+    Note over Mall, KCS: Stage 0-B: 관세청 AUT001 접근토큰 발급·갱신
+    Mall->>KCS: POST /oauth/token (client_credentials)
+    KCS-->>Mall: access_token / expires_in
+
+    Note over Customer, KCS: Stage 1: 결제 시점 NICE 경유 PER001 개인통관고유부호 사전 검증
     Customer->>Mall: 수하인 통관부호(PER), 성명, 전화번호 기입 및 결제 시도
-    Mall->>KCS: PER001 부호 유효성 검증 요청 (cnsi_pers_ecm, cnsi_nm, cnsi_telno)
+    Mall->>NICE: SMARTPCC_10/11 검증 요청 (NICE KEY·수하인·PCCC)
+    NICE->>KCS: PER001 수탁기관 요청
     alt PER001 검증 성공
-        KCS-->>Mall: 검증 완료 응답 (su_crtf_no 6자리 인증번호 수신)
+        KCS-->>NICE: 검증 완료
+        NICE-->>Mall: otp 6자리 + pers_ecm
         Mall-->>Customer: 결제 완료 승인 (주문상태 p1 저장)
     else PER001 검증 실패
-        KCS-->>Mall: 부호 불일치 / 무효 응답
+        NICE-->>Mall: 부호 불일치 / 무효 응답
         Mall-->>Customer: 결제 승인 차단 및 통관부호 수정 안내 팝업
     end
+    Note over Mall, NICE: Stage 1-1: p1~g1 변경 시 PER002 재검증 / 장애 복구 시 PER003(SMARTPCC_30)
 
     Note over Mall, ERP: Stage 2: 09:00 동수 EIBE ERP 주문 수집 & CS 환불 차단
     ERP->>Mall: 09:00 KST Open API로 결제완료(p1) 주문 수집
@@ -152,7 +176,7 @@ sequenceDiagram
     WMS->>Giant: MAWB·실측·포장·상품·PCCC HWB bulk-sync 전송 (OTP 제외)
     Giant->>KCS: Geek PER 정보 + 동수 물류정보 병합 후 세관 수입신고(DKW/DKX) 제출
 
-    Note over Giant, Customer: Stage 7: 국내 배송 인계 및 수령 후 반품 CS
+    Note over Giant, Customer: Stage 7: 통관 이상 CS · 국내 배송 · 반품 및 세관 정정
     Giant->>Courier: 인천공항 수입 통관 완료 후 롯데택배로 화물 인계
     Courier-->>Customer: 국내 배송 진행 및 물품 수령 완료 (배송완료 상태 업데이트)
     Customer->>Mall: 마이페이지 반품 접수 및 실물 회수 검수 후 최종 환불
@@ -189,7 +213,7 @@ sequenceDiagram
         <span class="time-tag" style="background:#1a73e8;">2026-08-11 신설</span>
     </h2>
     <div class="stage-box">
-<p>3사가 각자 무엇을 언제 호출하고 어떤 필드를 주고받는지 한 표로 정리함. 상세 필드는 아래 Stage 1~7 참조. 미결 항목은 <span class="rule-highlight">노란 표시</span>.</p>
+<p>3사가 각자 무엇을 언제 호출하고 어떤 필드를 주고받는지 한 표로 정리함. 상세 필드는 아래 Stage 0-A~7 참조. 미결 항목은 <span class="rule-highlight">노란 표시</span>.</p>
 
         <table>
             <thead><tr>
@@ -197,6 +221,22 @@ sequenceDiagram
                 <th style="width:16%">API · 엔드포인트</th><th style="width:22%">주요 필드</th><th>처리 로직 · 상태 전이</th>
             </tr></thead>
             <tbody>
+                <tr>
+                    <td><strong>회원가입·최초 직구</strong><br>(최초 1회)</td>
+                    <td class="src-geek">Geek 자사몰</td>
+                    <td>NICE<br>(통합인증)</td>
+                    <td><code>POST /ido/intc/v1.0/auth/url</code><br><code>POST /ido/intc/v1.0/auth/result</code></td>
+                    <td><strong>별도 서비스 권한</strong> <code>client_id</code> · <code>client_secret</code><br><strong>응답</strong> NICE KEY <span style="font-size:11.5px;color:#5f6368;">(정확한 응답 필드명은 NICE 회신 대기)</span></td>
+                    <td>PCCC 유효성 검증용 Key와 별개인 휴대폰 본인확인 서비스. <strong>NICE KEY 보관 우선안</strong>으로 Geek이 CI를 직접 저장하지 않고, 간소화 요청 시 NICE가 NICE KEY를 CI로 변환하여 관세청에 전달한다. NICE KEY 권한·추가 단가·KISA 제출 대상 제외 여부는 계약 회신 후 확정</td>
+                </tr>
+                <tr>
+                    <td><strong>관세청 호출 전</strong><br>(24시간 이내 갱신)</td>
+                    <td class="src-geek">Geek 자사몰</td>
+                    <td>관세청</td>
+                    <td><code>AUT001</code><br><code>POST https://ecapi.customs.go.kr/oauth/token</code></td>
+                    <td><strong>요청</strong> Basic <code>client_id/client_secret</code> · <code>grant_type=client_credentials</code><br><strong>응답</strong> <code>access_token</code> · <code>expires_in=86400</code></td>
+                    <td>TRA001·TRA003 직접 호출의 선행조건. 환경별 인증정보를 분리 보관하고 만료 전 선갱신한다. 인증정보당 활성 토큰은 최대 2개이므로 동시 발급을 잠금 처리하고 갱신 실패 시 제출 배치를 중단·알림</td>
+                </tr>
                 <tr>
                     <td><strong>결제 시점</strong><br>(실시간)</td>
                     <td class="src-geek">Geek 자사몰</td>
@@ -206,12 +246,20 @@ sequenceDiagram
                     <td>NICE 경유로 관세청 PER001 유효성 검증. 성공 시 <code>otp</code> 6자리 전체와 <code>pers_ecm</code>을 복호화 수신하여 DB 저장 후 결제 완료(<code>p1</code>).<br>실패 시 결제 승인 차단 + 통관부호 수정 안내 팝업.<br><span class="rule-highlight">계도기간(~2026-09-14 24:00) 중 발급 실패 건은 <code>Z99999</code></span></td>
                 </tr>
                 <tr>
+                    <td><strong>p1~g1 변경 시</strong><br>(조건부)</td>
+                    <td class="src-geek">Geek 자사몰</td>
+                    <td>NICE → 관세청</td>
+                    <td><code>PER002</code> 재검증<br><code>PER003</code> / <code>SMARTPCC_30</code> 장애복구</td>
+                    <td><code>reqt_no</code> · 수하인 성명/전화/PCCC/우편번호 · 수탁기관 <code>brno</code></td>
+                    <td>결제 후 동수 수집 전 수하인·전화·주소·PCCC가 변경되면 기존 <code>reqt_no</code>로 재검증하고 성공한 경우에만 주문을 유지한다. PER 서비스 장애 중 임시 처리된 건은 복구 후 PER003으로 사후 검증한다. <code>SMARTPCC_30</code>의 3011 오류는 NICE 확인이 남아 있음</td>
+                </tr>
+                <tr>
                     <td><strong>결제 직후</strong></td>
                     <td class="src-geek">Geek 자사몰</td>
                     <td>자사몰 DB</td>
                     <td>내부 (표준 API 없음)</td>
-                    <td><code>addField</code> ← 개인통관고유부호 · 일회용 인증번호</td>
-                    <td><span class="rule-highlight">확인 필요</span> 검증 완료된 PCCC·인증번호를 고도몰 <strong>주문추가정보(<code>addField</code>)</strong>에 저장. <u>고도몰 표준 API에 쓰기 경로가 없으므로 결제 프로세스 내부(커스터마이징)에서 처리해야 함</u>. 이 값이 09:00에 동수로 전달되는 유일한 경로임</td>
+                    <td><code>addField</code> ← 개인통관고유부호만</td>
+                    <td>검증 완료된 PCCC만 고도몰 <strong>주문추가정보(<code>addField</code>)</strong>에 저장. <strong>OTP(<code>tempAuthNo</code>)는 addField와 동수 전달 대상에서 제외</strong>하고 Geek DB에만 보관한다. 고도몰 표준 API에 쓰기 경로가 없으므로 결제 프로세스 내부 커스터마이징에서 처리</td>
                 </tr>
                 <tr>
                     <td><strong>09:00</strong></td>
@@ -242,11 +290,12 @@ sequenceDiagram
                     <td class="src-geek">Geek 자사몰</td>
                     <td>동수 EIBE ERP</td>
                     <td><strong><code>POST /openAPI/erp/orderInfo/getTRA001OrderInfo</code></strong><br><span style="font-size:11.5px;color:#5f6368;">종전 <code>searchOrderInfo</code> 대체 (2026-08-12)</span></td>
-                    <td><strong>응답 구조</strong> 상위 <code>customerOrderNo</code> → <code>packageList[]</code>(분할 주문번호 · <code>hblNo</code> · <code>elcmPcd</code> · <code>totWt</code> · <code>totStlmAmt</code> · <code>ordAmt</code> · <code>totOrdProdQty</code> · <code>prodSalePgeUrl</code> · <code>puchVcexBsmnSgn/Nm</code> · <code>itemList[]</code>)</td>
+                    <td><strong>응답 구조</strong> 상위 <code>customerOrderNo</code> · <strong><code>isCrossBorder</code>(Y/N)</strong> → <code>packageList[]</code>(분할 주문번호 · <code>hblNo</code> · 국내 <strong><code>expressNo</code></strong> · <code>elcmPcd</code> · <code>totWt</code> · <code>totStlmAmt</code> · <code>ordAmt</code> · <code>totOrdProdQty</code> · <code>prodSalePgeUrl</code> · <code>puchVcexBsmnSgn/Nm</code> · <code>itemList[]</code>)</td>
                     <td><strong>[2026-08-12 변경] 동수가 TRA001 전용 신규 API를 개설함.</strong> 파라미터가 <code>customerOrderNos</code>(복수) → <strong><code>customerOrderNo</code>(단건)</strong>으로 바뀜.<br>
                     <span class="rule-highlight">P0 — 다건 조회 미지원</span> 일 처리량이 100건을 넘으므로 단건 호출은 성립하지 않음. 2026-08-12 다건 지원 개선을 요청했고 동수가 "구분 로직이 있으면 개선 가능"으로 회신 → <u>확정 대기</u>.<br>
-                    <span class="rule-highlight">동수 추가 제공 필요</span> <code>prod_srno</code> · <strong><code>hs_cd</code>(동수 매핑 — 2026-08-11 확정)</strong> · <code>prod_id</code>(SKU) · <code>packageCount</code> · <code>innerPackageCount</code> · B유형 <code>sale_ents_nm</code> · <strong>국내/해외 플래그</strong> · <code>expressNo</code>.<br>
-                    <strong>Geek 처리 기준</strong> 목표 응답은 최초 조회부터 해외 포장의 모든 <code>hblNo</code>가 비-null이어야 한다. 포장별 금액이 USD 150 이하인지, HBL이 고유한지, 품목·수량 합계가 원주문과 일치하는지 검증 후 HBL별로 제출한다. 동수 확정 전 또는 선채번 불가 시에는 null 포장을 완료 처리하지 않고 재조회/Push 대기 큐로 관리한다</td>
+                    <span class="rule-highlight">동수 추가 제공 필요</span> <code>prod_srno</code> · <strong><code>hs_cd</code>(동수 매핑 — 2026-08-11 확정)</strong> · <code>prod_id</code>(SKU) · <code>packageCount</code> · <code>innerPackageCount</code> · B유형 <code>sale_ents_nm</code>.<br>
+                    <strong>[2026-08-12 확정]</strong> 혼재 원주문은 동수가 국내/해외별 <u>별도 주문 객체</u>로 분리하고 각 <code>packageList[]</code>에는 한 배송유형만 넣는다. 상위 <code>isCrossBorder=Y</code>는 해외, <code>N</code>은 국내이며 국내건도 <code>expressNo</code>를 반환한다. 두 필드는 <strong>Geek 분기·고도몰 송장 갱신용 동수 커스텀 필드</strong>로 관세청·자이언트에는 보내지 않는다. <code>isCrossBorder</code>와 <code>elcmPcd</code>(A 직접판매/B 구매대행)는 서로 다른 축이다.<br>
+                    <strong>Geek 처리 기준</strong> 해외 객체만 TRA001 대상으로 선별하고, 최초 조회부터 해외 포장의 모든 <code>hblNo</code>가 비-null이어야 한다. 포장별 금액이 USD 150 이하인지, HBL이 고유한지, 품목·수량 합계가 분리 주문과 일치하는지 검증 후 HBL별로 제출한다. 선채번 불가 시 null 포장은 완료 처리하지 않고 재조회/Push 대기 큐로 관리한다</td>
                 </tr>
                 <tr>
                     <td><strong>10:00~11:00</strong></td>
@@ -359,9 +408,9 @@ sequenceDiagram
                 </tr>
                 <tr>
                     <td class="src-dongsu"><strong>동수</strong><br>EIBE ERP</td>
-                    <td><strong><code>getTRA001OrderInfo</code></strong>(2026-08-12 신규, 종전 <code>searchOrderInfo</code> 대체) 14개 속성 + 추가 요청 필드(<code>prod_srno</code> · <strong><code>hs_cd</code> 매핑</strong> · <code>prod_id</code> · 포장개수 · B유형 판매업체명) · <code>orderDelete</code> API</td>
+                    <td><strong><code>getTRA001OrderInfo</code></strong>(2026-08-12 신규, 종전 <code>searchOrderInfo</code> 대체) 상위 <code>isCrossBorder</code> + <code>packageList[]</code>(국내 <code>expressNo</code>) + 14개 속성 + 추가 요청 필드(<code>prod_srno</code> · <strong><code>hs_cd</code> 매핑</strong> · <code>prod_id</code> · 포장개수 · B유형 판매업체명) · <code>orderDelete</code> API</td>
                     <td>고도몰 주문조회(PCCC 포함, <strong>OTP 제외</strong>) · Geek의 오류 건 삭제 요청</td>
-                    <td><strong>다건 조회 지원</strong>(<code>getTRA001OrderInfo</code>) · <strong>삭제 API 다건 지원</strong> · 주문 삭제 API · 응답 포맷 조정 · <strong>국내/해외 배송구분 플래그 + <code>expressNo</code></strong> · <strong>주문 수신 즉시 USD 150 이하 포장 확정 및 전 HBL 가채번</strong>(우선안, 동수 확인 중) · 가HBL↔WMS 실제 송장 1:1 유지 · <strong>HS코드 매핑</strong> · <strong>PCCC만 DS ERP에 저장</strong> · 상품분류/브랜드 필드 정정 · 숫자 타입 정리. <strong>OTP 저장·수신은 동수 개발 범위가 아님</strong></td>
+                    <td><strong>다건 조회 지원</strong>(<code>getTRA001OrderInfo</code>) · <strong>삭제 API 다건 지원</strong> · 주문 삭제 API · 응답 포맷 조정 · <strong>확정: 국내/해외별 주문 객체 분리 + 상위 <code>isCrossBorder:Y/N</code> + 국내 <code>expressNo</code></strong> · <strong>주문 수신 즉시 USD 150 이하 포장 확정 및 전 HBL 가채번</strong>(우선안, 동수 확인 중) · 가HBL↔WMS 실제 송장 1:1 유지 · <strong>HS코드 매핑</strong> · <strong>PCCC만 DS ERP에 저장</strong> · 상품분류/브랜드 필드 정정 · 숫자 타입 정리. <strong>OTP 저장·수신은 동수 개발 범위가 아님</strong></td>
                 </tr>
                 <tr>
                     <td class="src-dongsu"><strong>동수</strong><br>DS Logistics</td>
@@ -384,7 +433,44 @@ sequenceDiagram
             </tbody>
         </table>
     </div>
+    <h2>
+        <span>Stage 0-A. NICE 통합인증 및 NICE KEY 확보</span>
+        <span class="time-tag" style="background:#ad1457;">회원가입·최초 직구 시 1회</span>
+    </h2>
+    <div class="stage-box" style="border-left-color:#ad1457;">
+        <ul>
+            <li>PCCC 검증 서비스용 <code>client_id/client_secret</code>과 휴대폰 본인확인(통합인증) 서비스 권한은 <strong>별개</strong>다. Geek은 NICE에 통합인증용 IP 권한과 별도 Client 값을 신청한다.</li>
+            <li>신규 회원은 회원가입 시, 기존 회원은 최초 해외직구 발생 시 1회 본인확인을 수행한다. 이후 PCCC 간소화 요청에는 <strong>CI 직접 저장 대신 NICE KEY 저장·전송을 우선안</strong>으로 사용한다.</li>
+            <li><span class="rule-highlight">계약 확인</span> NICE KEY 실제 응답 필드명, 추가 단가, NICE KEY만 보유할 때 KISA 연계정보 안전조치 제출 대상에서 제외되는지는 NICE 회신 후 확정한다.</li>
+        </ul>
+    </div>
+    <div class="stage-field-wrap"><table class="stage-field-table">
+        <thead><tr><th>No</th><th>분류</th><th>API 구분</th><th>필드명(코드)</th><th>한글 필드명</th><th>타입</th><th>필수</th><th>매핑 코드</th><th>데이터 채움 출처</th><th>실제 데이터 값 (채널별)</th><th>상세설명</th></tr></thead>
+        <tbody>
+            <tr><td>0A-1</td><td class="cls-nice">NICE</td><td><span class="api-tag api-auth">통합인증</span></td><td><code>client_id / client_secret</code></td><td>통합인증 서비스 인증정보</td><td>Secret</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">—</span></td><td class="src-gen">NICE 별도 발급</td><td>환경변수·Secret Vault 보관</td><td>PCCC 검증 서비스 Key와 공유하지 않음. 개발/운영 환경별 분리</td></tr>
+            <tr><td>0A-2</td><td class="cls-nice">NICE</td><td><span class="api-tag api-auth">통합인증</span></td><td><code>request_no / return_url</code></td><td>인증 요청번호 / 결과 반환 URL</td><td>String</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">—</span></td><td class="src-geek">Geek 생성·설정</td><td>주문·회원별 고유 요청번호 / HTTPS 콜백</td><td>재전송·위변조 방지를 위해 요청번호를 회원 인증 이력에 저장</td></tr>
+            <tr><td>0A-3</td><td class="cls-geek">Geek</td><td><span class="api-tag api-auth">통합인증 응답</span></td><td><code>NICE KEY</code> <span class="rule-highlight">응답명 대기</span></td><td>CI 대체 식별키</td><td>String</td><td><span class="badge req-c">C</span></td><td><span class="mapping-code">ord_info.ordrr_key</span></td><td class="src-kcs">NICE 응답</td><td>회원 DB 암호화 저장</td><td>PCCC 간소화 요청 시 NICE가 내부적으로 CI로 변환. CI 직접 보유를 피하는 우선안</td></tr>
+        </tbody>
+    </table></div>
 
+    <h2>
+        <span>Stage 0-B. 관세청 AUT001 접근토큰 발급·갱신</span>
+        <span class="time-tag" style="background:#512da8;">TRA 호출 전</span>
+    </h2>
+    <div class="stage-box" style="border-left-color:#512da8;">
+        <ul>
+            <li><code>TRA001</code>·<code>TRA003</code> 직접 호출 전 <code>client_credentials</code> 방식으로 접근토큰을 발급한다. 토큰 유효기간은 24시간(<code>86400</code>초).</li>
+            <li>인증정보당 활성 토큰 최대 2개이므로 배치 프로세스가 동시에 갱신하지 않도록 분산 잠금을 적용한다. 만료 전 선갱신 실패 시 관세청 제출을 진행하지 않고 운영 알림을 발생시킨다.</li>
+        </ul>
+    </div>
+    <div class="stage-field-wrap"><table class="stage-field-table">
+        <thead><tr><th>No</th><th>분류</th><th>API 구분</th><th>필드명(코드)</th><th>한글 필드명</th><th>타입</th><th>필수</th><th>매핑 코드</th><th>데이터 채움 출처</th><th>실제 데이터 값 (채널별)</th><th>상세설명</th></tr></thead>
+        <tbody>
+            <tr><td>0B-1</td><td class="cls-kcs">관세청</td><td><span class="api-tag api-auth">AUT001</span></td><td><code>Authorization: Basic</code></td><td>Client 인증정보</td><td>Header</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">—</span></td><td class="src-gen">관세청 포털 발급</td><td>Client ID/Secret 결합값</td><td>Secret은 문서·로그에 출력하지 않고 테스트/운영 별도 보관</td></tr>
+            <tr><td>0B-2</td><td class="cls-kcs">관세청</td><td><span class="api-tag api-auth">AUT001</span></td><td><code>grant_type</code></td><td>권한 부여 방식</td><td>String</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">—</span></td><td class="src-gen">Geek 고정</td><td><code>client_credentials</code></td><td>AUT001 고정값</td></tr>
+            <tr><td>0B-3</td><td class="cls-geek">Geek</td><td><span class="api-tag api-auth">AUT001 응답</span></td><td><code>access_token / expires_in</code></td><td>접근토큰 / 만료초</td><td>String / Number</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">Authorization: Bearer</span></td><td class="src-kcs">관세청 응답</td><td>토큰 캐시 / <code>86400</code></td><td>TRA001·TRA003 요청 헤더에 사용. 만료시각과 발급시각을 함께 저장</td></tr>
+        </tbody>
+    </table></div>
 
     <h2>
         <span>Stage 1. 결제 시점 PER001 개인통관고유부호 사전 유효성 검증</span>
@@ -396,8 +482,8 @@ sequenceDiagram
             <li><strong>배경 및 목적:</strong> 통관 거절 및 지연의 주원인인 잘못된 개인통관고유부호 입력이나 명의 불일치를 자사몰 결제 단계에서 사전에 검증하여 불량 주문 인입을 원천 차단함.</li>
             <li><strong>처리 프로세스:</strong><br>
                 1. 자사몰 고객이 결제 페이지에서 수하인 성명(<code>cnsi_nm</code>), 개인통관고유부호(<code>cnsi_pers_ecm</code>), 전화번호(<code>cnsi_telno</code>)를 입력함.<br>
-                2. 자사몰(Geek) 백엔드가 관세청 <code>PER001</code> API를 실시간 호출하여 성명-부호-전화번호 3자 일치 여부를 동기 검증함.<br>
-                3. <strong>검증 성공 시 — 응답구분(<code>rspn_tp</code>)에 따라 3분기:</strong><br>&nbsp;&nbsp;• <code>02</code> 협력인정업체용(Track A, 주문자=수하인 + CI 전송): 6자리 인증번호와 일회용 개인통관부호(<code>su_pers_cscl_sgn</code>)를 함께 수신하여 모달 없이 결제 완료.<br>&nbsp;&nbsp;• <code>03</code> 개인통관고유부호 비갱신(임시): 6자리 전체 수신, 사용자 입력 절차 불필요. <span class="rule-highlight">계도기간 유예코드 Z99999 적용 구간 (~2026-09-14 24:00)</span><br>&nbsp;&nbsp;• <code>01</code> 일반용(Track B, 주문자≠수하인 등): NICE가 <code>auth_url</code> 인증 팝업을 반환하고 <strong>NICE 측에서 SMS/이메일 점유확인을 직접 수행</strong>함. 사용자 인증 완료 후 <code>result_inquiry_id</code>가 콜백되며, SMARTPCC_11(<code>/cons/pccc/v1.0/verify/result</code>)에서 <code>otp</code> <strong>6자리 전체</strong>와 <code>pers_ecm</code>을 복호화 수신함. <span class="rule-highlight">자사몰이 앞 2자리 비교·체크디지트를 자체 구현할 필요 없음</span> — 관세청 PER001 직접 연동 시에만 해당하는 절차임. 인증 모달은 기구현(2026-07-23 시연 확인).<br>&nbsp;&nbsp;검증 통과 시 인증번호를 DB에 저장하고 결제 완료(주문상태 <code>p1</code>)함.<br>
+                2. 자사몰(Geek) 백엔드가 NICE <code>SMARTPCC_10/11</code>을 호출하고 NICE가 수탁기관으로 관세청 <code>PER001</code>을 중계하여 성명-부호-전화번호 일치 여부를 검증함.<br>
+                3. <strong>검증 성공 시 — NICE 서비스 유형에 따라 분기:</strong><br>&nbsp;&nbsp;• 간소화 방식: 주문자=수하인이고 회원이 NICE KEY를 보유하면 <code>ord_info.ordrr_key</code>로 요청. Geek은 CI를 직접 저장하지 않는 우선안.<br>&nbsp;&nbsp;• 일반인증 방식: NICE가 <code>auth_url</code> 인증 팝업을 반환하고 SMS/이메일 점유확인을 수행. 인증 완료 후 SMARTPCC_11에서 <code>otp</code> <strong>6자리 전체</strong>와 <code>pers_ecm</code>을 복호화 수신함. 자사몰 자체 체크디지트 구현은 불필요.<br>&nbsp;&nbsp;• 계도기간(~2026-09-14 24:00) 중 허용되는 실패 건에는 정책상 <code>Z99999</code>를 사용.<br>&nbsp;&nbsp;검증 통과 시 인증번호를 Geek DB에 저장하고 결제 완료(<code>p1</code>)함.<br>
                 4. <strong>검증 실패 시:</strong> 결제 승인을 즉시 차단하고, 화면에 "입력하신 통관부호가 명의와 일치하지 않습니다" 경고 안내 팝업을 노출함.
             </li>
         </ul>
@@ -411,12 +497,33 @@ sequenceDiagram
             <tr><td><span class="api-tag api-per">PER001</span></td><td><code>reqt_no</code></td><td>요청번호</td><td>String(18)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek 자체 생성</td><td>yyyyMMddHHmm + 일련번호6자리</td><td><span class="rule-highlight">기존 문서 누락분</span> 요청마다 고유. 중복 시 응답코드 3130. PER002 재검증 시 동일 번호를 그대로 사용해야 하므로 주문에 보관 필수. NICE 경유 시 <code>request_no</code>(20~50byte)</td></tr>
             <tr><td><span class="api-tag api-per">PER001</span></td><td><code>reqt_tp</code></td><td>요청구분</td><td>String(2)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 분기</td><td>01 일반용 / 02 협력인정업체용</td><td><span class="rule-highlight">기존 문서 누락분</span> 협력인정업체이면서 주문자=수하인일 때만 02. 그 외 전부 01. NICE 경유 시 <code>svc_type</code> (A 간소화 / B 일반인증)</td></tr>
             <tr><td><span class="api-tag api-per">PER001</span></td><td><code>ordrr_fnm</code></td><td>주문자 성명</td><td>String(150)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>주문자 한글/영문 성명</td><td><span class="rule-highlight">기존 문서 누락분</span> <code>ordrr_info</code> 객체 하위. 항상 필수. reqt_tp=02이면 수하인 성명과 반드시 동일해야 함</td></tr>
-            <tr><td><span class="api-tag api-per">PER001</span></td><td><code>ordrr_ci</code></td><td>주문자 CI</td><td>String(88)</td><td><span class="badge req-c">C</span></td><td class="src-geek">Geek 자사몰 DB</td><td>NICE 통합인증으로 획득한 CI</td><td><span class="rule-highlight">기존 문서 누락분</span> reqt_tp=02일 때 필수. <strong>CI는 PCCC 검증 API가 아니라 NICE 통합인증(<code>POST /ido/intc/v1.0/auth/url</code> → <code>/auth/result</code>)의 <code>ci</code> 값으로만 획득됨</strong> — 별도 개발 필요. NICE 경유 시 <code>ord_info.ordrr_key</code></td></tr>
+            <tr><td><span class="api-tag api-per">PER001</span></td><td><code>ordrr_ci</code></td><td>주문자 CI</td><td>String(88)</td><td><span class="badge req-c">C</span></td><td class="src-geek">직접연동 시 Geek DB</td><td>당사 NICE 경유안에서는 직접 저장하지 않음</td><td>관세청 직접 호출의 협력인정업체용 요청에서만 조건부 필수. <strong>당사는 NICE KEY를 저장하고 NICE 경유 요청의 <code>ord_info.ordrr_key</code>로 전달하는 우선안</strong>. 실제 NICE KEY 응답명·권한은 회신 대기</td></tr>
             <tr><td><span class="api-tag api-per">PER001</span></td><td><code>dlvrpl_psno</code></td><td>배송지 우편번호</td><td>String(5)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>우편번호 5자리</td><td><span class="rule-highlight">기존 문서 누락분</span> <code>cnsi_info</code> 객체 하위. 개인통관고유부호에 등록된 주소의 우편번호와 일치해야 함. 불일치 시 응답코드 3180</td></tr>
             <tr><td><span class="api-tag api-per">PER001</span></td><td><code>ord_no_icln_tp</code></td><td>주문번호 포함 구분</td><td>String(2)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 분기</td><td>01 미포함 / 02 포함</td><td><span class="rule-highlight">기존 문서 누락분</span> 결제 시점에 주문번호가 없으면 01. <span class="rule-highlight">01 선택 시 인증번호 발급 후 30분 이내에 주문을 완료해야 함</span></td></tr>
             <tr><td><span class="api-tag api-per">PER001</span></td><td><code>su_crtf_no</code></td><td>일회용 인증번호</td><td>String(6)</td><td><span class="badge req-y">Y</span></td><td class="src-kcs">관세청 응답</td><td>6자리 숫자 / 앞 2자리(rspn_tp=01) / Z99999(계도기간)</td><td>NICE 경유(SMARTPCC_11 <code>otp</code>)로 <strong>6자리 전체 수신</strong>. 계도기간(~2026-09-14 24:00)에는 Z99999 유예코드 사용 가능. DB 저장 후 TRA001 <code>su_crtf_no</code> 및 자이언트 <code>tempAuthNo</code> 송출에 사용. <span class="rule-highlight">참고: 관세청 PER001에 직접 연동하는 경우에는 rspn_tp=01일 때 앞 2자리만 응답되어 자체 체크디지트 검증이 필요하나, 당사는 NICE 수탁 경유이므로 해당 없음</span></td></tr>
         </tbody>
     </table>
+
+    <h2>
+        <span>Stage 1-1. 주문 변경 PER002 재검증 및 PER003 장애복구</span>
+        <span class="time-tag" style="background:#7b1fa2;">p1~g1 조건부</span>
+    </h2>
+    <div class="stage-box" style="border-left-color:#7b1fa2;">
+        <ul>
+            <li><strong>PER002:</strong> 결제완료(<code>p1</code>) 후 09:00 동수 수집·<code>g1</code> 전환 전에 수하인 성명, 전화번호, PCCC, 주소 또는 우편번호가 변경되면 최초 <code>reqt_no</code>로 재검증한다. 실패 주문은 수집 대상에서 제외하고 고객 수정 안내.</li>
+            <li><strong>PER003:</strong> 관세청/NICE 서비스 중단으로 임시 승인된 건은 서비스 복구 후 사후 검증한다. NICE 경로는 <code>SMARTPCC_30</code>이며 현재 3011 오류가 남아 있어 <span class="rule-highlight">NICE 테스트 완료 전 P1</span>이다.</li>
+            <li>고객 취소 주문은 PER002를 호출하지 않고 TRA001·동수 수집 대상에서 제외한다.</li>
+        </ul>
+    </div>
+    <div class="stage-field-wrap"><table class="stage-field-table">
+        <thead><tr><th>No</th><th>분류</th><th>API 구분</th><th>필드명(코드)</th><th>한글 필드명</th><th>타입</th><th>필수</th><th>매핑 코드</th><th>데이터 채움 출처</th><th>실제 데이터 값 (채널별)</th><th>상세설명</th></tr></thead>
+        <tbody>
+            <tr><td>1-1-1</td><td class="cls-kcs">관세청</td><td><span class="api-tag api-per">PER002</span></td><td><code>reqt_no</code></td><td>최초 검증 요청번호</td><td>String(18)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">request_no</span></td><td class="src-geek">Geek 주문 DB</td><td>Stage 1에서 보관한 고유번호</td><td>신규 번호를 만들지 않고 최초 PER001 요청번호를 사용</td></tr>
+            <tr><td>1-1-2</td><td class="cls-kcs">관세청</td><td><span class="api-tag api-per">PER002</span></td><td><code>brno</code></td><td>수탁기관 사업자등록번호</td><td>String</td><td><span class="badge req-c">C</span></td><td><span class="mapping-code">NICE 수탁기관 정보</span></td><td class="src-kcs">NICE 고정</td><td>NICE 안내값</td><td>NICE 수탁 경유 건에만 전송. 실제 값은 NICE 확인</td></tr>
+            <tr><td>1-1-3</td><td class="cls-nice">NICE</td><td><span class="api-tag api-per">PER003 / SMARTPCC_30</span></td><td><code>request_no</code></td><td>사후검증 요청번호</td><td>String</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">reqt_no</span></td><td class="src-geek">Geek 주문 DB</td><td>장애 시 임시 처리 주문의 요청번호</td><td>3011 오류 해결 후 서비스복구 테스트 필요</td></tr>
+            <tr><td>1-1-4</td><td class="cls-geek">Geek</td><td><span class="api-tag api-etc">내부 상태</span></td><td><code>per_recheck_status</code></td><td>재검증·사후검증 상태</td><td>String</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">—</span></td><td class="src-geek">Geek 생성</td><td>pending / valid / invalid / retry</td><td>valid만 TRA001 제출. invalid는 고객 수정, retry는 서비스복구 큐</td></tr>
+        </tbody>
+    </table></div>
 
     <h2>
         <span>Stage 2. 09:00 동수 EIBE ERP 주문 수집 및 주문상태 g1(상품준비중) 변경</span>
@@ -563,10 +670,10 @@ sequenceDiagram
         
             <li style="background:#e6f4ea; border-left:3px solid #137333; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[동수 제공 필드]</strong> 동수가 반드시 내려주어야 하는 값 — <code>hbl_no</code>(가채번) · 중량 · <strong><code>hs_cd</code>(동수 매핑)</strong> · <code>prod_srno</code>(HBL 내 1부터 연속) · <code>prod_id</code>(SKU) · 영문 상품명 · <code>prod_sale_pge_url</code> · <code>sale_ents_nm</code>(B유형) · USD 단가 · 포장개수.<br>
                 <strong>상품 개수 상한</strong> 관세청 999 / 자이언트 <strong>50</strong> / 동수 현행 채번 1~5 — 실질 천장은 자이언트 50.</li>
-            <li style="background:#fce8e6; border-left:3px solid #c5221f; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[미결 · 2026-08-11 실 응답 검토]</strong> 현재 데이터로는 TRA001 제출 불가.<br>
-                <strong>[2026-08-12 갱신]</strong> ① <span class="ok">현행 <code>hblNo</code> null 조건 확인</span> — 같은 주문의 <code>packageList[]</code>에서 첫 포장은 HBL 값이 있고 후속 <code>-1</code> 포장은 null이다. 실응답의 포장금액은 각각 <code>17.676 / 143.136</code>, <code>53.028 / 143.136</code> USD로 모두 150 이하라 분할 흔적은 확인되지만, <strong>USD 150 규칙 적용 결과인지는 동수 확인이 필요</strong>하다. ② <code>prod_srno</code> 항목 여전히 없음 ③ <span class="rule-highlight">국내/해외 응답 정책 재협의</span> — 국내·해외를 함께 반환하되 별도 배송 플래그와 <code>expressNo</code>를 제공하는 안을 동수와 확정해야 한다.<br>
-                <strong>규격 위반</strong> ⑤ <code>prod_clsf_nm_stp1</code>에 "국내 발송/국제 직구"(배송구분이며 상품분류 아님) ⑥ <code>prod_clsf_nm_stp2</code>에 브랜드명(브랜드는 <code>prod_brnd_nm</code>) ⑦ 수량·단가가 문자열 반환<br>
-                <strong>후속</strong> <code>prod_clsf_nm_stp1</code>을 배송 플래그로 사용하지 말고 <code>deliveryType</code> 또는 <code>overseasDirectPurchaseYn</code>을 신설. Geek은 해외 플래그 + <code>hblNo</code> 비-null 포장만 TRA001에 제출한다.</li>
+            <li style="background:#fce8e6; border-left:3px solid #c5221f; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[실 응답 잔여 보완]</strong> 국내·해외 분리 정책은 해결됐으나 아래 필드 문제로 현행 샘플 그대로는 TRA001 제출이 불가하다.<br>
+                ① 같은 해외 주문 객체의 첫 포장은 HBL 값이 있고 후속 <code>-1</code> 포장은 <code>hblNo=null</code>. 전 HBL 선발급 또는 Push/재조회 중 하나 필요 ② <code>prod_srno</code> 항목 없음 ③ <code>prod_clsf_nm_stp1</code>에 배송구분, <code>prod_clsf_nm_stp2</code>에 브랜드명이 들어가며 수량·단가가 문자열로 반환됨.<br>
+                <strong>[2026-08-12 해결]</strong> 동수가 국내/해외별 별도 주문 객체로 분리하고 각 <code>packageList[]</code>는 단일 배송유형만 포함한다. 상위 <code>isCrossBorder=Y/N</code>으로 Geek이 분기하고 국내건도 <code>expressNo</code>를 반환한다. <strong><code>isCrossBorder</code>는 동수 <code>getTRA001OrderInfo</code> 전용 커스텀 필드이며 관세청·자이언트 규격 필드가 아니다.</strong><br>
+                Geek은 <code>isCrossBorder=Y</code>이면서 <code>hblNo</code> 비-null인 해외 포장만 TRA001 제출하고, 국내 객체의 <code>expressNo</code>는 고도몰 배송 송장 갱신에만 사용한다.</li>
             <li style="background:#fff3cd; border-left:3px solid #856404; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[우선 구현안 · 동수 확인 중] ERP 선분할·전 HBL 선발급 → WMS 순차 출고</strong><br>
                 동수 회신(2026-08-12 10:12) — 하나의 몰 주문이 3개 출고 주문으로 분할되어 <u>3일에 걸쳐 발송</u>될 수 있고, 원 주문번호 / <code>-1</code> / <code>-2</code>처럼 나뉘므로 <strong>주문 삭제 API도 분할 주문번호별로 요청</strong>해야 함.<br>
                 <strong>목표 계약</strong> — ERP는 주문 수신 시점에 ① 품목을 신고금액 <strong>USD 150 이하</strong>의 포장으로 전부 배분하고 ② 모든 분할 주문번호와 가HBL을 즉시 발급하며 ③ 가HBL을 WMS 실제 송장·자이언트 <code>hwbNo</code>와 1:1로 연결한다. WMS는 이후 재고·작업 일정에 따라 포장/HBL 단위로 순차 출고하고, 출고 시 해당 HBL을 자이언트 <code>bulk-sync</code>에 등록한다.<br>
@@ -645,6 +752,8 @@ sequenceDiagram
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tax_amt</code></td><td>세금</td><td>Number(16,3)</td><td><span class="badge req-n">N</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td><span class="rule-highlight">v1.4.1 규격 외 항목 — 전송 대상에서 제외</span> 선택 항목</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tot_ord_prod_qty</code></td><td>총 주문상품수량</td><td>Integer(6)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>주문 전체 총 수량</td><td>주문 전체 총 수량 기재</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td>예비항목 (3개)</td><td>예비항목</td><td>-</td><td><span class="badge req-n">N</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>관세청 확장 예비 항목. 전건 생략</td></tr>
+            <tr><td><span class="api-tag api-ds">동수 getTRA001</span></td><td><code>response[].isCrossBorder</code></td><td>해외직구 주문 여부</td><td>String(1)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 ERP 판정</td><td><code>Y</code> 해외 / <code>N</code> 국내</td><td>국내·해외별로 이미 분리된 상위 주문 객체의 유형. Geek 내부 선별용이며 관세청·자이언트에는 전송하지 않음. <code>elcmPcd</code> A/B와 의미가 다름</td></tr>
+            <tr><td><span class="api-tag api-ds">동수 getTRA001</span></td><td><code>response[].packageList[].expressNo</code></td><td>국내 배송 송장번호</td><td>String</td><td><span class="badge req-c">C</span></td><td class="src-dongsu">동수 WMS/ERP</td><td>국내 객체(<code>isCrossBorder=N</code>)에서 반환</td><td>고도몰 국내 배송 송장 갱신 전용. 해외 TRA001·자이언트 HWB 필드로 전송하지 않음</td></tr>
         </tbody>
     </table>
 
@@ -760,13 +869,16 @@ sequenceDiagram
     </table>
 
     <h2>
-        <span>Stage 7. 국내 배송 인계 및 수령 후 반품 CS 단계</span>
-        <span class="time-tag">통관 완료 후 실시간</span>
+        <span>Stage 7. 통관 이상 CS · 국내 배송 · 반품 및 세관 정정</span>
+        <span class="time-tag">통관 진행~수령 후</span>
     </h2>
     <div class="stage-box">
         <p><strong>상세 전송 및 처리 로직:</strong></p>
         <ul>
-            <li>인천공항 세관 통관 마친 화물이 롯데택배로 인계되고 배송상태 자동 업데이트 및 반품 CS 접수 처리.</li>
+            <li><strong>통관 진행:</strong> 자이언트 HWB 검색은 <strong>최대 500건</strong>으로 분할하고 요청 N건과 응답 M건을 대사한다. <code>entry-exit/search</code>의 <code>gngMsgCode</code>·<code>pccError</code>를 주문에 저장하여 CS 큐를 생성한다.</li>
+            <li><strong>CS 분기:</strong> 코드 26 개인통관부호 상이 → 고객 재확인, 28 세금 발생 → 납부 안내, 24 가격상이·29 서류보완 → 증빙 요청, 99 통관불가 → 환불 검토. 상세 자동문구·SLA는 운영 확정 전 P1.</li>
+            <li><strong>국내 배송:</strong> 통관 완료 화물은 롯데택배로 인계하고 <code>g5</code> → 국내배송중 → 배송완료로 갱신한다.</li>
+            <li><strong>반품:</strong> 배송완료 후 반품 접수·회수·환불을 처리한다. 이미 통관된 물품의 신고 정정·취하·관세 환급 절차는 관세사/관세청 확인이 필요한 P2이며, 확인 전에는 자동 정정 API를 임의 호출하지 않는다.</li>
         </ul>
     </div>
     <table>
@@ -775,6 +887,9 @@ sequenceDiagram
             <tr><td><span class="api-tag api-hwb">자이언트 HWB</span></td><td><code>domesticCarrierName</code></td><td>국내 배송사</td><td>String(50)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek/동수 고정</td><td>롯데택배 (고정)</td><td>롯데택배 고정 인계</td></tr>
             <tr><td><span class="api-tag api-etc">자사몰 DB</span></td><td><code>order_status</code></td><td>자사몰 배송 상태</td><td>String(20)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>항공발송 -> 국내배송중 -> 배송완료</td><td>순차 자동 업데이트</td></tr>
             <tr><td><span class="api-tag api-etc">자사몰 DB</span></td><td><code>return_status</code></td><td>반품 CS 상태</td><td>String(20)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek 자사몰 DB</td><td>반품접수 / 회수중 / 환불완료</td><td>배송완료 시점부터 마이페이지 반품 접수 활성화 및 회수 검수 후 환불</td></tr>
+            <tr><td><span class="api-tag api-hwb">HWB 검색</span></td><td><code>hwbNos[] / transportType</code></td><td>조회 HBL 목록 / 운송구분</td><td>Array / String</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 제출 이력</td><td>최대 500건 / <code>AI</code></td><td>500건 증설 불가 확정. 요청 N건과 응답 M건을 대사하여 조용한 누락을 탐지</td></tr>
+            <tr><td><span class="api-tag api-hwb">입출항 검색</span></td><td><code>gngMsgCode / pccError</code></td><td>통관 안내코드 / PCCC 오류</td><td>String</td><td><span class="badge req-n">N</span></td><td class="src-kcs">자이언트·UNIPASS 응답</td><td>26 / 28 / 24 / 29 / 99 등</td><td>코드별 고객 안내·증빙·환불 CS 큐 생성. 조회주기·문구·SLA는 P1 확정 필요</td></tr>
+            <tr><td><span class="api-tag api-etc">내부 정정</span></td><td><code>customs_correction_status</code></td><td>반품 후 세관 정정 상태</td><td>String</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek/관세사 처리</td><td>not_required / requested / completed</td><td>관세청 신고 정정·취하 및 환급 필요 여부 확인 후 수기 또는 확정 API 결과를 기록. 현재 엔드포인트 미정(P2)</td></tr>
         </tbody>
     </table>
 
@@ -904,76 +1019,26 @@ sequenceDiagram
     </div>
 
     <h2>
-        <span>[검토] 기획서에 정의되지 않은 E2E 단계 — 3사 API 전수 대조</span>
-        <span class="time-tag" style="background:#c5221f;">2026-08-11 신설</span>
+        <span>[반영 완료] E2E 누락 단계 재검토 결과</span>
+        <span class="time-tag" style="background:#137333;">2026-08-12 갱신</span>
     </h2>
-    <div class="stage-box" style="border-left-color:#c5221f;">
-        <p>관세청 v1.4.1(AUT·TRA·PER 전 API), 자이언트 GGATE v1.3.5(요청 7개), NICE CI 가이드를 전수 대조하여 <strong>현행 기획서에 단계로 정의되지 않은 항목</strong>을 추출함.</p>
+    <div class="stage-box" style="border-left-color:#137333;">
+        <p>관세청 AUT·TRA·PER, 자이언트, NICE 흐름을 다시 대조하여 종전 누락 8건을 <strong>실제 Stage 0-A·0-B·1-1·4&amp;5·7과 Master 표에 편입</strong>했다. 아래 표는 “누락 목록”이 아니라 현재 반영 위치와 남은 구현 상태를 추적하는 감사표다.</p>
         <table>
-            <thead><tr><th style="width:5%">등급</th><th style="width:13%">누락 단계</th><th style="width:12%">담당</th><th>내용 · 근거</th></tr></thead>
+            <thead><tr><th style="width:7%">현재 등급</th><th style="width:20%">검토 항목</th><th style="width:18%">반영 위치</th><th>현재 상태 · 잔여 작업</th></tr></thead>
             <tbody>
-                <tr>
-                    <td><span class="badge req-y">P0</span></td>
-                    <td><strong>AUT001 접근토큰 발급·갱신</strong></td>
-                    <td class="src-geek">Geek</td>
-                    <td>관세청 API 호출의 <u>전제 조건인데 기획서에 단계가 없음</u>. <code>POST https://ecapi.customs.go.kr/oauth/token</code>, Basic 인증, <code>grant_type=client_credentials</code>.<br>
-                    <strong>운영 정책(규격 2.5)</strong> — 유효기간 <strong>발급일시로부터 24시간</strong>(<code>expires_in: 86400</code>) / 하나의 인증정보당 <strong>최대 활성 토큰 2개</strong> / 2개 초과 발급 시 <strong>가장 먼저 발급된 토큰이 FIFO로 자동 무효</strong>되며 유예 <strong>1분</strong> 후 만료.<br>
-                    <span class="rule-highlight">배치가 하루 여러 번(09:00 이후 TRA001·TRA003) 도는 구조이므로 토큰 만료·동시 발급 충돌 처리가 없으면 배치가 통째로 실패함.</span> 갱신 시점(만료 N분 전 선갱신), 실패 시 재시도, 토큰 캐시 정책을 정의해야 함.</td>
-                </tr>
-                <tr>
-                    <td><span class="badge req-y">P0</span></td>
-                    <td><strong>인증정보 관리</strong></td>
-                    <td class="src-geek">Geek</td>
-                    <td>규격 1.2 — 인증정보(Client ID/Secret)는 <strong>계정당 최대 3개</strong> 발급. <strong>최근 6개월 내 접근토큰 발급 이력이 없으면 인증정보 사용 정지.</strong> <code>Client Secret</code>은 <u>최초 발급 시에만 확인 가능</u>하며 이후 암호화 저장되어 재확인 불가.<br>
-                    운영·테스트 환경별 인증정보 분리 보관 및 <strong>분실 시 재발급 절차</strong>가 정의되어 있지 않음.</td>
-                </tr>
-                <tr>
-                    <td><span class="badge req-c">P1</span></td>
-                    <td><strong>PER002 유효성 재검증</strong></td>
-                    <td class="src-geek">Geek</td>
-                    <td>관세청 API 목록에 존재하나 기획서에 단계 없음. <u>기존 검증 건을 <code>reqt_no</code> 기준으로 재검증</u>하며, 수탁기관 경유 건은 <code>brno</code>(수탁기관 사업자등록번호)를 함께 전송해야 함(직접 호출 건은 미전송).<br>
-                    <span class="rule-highlight">필요 시점</span> 결제 후 <code>g1</code> 전환 전에 고객이 <strong>수하인·배송지를 변경</strong>하면 최초 PER 검증값이 무효가 됨. 재검증 없이 TRA001을 제출하면 관세청 <code>3180</code>(수하인 정보 불일치) 발생.<br>
-                    <code>reqt_no</code>를 주문에 보관하는 것은 기재되어 있으나 <u>재검증을 호출하는 트리거·시점이 없음</u>.</td>
-                </tr>
-                <tr>
-                    <td><span class="badge req-c">P1</span></td>
-                    <td><strong>PER003 서비스중단 사후처리</strong></td>
-                    <td class="src-geek">Geek</td>
-                    <td>관세청 PER001이 일시 중단된 경우의 <u>유일한 복구 경로</u>(규격 [붙임2] 적용 가이드). NICE 대응은 <code>SMARTPCC_30</code>.<br>
-                    현재 <code>3011: 내부 로직 처리 오류</code>만 반환되어 정상 동작을 확인하지 못한 상태(2026-07-23). <strong>관세청·NICE 장애 시 결제를 어떻게 처리할지(차단 / 대기 / 사후 검증)</strong>가 정의되어 있지 않음.</td>
-                </tr>
-                <tr>
-                    <td><span class="badge req-c">P1</span></td>
-                    <td><strong>주문 변경 · 취소 시나리오</strong></td>
-                    <td class="src-geek">Geek</td>
-                    <td><code>p1</code>(결제완료) ~ <code>g1</code>(상품준비중) <u>사이 구간</u>의 처리가 정의되어 있지 않음. 09:00 동수 수집 전에 고객이 취소하거나 배송지를 바꾸면 ① 관세청 신고 대상에서 제외하는 로직 ② PER002 재검증 트리거가 필요.<br>
-                    <code>g1</code> 이후 차단은 정의되어 있으나 <strong>그 이전 변경분에 대한 처리가 없음</strong>.</td>
-                </tr>
-                <tr>
-                    <td><span class="badge req-c">P1</span></td>
-                    <td><strong>통관 이상 수신 후 CS 처리</strong></td>
-                    <td class="src-geek">Geek</td>
-                    <td>자이언트 <code>POST /api/entry-exit/search</code>의 <code>gngMsgCode</code>로 통관 이상을 받을 수 있으나, <u>수신 후 무엇을 하는지가 없음</u>.<br>
-                    실제 대응이 갈리는 코드 — <code>26</code> 개인통관부호 상이(고객 재확인) · <code>28</code> 세금 발생(고객 납부 안내) · <code>24</code> 가격상이(서류 제출) · <code>29</code> 서류보완 · <code>99</code> 통관불가(환불).<br>
-                    조회 주기, 고객 안내 문구, 환불 기준을 정의해야 함.</td>
-                </tr>
-                <tr>
-                    <td><span class="badge req-n">P2</span></td>
-                    <td><strong>반품 후 세관 정정</strong></td>
-                    <td class="src-gen">내부</td>
-                    <td>Stage 7에 반품 접수·환불은 있으나, <u>통관이 완료된 물품을 반품할 때 관세청 신고를 정정·취하하는 절차</u>가 없음. 관세 환급 대상 여부와 신고 정정 의무를 확인해야 함.</td>
-                </tr>
-                <tr>
-                    <td><span class="badge req-n">P2</span></td>
-                    <td><strong>TRA003 조회 제약</strong></td>
-                    <td class="src-geek">Geek</td>
-                    <td>규격상 <strong>조회기간 7일 제한</strong>, <strong>제출번호 기준 최대 50건</strong>. 오류가 50건을 넘거나 7일을 넘겨 방치되면 <u>조회 자체가 불가능해져 영구 누락</u>됨.<br>
-                    TRA002 미도입 결정으로 TRA003이 유일한 오류 확인 경로이므로, <strong>일 단위 조회 누락이 곧 데이터 유실</strong>. 배치 실패 시 재조회·알림 정책 필요.</td>
-                </tr>
+                <tr><td><span class="badge req-c">P1</span></td><td><strong>AUT001 발급·갱신</strong></td><td>Master · Stage 0-B</td><td>24시간 캐시·만료 전 선갱신·활성토큰 2개 제한을 기획에 반영. Geek 구현·테스트 필요</td></tr>
+                <tr><td><span class="badge req-c">P1</span></td><td><strong>Client ID/Secret 관리</strong></td><td>Stage 0-A · 0-B</td><td>NICE 통합인증과 PCCC 검증 Key가 별도임을 명시. 개발/운영 분리·Vault·재발급 절차 구현 필요</td></tr>
+                <tr><td><span class="badge req-c">P1</span></td><td><strong>PER002 재검증</strong></td><td>Master · Stage 1-1</td><td><code>p1~g1</code> 수하인/PCCC/주소 변경 시 트리거와 <code>reqt_no</code> 재사용 규칙 반영</td></tr>
+                <tr><td><span class="badge req-c">P1</span></td><td><strong>PER003 장애복구</strong></td><td>Master · Stage 1-1</td><td><code>SMARTPCC_30</code> 3011 오류 해결 및 NICE 테스트는 남음</td></tr>
+                <tr><td><span class="badge req-c">P1</span></td><td><strong>주문 변경·취소</strong></td><td>Stage 1-1 · Stage 2</td><td>취소는 수집 제외, 수하인 변경은 PER002 성공 후 유지하도록 반영</td></tr>
+                <tr><td><span class="badge req-c">P1</span></td><td><strong>통관 이상 CS</strong></td><td>Master · Stage 7</td><td>코드 26/28/24/29/99 분기 반영. 조회주기·고객 문구·SLA 확정 필요</td></tr>
+                <tr><td><span class="badge req-n">P2</span></td><td><strong>반품 후 세관 정정</strong></td><td>Stage 7</td><td>상태 필드와 수기 처리 원칙 반영. 관세사/관세청 절차·API 확인 필요</td></tr>
+                <tr><td><span class="badge req-n">P2</span></td><td><strong>TRA003 조회 제약</strong></td><td>Stage 4 &amp; 5</td><td>7일·50건 제한과 누락 알림 정책 반영. TRA002 미도입에 따른 잔여 운영 리스크</td></tr>
             </tbody>
         </table>
         <p style="background:#e8f0fe; border-left:3px solid #1a73e8; padding:8px 12px;"><strong>참고 — 사용하지 않기로 한 API</strong><br>
-        관세청 <code>AUT002</code> 토큰 폐기(<code>/oauth/revoke</code>) · <code>TRA002</code> 제출결과 조회(미도입 결정) · 자이언트 <code>GET /api/hwb/:hwbNo</code> 단건 조회(보조) · <code>GET /api/unipass/personal-code/validate</code>(NICE 검증 사용으로 범위 제외) · NICE 통합인증 <code>ci</code> 획득 모듈(협력인정업체 보류).</p>
+        관세청 <code>AUT002</code> 토큰 폐기(<code>/oauth/revoke</code>) · <code>TRA002</code> 제출결과 조회(미도입 결정) · 자이언트 <code>GET /api/hwb/:hwbNo</code> 단건 조회(보조) · <code>GET /api/unipass/personal-code/validate</code>(NICE 검증 사용으로 범위 제외). NICE 통합인증은 제외 대상이 아니라 <strong>Stage 0-A에 편입</strong>했으며 CI 직접 저장 대신 NICE KEY 우선안을 적용한다.</p>
     </div>
 
 <h2>

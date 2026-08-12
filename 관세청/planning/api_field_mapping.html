@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>API 전수 데이터 필드 매핑 문서 (관세청 63항목 + 자이언트 전수 + PER)</title>
+    <title>API 전수 데이터 필드 매핑 문서 (관세청 + 자이언트 + 동수/Geek 내부)</title>
     <style>
         body { font-family: 'Inter', -apple-system, sans-serif; background-color: #ffffff; color: #333; line-height: 1.5; padding: 30px; margin:0; }
         .container { max-width: 1600px; margin: 0 auto; }
@@ -16,6 +16,7 @@
         .req-c { background-color: #fff3cd; color: #856404; }
         .cls-kcs { background-color: #e8f0fe; color: #1a73e8; font-weight: bold; }
         .cls-giant { background-color: #e6f4ea; color: #137333; font-weight: bold; }
+        .cls-geek { background-color: #f3e8fd; color: #7b1fa2; font-weight: bold; }
         .src-dongsu { background-color: #e6f4ea; color: #137333; font-weight: bold; }
         .src-geek { background-color: #e8f0fe; color: #1a73e8; font-weight: bold; }
         .src-gen { background-color: #fce8e6; color: #c5221f; font-weight: bold; }
@@ -31,6 +32,7 @@
         .api-hwb { background:#e6f4ea; color:#0d652d; }
         .api-item { background:#e0f2f1; color:#00695c; }
         .api-etc { background:#f1f3f4; color:#555; }
+        .api-ds { background:#f3e8fd; color:#7b1fa2; }
     </style>
 </head>
 <body>
@@ -39,11 +41,11 @@
         <a href="./리스크_질의대장.html#active" class="nav-btn" style="background:#d93025;">[ → 통합 대장: 현재 리스크·질의 ]</a>
         <a href="./협력사_질의응답.html" class="nav-btn" style="background:#a56a00;">[ → 협력사_질의응답.html 자이언트 · 동수 회신안 ]</a>
     <a href="./리스크_질의대장.html#history" class="nav-btn" style="background:#5f6368;">[ → 통합 대장: 확정·협의 이력 ]</a>
-    <h1>API 전수 데이터 필드 매핑 문서 (관세청 63항목 + 자이언트 전수 + PER)</h1>
+    <h1>API 전수 데이터 필드 매핑 문서 (관세청 + 자이언트 + 동수/Geek 내부)</h1>
 
     <div style="background:#e8f0fe; padding:12px; border-left:4px solid #1a73e8; margin-bottom:20px; border-radius:4px; font-size:12px;">
         <strong>[문서 원칙]</strong> 관세청 PDF 원본 63개 항목 + 자이언트 API 전수 필드를 하나의 테이블에 통합 나열합니다. 중복 허용하여 빠짐없이 전수 수록합니다.<br>
-        <strong>[분류]</strong> 관세청 / 자이언트로 소속 시스템을 구분합니다.<br>
+        <strong>[분류]</strong> 각 필드를 최종 수신·사용하는 시스템인 관세청 / 자이언트 / Geek(동수 API 수신)을 구분합니다.<br>
         <strong>[API 구분]</strong> 해당 필드가 속한 API를 표기합니다.<br>
         <strong>[매핑 코드]</strong> 관세청 필드에는 대응하는 자이언트 필드명을, 자이언트 필드에는 대응하는 관세청 필드명을 기재합니다.
     </div>
@@ -79,6 +81,9 @@
             <tr><td>10</td><td class="cls-kcs">관세청</td><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_no</code></td><td>주문번호</td><td>String(52)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">orderNo</span></td><td class="src-geek">Geek 자사몰 DB</td><td>자사몰 고유 주문번호 (예: ORD20260804001)</td><td>결제완료(p1) 시점 생성. 운송장번호와 결합되어 수입신고서/통관목록에 활용</td></tr>
             <tr><td>11</td><td class="cls-kcs">관세청</td><td><span class="api-tag api-tra1">TRA001</span></td><td><code>elcm_pcd</code></td><td>전자상거래 판매유형코드</td><td>String(1)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">ecTypeCode</span></td><td class="src-dongsu">동수 WMS 채널코드 기반 Geek 자동 분기</td><td>자사몰 = 'A' (직접판매)<br>구매대행 채널 = 'B' (구매대행)</td><td>A=직접판매(크로네 자사몰), B=구매대행(네이버스토어/기타 다양한 외부 쇼핑몰), C=배송대행. 자사몰만 A, 나머지 전부 B</td></tr>
 <tr><td>11-1</td><td class="cls-kcs">관세청</td><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_site_url</code></td><td>주문 사이트 인터넷 주소</td><td>String(200)</td><td><span class="badge req-y">Y</span></td><td><code>orderSiteUrl</code></td><td class="src-geek">Geek 고정 주입</td><td>https://nutriciastore.co.kr</td><td><span class="rule-highlight">v1.4.1 필수 항목 (기존 문서 누락분 추가)</span> 전자상거래업자의 사이트 주소. 상품별 URL인 prod_sale_pge_url과는 별개 항목이며 둘 다 전송해야 함</td></tr>
+            <!-- 동수 getTRA001OrderInfo → Geek 내부 분기 필드 -->
+            <tr><td>DS-1</td><td class="cls-geek">Geek</td><td><span class="api-tag api-ds">getTRA001OrderInfo</span></td><td><code>response[].isCrossBorder</code></td><td>해외직구 여부</td><td>String(1)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-none">외부 전송 없음</span></td><td class="src-dongsu">동수 EIBE ERP</td><td><code>Y</code>=해외직구 / <code>N</code>=국내배송</td><td><strong>관세청·자이언트 필수 필드가 아닌 동수→Geek 응답 전용 커스텀 필드.</strong> 혼재 원주문은 국내/해외별 별도 주문 객체로 분리되고 각 <code>packageList[]</code>는 단일 배송유형만 포함. Geek은 Y만 TRA 후보로 처리하고 N은 관세청·자이언트 전송에서 제외. <code>elcmPcd=A|B</code>(판매유형)와 혼용 금지</td></tr>
+            <tr><td>DS-2</td><td class="cls-geek">Geek</td><td><span class="api-tag api-ds">getTRA001OrderInfo</span></td><td><code>response[].packageList[].expressNo</code></td><td>국내 송장번호</td><td>String</td><td><span class="badge req-c">C</span></td><td><span class="mapping-none">고도몰 송장 반영</span></td><td class="src-dongsu">동수 EIBE ERP/WMS</td><td>국내배송 주문의 실제 송장번호</td><td><code>isCrossBorder=N</code> 국내배송 주문에 반환. Geek은 TRA001에 전송하지 않고 자사몰 배송정보 갱신에만 사용. 해외직구 포장의 통관 처리 키는 <code>hblNo</code></td></tr>
             <tr><td>12</td><td class="cls-kcs">관세청</td><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_cmpl_dttm</code></td><td>주문완료일시</td><td>String(14)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">orderCompletionDate</span></td><td class="src-geek">Geek 자사몰 DB</td><td>YYYYMMDDHHMMSS (예: 20260803143000)</td><td>결제 완료 시각. 14자리 포맷 고정</td></tr>
 
             <!-- 관세청 TRA001 공급망정보 -->
@@ -234,6 +239,7 @@
             <tr><td><strong>2026-08-11</strong></td><td>판매중개자</td><td>자이언트 <code>brokerCode</code>의 컬렉션 원본 정식 명칭이 "<strong>판매중개자부호</strong>"임을 확인. 종전에 관세청 <code>elcm_ents_sgn</code>(제출자 부호)으로 매핑한 것은 <u>확인되지 않은 추정</u>이므로 매핑을 <b>미확인</b>으로 되돌리고 미확정 처리. 근거 — 관세청 v1.4.1 전문에 별도 중개자 부호 필드가 없으며(“중개” 2회 등장, 모두 <code>elcm_ents_nm</code> 설명·오류문구), 본 문서·planning_v5·유형코드_부호체계_정리 어디에도 판매중개자 개념이 정의된 바 없음. 자이언트 확인 및 관세청 공지 「전자상거래유형별 공급망, 상품 정보 기준」(2026-07-24) 교차 확인 필요.</td></tr>
             <tr><td>2026-08-10</td><td>자이언트 필수값</td><td><code>items[].sellerName</code>을 <strong>A·B 무관 항상 필수(Y)</strong>로 정정 — 종전 "선택·전건 Null" 지침 폐기. A는 (주)크로네 고정, B는 동수 채널DB 수신. <code>sellerCode</code>는 <code>ecTypeCode=A</code>일 때 조건부 필수. <code>items[].hsCode</code>는 6자리 전송 확정(종전 "제거 후 전송" 지침 폐기).</td></tr>
             <tr><td>2026-08-10</td><td>판매업체명</td><td>관세청 <code>sale_ents_nm</code>과 자이언트 <code>sellerName</code>을 상호 매핑하고 동일 값으로 통일. Geek은 자사몰(A)만 보유하므로 <strong>B유형(입점채널) 값은 동수 EIBE ERP가 채널코드 기준으로 제공</strong>. 채널별 규칙은 planning_v5 참고 매트릭스 및 유형코드_부호체계_정리.html 참조.</td></tr>
+            <tr><td>2026-08-12</td><td>동수 내부 분기 필드</td><td><code>getTRA001OrderInfo</code>의 <code>isCrossBorder:Y|N</code>과 국내 <code>expressNo</code>를 Geek 수신 내부 필드로 추가. 혼재 원주문은 배송유형별 별도 주문 객체로 분리되고 외부 API에는 <code>isCrossBorder</code>를 전송하지 않음을 명시.</td></tr>
             <tr><td>2026-08-10</td><td>자이언트 API 7건</td><td>컬렉션 원본 기준 전수 확인. <code>PATCH /api/hwb/:hwbNo</code>(4개 필드 수정), <code>POST /api/entry-exit/search</code>(통관 이상 조회), <code>/api/unipass/personal-code/validate</code>(배치검증), <code>POST /api/hwb/search</code> 응답의 <code>mwbNo</code> 행 추가. DELETE 엔드포인트 부재 명시.</td></tr>
             <tr><td>2026-08-10</td><td>TRA001 정정</td><td>필수 <code>ord_site_url</code> 추가. 태그명 4건 정정(<code>shpn_vcex_bsmn_*</code>, <code>sale_ents_bsns_no</code>, <code>prod_mkr_nm</code>, <code>prod_mkr_mdl_no</code>). <code>ordrr_telno</code> 필수(Y), <code>prod_srno</code> Integer(3), <code>ord_prod_nm</code> 600, <code>tot_ord_prod_qty</code> Integer(6) 등 타입·길이 정정. 규격 외 8개 항목 표기.</td></tr>
             <tr><td>2026-08-10</td><td>신고금액</td><td><code>tot_stlm_amt</code>·<code>prod_unprc</code>·<code>ord_amt</code>는 <strong>동수 ERP USD 단가</strong> 기준, 통화 USD 고정으로 확정.</td></tr>
