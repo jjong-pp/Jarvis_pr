@@ -511,7 +511,7 @@ sequenceDiagram
     <div class="stage-box" style="border-left-color:#7b1fa2;">
         <ul>
             <li><strong>PER002:</strong> 결제완료(<code>p1</code>) 후 09:00 동수 수집·<code>g1</code> 전환 전에 수하인 성명, 전화번호, PCCC, 주소 또는 우편번호가 변경되면 최초 <code>reqt_no</code>로 재검증한다. 실패 주문은 수집 대상에서 제외하고 고객 수정 안내.</li>
-            <li><strong>PER003:</strong> 관세청/NICE 서비스 중단으로 임시 승인된 건은 서비스 복구 후 사후 검증한다. NICE 경로는 <code>SMARTPCC_30</code>이며 현재 3011 오류가 남아 있어 <span class="rule-highlight">NICE 테스트 완료 전 P1</span>이다.</li>
+            <li><strong>PER003:</strong> 관세청/NICE 서비스 중단 시 기본값은 결제 차단 또는 대기이며, NICE가 장애 시 임시 처리를 공식 허용한 건만 서비스 복구 후 사후 검증한다. NICE 경로는 <code>SMARTPCC_30</code>이고 현재 3011 오류가 남아 있어 <span class="rule-highlight">운영정책 확정·NICE 테스트 완료 전 P1</span>이다.</li>
             <li>고객 취소 주문은 PER002를 호출하지 않고 TRA001·동수 수집 대상에서 제외한다.</li>
         </ul>
     </div>
@@ -742,7 +742,7 @@ sequenceDiagram
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_brnd_nm</code></td><td>상품 브랜드명</td><td>String(100)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>Aptamil 등 또는 Null</td><td>선택 항목</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tot_stlm_amt</code></td><td>총 결제금액</td><td>Number(16,3)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>매입 총액 USD</td><td>구매자 결제 최종 합계 금액</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tot_stlm_amt_curr_cd</code></td><td>결제금액 통화코드</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek 고정 주입</td><td>USD</td><td>USD 고정 주입</td></tr>
-            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tot_wt</code></td><td>총 중량 (예정)</td><td>Number(16,3)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>예정 무게 kg (예: 2.5)</td><td><span class="rule-highlight">v1.4.1 규격 외 항목 — 전송 대상에서 제외</span> 10시 EIBE ERP 역수집 예정 무게 (17시 실측 중량과 미세 오차 허용) TRA001에 중량 항목이 없으므로 "예정중량 vs 실측중량 ±5~10% 허용" 전제는 성립하지 않음. 중량은 자이언트 weight에만 존재</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>tot_wt</code></td><td>총 중량 (예정)</td><td>Number(16,3)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>예정 무게 kg (예: 2.5)</td><td><span class="rule-highlight">v1.4.1 규격 외 항목 — 전송 대상에서 제외</span> TRA001에는 중량 필드가 없으므로 자이언트 <code>weight</code>와 매핑하거나 허용오차를 적용하지 않음</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>stlm_mns_cd</code></td><td>결제수단코드</td><td>String(2)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek 자사몰 DB</td><td>10(신용카드) 등</td><td><span class="rule-highlight">v1.4.1 규격 외 항목 — 전송 대상에서 제외</span> 선택 항목</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>stlm_dttm</code></td><td>결제일시</td><td>String(14)</td><td><span class="badge req-n">N</span></td><td class="src-geek">Geek 자사몰 DB</td><td>YYYYMMDDHHMMSS</td><td><span class="rule-highlight">v1.4.1 규격 외 항목 — 전송 대상에서 제외</span> 선택 항목</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>smon_use_amt</code></td><td>적립금 사용금액</td><td>Number(16,3)</td><td><span class="badge req-n">N</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>동수 매입가 기준 전건 생략</td></tr>
@@ -1048,6 +1048,7 @@ sequenceDiagram
     <table>
         <thead><tr><th style="width:12%">일자</th><th style="width:16%">구분</th><th>변경 내용</th></tr></thead>
         <tbody>
+            <tr><td><strong>2026-08-12</strong></td><td>혼재 주문 · 누락 Stage · 표 통일</td><td><strong>내부 3사 합의 P0 종료</strong> — 동수가 국내/해외별 별도 주문 객체로 분리하고 각 <code>packageList[]</code>에는 단일 배송유형만 포함. <code>getTRA001OrderInfo</code> 상위 <code>isCrossBorder=Y/N</code>은 Geek 분기용 커스텀 필드, 국내 <code>expressNo</code>는 고도몰 송장 갱신용이며 둘 다 관세청·자이언트에는 전송하지 않음. 전 HBL 선발급/Push/재조회 선택만 P1 구현 확인으로 유지.<br><strong>누락 단계 편입</strong> — Stage 0-A NICE 통합인증·NICE KEY, Stage 0-B AUT001, Stage 1-1 PER002/PER003, Stage 7 통관 이상 CS·반품 세관 정정을 Master와 상세 스테이지에 추가.<br><strong>필드 표 통일</strong> — 모든 Stage 데이터 표를 <code>api_field_mapping.html</code>과 같은 11열(No·분류·API 구분·필드명·한글명·타입·필수·매핑 코드·출처·실제값·상세설명)로 정규화. 분류는 최종 수신·사용 시스템(관세청/자이언트/Geek/동수/NICE) 기준.</td></tr>
             <tr><td><strong>2026-08-12</strong></td><td>운영 정책 정정</td><td><strong>OTP는 <code>addField</code>·동수 전달에서 제외</strong>하고 Geek DB → 자이언트 직접 전송으로 확정. 오류 건은 재시도 상한 없이 매일 <code>p1</code> 원복·재수집하며 CS팀이 일일 확인. 계도기간 종료는 <strong>2026-09-14 24:00 유지</strong>. 수하인 영문명·영문주소는 <code>consigneeNameEng</code>·<code>consigneeAddressEng</code>로 정정. 금액 소수점 규칙은 관세청 질의 후 확정.</td></tr>
             <tr><td><strong>2026-08-11 17:54</strong></td><td>전송 구조 재정리</td><td>운영·개발 <code>addField</code> 실 JSON 대조 반영 — PCCC는 양쪽 모두 존재하나 명칭·키가 달라 두 별칭 파싱으로 확정, 실제 값은 문서에서 마스킹. <strong>OTP 항목 미존재를 P0로 신설</strong>. Geek 11:50 자이언트 직접 PER 전송·PATCH 병행안을 폐기하고 <strong>동수 DS Logistics의 17:00~18:00 단일 <code>bulk-sync</code></strong>를 구현 기준안으로 변경. 관세청 <code>ord_qty_ut</code> 미전송, 자이언트 <code>qtyUnit=EA</code> 동수 주입, <code>brokerCode/brokerName</code> 임의 매핑 금지를 반영.</td></tr>
             <tr><td><strong>2026-08-11</strong></td><td>PER 전송 · 목차 · 누락 검토</td><td><strong>Stage 5-2「자사몰 → 자이언트 PER 통관정보 전송」신설</strong> — 종전 기획서에 이 단계가 없어 추가. 대상은 TRA 정상 승인 건(<code>g5</code>)만이며 전송 항목 12개를 표로 정의. 엔드포인트는 자이언트 확인 대기(ⓐ 비공개 PER 전용 / ⓑ 동수 선등록 후 <code>PATCH</code>). 「[기준안] 동수 단일 bulk-sync」 섹션을 <strong>「[확정] 3사 데이터 병합」</strong>으로 교체.<br>
@@ -1071,7 +1072,7 @@ sequenceDiagram
 
 <!-- High-Resolution Zoom & Drag Script -->
 <script>
-    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    if (typeof mermaid !== 'undefined') mermaid.initialize({ startOnLoad: true, theme: 'default' });
 
     let currentScale = 1;
     let panX = 0, panY = 0;
@@ -1138,6 +1139,104 @@ sequenceDiagram
     function endPan() {
         isPanning = false;
     }
+
+    /* ---- Stage 필드 표를 api_field_mapping.html과 동일한 11열 양식으로 통일 ---- */
+    (function () {
+        var mapping = {
+            'cnsi_nm':'consigneeName', 'cnsi_pers_ecm':'pccCode', 'cnsi_telno':'consigneeTel',
+            'cnsi_psno':'consigneeZipCode', 'cnsi_bscs_addr':'consigneeAddr', 'cnsi_dtl_addr':'consigneeAddrDet',
+            'cnsi_eng_nm':'consigneeNameEng', 'cnsi_eng_addr':'consigneeAddressEng',
+            'reqt_no':'request_no', 'request_no':'reqt_no', 'su_crtf_no':'tempAuthNo',
+            'ord_no':'orderNo', 'orderNo':'ord_no', 'customerOrderNo':'ord_no ↔ orderNo',
+            'ord_cmpl_dttm':'orderCompletionDate', 'ordrr_nm':'ordererName', 'ordrr_telno':'ordererTel',
+            'hbl_no':'hwbNo', 'hblNo':'hbl_no ↔ hwbNo', 'mbl_no':'mwbNo',
+            'elcm_pcd':'ecTypeCode', 'elcm_ents_sgn':'brokerCode (의미 확인 중)',
+            'ord_site_url':'orderSiteUrl', 'prod_sale_pge_url':'productPageUrl',
+            'prod_srno':'itemSeq', 'ord_prod_nm':'productName', 'hs_cd':'hsCode', 'prod_id':'외부 SKU (자이언트 직접필드 없음)',
+            'prod_ord_qty':'qty', 'prod_unprc':'unitPrice', 'ord_amt':'itemAmount',
+            'sale_ents_nm':'sellerName', 'tot_stlm_amt':'totalValueUsd',
+            'shpn_vcex_bsmn_sgn':'buyingAgentCode', 'shpn_vcex_bsmn_nm':'buyingAgentName',
+            'tot_ord_prod_qty':'items[].qty 합계', 'weight':'관세청 TRA001 매핑 없음',
+            'packageCount':'관세청 TRA001 매핑 없음', 'innerPackageCount':'관세청 TRA001 매핑 없음',
+            'pccCode':'cnsi_pers_ecm', 'tempAuthNo':'su_crtf_no', 'totalValueUsd':'tot_stlm_amt',
+            'ecTypeCode':'elcm_pcd', 'productName':'ord_prod_nm', 'hsCode':'hs_cd', 'qty':'prod_ord_qty',
+            'unitPrice':'prod_unprc', 'itemAmount':'ord_amt', 'sellerName':'sale_ents_nm',
+            'brokerCode':'elcm_ents_sgn (의미 확인 중)', 'brokerName':'판매중개자 상호 (확인 중)',
+            'buyingAgentCode':'shpn_vcex_bsmn_sgn', 'buyingAgentName':'shpn_vcex_bsmn_nm',
+            'response[].isCrossBorder':'내부 분기 전용 (외부 전송 없음)',
+            'response[].packageList[].expressNo':'고도몰 국내 송장 갱신',
+            'domesticCarrierName':'관세청 TRA001 매핑 없음',
+            'order_status':'Geek 내부 상태', 'return_status':'Geek 내부 상태',
+            'gngMsgCode / pccError':'Geek CS 상태', 'customs_correction_status':'Geek 내부 상태'
+        };
+
+        function recipient(apiText) {
+            var t = apiText.replace(/\s+/g, ' ').trim();
+            if (/NICE|SMARTPCC|통합인증/.test(t)) return { name:'NICE', cls:'cls-nice' };
+            if (/동수|getTRA001|orderDelete/.test(t)) return { name:'동수/Geek', cls:'cls-dongsu' };
+            if (/HWB|MAWB|Item|자이언트|입출항|cargo|bulk-sync/i.test(t)) return { name:'자이언트', cls:'cls-giant' };
+            if (/자사몰|내부/.test(t)) return { name:'Geek', cls:'cls-geek' };
+            return { name:'관세청', cls:'cls-kcs' };
+        }
+
+        function textCell(value, className) {
+            var td = document.createElement('td');
+            td.textContent = value;
+            if (className) td.className = className;
+            return td;
+        }
+
+        function normalize(table, stageCode) {
+            var headRow = table.tHead && table.tHead.rows[0];
+            if (!headRow) return;
+            var count = headRow.cells.length;
+            table.classList.add('stage-field-table');
+            if (count === 11) return;
+            if (count !== 8 && count !== 6) return;
+
+            var headers = ['No','분류','API 구분','필드명(코드)','한글 필드명','타입','필수','매핑 코드','데이터 채움 출처','실제 데이터 값 (채널별)','상세설명'];
+            headRow.innerHTML = '';
+            headers.forEach(function (h) { var th=document.createElement('th'); th.textContent=h; headRow.appendChild(th); });
+
+            Array.prototype.slice.call(table.tBodies[0].rows).forEach(function (row, index) {
+                var old = Array.prototype.slice.call(row.cells).map(function (c) { return c.cloneNode(true); });
+                var api, field, label, type, required, source, actual, detail;
+                if (count === 8) {
+                    api=old[0]; field=old[1]; label=old[2]; type=old[3]; required=old[4]; source=old[5]; actual=old[6]; detail=old[7];
+                } else {
+                    api=textCell('HWB 등록'); api.innerHTML='<span class="api-tag api-hwb">HWB 등록</span>';
+                    field=old[0]; label=old[1]; type=old[2]; required=old[3]; source=old[4]; actual=textCell('—'); detail=old[5];
+                }
+                var fieldCode = field.querySelector('code') ? field.querySelector('code').textContent.trim() : field.textContent.trim();
+                var r = recipient(api.textContent);
+                var mapTd = document.createElement('td');
+                var mapSpan = document.createElement('span'); mapSpan.className='mapping-code';
+                mapSpan.textContent = mapping[fieldCode] || '—'; mapTd.appendChild(mapSpan);
+                row.innerHTML='';
+                row.appendChild(textCell('S' + stageCode + '-' + (index + 1)));
+                row.appendChild(textCell(r.name, r.cls));
+                [api,field,label,type,required,mapTd,source,actual,detail].forEach(function (c) { row.appendChild(c); });
+            });
+        }
+
+        Array.prototype.slice.call(document.querySelectorAll('.container h2')).forEach(function (h) {
+            var label=(h.querySelector('span') ? h.querySelector('span').textContent : h.textContent).trim();
+            var m=label.match(/^Stage\s+([^\.]+)/);
+            if (!m) return;
+            var node=h.nextElementSibling;
+            while (node && node.tagName !== 'H2') {
+                if (node.tagName === 'TABLE') normalize(node, m[1].replace(/\s+/g,''));
+                Array.prototype.slice.call(node.querySelectorAll ? node.querySelectorAll('table') : []).forEach(function (t) { normalize(t, m[1].replace(/\s+/g,'')); });
+                node=node.nextElementSibling;
+            }
+        });
+
+        Array.prototype.slice.call(document.querySelectorAll('table.stage-field-table')).forEach(function (table) {
+            if (table.parentElement && table.parentElement.classList.contains('stage-field-wrap')) return;
+            var wrap=document.createElement('div'); wrap.className='stage-field-wrap';
+            table.parentNode.insertBefore(wrap, table); wrap.appendChild(table);
+        });
+    })();
 
     /* ---- 우측 목차 자동 생성 ---- */
     (function () {
