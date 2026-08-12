@@ -403,7 +403,7 @@ sequenceDiagram
                 <tr>
                     <td class="src-geek"><strong>Geek 자사몰</strong><br>(크로네몰)</td>
                     <td>관세청 TRA001 제출 · 동수 <code>orderDelete</code> 호출 · 고도몰 <code>addField</code>에 PCCC 적재 · OTP는 Geek DB 보관 후 자이언트 직접 전송</td>
-                    <td>NICE 검증 결과 · 동수 <code>searchOrderInfo</code> 14개 속성 · 관세청 TRA003 오류 · 자이언트 통관 상태</td>
+                    <td>NICE 검증 결과 · 동수 <code>getTRA001OrderInfo</code> 응답 · 관세청 TRA003 오류 · 자이언트 통관 상태</td>
                     <td>PER 검증 모듈 · TRA001/003 배치 · 상태 전이(<code>p1</code>→<code>g1</code>→<code>g5</code>) · 실패리스트 어드민 및 CS 일일 확인 · PCCC <code>addField</code> 적재 · OTP 내부 저장/자이언트 직접 전송 · 통관조회 버튼</td>
                 </tr>
                 <tr>
@@ -900,10 +900,10 @@ sequenceDiagram
         <span style="color:#b78103;">[참고] 외부 쇼핑몰 채널(B유형 구매대행) 부호 및 URL 자동 분기 로직 명세</span>
     </h2>
     <div style="background:#fff8e1; border:1px solid #ffe082; border-left:5px solid #ffb300; padding:20px; border-radius:4px; margin-bottom:25px;">
-        <p style="margin-top:0; font-weight:bold; font-size:15px; color:#856404;">동수 EIBE ERP - Geek 간 다채널 부호 컨트롤 및 10시 역수집(searchOrderInfo) 데이터 주입 규칙:</p>
+        <p style="margin-top:0; font-weight:bold; font-size:15px; color:#856404;">동수 EIBE ERP - Geek 간 다채널 부호 컨트롤 및 10시 역수집(<code>getTRA001OrderInfo</code>) 데이터 주입 규칙:</p>
         <p style="font-size:13.5px; line-height:1.7;">
             당사는 자사몰(크로네몰) 외에도 <strong>28개 외부 쇼핑몰 채널(네이버 브랜드스토어, 지마켓, 옥션, 11번가, 쿠팡, SSG닷컴 등)</strong>의 주문을 동수 EIBE ERP가 수집하여 수입신고를 집행합니다.<br>
-            동수 EIBE ERP는 주문 수집 시 <strong>'채널코드(Channel Code)'</strong>를 보유하고 있으므로, 10:00 KST 역수집 API (<code>searchOrderInfo</code>) 응답 시 채널코드에 따라 아래 매트릭스 기준으로 <code>elcm_pcd</code>, <code>puch_vcex_bsmn_sgn</code>, <code>puch_vcex_bsmn_nm</code>, <code>prod_sale_pge_url</code>을 자동 분기하여 Geek으로 내려주어야 합니다.
+            동수 EIBE ERP는 주문 수집 시 <strong>'채널코드(Channel Code)'</strong>를 보유하고 있으므로, 10:00 KST 역수집 API (<code>getTRA001OrderInfo</code>) 응답 시 채널코드에 따라 아래 매트릭스 기준으로 <code>elcm_pcd</code>, <code>puch_vcex_bsmn_sgn</code>, <code>puch_vcex_bsmn_nm</code>, <code>prod_sale_pge_url</code>을 자동 분기하여 Geek으로 내려주어야 합니다.
         </p>
     </div>
 
@@ -992,7 +992,7 @@ sequenceDiagram
     </h2>
     <div class="stage-box" style="border-left-color:#7b1fa2;">
         <p style="background:#f3e5f5; border-left:3px solid #7b1fa2; padding:8px 12px;"><strong>확정 구조 — 자사몰 PER + 동수 물류, 자이언트가 병합</strong><br>
-            ① <strong>10:00~11:00</strong> 자사몰이 동수 <code>searchOrderInfo</code>로 사전 예정 데이터 수집 → 관세청 TRA001 직접 제출<br>
+            ① <strong>10:00~11:00</strong> 자사몰이 동수 <code>getTRA001OrderInfo</code>로 사전 예정 데이터 수집 → 관세청 TRA001 직접 제출<br>
             ② <strong>11:50</strong> TRA003 판정 → 정상 건 <code>g5</code> 전환, 오류 건 <code>p1</code> 원복 + 동수 주문 삭제 API 호출<br>
             ③ <strong>정상 승인 건에 한해 자사몰이 자이언트로 PER 통관정보를 직접 전송</strong> (<strong>Stage 5-2</strong>)<br>
             ④ <strong>17:00~18:00</strong> 동수 DS Logistics가 주문·상품·MAWB·실측 중량을 <code>POST /api/hwb/bulk-sync</code>로 직송<br>
