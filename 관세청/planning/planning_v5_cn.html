@@ -107,7 +107,7 @@ sequenceDiagram
     Mall-->>ERP: 订单状态变更 g1(商品准备中) (隐藏个人中心取消/退款按钮)
 
     Note over Mall, KCS: Stage 3: 10:00~11:00 EIBE ERP 逆向采集 & 海关 TRA001 预先申报
-    Mall->>ERP: 10:00 KST searchOrderInfo 逆向采集 (预采番 hblNo, tot_wt 预估重量, hsCode, prod_srno 1~5)
+    Mall->>ERP: 10:00 KST getTRA001OrderInfo 查询 (customerOrderNo -> packageList[])
     Note right of Mall: elcm_pcd='A', elcm_ents_sgn='K26000099', puch_vcex_bsmn_sgn=Null (自营规范)
     Mall->>KCS: 10:00~11:00 TRA001 预先交易信息申报 API (100条分块发送)
 
@@ -502,12 +502,12 @@ sequenceDiagram
     <div class="stage-box" style="border-left-color:#d93025;">
         <p>核对基准 — 2026-08-11 <code>searchOrderInfo</code> 实际响应 vs 韩国海关 v1.4.1 / GIANT v1.3.5 原始集合。</p>
 
-        <div style="background:#e6f4ea;border-left:4px solid #137333;padding:11px 14px;border-radius:5px;margin-bottom:14px;font-size:13.5px;"><b>[2026-08-11 已解决/确定]</b> ① <code>ord_prod_nm</code> — 使用<b>东数 ERP 现有英文商品名</b> ② <code>hs_cd</code> — 使用<b>东数 ERP 固定值，由东数负责映射</b> ③ <b>PCCC 已确认存在于生产、开发 Godomall <code>addField</code></b>，但字段名不同，解析时兼容两个名称 ④ 国内/跨境混合订单仅返回跨境发货部分 ⑤ 海关 <code>ord_qty_ut</code> 不发送，GIANT <code>qtyUnit=EA</code> 由东数注入。</div>
+        <div style="background:#e6f4ea;border-left:4px solid #137333;padding:11px 14px;border-radius:5px;margin-bottom:14px;font-size:13.5px;"><b>[截至2026-08-12 已解决/确定]</b> ① <code>ord_prod_nm</code> — 使用<b>东数 ERP 现有英文商品名</b> ② <code>hs_cd</code> — 使用<b>东数 ERP 固定值，由东数负责映射</b> ③ <b>PCCC 已确认存在于生产、开发 Godomall <code>addField</code></b>，解析时兼容两个名称 ④ 海关 <code>ord_qty_ut</code> 不发送，GIANT <code>qtyUnit=EA</code> 由东数注入 ⑤ GIANT HWB 查询上限<b>确定为500件且无法提高</b>，按500件分批实现。<br><span style="color:#c5221f;">原“国内件从响应中排除”决定因会导致国内运单号无获取路径，已于08-12重新协商为“国内/跨境均返回并增加明确标识”。</span></div>
         <h3 style="color:#c5221f;">1. 立即阻断项 — 以当前数据无法提交 TRA001</h3>
         <table>
             <thead><tr><th style="width:16%">字段</th><th style="width:26%">当前状态</th><th>说明</th></tr></thead>
             <tbody>
-                <tr><td><code>hblNo</code></td><td>全部返回 <code>null</code> <span style="color:#c5221f;">(<b>异常</b>)</span></td><td>海关 TRA001 <code>hbl_no</code> <b>必填(Y)</b>，亦为 GIANT <code>hwbNo</code> 三方共同主键。无值则<b>无法提交</b>，整个流程停止。<br><span style="color:#c5221f;"><b>[2026-08-11 确认] 这并非正常返回，而是异常(Bug)。</b>此前"hblNo 会返回 null"的回复与事实不符，请作为缺陷重新确认并告知修复日程。</span><br><b>请一并确认</b> ① 赋值时点？ ② 每日 <b>10:00</b> 查询时能否提供预采番 HBL？ ③ 2026-07-31 已约定"<code>expressNo</code> 为空的订单从响应中排除"是否已实施？<code>expressNo</code> 与 <code>hblNo</code> 关系？</td></tr>
+                <tr><td><code>hblNo</code></td><td>已准备包裹有值，后续包裹可为 <code>null</code> <span style="color:#137333;">(正常状态)</span></td><td>08-12 实际响应确认：同一订单的 <code>packageList[]</code> 中，首个包裹已有 HBL，后续 <code>-1</code> 包裹尚为 null。null 表示尚未准备发货，并非 Bug。<br><b>处理规则：</b>仅“跨境标识 + HBL非空”的包裹提交 TRA001；null 包裹必须保留为未完成状态。若东数不能提前分配全部 HBL 或在后续分配时 Push，则 Geek 必须增加未完成包裹的再次查询批处理。<code>expressNo</code> 与 <code>hblNo</code> 的关系仍需确认。</td></tr>
                 <tr><td><code>ord_prod_nm</code></td><td>存在空字符串 <code>""</code> 的订单</td><td>海关必填(Y) String(600) / GIANT <code>productName</code> 必填(Y)。空值将导致该订单信息被驳回</td></tr>
                 <tr><td><code>prod_srno</code></td><td><b>响应中无此字段</b></td><td>海关必填(Y) Integer(3)，<b>同一 HBL 内从 1 开始连续编号</b> / GIANT <code>itemSeq</code> 必填(Y) 3位数字(<code>001</code>, <code>002</code>…)</td></tr>
                 <tr><td><code>hs_cd</code></td><td><b>响应中无此字段</b></td><td>GIANT <code>items[].hsCode</code> <b>必填(Y) 6位数字</b>，违反报错 <code>H011</code>。<b>海关 TRA001 规格中无 HS 编码字段</b>，故<u>仅发送 GIANT</u>。<br>经营品目 — <b>婴儿配方奶粉 1901.10 / 健康功能食品 2106.90</b>(最终以 GIANT 报关行确认为准)。<br><b>[2026-08-11 确定] HS 编码由东数映射提供。</b> <b>请确认</b> ① ERP 中在哪个画面/字段管理？ ② 是否全部 SKU 已填写？ ③ 补录流程及所需时间？</td></tr>
@@ -548,11 +548,16 @@ sequenceDiagram
         <p><b>状态流转</b> — <code>p1</code> 支付完成 → (09:00 东数采集) <code>g1</code> 商品准备中 → (仅海关 TRA 提交完成的订单) <code>g5</code> 航空发货中 + 更新运单号。<b>错误订单保持 <code>g1</code></b> 并调用订单删除 API。之后 12:00 取消反映截止 → 13:00 出库。</p>
         <p><span style="color:#c5221f;">※ <code>g5</code> 为自营商城新设的自定义状态码(Godomall 标准代码表中不存在)。东数采集条件请以此流转为准。</span></p>
 
-        <h3 style="color:#137333;">6. 已确认事项 (无需再讨论)</h3>
+        <h3 style="color:#7b1fa2;">6. [2026-08-11 新增] 自营商城 → GIANT 直接发送 PER 通关信息</h3>
+        <p>关税厅申报<b>正常受理的订单</b>，由自营商城将通关信息直接发送至 GIANT；东数 DS Logistics 于 17:00~18:00 直送物流·商品数据，<b>由 GIANT 合并后向海关申报</b>。</p>
+        <p><b>自营商城发送项</b> — <code>hwbNo</code> · <code>orderNo</code> · <code>pccCode</code> · <code>tempAuthNo</code> · <code>ordererName</code> · <code>consigneeName</code>(Max 100) · <code>consigneeNameEng</code> · <code>consigneeAddr</code>(Max 150) · <code>consigneeAddrDet</code> · <code>consigneeAddressEng</code>(Max 200) · <code>consigneeZip</code>(5位固定) · <code>consigneeTel</code>(Max 40)</p>
+        <p style="color:#c5221f;">※ 个人通关唯一编码(PCCC)·一次性认证码(OTP)同时通过 Godomall <code>addField</code> 传递给东数，东数在 <code>bulk-sync</code> 中一并发送。<b>请确认东数侧接收与传输是否正常。</b></p>
+
+        <h3 style="color:#137333;">7. 已确认事项 (无需再讨论)</h3>
         <ul>
-            <li><b>国内发货订单</b> — 从 API 响应中排除，仅提供跨境订单 (2026-08-06 / 08-11 确认)</li>
+            <li><b>国内/跨境混合订单</b> — 08-06/08-11 的“排除国内件”决定已于08-12重新协商。建议两类包裹均返回，并新增 <code>deliveryType</code> 或 <code>overseasDirectPurchaseYn</code> 及 <code>expressNo</code>；Geek仅将跨境且HBL非空的包裹提交TRA001</li>
             <li><b>套装商品</b> — 以套装内单品信息提供，而非套装单位 (2026-08-06)</li>
-            <li><b>拆单发货</b> — 一个订单拆分多箱时，东数按箱各自采番 HBL，自营商城按 HBL 件数分别提交 TRA001。各 HBL 内商品信息须与实际装箱实物 1:1 一致 (2026-08-06)</li>
+            <li><b>跨日拆单发货</b> — 1个HBL对应1次TRA001；3天分3次发货则提交3次。Godomall只保存第一个运单号，但Geek内部必须按分拆包裹管理提交状态。若不增加Geek批处理，东数必须首次查询时预分配全部HBL，或在后续HBL生成时Push (2026-08-12)</li>
             <li><b>快照一致性</b> — 14 个属性中仅实测重量(<code>weight</code>)在 10:00 与 17:00 之间存在差异，其余 13 项保持完全一致 (2026-08-05)</li>
             <li><b>订单删除 API</b> — <code>POST /api/openAPI/erp/orderInfo/orderDelete</code>, 参数 <code>customerOrderNo</code>, 单次 1 件 (2026-08-03)</li>
             <li><b>个人通关唯一编码(PCCC)</b> — <b>通过 Godomall 订单查询 API 的 <code>addField</code> 传递给东数</b>。生产字段名为“개인통관부호”，开发为“개인통관고유부호”；兼容两个名称，并校验 <code>process=order</code>、<code>type=text</code>、P/O开头13位，不使用键值/<code>no</code>/<code>sort</code>。<br><span style="color:#c5221f;">※ GIANT 必填的 <code>tempAuthNo</code> 对应 OTP 当前尚未写入 addField；Geek需新增“일회용 인증번호”订单字段后再测试。东数在17:00~18:00单次 <code>bulk-sync</code> 中同时发送 PCCC 与 OTP。</span></li>

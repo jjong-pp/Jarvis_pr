@@ -2,7 +2,8 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>협의 이력 · 확정사항 대장 (2026-07-31 ~ 08-11)</title>
+<meta http-equiv="refresh" content="0; url=./리스크_질의대장.html#history">
+<title>협의 이력 · 확정사항 대장 (2026-07-31 ~ 08-12)</title>
 <style>
   *{box-sizing:border-box}
   body{font-family:'Inter',-apple-system,'Malgun Gothic',sans-serif;background:#f6f7f9;color:#202124;line-height:1.65;margin:0;padding:32px 20px}
@@ -43,7 +44,7 @@
 <div class="wrap">
 
 <h1>협의 이력 · 확정사항 대장</h1>
-<div class="sub">2026-07-31 ~ 2026-08-11 단체 채팅방 협의 내용 정리 · 참여: 박종혁(총괄) · 강명제(Geek) · 김현진(자이언트) · 孔祥兵 小熊(동수 EIBE ERP/DS Logistics) · AN.(동수)</div>
+<div class="sub">2026-07-31 ~ 2026-08-12 단체 채팅방 협의 내용 정리 · 참여: 박종혁(총괄) · 강명제(Geek) · 김현진(자이언트) · 孔祥兵 小熊(동수 EIBE ERP/DS Logistics) · AN.(동수)</div>
 
 <div class="nav">
   <a href="./planning_v5.html">planning_v5.html E2E 기획서</a>
@@ -53,10 +54,10 @@
 </div>
 
 <div class="board">
-  <div class="kpi green"><div class="n">17</div><div class="l">확정 합의 사항</div></div>
-  <div class="kpi red"><div class="n">4</div><div class="l">미답변 · 미결</div></div>
-  <div class="kpi amber"><div class="n">2</div><div class="l">신규 확인 필요</div></div>
-  <div class="kpi blue"><div class="n">5</div><div class="l">2026-08-11 해소</div></div>
+  <div class="kpi green"><div class="n">21</div><div class="l">해결 · 기준 확정</div></div>
+  <div class="kpi red"><div class="n">5</div><div class="l">P0 핵심 미결</div></div>
+  <div class="kpi amber"><div class="n">4</div><div class="l">2026-08-12 신규 이력</div></div>
+  <div class="kpi blue"><div class="n">2</div><div class="l">기존 합의 재검토</div></div>
 </div>
 
 <div class="box r">
@@ -81,9 +82,9 @@
 <table>
   <thead><tr><th style="width:9%">일자</th><th style="width:16%">항목</th><th>내용</th><th style="width:9%">상태</th></tr></thead>
   <tbody>
-    <tr><td class="d">07-31</td><td>09:00 수집</td><td>동수 ERP가 자사몰 Open API로 <strong><code>p1</code>(결제완료)</strong> 주문만 수집 → 동수 내부 상태를 <strong><code>d1</code></strong>로 업데이트. 수집된 주문에 <strong>HBL 및 송장번호(<code>expressNo</code>) 할당</strong></td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">07-31<br>→ 08-12</td><td>09:00 수집</td><td>동수 ERP가 자사몰 Open API로 <strong><code>p1</code>(결제완료)</strong> 주문을 수집 → 동수 내부 상태를 <strong><code>d1</code></strong>로 업데이트. HBL은 전 포장 일괄 할당이 아니라 <strong>포장별 발송 준비 시 순차 할당</strong>될 수 있음. <code>expressNo</code>와 HBL의 관계는 미확정</td><td><span class="chip c-open">일부 미결</span></td></tr>
     <tr><td class="d">07-31</td><td>정상 승인 건</td><td><strong>관세청 TRA 제출이 완료된 건만</strong> 자사몰 주문 상태 <code>g1</code> → <strong><code>g5</code>(항공발송중)</strong> 변경 + 송장번호 업데이트. <span class="ok">[2026-08-11 확인] <code>g5</code>는 고도몰 표준 코드가 아니라 본 프로젝트를 위해 자사몰에 <b>별도 튜닝하여 신설한 커스텀 상태값</b>임</span></td><td><span class="chip c-fix">확정</span></td></tr>
-    <tr><td class="d">07-31<br>→ 08-11</td><td>오류 발생 건</td><td><strong><code>g1</code>(상품준비중) 유지</strong> + 송장번호 미업데이트 + 거래실패리스트 적재. 동수 주문 삭제 API 단건 호출로 동수 WMS/ERP 주문·가채번 HBL 삭제.<br><span class="no">[미결] 익일 재수집 경로</span> — 동수는 <code>p1</code>만 조회하므로 <code>g1</code>에 남은 오류 건은 수집 대상에 잡히지 않음. C-5 참조</td><td><span class="chip c-open">미결</span></td></tr>
+    <tr><td class="d">07-31<br>→ 08-12</td><td>오류 발생 건</td><td>거래실패리스트 적재 + 동수 주문 삭제 API 호출 후 자사몰 내부에서 <strong><code>g1</code> → <code>p1</code> 원복</strong>. 익일 09:00 동수가 재수집하며, 오류가 남아 있으면 매일 반복. CS팀이 실패리스트를 매일 확인·보정</td><td><span class="chip c-fix">정책 확정</span></td></tr>
     <tr><td class="d">07-31</td><td>취소·환불 차단</td><td>강명제 정정 요청 — <s><code>p1</code>(결제완료)부터 차단</s> → <strong><code>g1</code>(상품준비중)부터 차단</strong>. <span class="ok">[2026-08-11 확인] 동수 수집 시 <code>p1</code>→<code>g1</code>으로 변경되므로 <code>g1</code> 기준이 맞음</span></td><td><span class="chip c-fix">확정</span></td></tr>
     <tr><td class="d">07-31</td><td>오류 사유 3분류</td><td>① <strong>PCCC 오류</strong> → 고객에게 인증 재발송 문자 필요(문자 발송 기능 검토 대상) ② <strong>필수데이터 누락</strong> → 거래실패리스트 기반 정보 업데이트 ③ <strong>기타 시스템 오류</strong> → 다음날 수집 루프 재수행</td><td><span class="chip c-fix">확정</span></td></tr>
   </tbody>
@@ -118,10 +119,12 @@
 <table>
   <thead><tr><th style="width:9%">일자</th><th style="width:16%">항목</th><th>내용</th><th style="width:9%">상태</th></tr></thead>
   <tbody>
-    <tr><td class="d">08-06</td><td><span class="hi">1주문 분할 출고</span></td><td>1개 주문을 여러 상자로 분할 출고해도 <strong>관세청 신고상 문제 없음</strong>. 통관 기본 단위는 주문번호(<code>ord_no</code>)가 아니라 <strong>HBL 운송장번호</strong>. 동수가 <u>HBL을 상자 수만큼 각각 채번</u>하여 10:00 API에서 복수 레코드로 내려주고, 자사몰은 <strong>TRA001을 HBL 건수만큼 각각 제출</strong>. 각 HBL 내 상품 정보는 <u>해당 박스에 실제 포장된 실물과 1:1 일치</u>해야 함</td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">08-06<br>→ 08-12</td><td><span class="hi">1주문 분할 출고</span></td><td><strong>HBL 1건당 TRA001 1건</strong> 원칙은 확정. 다만 08-12 확인 결과 한 주문의 여러 포장이 같은 날 한꺼번에 채번되는 것이 아니라 <u>며칠에 걸쳐 순차 채번</u>될 수 있음. 첨부 실응답도 첫 포장 HBL은 존재하고 후속 포장(<code>-1</code>)은 null이었다. 고도몰에는 첫 송장번호만 저장하되 Geek 내부는 분할 포장별 제출 상태를 관리해야 함</td><td><span class="chip c-open">방식 미결</span></td></tr>
     <tr><td class="d">08-06</td><td>세트 상품</td><td>세트 상품(예: TABS + Clip, Fortimel + Design Box)은 <strong>세트 단위가 아니라 세트 내 개별 단품 정보</strong>로 전송. 동수 <code>goodsList</code>가 이미 단품별로 분리되어 있으며(예: APTAMIL TAB FO / Plastic clip), 그 형태 그대로 제공</td><td><span class="chip c-fix">확정</span></td></tr>
-    <tr><td class="d">08-06</td><td>국내·해외 혼재</td><td>한 주문에 해외직구와 국내 상품이 섞여 분할 출고되는 경우, 동수는 <strong>해외직구 발송 정보만 자사몰에 제공</strong>하고 국내 창고 발송 정보는 제공하지 않음. → 이에 따라 동수가 <u>API 1개 추가 및 응답 포맷 조정</u> 예정</td><td><span class="chip c-fix">확정</span></td></tr>
-    <tr><td class="d">08-11</td><td>국내건 응답 제외 재확인</td><td>동수 재질의 "국내 주문은 응답을 내려주지 않아도 되는가" → "내려주지 않아도 됨" 재확인. <span class="no">단, 필터 판정 주체가 동수로 이관되므로 해외직구 건 누락을 자사몰이 감지할 수 없음 → 건수 대사 필요</span></td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">08-06<br>→ 08-12</td><td>국내·해외 혼재</td><td><s>국내건은 API 응답에서 제외</s>하기로 했으나, 국내 송장번호를 자사몰에 반영할 경로가 사라지는 문제가 08-12 Geek에서 제기됨. 현재 조회는 국내건도 내려오는 것으로 보여 <strong>국내·해외 모두 반환 + 명시적 배송 플래그</strong> 방식으로 재협의</td><td><span class="chip c-open">재협의</span></td></tr>
+    <tr><td class="d">08-12<br>10:08~10:13</td><td>배송구분 플래그 요청</td><td>Geek 요청 — 국내건도 기존처럼 응답하되 <code>deliveryType=DOMESTIC|OVERSEAS</code> 또는 <code>overseasDirectPurchaseYn</code> 같은 플래그와 <code>expressNo</code>를 제공. <code>prod_clsf_nm_stp1</code>은 상품분류 필드이므로 배송 플래그로 사용 금지. Geek은 해외 플래그 + HBL 비-null 포장만 TRA001 제출</td><td><span class="chip c-open">동수 확인</span></td></tr>
+    <tr><td class="d">08-12<br>10:33~11:06</td><td>다일 분할 출고</td><td>1주문 3상품을 3일에 걸쳐 발송하면 관세청에도 <strong>3회 제출</strong>. 고도몰에는 첫 송장번호만 저장. 후속 HBL이 발송 전 null이므로, 추가 배치를 없애려면 동수가 <strong>전 HBL 선채번</strong> 또는 <strong>채번 이벤트 Push</strong>를 제공해야 함. 둘 다 없으면 Geek의 미완료 포장 재조회가 필수</td><td><span class="chip c-open">P0</span></td></tr>
+    <tr><td class="d">08-12<br>우선 구현안</td><td>ERP 선분할·전 HBL 선발급</td><td>동수 ERP가 주문 수신 즉시 품목을 <strong>신고금액 USD 150 이하</strong>로 전부 포장 배분하고 모든 가HBL을 발급. 가HBL은 WMS 실제 송장·자이언트 <code>hwbNo</code>와 1:1로 유지한다. WMS는 포장/HBL 단위로 여러 날에 걸쳐 순차 출고하고 그때마다 동일 HBL로 자이언트 API 연동. 이 경우 Geek의 HBL 발견용 추가 조회는 제거 가능하나 출고 상태 대사는 유지</td><td><span class="chip c-open">동수 확인</span></td></tr>
   </tbody>
 </table>
 
@@ -135,10 +138,11 @@
     <tbody>
       <tr><td class="d">07-31 15:58</td><td><s>자사몰이 동수 MAWB를 수집 → PER과 병합 → 자이언트 HWB 벌크 API로 일괄 전송</s></td><td>협의록 [3]에 <strong>자이언트 안내용으로 명시</strong> — "동수가 자이언트에게 직접 쏘는 로직은 없습니다" / "기존 HWB 벌크 API 스펙을 수정 없이 그대로 사용, 자이언트 측 추가 개발 부담 없음"</td></tr>
       <tr><td class="d">08-03 17:21</td><td><strong>동수 → 자이언트 직송(17~18시)</strong> + 자사몰 → 자이언트 PER 전송 → 자이언트 병합안</td><td>당시 협의록 개정본. 이후 실제 <code>addField</code>에 PCCC가 존재하고 자이언트 공개 등록 경로가 <code>bulk-sync</code>뿐임이 확인되어 <strong>11:50 Geek 직접 전송은 실행 불가·중복</strong>으로 재검토</td></tr>
-      <tr><td class="d">08-11 17:54</td><td><strong>구현 기준안: 동수 단일 <code>bulk-sync</code></strong></td><td>Geek이 PCCC·OTP를 <code>addField</code>에 저장 → 동수가 09:00 수신 → 17:00~18:00 물류·상품 데이터와 함께 자이언트에 직송. 자이언트에는 별도 PER 호출 필요 여부만 최종 확인</td></tr>
+      <tr><td class="d">08-11 17:54</td><td><s>동수 단일 <code>bulk-sync</code></s></td><td>당시 PCCC·OTP를 모두 <code>addField</code>로 동수에 전달하는 안. <strong>08-12 정책으로 폐기</strong></td></tr>
+      <tr><td class="d">08-12</td><td><strong>Geek PER 정보 + 동수 물류정보 자이언트 병합</strong></td><td>PCCC는 <code>addField</code>로 동수에 전달. <strong>OTP는 Geek DB에만 저장하고 동수에는 전달하지 않으며 자이언트로 직접 전송</strong>. 동수는 OTP를 제외한 물류·상품·PCCC를 <code>bulk-sync</code>로 전송</td></tr>
     </tbody>
   </table>
-  <strong>→ [2026-08-11 재정리] 08-03 구조 변경 통보 자체는 완료.</strong> 다만 공개 스펙상 Geek이 11:50에 호출할 PER 전용 엔드포인트가 없고 <code>bulk-sync</code>에는 당시 보유하지 않은 물류 필수값이 필요함. 따라서 동수 단일 전송을 기준으로 하고, 자이언트에는 <u>별도 PER 호출 없이 동수 bulk-sync만으로 완료되는지</u>만 확인합니다.
+  <strong>→ [2026-08-12 확정 정책]</strong> OTP는 <code>addField</code>·동수 ERP/WMS 범위에서 제외합니다. Geek의 자이언트 직접 전송 엔드포인트와 병합 시점만 자이언트 회신 대기이며, 동수에는 OTP 저장·검증·전송 개발을 요청하지 않습니다.
 </div>
 
 <div class="box y">
@@ -167,8 +171,8 @@
     <tr>
       <td><strong><code>hblNo</code> vs <code>expressNo</code></strong></td>
       <td>07-31 합의: <code>expressNo</code> 없는 건 응답 제외</td>
-      <td>08-11 실 응답: <code>hblNo</code>가 전건 <code>null</code>, 동수 회신 "<code>hblNo</code>는 null로 리턴됩니다"</td>
-      <td class="no"><strong>두 필드가 서로 다른 값일 가능성.</strong> 07-31 협의록은 "HBL <u>및</u> 송장번호(<code>expressNo</code>) 할당"으로 병기되어 있음. 관계와 각각의 채번 시점 확인 필요 — TRA001 <code>hbl_no</code>는 필수라 값이 없으면 제출 불가</td>
+      <td>08-12 실 응답: 같은 주문의 <code>packageList[]</code>에서 준비된 포장은 <code>hblNo</code> 값이 있고 후속 포장은 null. null은 발송 준비 전 상태</td>
+      <td class="no"><strong>우선안은 ERP 주문 수신 즉시 USD 150 이하 포장과 전 HBL을 선확정</strong>하고 가HBL을 WMS 실제 송장·자이언트 <code>hwbNo</code>에 1:1 연결하는 것. 동수 확인 전까지 후속 null HBL은 완료 처리하지 말고 재조회/Push로 반드시 회수. 국내 송장은 별도 <code>expressNo</code> 제공 필요</td>
     </tr>
   </tbody>
 </table>
@@ -179,14 +183,10 @@
   <strong>확정 전이</strong> — <code>p1</code> 결제완료 → (09:00 동수 수집) <code>g1</code> 상품준비중 → (관세청 TRA 제출 완료 건만) <code>g5</code> 항공발송중 → 12:00 동수 취소 반영 마감 → 13:00 출고
 </div>
 
-<div class="box r">
-  <strong>C-5. [2026-08-11 신규] 오류 건의 익일 재수집 경로가 성립하지 않음</strong><br>
-  오류 발생 건은 <code>g1</code>(상품준비중)에 남습니다. 그런데 동수 EIBE ERP는 <u><code>p1</code>(결제완료) 상태만 조회</u>합니다(2026-07-31 동수 확인: "상태가 <code>p1</code>인 주문을 조회하여 저장 성공 시 <code>d1</code>로 업데이트"). <strong>따라서 <code>g1</code>에 남은 오류 건은 익일 09:00 수집 대상에 잡히지 않습니다.</strong><br>
-  <strong>→ 해소 방법 3가지</strong><br>
-  &nbsp;&nbsp;<b>ⓐ 자사몰이 오류 건을 <code>g1</code> → <code>p1</code>으로 되돌림</b> — 고도몰 표준 주문상태변경 API로는 불가(「7.1」표에서 <code>p1</code>은 사용 가능 여부 X, 「4.2」는 "<code>g1</code>~<code>g4</code>, <code>d1</code>, <code>d2</code>로의 변경만 가능"). <u>다만 <code>g5</code>처럼 자사몰 내부 로직으로 처리한다면 가능</u> → <b class="ok">유력</b><br>
-  &nbsp;&nbsp;ⓑ 동수 수집 조건에 <code>g1</code> 추가 — 당일 정상 처리 중인 건까지 걸리므로 별도 구분자 필요<br>
-  &nbsp;&nbsp;ⓒ 동수 재수집 없이 자사몰이 보유한 <code>hbl_no</code>로 익일 TRA001만 재제출 — 주문 삭제 API로 가채번 HBL이 이미 삭제되므로 성립하지 않음<br>
-  <strong>확인 필요</strong> — 자사몰 내부 상태 변경으로 <code>p1</code> 원복이 가능한지 (GeekStudio)
+<div class="box g">
+  <strong>C-5. [2026-08-12 정책 확정] 오류 건 <code>p1</code> 반복 재처리</strong><br>
+  TRA003 오류 건은 자사몰 내부 로직으로 <code>g1</code> → <code>p1</code> 원복하고 동수가 익일 09:00에 재수집합니다. 원천 오류가 남아 있으면 같은 주문이 매일 제출·반려·원복되며, <strong>이 반복은 의도된 운영 정책</strong>입니다.<br>
+  <strong>운영 기준</strong> — 재시도 상한 없음 · N회 초과 자동 제외 없음 · 보정 전 재제출 차단 없음. CS팀이 거래실패리스트를 매일 확인하고 수기로 값을 보정합니다. 누적 실패횟수는 표시하되 모니터링 용도로만 사용하고 재처리 중단 조건으로 사용하지 않습니다.
 </div>
 
 <!-- ===================== 미결 ===================== -->
@@ -196,11 +196,19 @@
   <tbody>
     <tr><td class="d">08-06 19:16</td><td>박종혁 → 동수</td><td><strong>상품코드 값 불일치 3건</strong> — <code>708112</code>·<code>708113</code>·<code>708117</code> (Aptamil Pronutra 2 / 3 / Pre 800g)의 ERP 상품 코드 값이 자사몰과 맞지 않음</td><td class="ok">[2026-08-11] 해소 — 전달 완료</td></tr>
     <tr><td class="d">08-06 15:31<br>08-07 09:44</td><td>동수 → 박종혁</td><td><strong>3개 SKU의 신고용 USD 단가</strong> 확인 요청 (708112 / 708113 / 708117)</td><td class="ok">[2026-08-11] 해소 — 신고 USD 단가 전달 완료</td></tr>
-    <tr><td class="d">08-11 09:22</td><td>김현진 → 전체</td><td><strong>HWB 등록 API 사용하시는건가요?</strong></td><td class="no">미회신. 기준안은 동수의 기존 <code>bulk-sync</code> 단일 전송. <u>PCCC·OTP 포함 시 별도 PER 호출이 불필요한지만 확인</u></td></tr>
+    <tr><td class="d">08-11 09:22</td><td>김현진 → 전체</td><td><strong>HWB 등록 API 사용하시는건가요?</strong></td><td class="no">Geek이 OTP·수하인 통관정보를 직접 전송하고 동수 물류정보와 자이언트에서 병합하는 기준. <u>Geek 직접 전송 엔드포인트·시점 회신 대기</u></td></tr>
     <tr><td class="d">08-11 11:47</td><td>동수 → Geek</td><td><code>hs_cd</code>·<code>ord_prod_nm</code> 필드 추가 요청에 대해 "확인 후 알려달라"</td><td class="no">13:10에 구체 질문으로 재제기됨. 회신안 준비 완료</td></tr>
-    <tr><td class="d">08-11 12:31<br>16:08</td><td>동수 ↔ Geek</td><td>주문에 개인통관고유부호 정보가 없다는 문의 후 운영·개발 <code>addField</code> 실제 JSON 확인</td><td class="no"><strong>PCCC는 동수 전달 대상이 맞고 양쪽 서버에 존재.</strong> 운영·개발의 명칭·키가 다르므로 두 명칭 허용. 단 <code>tempAuthNo</code> 원천인 OTP 항목이 양쪽 모두 없어 Geek 추가 개발 필요</td></tr>
-    <tr><td class="d">08-11 17:26~17:54</td><td>Geek 강명제 → 전체</td><td>혼재 주문 필터 주체·<code>ord_qty_ut</code> 제외·<code>brokerCode/Name</code>·자이언트 전송 시점/데이터·동수 API 명세·자이언트 HWB API 변경 여부 질의</td><td class="no">해외직구 필터는 동수로 확정. <code>ord_qty_ut</code>는 KCS 미전송, 자이언트 <code>qtyUnit=EA</code>는 동수 주입. broker 값·별도 PER 필요 여부·PATCH 외 정정은 자이언트 회신 대기. 동수 최종 API 명세 수령 필요</td></tr>
+    <tr><td class="d">08-11 12:31<br>→ 08-12</td><td>동수 ↔ Geek</td><td>운영·개발 <code>addField</code> 실제 JSON 확인</td><td class="ok"><strong>PCCC는 동수 전달 대상</strong>이며 두 명칭을 허용. <strong>OTP는 <code>addField</code>·동수 전달 대상이 아니므로 항목 추가 불필요</strong></td></tr>
+    <tr><td class="d">08-11 17:26~17:54</td><td>Geek 강명제 → 전체</td><td>혼재 주문 필터 주체·<code>ord_qty_ut</code> 제외·<code>brokerCode/Name</code>·자이언트 전송 시점/데이터·동수 API 명세·자이언트 HWB API 변경 여부 질의</td><td class="no"><code>ord_qty_ut</code>는 KCS 미전송, 자이언트 <code>qtyUnit=EA</code>는 동수 주입. <s>해외직구 필터는 동수로 확정</s>했으나 08-12 국내 송장 경로 문제로 플래그 방식 재협의. broker 값·별도 PER 필요 여부·PATCH 외 정정은 자이언트 회신 대기</td></tr>
     <tr><td class="d">08-11 13:10</td><td>동수 → 박종혁</td><td><code>hs_cd</code>가 필수 속성인지 / 한국 HS Code인지 · <code>ord_prod_nm</code>이 영문인지 한글인지</td><td class="no">회신안 준비 완료 (<code>협력사_질의응답.html</code>)</td></tr>
+    <tr><td class="d">08-12 10:08~10:13</td><td>Geek → 박종혁/동수</td><td>국내건을 제외하면 송장번호 채번 경로가 없으므로 현재처럼 국내건도 반환하고 <strong>국내/해외 플래그 추가</strong> 요청</td><td class="no">동수 회의 예정. 플래그명·<code>expressNo</code>·응답 범위 확정 필요</td></tr>
+    <tr><td class="d">08-12 10:33~11:06</td><td>Geek ↔ 박종혁</td><td>1주문 3상품이 3일 분할 출고. 발송 전 후속 <code>hblNo</code>는 null이며, 고도몰에 첫 송장만 넣어도 Geek은 후속 조회가 필요</td><td class="no">추가 배치 없는 방향은 동수 선채번 또는 Push가 전제. 없으면 재조회 배치 필수</td></tr>
+    <tr><td class="d">08-12</td><td>동수 실응답</td><td><code>getTRA001OrderInfo</code>의 상위 주문 아래 <code>packageList[]</code>가 있고, 첫 포장 HBL 값 / 후속 <code>-1</code> 포장 HBL null이 함께 확인됨</td><td class="ok">null 조건은 해소. 후속 수집 방식은 미결</td></tr>
+    <tr><td class="d">08-12</td><td>박종혁 → 동수 확인 요청안</td><td>ERP가 주문 수신 즉시 전체 품목을 USD 150 이하로 분할하고 전 가HBL을 발급한 뒤, WMS가 해당 HBL을 실제 송장과 1:1로 사용해 순차 출고·자이언트 연동하는 구조</td><td class="no">가능 여부, USD 150 계산 기준, 품목 배분 확정 시점, 취소·재포장 시 HBL 처리 회신 대기</td></tr>
+    <tr><td class="d">08-12</td><td>자이언트</td><td>HWB 검색 상한 문의</td><td class="ok"><strong>최대 500건 확정, 증설 불가.</strong> 500건 단위 분할 구현</td></tr>
+    <tr><td class="d">08-12</td><td>관세청</td><td><code>prod_unprc</code>·<code>ord_amt</code>·<code>tot_stlm_amt</code> 소수점 계산·반올림 순서와 합계 허용 오차</td><td class="no">관세청 질의 추가. 회신 전 단가 2자리 고정 금지, 동수 원천 3자리 보존</td></tr>
+    <tr><td class="d">08-12</td><td>내부 정책</td><td>계도기간 종료일</td><td class="ok"><strong>2026-09-14 24:00 그대로 확정</strong></td></tr>
+    <tr><td class="d">08-12 11:06</td><td>자이언트 → 박종혁</td><td>내부 이슈로 회신 지연, 금일 중 답변 예정</td><td class="no">brokerCode/Name·PER 경로·등록 후 정정/취소·소수점 규칙 등 기존 질의 회신 대기</td></tr>
     <tr><td class="d">07-31</td><td>박종혁</td><td>PCCC 오류 건 <strong>고객 인증 재발송 문자 기능</strong> 필요 여부 — "추후 검토 필요"로 남김</td><td class="no">계도기간 종료(09-14) 후 PCCC 오류가 늘면 필수 기능이 됨. 개발 범위 확정 필요</td></tr>
   </tbody>
 </table>
@@ -218,11 +226,12 @@
     <tr><td class="d">08-07</td><td>동수가 SKU 단가 재요청 → GNG 신규 API 연동 테스트 일정 문의</td></tr>
     <tr><td class="d">08-10</td><td>연동 테스트 가능 회신 → 동수가 테스트 주문 푸시 3회 요청</td></tr>
     <tr><td class="d">08-11</td><td>테스트 주문 2건 전송(국내발송 건이라 재요청) → <code>hs_cd</code>·<code>ord_prod_nm</code> 추가 요청 → <code>hblNo</code> null 회신 → <strong>국내 주문 응답 제외 재확인</strong> → 운영·개발 <code>addField</code>에서 PCCC 확인(명칭·키 불일치, OTP 미존재) → <code>hs_cd</code>/<code>ord_prod_nm</code> 해결 → <strong>동수 단일 bulk-sync 기준안</strong>으로 재정리, 자이언트·동수 잔여 질의 확정</td></tr>
+    <tr><td class="d">08-12</td><td><code>getTRA001OrderInfo</code> 실응답으로 <strong>상위 주문 → <code>packageList[]</code> 구조와 준비 전 <code>hblNo=null</code></strong> 확인. 포장금액은 샘플상 모두 USD 150 이하이나 후속 HBL은 null → 국내건 제외 시 송장번호 경로가 사라져 <strong>국내/해외 플래그 방식으로 재협의</strong> → 1주문이 3일에 걸쳐 출고될 수 있어 <strong>HBL별 TRA001 3회 제출</strong> 확인 → <strong>ERP가 주문 수신 즉시 USD 150 이하로 전체 포장·가HBL을 확정하고 WMS가 동일 HBL로 순차 출고·자이언트 연동하는 우선안</strong>을 동수 확인사항으로 등록 → 자이언트 HWB 검색 상한 <strong>500건·증설 불가</strong> 확정 → <strong>OTP는 addField·동수 전달에서 제외</strong> → <strong><code>p1</code> 매일 반복과 CS 일일 확인 정책 확정</strong> → 계도기간 종료 <strong>09-14 24:00 유지</strong> → 금액 소수점 및 분할 HBL의 <code>tot_stlm_amt</code> 의미를 관세청 질의에 추가</td></tr>
   </tbody>
 </table>
 
 <footer>
-  2026-08-11 작성 · 출처: 단체 채팅방 로그 2026-07-31 ~ 2026-08-11 전문 · 관련 문서 <code>planning_v5.html</code> · <code>api_field_mapping.html</code> · <code>risk_list.html</code> · <code>협력사_질의응답.html</code>
+  2026-08-12 갱신 · 출처: 단체 채팅방 로그 2026-07-31 ~ 2026-08-12 및 <code>getTRA001OrderInfo</code> 실응답 · 관련 문서 <code>planning_v5.html</code> · <code>api_field_mapping.html</code> · <code>리스크_질의대장.html</code>
 </footer>
 
 </div>
