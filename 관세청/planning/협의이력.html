@@ -47,10 +47,17 @@
 <div class="sub">2026-07-31 ~ 2026-08-12 단체 채팅방 협의 내용 정리 · 참여: 박종혁(총괄) · 강명제(Geek) · 김현진(자이언트) · 孔祥兵 小熊(동수 EIBE ERP/DS Logistics) · AN.(동수)</div>
 
 <div class="nav">
-  <a href="./planning_v5.html">planning_v5.html E2E 기획서</a>
+  <a href="./planning_v6.html">planning_v6.html E2E 기획서</a>
   <a href="./api_field_mapping.html" class="g">api_field_mapping.html 전수 매핑</a>
-  <a href="./risk_list.html" class="r">risk_list.html 리스크 대장</a>
-  <a href="./협력사_질의응답.html" class="y">협력사_질의응답.html</a>
+  <a href="./리스크_질의대장.html#active" class="r">리스크_질의대장.html 통합 대장 (현행 정본)</a>
+</div>
+
+<div style="background:#fdecea;border-left:5px solid #d93025;padding:14px 18px;margin:18px 0;border-radius:4px;font-size:13px;line-height:1.7;">
+  <strong>[2026-08-13 정본 이관 안내]</strong> 이 문서의 확정 정책 · 결정 변경 이력 · 협의 타임라인은 <strong>2026-08-12에 <code>리스크_질의대장.html</code>로 통합</strong>되었습니다.
+  현행 정본은 <code>리스크_질의대장.html</code> 하나이며, <strong>새 협의는 이 문서가 아니라 통합 대장에 기록</strong>합니다.
+  이 파일은 2026-07-31~08-12 채팅 협의 원문 맥락(제기자·발언 시각·번복 경위)을 보존하기 위한 <strong>아카이브</strong>로 남깁니다.
+  두 문서가 다르게 말하는 항목(예: 국내·해외 혼재 주문 — 이 문서 "재협의" / 통합 대장 "확정")은 <strong>통합 대장이 이깁니다</strong>.
+  종전 링크 대상이던 <code>risk_list.html</code> · <code>협력사_질의응답.html</code>은 2026-08-12에 통합 대장으로 흡수되어 삭제되었습니다.
 </div>
 
 <div class="board">
@@ -61,7 +68,7 @@
 </div>
 
 <div class="box r">
-  <strong>이 문서를 만든 이유</strong> — <code>planning_v5.html</code>·<code>api_field_mapping.html</code>은 <u>결과 스펙</u>만 담고 있어, <strong>언제 누가 무엇을 합의했는지</strong>가 남아 있지 않았습니다. 그 결과 이미 합의된 사항이 재논의되거나(예: <code>expressNo</code> 필터링), 번복된 결정이 협력사에 통보되지 않는 문제(예: 자이언트 병합 구조)가 발생했습니다. 앞으로 협의가 생기면 <strong>이 문서에 먼저 한 줄 추가</strong>하고 기획서에 반영합니다.
+  <strong>이 문서를 만든 이유</strong> — <code>planning_v6.html</code>·<code>api_field_mapping.html</code>은 <u>결과 스펙</u>만 담고 있어, <strong>언제 누가 무엇을 합의했는지</strong>가 남아 있지 않았습니다. 그 결과 이미 합의된 사항이 재논의되거나(예: <code>expressNo</code> 필터링), 번복된 결정이 협력사에 통보되지 않는 문제(예: 자이언트 병합 구조)가 발생했습니다. 앞으로 협의가 생기면 <strong>이 문서에 먼저 한 줄 추가</strong>하고 기획서에 반영합니다.
 </div>
 
 <!-- ===================== 확정 ===================== -->
@@ -159,13 +166,13 @@
     <tr>
       <td><strong>물리적 출고 시각</strong></td>
       <td><strong>12:00</strong> 출고 마감<br><span style="font-size:12px;color:#5f6368">07-31 15:41 AN. 요청("물량 증가 고려") · 07-31 15:58 협의록 [1]-4</span></td>
-      <td><strong>13:00</strong> 현장 출고<br><span style="font-size:12px;color:#5f6368">08-03 17:21 협의록 · <code>planning_v5.html</code> Stage 6</span></td>
+      <td><strong>13:00</strong> 현장 출고<br><span style="font-size:12px;color:#5f6368">08-03 17:21 협의록 · <code>planning_v6.html</code> Stage 6</span></td>
       <td class="ok">[2026-08-11 해소] <strong>충돌이 아니라 서로 다른 시점임.</strong> <b>11:50</b> 자사몰이 관세청 제출 결과(오류 건)를 동수에 통보 → <b>12:00</b> 동수 WMS 취소 반영 마감(의사결정 컷오프) → <b>13:00</b> 현장 실물 라벨 부착·포장·출고. 2026-08-03 중문 협의문의 "13:00 贴单(라벨 부착) 전까지는 예비 할당 송장"과도 일치함</td>
     </tr>
     <tr>
       <td><strong>09:00 수집 후 상태</strong></td>
       <td><code>p1</code> 유지, 정상 시 <code>p1 → g5</code><br><span style="font-size:12px;color:#5f6368">07-31 14:31 · 15:58 협의록</span></td>
-      <td>수집 즉시 <code>g1</code>(상품준비중) 변경<br><span style="font-size:12px;color:#5f6368">08-03 17:21 협의록 · <code>planning_v5.html</code> Stage 2</span></td>
+      <td>수집 즉시 <code>g1</code>(상품준비중) 변경<br><span style="font-size:12px;color:#5f6368">08-03 17:21 협의록 · <code>planning_v6.html</code> Stage 2</span></td>
       <td class="no">강명제가 "취소·환불 차단은 <code>g1</code>부터"로 요청했으므로 <strong>B안이 유력</strong>하나, 동수 ERP는 <code>p1</code>을 조회해 <code>d1</code>로 바꾸는 로직이므로 <u>동수 수집 조건과 정합 확인 필요</u></td>
     </tr>
     <tr>
@@ -200,7 +207,7 @@
     <tr><td class="d">08-11 11:47</td><td>동수 → Geek</td><td><code>hs_cd</code>·<code>ord_prod_nm</code> 필드 추가 요청에 대해 "확인 후 알려달라"</td><td class="no">13:10에 구체 질문으로 재제기됨. 회신안 준비 완료</td></tr>
     <tr><td class="d">08-11 12:31<br>→ 08-12</td><td>동수 ↔ Geek</td><td>운영·개발 <code>addField</code> 실제 JSON 확인</td><td class="ok"><strong>PCCC는 동수 전달 대상</strong>이며 두 명칭을 허용. <strong>OTP는 <code>addField</code>·동수 전달 대상이 아니므로 항목 추가 불필요</strong></td></tr>
     <tr><td class="d">08-11 17:26~17:54</td><td>Geek 강명제 → 전체</td><td>혼재 주문 필터 주체·<code>ord_qty_ut</code> 제외·<code>brokerCode/Name</code>·자이언트 전송 시점/데이터·동수 API 명세·자이언트 HWB API 변경 여부 질의</td><td class="no"><code>ord_qty_ut</code>는 KCS 미전송, 자이언트 <code>qtyUnit=EA</code>는 동수 주입. <s>해외직구 필터는 동수로 확정</s>했으나 08-12 국내 송장 경로 문제로 플래그 방식 재협의. broker 값·별도 PER 필요 여부·PATCH 외 정정은 자이언트 회신 대기</td></tr>
-    <tr><td class="d">08-11 13:10</td><td>동수 → 박종혁</td><td><code>hs_cd</code>가 필수 속성인지 / 한국 HS Code인지 · <code>ord_prod_nm</code>이 영문인지 한글인지</td><td class="no">회신안 준비 완료 (<code>협력사_질의응답.html</code>)</td></tr>
+    <tr><td class="d">08-11 13:10</td><td>동수 → 박종혁</td><td><code>hs_cd</code>가 필수 속성인지 / 한국 HS Code인지 · <code>ord_prod_nm</code>이 영문인지 한글인지</td><td class="no">회신안 준비 완료 (2026-08-12 <code>리스크_질의대장.html</code>로 이관)</td></tr>
     <tr><td class="d">08-12 10:08~10:13</td><td>Geek → 박종혁/동수</td><td>국내건을 제외하면 송장번호 채번 경로가 없으므로 현재처럼 국내건도 반환하고 <strong>국내/해외 플래그 추가</strong> 요청</td><td class="no">동수 회의 예정. 플래그명·<code>expressNo</code>·응답 범위 확정 필요</td></tr>
     <tr><td class="d">08-12 10:33~11:06</td><td>Geek ↔ 박종혁</td><td>1주문 3상품이 3일 분할 출고. 발송 전 후속 <code>hblNo</code>는 null이며, 고도몰에 첫 송장만 넣어도 Geek은 후속 조회가 필요</td><td class="no">추가 배치 없는 방향은 동수 선채번 또는 Push가 전제. 없으면 재조회 배치 필수</td></tr>
     <tr><td class="d">08-12</td><td>동수 실응답</td><td><code>getTRA001OrderInfo</code>의 상위 주문 아래 <code>packageList[]</code>가 있고, 첫 포장 HBL 값 / 후속 <code>-1</code> 포장 HBL null이 함께 확인됨</td><td class="ok">null 조건은 해소. 후속 수집 방식은 미결</td></tr>
@@ -231,7 +238,7 @@
 </table>
 
 <footer>
-  2026-08-12 갱신 · 출처: 단체 채팅방 로그 2026-07-31 ~ 2026-08-12 및 <code>getTRA001OrderInfo</code> 실응답 · 관련 문서 <code>planning_v5.html</code> · <code>api_field_mapping.html</code> · <code>리스크_질의대장.html</code>
+  2026-08-12 갱신 · 출처: 단체 채팅방 로그 2026-07-31 ~ 2026-08-12 및 <code>getTRA001OrderInfo</code> 실응답 · 관련 문서 <code>planning_v6.html</code> · <code>api_field_mapping.html</code> · <code>리스크_질의대장.html</code>
 </footer>
 
 </div>

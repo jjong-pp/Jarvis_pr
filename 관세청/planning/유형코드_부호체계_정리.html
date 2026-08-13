@@ -21,6 +21,7 @@
 <div class="container">
     <a href="./api_field_mapping.html" class="nav-btn">[ -> api_field_mapping.html 기획서 보기 ]</a>
     <h1>유형코드 및 부호체계 정리</h1>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-08-13</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 (기준일 대비 D-15) · 관세청 테스트서버 종료 2026-08-21 (D-8)</span></div>
 
     <h2>1. 판매유형코드 (elcm_pcd) 상세 <span style="background:#fff3cd;color:#856404;padding:2px 6px;border-radius:3px;font-size:13px;font-weight:bold;">[2026-08-10 정정] 종전 문서는 A/B 정의가 서로 뒤바뀌어 있었습니다. 관세청 v1.4.1 기준 <u>A=직접판매, B=구매대행</u>입니다.</span></h2>
     <table>
@@ -119,7 +120,7 @@
                 <td>Null</td>
                 <td>Null</td>
                 <td>Null</td>
-                <td>Null</td>
+<td><strong>(주)크로네</strong> <span style="color:#856404;">[08-10 정정]</span></td>
             </tr>
             <tr>
                 <td>네이버스토어 (아이베 운영)</td>
@@ -128,7 +129,7 @@
                 <td>K26014765</td>
                 <td>(주)아이베</td>
                 <td>Null</td>
-                <td>Null</td>
+<td><strong>실제 해외 판매업체명</strong> <span style="color:#856404;">(동수 제공)</span></td>
             </tr>
             <tr>
                 <td>기타 외부 쇼핑몰 구매대행</td>
@@ -137,10 +138,11 @@
                 <td>K26000099</td>
                 <td>(주)크로네</td>
                 <td>Null</td>
-                <td>Null</td>
+<td><strong>실제 해외 판매업체명</strong> <span style="color:#856404;">(동수 제공)</span></td>
             </tr>
         </tbody>
     </table>
+<p style="font-size:13px;color:#856404;background:#fff3cd;padding:10px 14px;border-radius:4px;"><strong>[2026-08-10 정정]</strong> 위 매트릭스의 <code>sale_ents_nm</code>은 종전 "전 채널 Null 통일"에서 바뀌었다. 부호(<code>sale_ents_sgn</code>)는 관세청 등록 업체만 기재하므로 Null 유지, <strong>업체명은 전 채널 기재</strong>한다 — 자이언트 <code>sellerName</code>이 A·B 무관 필수이기 때문. 상세는 아래 5절.</p>
 
     <h2>4. 상품 판매 페이지 URL (prod_sale_pge_url / productPageUrl / orderSiteUrl)</h2>
     <p>설명: 관세청 TRA001의 prod_sale_pge_url, 자이언트 Item의 productPageUrl, HWB의 orderSiteUrl은 모두 동일한 값을 사용한다. 개별 상품 ID를 포함한 상세 URL이 아닌 스토어별 대표 도메인 URL을 통일 주입한다.</p>

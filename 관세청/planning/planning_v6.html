@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>KCS 사전 거래정보 신고(TRA) E2E 통합 기획서 (planning_v5 Full Spec)</title>
+    <title>KCS 사전 거래정보 신고(TRA) E2E 통합 기획서 (planning_v6 Full Spec)</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <style>
         body { font-family: 'Inter', -apple-system, sans-serif; background-color: #ffffff; color: #333; line-height: 1.6; padding: 40px; margin:0; }
@@ -98,7 +98,8 @@
         <a href="./리스크_질의대장.html" class="nav-btn" style="background:#c5221f;">[ → 리스크_질의대장.html ]</a>
     </div>
 
-    <h1>KCS 사전 거래정보 신고(TRA) E2E 통합 기획서 (planning_v5 Full Spec)</h1>
+    <h1>KCS 사전 거래정보 신고(TRA) E2E 통합 기획서 (planning_v6 Full Spec)</h1>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-08-13</span> · 문서 버전 <span style="color:#8ab4f8;">v6</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 (기준일 대비 D-15) · 관세청 테스트서버 종료 2026-08-21 (D-8)</span></div>
 
     <div style="background:#e8f0fe; padding:18px 22px; border-left:5px solid #1a73e8; margin-bottom:20px; border-radius:4px; font-size:13.5px; line-height:1.7;">
         <strong>[자사몰 메인 E2E 및 동수 시스템 이원화 정의]</strong> 본 기획서는 <strong>Geek Studio(자사몰: 크로네몰) - 동수(EIBE ERP / DS Logistics) - 자이언트 특송사 - 관세청 REST API 간의 직접판매(A유형) 실무 데이터 및 로직</strong>을 기준 집행됩니다.<br>
@@ -153,13 +154,23 @@ sequenceDiagram
     ERP->>Mall: 09:00 KST Open API로 결제완료(p1) 주문 수집
     Mall-->>ERP: 주문 상태 g1(상품준비중) 변경 (마이페이지 취소/환불 버튼 제거)
 
-    Note over Mall, KCS: Stage 3: 10:00~11:00 EIBE ERP 역수집 & 관세청 TRA001 사전 제출
-    Mall->>ERP: 10:00 KST getTRA001OrderInfo 호출 (가채번 hblNo, tot_wt 예정중량, hsCode, prod_srno)
+    Note over Mall, KCS: Stage 3: 주문번호 다건 역수집 & HBL 준비 대기 & TRA001 사전 제출
+    loop 최초 배치와 HBL_WAITING 후속 재조회
+        Mall->>ERP: GET getTRA001OrderInfo, customerOrderNos="주문번호1,주문번호2,..."
+        ERP-->>Mall: 해외 TRA 주문별 packageList와 hblNo 반환
+        alt 해당 주문의 hblNo가 전부 null
+            Mall->>Mall: HBL_WAITING 유지, 제출 금지, 다음 배치 대상 유지
+        else 해당 주문의 hblNo가 전부 non-null
+            Mall->>Mall: HBL_READY 전환, 포장별 분할 주문번호와 HBL 대사
+            Mall->>KCS: TRA001 사전 제출 (최대 100 order_info 청크)
+        else null과 non-null 혼재
+            Mall->>Mall: 응답 계약 위반 격리, 제출 금지, 동수 확인 알림
+        end
+    end
     Note right of Mall: elcm_pcd='A', elcm_ents_sgn='K26000099', puch_vcex_bsmn_sgn=Null (자사몰 규격)
-    Mall->>KCS: 10:00~11:00 TRA001 사전 거래정보 제출 API (100건 청크 전송)
 
-    Note over Mall, KCS: Stage 4 & 5: 11:50 TRA003 오류 조회 및 승인/실패 분기 처리
-    Mall->>KCS: 11:50 KST TRA003 거래정보 오류내역 조회 API 호출
+    Note over Mall, KCS: Stage 4 & 5: 11:40 TRA003 오류 조회 → 11:50 승인/실패 분기 처리
+    Mall->>KCS: 11:40 KST TRA003 거래정보 오류내역 조회 API 호출 (제출 후 30~40분 대기)
     alt 관세청 정상 승인 (성공건)
         KCS-->>Mall: 오류 미발생 정상 승인 (g5 항공발송 변경 및 송장 업데이트)
         Mall->>Mall: PCCC는 addField 유지 · OTP는 Geek DB에만 보관
@@ -206,6 +217,44 @@ sequenceDiagram
                 <tr><td style="padding:6px 14px;"><strong>2026-09-14 24:00</strong></td><td style="padding:6px 14px;">일회용 인증번호 계도기간 종료</td><td style="padding:6px 14px;"><code>Z99999</code> 임시 코드 사용 종료. 적용 기준은 주문일이 아니라 <u>세관에 수입신고서·통관목록이 제출되는 날짜</u></td></tr>
             </tbody>
         </table>
+    </div>
+
+    <h2 id="order-batch-contract">
+        <span>[백엔드 계약] 주문번호 배치 · HBL 대기 큐 · 종료 조건</span>
+        <span class="time-tag" style="background:#137333;">2026-08-13 확정</span>
+    </h2>
+    <div class="stage-box" style="border-left-color:#137333;">
+        <p style="background:#e6f4ea;border-left:3px solid #137333;padding:10px 12px;"><strong>핵심 상태 계약</strong> — Geek은 <code>g1</code> 신규 주문과 기존 <code>HBL_WAITING</code> 주문의 <strong>원주문번호</strong>를 합쳐 동수에 다건 조회한다. 동수는 해외 TRA 대상만 반환하며, 한 주문의 송장번호가 하나라도 미할당이면 그 주문의 모든 <code>hblNo</code>를 null로 반환한다. Geek은 전부 null인 주문을 배치 대상에 계속 유지하고, 전부 non-null일 때만 포장별 TRA001 작업으로 확장한다.</p>
+        <div class="mermaid">
+flowchart TD
+    A["배치 시작: g1 신규 + HBL_WAITING"] --> B["중복 제거한 원주문번호 목록 생성"]
+    B --> C["customerOrderNos = 주문번호1,주문번호2,..."]
+    C --> D["GET getTRA001OrderInfo"]
+    D --> E{"주문별 hblNo 상태"}
+    E -->|"전부 null"| F["HBL_WAITING 유지\nTRA001 제출 금지"]
+    F --> G["다음 배치에서 같은 원주문번호 재조회"]
+    G --> B
+    E -->|"전부 non-null"| H["HBL_READY\n분할 주문번호·HBL·금액·품목 대사"]
+    H --> I["TRA001 최대 100 order_info 청크"]
+    I --> J["TRA_SENT\nHBL 대기 큐에서 제거"]
+    E -->|"null/non-null 혼재"| K["CONTRACT_ERROR 격리\n제출 금지·동수/운영자 알림"]
+        </div>
+        <table>
+            <thead><tr><th style="width:8%">Stage</th><th style="width:15%">호출 주체 → 수신</th><th style="width:20%">API · 호출 방식</th><th style="width:18%">주문번호 전달 형식</th><th>백엔드 처리 · 배치 현황</th></tr></thead>
+            <tbody>
+                <tr><td><strong>2</strong><br>주문 수집</td><td>동수 ERP → 고도몰</td><td><code>POST Order_Search.php</code></td><td><strong>주문번호 목록을 요청하지 않음.</strong><br><code>dateType</code>·기간·<code>orderStatus=p1</code>로 범위 조회</td><td>응답의 <code>orderNo</code>를 동수 ERP에 적재하고 자사몰 주문을 <code>g1</code>로 전환. 운영 <code>dateType</code>과 롤링 기간은 별도 확정 필요</td></tr>
+                <tr><td><strong>3-A</strong><br>HBL 역수집</td><td>Geek → 동수 ERP</td><td><code>GET /openAPI/erp/orderInfo/getTRA001OrderInfo</code><br>JSON 요청</td><td><code>{"customerOrderNos":"260...416,260...374"}</code><br><strong>원주문번호를 쉼표로 연결한 문자열</strong></td><td><code>g1</code> 신규 + <code>HBL_WAITING</code>을 합쳐 조회. 해외 TRA 정보만 반환. 다건 지원은 확정됐으나 <strong>호출당 최대 주문번호 수는 미확정</strong>이므로 환경설정 가능한 청크 크기로 구현</td></tr>
+                <tr><td><strong>3-B</strong><br>응답 판정</td><td>Geek 내부</td><td>주문별 원자적 HBL 판정</td><td>상위 <code>customerOrderNo</code>로 요청 원주문 대사<br><code>packageList[].customerOrderNo</code>는 원주문 / <code>-1</code> / <code>-2</code></td><td>전부 null → <code>HBL_WAITING</code> 유지. 전부 non-null → <code>HBL_READY</code>. 혼재 → 계약 위반 격리. 테스트 단계는 동수가 송장번호를 수동 할당</td></tr>
+                <tr><td><strong>3-C</strong><br>TRA 제출</td><td>Geek → 관세청</td><td><code>POST /v1/transactions/submission</code></td><td>요청 1회당 <strong>최대 100개 <code>order_info</code></strong>.<br><code>ord_no</code>=분할 주문번호, <code>hbl_no</code>=해당 포장 HBL</td><td><strong>1 HBL = 1 분할 주문 = 1 TRA001</strong>. 원주문이 3포장이면 <code>원주문</code>·<code>-1</code>·<code>-2</code> 3건 제출. 성공 적재 후에만 HBL 대기 큐에서 제거</td></tr>
+                <tr><td><strong>4</strong><br>오류 조회</td><td>Geek → 관세청</td><td><code>GET /v1/transactions/errors/unread</code></td><td>주문번호 배열을 보내지 않음.<br>Geek DB의 <code>txif_sbmt_no ↔ 분할 주문번호 ↔ hbl_no</code> 매핑으로 역추적</td><td>미조회 오류를 수신하여 TRA 제출 작업과 연결. 정상/오류 판정은 제출번호 매핑 테이블 기준</td></tr>
+                <tr><td><strong>5</strong><br>오류 주문 회수</td><td>Geek → 동수 ERP</td><td><code>POST /api/openAPI/erp/orderInfo/orderDelete</code></td><td><code>{"customerOrderNo":"260...416-1"}</code><br><strong>분할 주문번호 단건</strong></td><td>벌크 삭제가 아니며 분할 건마다 호출. 삭제 성공 후 자사몰을 <code>p1</code>로 원복해 익일 재수집. 창고 작업 착수 후 Fail이면 운영자 알림·오프라인 처리</td></tr>
+                <tr><td><strong>5-2</strong><br>PER 전달</td><td>Geek → 자이언트</td><td>전용 엔드포인트 회신 대기</td><td><code>orderNo</code>·<code>hwbNo</code> 단위 예정</td><td>배치 규격과 호출 시점은 자이언트 회신 전이므로 개발 확정 불가</td></tr>
+                <tr><td><strong>6-A</strong><br>물류 등록</td><td>동수 DS Logistics → 자이언트</td><td><code>POST /api/hwb/bulk-sync</code></td><td>HWB 배열 각 건에 분할 <code>orderNo</code>와 <code>hwbNo</code></td><td>WMS 실출고 포장별 등록. Stage 3의 분할 주문번호·HBL과 1:1 동일해야 하며 OTP는 동수가 보내지 않음</td></tr>
+                <tr><td><strong>6-B</strong><br>자이언트 대사</td><td>Geek → 자이언트</td><td><code>POST /api/hwb/search</code></td><td><strong>주문번호가 아니라 <code>hwbNo</code> 목록</strong><br>최대 500건</td><td>500개 이하로 분할 조회하여 <code>mwbNo</code>·통관상태를 확인하고 내부 <code>hwbNo ↔ 분할 orderNo</code> 매핑으로 주문에 반영</td></tr>
+                <tr><td><strong>6-C</strong><br>국내 송장</td><td>Geek → 동수 ERP</td><td>기존 <code>serachOrderInfo</code></td><td>기존 API의 주문조회 형식 사용<br><span class="rule-highlight">정확한 다건 파라미터·상한은 명세 확인 필요</span></td><td>국내·해외 송장번호와 <code>isCrossBorder</code>(Y=해외, N=KR 국내)를 반환. <code>getTRA001OrderInfo</code>에는 국내 주문이 포함되지 않음. KR WMS 가동 후 자동 연동</td></tr>
+            </tbody>
+        </table>
+        <p style="font-size:12px;color:#5f6368;"><strong>중복 방지 키</strong> — HBL 대기 큐는 원주문번호, TRA 제출 작업은 <code>분할 주문번호 + hblNo</code>, 관세청 응답은 <code>txif_sbmt_no</code>, 자이언트 대사는 <code>hwbNo</code>를 기준으로 한다. <strong>재조회 횟수 상한은 두지 않되</strong> 대기시간·최근 조회시각·누적 조회횟수는 운영 모니터링용으로 저장한다.</p>
     </div>
 
     <h2>
@@ -274,8 +323,8 @@ sequenceDiagram
                     <td class="src-dongsu">동수 EIBE ERP</td>
                     <td>동수 내부</td>
                     <td>내부 처리</td>
-                    <td><code>hblNo</code> (가채번 HBL) · <code>expressNo</code> (송장번호)</td>
-                    <td><strong>현행</strong> 포장별 발송 준비 시 채번되어 같은 주문의 첫 포장은 <code>hblNo</code>가 있고 후속 포장은 null이다.<br><span class="rule-highlight">[우선 구현안 · 동수 확인 중]</span> 주문 수신 즉시 ERP가 신고금액 <strong>USD 150 이하</strong>로 전체 <code>packageList[]</code>와 품목 배분을 확정하고, 모든 포장에 가송장 HBL을 선발급한다. 가송장 HBL은 이후 WMS 실제 송장 및 자이언트 <code>hwbNo</code>와 <strong>1:1로 유지</strong>하며 변경·재사용하지 않는다</td>
+                    <td><code>hblNo</code> (가채번 HBL) · 분할 <code>customerOrderNo</code></td>
+                    <td><strong>[2026-08-13 동수 확정]</strong> 해외 주문의 모든 분할 송장번호를 할당한 뒤 조회 가능 상태로 만든다. 하나라도 미할당이면 해당 원주문의 모든 <code>hblNo</code>를 null로 반환한다. 테스트 단계에서는 동수가 수동 할당하고, 운영에서는 ERP/WMS가 일괄 할당한다. 가HBL은 이후 WMS 실제 송장 및 자이언트 <code>hwbNo</code>와 <strong>1:1로 유지</strong>하며 변경·재사용하지 않는다</td>
                 </tr>
                 <tr>
                     <td><strong>09:00</strong></td>
@@ -289,13 +338,12 @@ sequenceDiagram
                     <td><strong>10:00~11:00</strong></td>
                     <td class="src-geek">Geek 자사몰</td>
                     <td>동수 EIBE ERP</td>
-                    <td><strong><code>POST /openAPI/erp/orderInfo/getTRA001OrderInfo</code></strong><br><span style="font-size:11.5px;color:#5f6368;">종전 <code>searchOrderInfo</code> 대체 (2026-08-12)</span></td>
-                    <td><strong>응답 구조</strong> 상위 <code>customerOrderNo</code> · <strong><code>isCrossBorder</code>(Y/N)</strong> → <code>packageList[]</code>(분할 주문번호 · <code>hblNo</code> · 국내 <strong><code>expressNo</code></strong> · <code>elcmPcd</code> · <code>totWt</code> · <code>totStlmAmt</code> · <code>ordAmt</code> · <code>totOrdProdQty</code> · <code>prodSalePgeUrl</code> · <code>puchVcexBsmnSgn/Nm</code> · <code>itemList[]</code>)</td>
-                    <td><strong>[2026-08-12 변경] 동수가 TRA001 전용 신규 API를 개설함.</strong> 파라미터가 <code>customerOrderNos</code>(복수) → <strong><code>customerOrderNo</code>(단건)</strong>으로 바뀜.<br>
-                    <span class="rule-highlight">P0 — 다건 조회 미지원</span> 일 처리량이 100건을 넘으므로 단건 호출은 성립하지 않음. 2026-08-12 다건 지원 개선을 요청했고 동수가 "구분 로직이 있으면 개선 가능"으로 회신 → <u>확정 대기</u>.<br>
+                    <td><strong><code>GET /openAPI/erp/orderInfo/getTRA001OrderInfo</code></strong><br><span style="font-size:11.5px;color:#5f6368;">해외 TRA 신고정보 전용 (2026-08-13)</span></td>
+                    <td><strong>요청</strong> <code>{"customerOrderNos":"260...416,260...374"}</code><br><strong>응답</strong> 상위 <code>customerOrderNo</code> → <code>packageList[]</code>(분할 <code>customerOrderNo</code> · <code>hblNo</code> · <code>elcmPcd</code> · <code>totWt</code> · <code>totStlmAmt</code> · <code>ordAmt</code> · <code>totOrdProdQty</code> · <code>prodSalePgeUrl</code> · <code>puchVcexBsmnSgn/Nm</code> · <code>itemList[]</code>)</td>
+                    <td><strong>[2026-08-13 확정]</strong> <code>customerOrderNos</code>에 원주문번호를 쉼표로 연결하여 다건 조회한다. 종전 단건 키 <code>customerOrderNo</code>는 <code>state=300</code> 파라미터 오류가 발생한다. 호출당 최대 주문번호 수는 미회신이므로 청크 크기를 설정값으로 둔다.<br>
                     <span class="rule-highlight">동수 추가 제공 필요</span> <code>prod_srno</code> · <strong><code>hs_cd</code>(동수 매핑 — 2026-08-11 확정)</strong> · <code>prod_id</code>(SKU) · <code>packageCount</code> · <code>innerPackageCount</code> · B유형 <code>sale_ents_nm</code>.<br>
-                    <strong>[2026-08-12 확정]</strong> 혼재 원주문은 동수가 국내/해외별 <u>별도 주문 객체</u>로 분리하고 각 <code>packageList[]</code>에는 한 배송유형만 넣는다. 상위 <code>isCrossBorder=Y</code>는 해외, <code>N</code>은 국내이며 국내건도 <code>expressNo</code>를 반환한다. 두 필드는 <strong>Geek 분기·고도몰 송장 갱신용 동수 커스텀 필드</strong>로 관세청·자이언트에는 보내지 않는다. <code>isCrossBorder</code>와 <code>elcmPcd</code>(A 직접판매/B 구매대행)는 서로 다른 축이다.<br>
-                    <strong>Geek 처리 기준</strong> 해외 객체만 TRA001 대상으로 선별하고, 최초 조회부터 해외 포장의 모든 <code>hblNo</code>가 비-null이어야 한다. 포장별 금액이 USD 150 이하인지, HBL이 고유한지, 품목·수량 합계가 분리 주문과 일치하는지 검증 후 HBL별로 제출한다. 선채번 불가 시 null 포장은 완료 처리하지 않고 재조회/Push 대기 큐로 관리한다</td>
+                    <strong>API 역할 분리</strong> <code>getTRA001OrderInfo</code>는 해외 TRA 정보만 반환한다. 국내·해외 송장번호와 <code>isCrossBorder=Y/N</code>은 기존 <code>serachOrderInfo</code>에서 조회한다.<br>
+                    <strong>Geek 처리 기준</strong> 원주문별 <code>hblNo</code>가 전부 null이면 <code>HBL_WAITING</code>으로 유지하여 다음 배치에 포함한다. 전부 non-null일 때만 금액·HBL 고유성·품목·수량을 대사하고 분할 HBL별 TRA001 작업을 생성한다. null/non-null 혼재는 운영 계약 위반으로 격리하고 제출하지 않는다</td>
                 </tr>
                 <tr>
                     <td><strong>10:00~11:00</strong></td>
@@ -303,7 +351,7 @@ sequenceDiagram
                     <td>관세청</td>
                     <td><code>TRA001</code><br><code>POST https://ecapi.customs.go.kr/v1/transactions/submission</code></td>
                     <td><strong>Geek 고정</strong> <code>txif_sbmt_no</code> · <code>elcm_ents_sgn=K26000099</code> · <code>elcm_pcd=A</code> · <code>ord_site_url</code><br><strong>Geek DB</strong> <code>ord_no</code> · <code>ordrr_*</code> · <code>cnsi_*</code> · <code>su_crtf_no</code><br><strong>동수</strong> <code>hbl_no</code> · <code>product_info[]</code><br><span style="font-size:11.5px;color:#5f6368;">전수 63항목 → Stage 3 표</span></td>
-                    <td>100건 단위 청크 전송. Body 3MB 초과 불가. 응답이 완전히 완료된 후 재요청.<br>1주문 분할 출고 시 <strong>1 HBL = 1 분할 주문 = 1 TRA001</strong>. 3회 출고면 3건을 제출하고 고도몰에는 첫 송장번호만 저장한다. 중복 방지는 분할 주문번호 또는 HBL 기준.<br><span class="rule-highlight">[우선 구현안 · 동수 확인 중]</span> ERP가 최초에 USD 150 이하 포장과 전 HBL을 확정하면 Geek은 추가 HBL 발견 배치 없이 전건을 준비할 수 있다. 단, 각 TRA001은 해당 WMS 실출고·자이언트 HWB 등록 전에 제출하며, 선제출 후에는 그 HBL의 품목·수량·금액을 바꾸지 않는다. 선채번이 불가하면 재조회 또는 Push는 필수.<br><span class="rule-highlight">간담회 권고</span> 관세청은 "9~18시를 제외한 시간대로 분산" 요청 — 현행 배치가 해당 구간 한복판</td>
+                    <td>최대 100개 <code>order_info</code> 단위 청크 전송. Body 3MB 초과 불가. 응답이 완전히 완료된 후 다음 청크 전송.<br>1주문 분할 출고 시 <strong>1 HBL = 1 분할 주문 = 1 TRA001</strong>. <code>ord_no</code>에는 <code>packageList[].customerOrderNo</code>(원주문 / <code>-1</code> / <code>-2</code>)를 넣고, 중복 방지는 <code>분할 주문번호 + hbl_no</code> 기준.<br><strong>HBL_WAITING 주문은 TRA001 청크에 넣지 않고 다음 동수 조회 배치에 계속 포함</strong>한다. 전 HBL 반환 후 포장별 작업을 생성하고 제출 성공 시에만 HBL 대기 큐에서 제거한다.<br><span class="rule-highlight">간담회 권고</span> 관세청은 "9~18시를 제외한 시간대로 분산" 요청 — 현행 배치가 해당 구간 한복판</td>
                 </tr>
                 <tr>
                     <td><strong>~11:40</strong></td>
@@ -408,9 +456,9 @@ sequenceDiagram
                 </tr>
                 <tr>
                     <td class="src-dongsu"><strong>동수</strong><br>EIBE ERP</td>
-                    <td><strong><code>getTRA001OrderInfo</code></strong>(2026-08-12 신규, 종전 <code>searchOrderInfo</code> 대체) 상위 <code>isCrossBorder</code> + <code>packageList[]</code>(국내 <code>expressNo</code>) + 14개 속성 + 추가 요청 필드(<code>prod_srno</code> · <strong><code>hs_cd</code> 매핑</strong> · <code>prod_id</code> · 포장개수 · B유형 판매업체명) · <code>orderDelete</code> API</td>
+                    <td><strong><code>getTRA001OrderInfo</code></strong>(해외 TRA 정보 전용) <code>customerOrderNos</code> 다건 요청 + <code>packageList[]</code> + 14개 속성 + 추가 요청 필드(<code>prod_srno</code> · <strong><code>hs_cd</code> 매핑</strong> · <code>prod_id</code> · 포장개수 · B유형 판매업체명) · 국내/해외 송장 조회용 기존 <code>serachOrderInfo</code> · <code>orderDelete</code> API</td>
                     <td>고도몰 주문조회(PCCC 포함, <strong>OTP 제외</strong>) · Geek의 오류 건 삭제 요청</td>
-                    <td><strong>다건 조회 지원</strong>(<code>getTRA001OrderInfo</code>) · <strong>삭제 API 다건 지원</strong> · 주문 삭제 API · 응답 포맷 조정 · <strong>확정: 국내/해외별 주문 객체 분리 + 상위 <code>isCrossBorder:Y/N</code> + 국내 <code>expressNo</code></strong> · <strong>주문 수신 즉시 USD 150 이하 포장 확정 및 전 HBL 가채번</strong>(우선안, 동수 확인 중) · 가HBL↔WMS 실제 송장 1:1 유지 · <strong>HS코드 매핑</strong> · <strong>PCCC만 DS ERP에 저장</strong> · 상품분류/브랜드 필드 정정 · 숫자 타입 정리. <strong>OTP 저장·수신은 동수 개발 범위가 아님</strong></td>
+                    <td><strong>확정</strong> — <code>getTRA001OrderInfo</code> 다건 지원, 해외 TRA 정보만 반환, 주문별 전 HBL 일괄 할당·반환, 하나라도 미할당이면 전부 null, 테스트 단계 수동 할당. <code>serachOrderInfo</code>는 국내·해외 송장번호와 <code>isCrossBorder:Y/N</code> 반환. <code>orderDelete</code>는 분할 주문번호별 단건 호출.<br><strong>추가 구현/확인</strong> — 호출당 최대 주문번호 수, 가HBL↔WMS 실제 송장 1:1 유지, HS코드·PCCC 저장, 상품분류/브랜드·숫자 타입 정리. <strong>OTP 저장·수신은 동수 개발 범위가 아님</strong></td>
                 </tr>
                 <tr>
                     <td class="src-dongsu"><strong>동수</strong><br>DS Logistics</td>
@@ -658,7 +706,7 @@ sequenceDiagram
         <p><strong>상세 전송 및 처리 로직 (자사몰 전용 TRA001 구축):</strong></p>
         <ul>
             <li><strong>처리 프로세스:</strong><br>
-                1. <strong>10:00 EIBE ERP 역수집:</strong> 자사몰(Geek)이 동수 EIBE ERP <code>getTRA001OrderInfo</code>를 호출하여 분할 포장별 가채번 <code>hbl_no</code>, 예정중량(<code>tot_wt</code>), 매입금액(<code>tot_stlm_amt</code>), HS코드, 상품일련번호(<code>prod_srno</code> 1~N) 등을 수신함.<br>
+                1. <strong>10:00 EIBE ERP 역수집 및 후속 대기 재조회:</strong> 자사몰(Geek)이 <code>g1</code> 신규 주문과 <code>HBL_WAITING</code> 주문의 원주문번호를 합쳐 <code>{"customerOrderNos":"주문번호1,주문번호2,..."}</code>로 동수 <code>getTRA001OrderInfo</code>를 호출하고, 해외 분할 포장별 <code>hbl_no</code>, 예정중량(<code>tot_wt</code>), 매입금액(<code>tot_stlm_amt</code>), HS코드, 상품일련번호(<code>prod_srno</code> 1~N) 등을 수신함.<br>
                 2. <strong>자사몰 부호 및 URL 결합:</strong><br>
                 - <code>elcm_pcd</code> (판매유형코드): 자사몰 전용 <span class="rule-highlight">'A' (직접판매)</span> 주입<br>
                 - <code>elcm_ents_sgn</code> (제출자 부호): <code>K26000099</code> ((주)크로네) 고정 주입<br>
@@ -670,19 +718,17 @@ sequenceDiagram
         
             <li style="background:#e6f4ea; border-left:3px solid #137333; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[동수 제공 필드]</strong> 동수가 반드시 내려주어야 하는 값 — <code>hbl_no</code>(가채번) · 중량 · <strong><code>hs_cd</code>(동수 매핑)</strong> · <code>prod_srno</code>(HBL 내 1부터 연속) · <code>prod_id</code>(SKU) · 영문 상품명 · <code>prod_sale_pge_url</code> · <code>sale_ents_nm</code>(B유형) · USD 단가 · 포장개수.<br>
                 <strong>상품 개수 상한</strong> 관세청 999 / 자이언트 <strong>50</strong> / 동수 현행 채번 1~5 — 실질 천장은 자이언트 50.</li>
-            <li style="background:#fce8e6; border-left:3px solid #c5221f; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[실 응답 잔여 보완]</strong> 국내·해외 분리 정책은 해결됐으나 아래 필드 문제로 현행 샘플 그대로는 TRA001 제출이 불가하다.<br>
-                ① 같은 해외 주문 객체의 첫 포장은 HBL 값이 있고 후속 <code>-1</code> 포장은 <code>hblNo=null</code>. 전 HBL 선발급 또는 Push/재조회 중 하나 필요 ② <code>prod_srno</code> 항목 없음 ③ <code>prod_clsf_nm_stp1</code>에 배송구분, <code>prod_clsf_nm_stp2</code>에 브랜드명이 들어가며 수량·단가가 문자열로 반환됨.<br>
-                <strong>[2026-08-12 해결]</strong> 동수가 국내/해외별 별도 주문 객체로 분리하고 각 <code>packageList[]</code>는 단일 배송유형만 포함한다. 상위 <code>isCrossBorder=Y/N</code>으로 Geek이 분기하고 국내건도 <code>expressNo</code>를 반환한다. <strong><code>isCrossBorder</code>는 동수 <code>getTRA001OrderInfo</code> 전용 커스텀 필드이며 관세청·자이언트 규격 필드가 아니다.</strong><br>
-                Geek은 <code>isCrossBorder=Y</code>이면서 <code>hblNo</code> 비-null인 해외 포장만 TRA001 제출하고, 국내 객체의 <code>expressNo</code>는 고도몰 배송 송장 갱신에만 사용한다.</li>
-            <li style="background:#fff3cd; border-left:3px solid #856404; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[우선 구현안 · 동수 확인 중] ERP 선분할·전 HBL 선발급 → WMS 순차 출고</strong><br>
-                동수 회신(2026-08-12 10:12) — 하나의 몰 주문이 3개 출고 주문으로 분할되어 <u>3일에 걸쳐 발송</u>될 수 있고, 원 주문번호 / <code>-1</code> / <code>-2</code>처럼 나뉘므로 <strong>주문 삭제 API도 분할 주문번호별로 요청</strong>해야 함.<br>
-                <strong>목표 계약</strong> — ERP는 주문 수신 시점에 ① 품목을 신고금액 <strong>USD 150 이하</strong>의 포장으로 전부 배분하고 ② 모든 분할 주문번호와 가HBL을 즉시 발급하며 ③ 가HBL을 WMS 실제 송장·자이언트 <code>hwbNo</code>와 1:1로 연결한다. WMS는 이후 재고·작업 일정에 따라 포장/HBL 단위로 순차 출고하고, 출고 시 해당 HBL을 자이언트 <code>bulk-sync</code>에 등록한다.<br>
-                &nbsp;&nbsp;① Geek은 최초 응답에서 모든 분할 HBL을 확보하여 <strong>각각 별도 TRA001</strong> 제출 대상으로 관리한다. HBL 발견을 위한 추가 배치는 제거할 수 있지만 실제 출고·자이언트 등록 상태 대사는 계속 필요하다.<br>
-                &nbsp;&nbsp;② 관세청 <code>ord_no</code>·자이언트 <code>orderNo</code>·<code>itemGroupOrderNo</code>에 <strong><code>-1</code> 접미사가 포함된 값</strong>을 그대로 넣어야 3사 대사가 성립함(String(52)이므로 길이 여유 있음)<br>
-                &nbsp;&nbsp;③ 자사몰 주문 상태는 <u>주문 단위</u>인데 출고는 <u>분할 단위</u>이므로, <strong>일부만 <code>g5</code>가 되는 상황</strong>의 상태 표기 규칙이 필요함<br>
-                &nbsp;&nbsp;④ 오류 발생 시 삭제 API도 <strong>분할 건별 호출</strong>. 정상분과 오류분이 한 주문에 섞일 수 있음<br>
-                &nbsp;&nbsp;⑤ 선발급 이후 <strong>HBL·품목·수량·금액을 변경하거나 HBL을 재사용하지 않는다.</strong> 취소·재포장 시에는 미출고 포장 단위 취소 및 새 HBL 생성 규칙이 필요하다.<br>
-                <span class="rule-highlight">확인 대기</span> 동수가 주문 수신 시점에 전체 품목 배분과 HBL 선발급을 확정할 수 있는지, USD 150의 경계값·할인/배송비 포함 여부·환율 기준·가HBL과 실제 송장 연결 방식 확인 중. 불가 회신 시 후속 HBL Push 또는 Geek 재조회 배치를 대안으로 적용한다.</li>
+            <li style="background:#fce8e6; border-left:3px solid #c5221f; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[실 응답 잔여 보완]</strong> HBL 조회 정책과 국내·해외 API 역할은 해결됐으나 아래 필드 문제로 현행 샘플 그대로는 TRA001 제출이 불가하다.<br>
+                ① <code>prod_srno</code> 항목 없음 ② <code>prod_clsf_nm_stp1</code>에 배송구분, <code>prod_clsf_nm_stp2</code>에 브랜드명이 들어감 ③ 수량·단가가 문자열로 반환됨 ④ <code>packageCount</code>·<code>innerPackageCount</code> 없음.<br>
+                <strong>[2026-08-13 API 역할 확정]</strong> <code>getTRA001OrderInfo</code>는 해외 TRA 정보만 반환한다. 국내·해외 송장번호 및 <code>isCrossBorder=Y/N</code>은 기존 <code>serachOrderInfo</code>에서 조회하며, 국내 주문은 TRA001 대상에서 제외한다.</li>
+            <li style="background:#e6f4ea; border-left:3px solid #137333; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[확정 · 2026-08-13] 전 HBL 일괄 반환 → Geek HBL_WAITING 재조회 → WMS 순차 출고</strong><br>
+                동수 회신 — <code>getTRA001OrderInfo</code>는 한 원주문의 모든 송장번호가 할당되어 있어야 HBL을 반환하고, 하나라도 미할당이면 해당 주문의 모든 <code>hblNo</code>를 null로 반환한다. 테스트 단계는 동수가 송장번호를 수동 할당한다.<br>
+                &nbsp;&nbsp;① Geek은 전부 null인 원주문을 <code>HBL_WAITING</code>으로 유지하여 <strong>다음 조회 배치에 계속 포함</strong>하고 TRA001은 제출하지 않는다.<br>
+                &nbsp;&nbsp;② 전부 non-null이면 <code>HBL_READY</code>로 바꾸고 각 <code>packageList[].customerOrderNo</code>(원주문 / <code>-1</code> / <code>-2</code>)와 HBL을 별도 TRA001 작업으로 생성한다.<br>
+                &nbsp;&nbsp;③ 관세청 <code>ord_no</code>·자이언트 <code>orderNo</code>·<code>itemGroupOrderNo</code>에는 <strong>분할 접미사가 포함된 주문번호</strong>를 동일하게 넣어 3사 대사 키를 맞춘다.<br>
+                &nbsp;&nbsp;④ null/non-null 혼재 응답은 운영 계약 위반으로 격리하여 제출하지 않고 동수·운영자에게 알린다.<br>
+                &nbsp;&nbsp;⑤ WMS는 재고·작업 일정에 따라 포장/HBL 단위로 여러 날에 걸쳐 순차 출고하고 동일 HBL로 자이언트 <code>bulk-sync</code>를 호출한다. 오류 주문 삭제는 분할 주문번호별 단건 호출이다.<br>
+                <span class="rule-highlight">남은 확인</span> <code>getTRA001OrderInfo</code> 호출당 최대 주문번호 수, 재조회 실행 주기, USD 150의 할인·배송비·환율 경계, 취소·재포장 시 미출고 HBL 폐기·재발급 규칙.</li>
             <li style="background:#fff3cd; border-left:3px solid #856404; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[관세청 질의 추가 · 2026-08-12] 금액 소수점 계산·반올림 기준</strong><br>
                 동수 실응답은 <code>unitPrice</code>·<code>ordAmt</code>가 소수 3자리이고 관세청 <code>prod_unprc</code>·<code>ord_amt</code>·<code>tot_stlm_amt</code>도 Number(16,3)이다. 반면 자이언트 <code>totalValueUsd</code>는 소수 2자리이므로 임의로 단가를 2자리로 고정하지 않는다.<br>
                 <strong>질의 내용</strong> ① 상품별 <code>ord_amt</code>를 2자리로 먼저 반올림하는지, 3자리 그대로 제출하는지 ② 전체 합산 후 <code>tot_stlm_amt</code>만 반올림하는지 ③ <code>ord_amt</code> 합계와 <code>tot_stlm_amt</code> 간 허용 오차가 있는지 ④ 자이언트 2자리 금액과 관세청 3자리 금액이 달라도 되는지 ⑤ 한 원주문을 USD 150 이하의 복수 HBL로 나눠 TRA001을 각각 제출할 때 <code>tot_stlm_amt</code>를 <u>원주문 총액으로 반복</u>할지 <u>해당 HBL 포장금액</u>으로 보낼지.<br>
@@ -758,13 +804,13 @@ sequenceDiagram
     </table>
 
     <h2>
-        <span>Stage 4 & Stage 5. 11:50 TRA003 오류 조회 및 승인/실패 분기 처리</span>
+        <span>Stage 4 & Stage 5. 11:40 TRA003 오류 조회 및 11:50 승인/실패 분기 처리</span>
         <span class="time-tag">매일 11:50 배치</span>
     </h2>
     <div class="stage-box">
         <p><strong>상세 전송 및 처리 로직:</strong></p>
         <ul>
-            <li><strong>처리기준:</strong> 11:50 TRA003 오류 조회 → <strong>정상 건은 <code>g1</code> → <code>g5</code>(항공발송중)</strong> 전환 + 송장번호 업데이트, <strong>오류 건은 <code>g1</code> → <code>p1</code> 원복</strong> + 동수 EIBE ERP 주문 삭제 API 단건 호출 → 익일 09:00 재수집.</li>
+            <li><strong>처리기준:</strong> 11:40 TRA003 오류 조회(제출 후 30~40분 대기) → 11:50 분기 처리 → <strong>정상 건은 <code>g1</code> → <code>g5</code>(항공발송중)</strong> 전환 + 송장번호 업데이트, <strong>오류 건은 <code>g1</code> → <code>p1</code> 원복</strong> + 동수 EIBE ERP 주문 삭제 API 단건 호출 → 익일 09:00 재수집.</li>
             <li style="background:#fff3cd; border-left:3px solid #856404; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[수용된 잔여 리스크 · 2026-08-11 결정]</strong> TRA002를 도입하지 않고 <strong>TRA003 단독 판정을 유지</strong>합니다.<br>
                 v1.4.1 [붙임1]상 TRA003은 <u>한 번도 조회하지 않은 오류만</u> 응답하는 보조 API이며, ⓐ 1회 조회 후 재조회 불가 ⓑ <code>txif_rgsr_err_cnt</code>가 0이어도 상품 개별 오류 존재 가능. 따라서 <span class="rule-highlight">일부 반려 건이 "승인"으로 처리되어 출고될 수 있음</span>을 인지하고 운영합니다.<br>
                 <strong>완화책</strong> ① 제출 건수 vs TRA003 응답 건수 일 단위 대사 ② 자이언트 <code>gngMsgCode</code>(<code>44</code> 통관오류 · <code>99</code> 통관불가)로 사후 탐지 ③ 오류 반복 시 오픈 후 TRA002 전환 재검토. 상세는 <a href="./리스크_질의대장.html#active">통합 리스크·질의·협의 대장</a>.</li>
@@ -811,7 +857,7 @@ sequenceDiagram
     <table>
         <thead><tr><th style="width:14%">필드명(코드)</th><th style="width:13%">한글 필드명</th><th style="width:10%">타입</th><th style="width:6%">필수</th><th style="width:14%">데이터 채움 출처</th><th>상세설명 · 주의</th></tr></thead>
         <tbody>
-            <tr><td><code>hwbNo</code></td><td>하우스 운송장번호</td><td>String(20)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 ERP 가채번 HBL</td><td>주문 수신 즉시 USD 150 이하로 확정한 포장별 가HBL(우선안, 동수 확인 중). 관세청 <code>hbl_no</code>·WMS 실제 송장·자이언트 <code>hwbNo</code>가 1:1 동일해야 하며 자이언트 자동 채번에 맡기지 않음</td></tr>
+            <tr><td><code>hwbNo</code></td><td>하우스 운송장번호</td><td>String(20)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 ERP 가채번 HBL</td><td>동수가 원주문의 모든 분할 HBL을 할당한 뒤 일괄 반환. 하나라도 미할당이면 전부 null이므로 Geek은 <code>HBL_WAITING</code>으로 재조회. 관세청 <code>hbl_no</code>·WMS 실제 송장·자이언트 <code>hwbNo</code>가 1:1 동일해야 하며 자이언트 자동 채번에 맡기지 않음</td></tr>
             <tr><td><code>orderNo</code></td><td>주문번호</td><td>String(52)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>관세청 <code>ord_no</code>와 동일 값. 분할 출고 시 <code>-1</code> 접미사 규칙을 3사 통일</td></tr>
             <tr><td><code>pccCode</code></td><td>개인통관고유부호</td><td>13자 고정</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>NICE <code>SMARTPCC_11</code> 응답의 <code>pers_ecm</code>. 일반인증은 <code>P</code>, 간소화는 <code>O</code>로 시작. <u>고도몰 <code>addField</code>에 저장된 값과 동일해야 함</u></td></tr>
             <tr><td><code>tempAuthNo</code></td><td>일회용 인증번호</td><td>6자 고정</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek 자사몰 DB</td><td>NICE <code>SMARTPCC_11</code> 응답의 <code>otp</code> 6자리. 계도기간 중 발급 실패 건은 <code>Z99999</code>. <span class="rule-highlight"><code>addField</code>·동수 전달 대상이 아니며 Geek이 자이언트로 직접 전송</span></td></tr>
@@ -1048,13 +1094,14 @@ sequenceDiagram
     <table>
         <thead><tr><th style="width:12%">일자</th><th style="width:16%">구분</th><th>변경 내용</th></tr></thead>
         <tbody>
-            <tr><td><strong>2026-08-12</strong></td><td>혼재 주문 · 누락 Stage · 표 통일</td><td><strong>내부 3사 합의 P0 종료</strong> — 동수가 국내/해외별 별도 주문 객체로 분리하고 각 <code>packageList[]</code>에는 단일 배송유형만 포함. <code>getTRA001OrderInfo</code> 상위 <code>isCrossBorder=Y/N</code>은 Geek 분기용 커스텀 필드, 국내 <code>expressNo</code>는 고도몰 송장 갱신용이며 둘 다 관세청·자이언트에는 전송하지 않음. 전 HBL 선발급/Push/재조회 선택만 P1 구현 확인으로 유지.<br><strong>누락 단계 편입</strong> — Stage 0-A NICE 통합인증·NICE KEY, Stage 0-B AUT001, Stage 1-1 PER002/PER003, Stage 7 통관 이상 CS·반품 세관 정정을 Master와 상세 스테이지에 추가.<br><strong>필드 표 통일</strong> — 모든 Stage 데이터 표를 <code>api_field_mapping.html</code>과 같은 11열(No·분류·API 구분·필드명·한글명·타입·필수·매핑 코드·출처·실제값·상세설명)로 정규화. 분류는 최종 수신·사용 시스템(관세청/자이언트/Geek/동수/NICE) 기준.</td></tr>
+            <tr><td><strong>2026-08-13</strong></td><td>주문번호 배치 · HBL 대기 루프 확정</td><td><code>getTRA001OrderInfo</code>를 해외 TRA 전용으로 확정하고 요청 키를 <code>customerOrderNos</code> 쉼표 연결 문자열로 변경. <code>serachOrderInfo</code>가 국내·해외 송장번호와 <code>isCrossBorder</code>를 반환하도록 역할 분리. 주문별 HBL은 전건 할당 후 일괄 반환하며 하나라도 미할당이면 전부 null. Geek은 해당 원주문을 <code>HBL_WAITING</code>으로 계속 배치 조회하고, 전부 non-null일 때만 분할 주문번호별 TRA001 작업을 생성. 백엔드 주문번호 배치 계약·상태 흐름도·스테이지 표를 신설함.</td></tr>
+            <tr><td><strong>2026-08-12</strong></td><td>혼재 주문 · 누락 Stage · 표 통일</td><td><strong>당시 가정</strong> — 국내/해외를 한 조회 응답에서 플래그로 분기하는 안을 정리했으나, <strong>2026-08-13 동수 공식 회신으로 폐기</strong>. 현재 기준은 <code>serachOrderInfo</code>=국내·해외 송장 및 <code>isCrossBorder</code>, <code>getTRA001OrderInfo</code>=해외 TRA 전용이다.<br><strong>누락 단계 편입</strong> — Stage 0-A NICE 통합인증·NICE KEY, Stage 0-B AUT001, Stage 1-1 PER002/PER003, Stage 7 통관 이상 CS·반품 세관 정정을 Master와 상세 스테이지에 추가.<br><strong>필드 표 통일</strong> — 모든 Stage 데이터 표를 <code>api_field_mapping.html</code>과 같은 11열(No·분류·API 구분·필드명·한글명·타입·필수·매핑 코드·출처·실제값·상세설명)로 정규화.</td></tr>
             <tr><td><strong>2026-08-12</strong></td><td>운영 정책 정정</td><td><strong>OTP는 <code>addField</code>·동수 전달에서 제외</strong>하고 Geek DB → 자이언트 직접 전송으로 확정. 오류 건은 재시도 상한 없이 매일 <code>p1</code> 원복·재수집하며 CS팀이 일일 확인. 계도기간 종료는 <strong>2026-09-14 24:00 유지</strong>. 수하인 영문명·영문주소는 <code>consigneeNameEng</code>·<code>consigneeAddressEng</code>로 정정. 금액 소수점 규칙은 관세청 질의 후 확정.</td></tr>
             <tr><td><strong>2026-08-11 17:54</strong></td><td>전송 구조 재정리</td><td>운영·개발 <code>addField</code> 실 JSON 대조 반영 — PCCC는 양쪽 모두 존재하나 명칭·키가 달라 두 별칭 파싱으로 확정, 실제 값은 문서에서 마스킹. <strong>OTP 항목 미존재를 P0로 신설</strong>. Geek 11:50 자이언트 직접 PER 전송·PATCH 병행안을 폐기하고 <strong>동수 DS Logistics의 17:00~18:00 단일 <code>bulk-sync</code></strong>를 구현 기준안으로 변경. 관세청 <code>ord_qty_ut</code> 미전송, 자이언트 <code>qtyUnit=EA</code> 동수 주입, <code>brokerCode/brokerName</code> 임의 매핑 금지를 반영.</td></tr>
             <tr><td><strong>2026-08-11</strong></td><td>PER 전송 · 목차 · 누락 검토</td><td><strong>Stage 5-2「자사몰 → 자이언트 PER 통관정보 전송」신설</strong> — 종전 기획서에 이 단계가 없어 추가. 대상은 TRA 정상 승인 건(<code>g5</code>)만이며 전송 항목 12개를 표로 정의. 엔드포인트는 자이언트 확인 대기(ⓐ 비공개 PER 전용 / ⓑ 동수 선등록 후 <code>PATCH</code>). 「[기준안] 동수 단일 bulk-sync」 섹션을 <strong>「[확정] 3사 데이터 병합」</strong>으로 교체.<br>
             <strong>우측 목차(TOC) 신설</strong> — 섹션 자동 수집·현재 위치 하이라이트·토글. 1100px 이하에서는 숨김.<br>
             <strong>「[검토] 기획서에 정의되지 않은 E2E 단계」 신설</strong> — 관세청 AUT·TRA·PER 전 API, 자이언트 7개 요청, NICE 가이드 전수 대조로 <strong>누락 8건</strong> 추출(AUT001 토큰 발급·갱신 / 인증정보 관리 / PER002 재검증 / PER003 사후처리 / 주문 변경·취소 구간 / 통관 이상 수신 후 CS / 반품 후 세관 정정 / TRA003 조회 제약).</td></tr>
-            <tr><td><strong>2026-08-12</strong></td><td>분할 출고 우선안</td><td>첨부 <code>getTRA001OrderInfo</code> 실응답의 <code>packageList[]</code>를 재검토하여 포장금액이 샘플상 모두 USD 150 이하이고 후속 포장 HBL은 null임을 반영. <strong>ERP 주문 수신 즉시 USD 150 이하 전체 포장·가HBL 확정 → WMS가 동일 HBL로 순차 출고 → HBL별 자이언트 연동</strong>을 우선 구현안(동수 확인 중)으로 정의. <strong>1 HBL = 1 포장 = 1 TRA001 = 1 자이언트 HWB</strong>, HBL 변경·재사용 금지, 불가 시 Push/재조회 대안을 명시. 분할 제출 시 <code>tot_stlm_amt</code>가 원주문 총액인지 HBL별 금액인지 관세청 질의에 추가.</td></tr>
+            <tr><td><strong>2026-08-12</strong></td><td>분할 출고 초안</td><td>테스트 실응답의 포장별 HBL 값/null 혼재를 기준으로 선발급·Push·재조회 대안을 검토했으나, <strong>2026-08-13 운영 계약은 주문별 전 HBL 일괄 반환·미할당 시 전부 null</strong>로 확정. Geek 재조회 배치를 공식 구현안으로 채택하고 1 HBL = 1 포장 = 1 TRA001 = 1 자이언트 HWB 원칙은 유지. 분할 제출 시 <code>tot_stlm_amt</code> 의미는 관세청 질의 유지.</td></tr>
             <tr><td><strong>2026-08-11</strong></td><td>실행 명세 · 고도몰</td><td><strong>[실행 명세] 단계별 호출 API·필드·담당사 Master 표 신설</strong>(17단계 + 담당사별 책임 요약). <strong>[참고] 동수 → 고도몰 Open API 주문 수집 섹션 신설</strong> — 요청 파라미터(<code>startDate</code>·<code>endDate</code> 필수 → 별도 필터 불필요) · 응답 필드 3사 매핑 · 우편번호는 <code>receiverZonecode</code>(5자리) · 안심번호 대신 실번호 · <code>addField</code>로 PCCC 전달. 주문 상태값 확정(<code>p1</code>→<code>g1</code>→<code>g5</code>, <code>g5</code>는 자사몰 신설 커스텀 코드) 및 오류 건 <code>g1</code> 유지·익일 재수집 경로 미결 기재.</td></tr>
             <tr><td><strong>2026-08-11</strong></td><td>규격 정정</td><td>자이언트 컬렉션 원본(v1.3.5) 대조로 <strong>필드 길이 6건 정정</strong>(<code>productName</code> 200 · <code>consigneeAddr</code> 150 · <code>consigneeName</code> 100 · <code>consigneeTel</code> 40 · <code>consigneeAddressEng</code> 200 · <code>orderSiteUrl</code> 300), <code>items[]</code> 상한 <strong>1~50</strong>, <code>totalValueUsd</code> 소수 2자리 vs <code>unitPrice</code> 3자리 충돌. <code>brokerCode</code>는 "판매중개자"로 매핑 미확인 처리. <strong><code>prod_id</code> 행 신설</strong>(SKU 기재) 및 <code>ord_prod_nm</code> 기준 확정(<code>*</code>·수량 표기 제거한 영문 상품명). <strong>HS코드는 동수 매핑으로 확정.</strong> <strong>TRA002 미도입 결정</strong>에 따라 구현 방법 섹션 삭제, 잔여 리스크·완화책으로 대체. 관세청 시범운영 시행일이 오픈일과 동일한 2026-08-28 09:00임을 반영.</td></tr>
             <tr><td>2026-08-10</td><td>적용 일정</td><td>문서 상단에 적용 일정 블록 신설. 관세청 테스트 서버 종료 <strong>2026-08-21</strong>, 자사몰 오픈 <strong>2026-08-28 09:00</strong>, 계도기간 종료 2026-09-14 24:00. 동수 API 조회 대상 필터 기준 일시를 2026-08-28 09:00으로 명시.</td></tr>

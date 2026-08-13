@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>KCS 预先交易信息申报(TRA) E2E 整合策划书 (planning_v5 Full Spec)</title>
+    <title>KCS 预先交易信息申报(TRA) E2E 整合策划书 (planning_v6 Full Spec)</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <style>
         body { font-family: 'Inter', -apple-system, sans-serif; background-color: #ffffff; color: #333; line-height: 1.6; padding: 40px; margin:0; }
@@ -62,8 +62,18 @@
         <a href="./api_field_mapping_cn.html" class="nav-btn">[ → api_field_mapping_cn.html 查看API全量字段映射文档 (中文) ]</a>
     </div>
 
-    <h1>KCS 预先交易信息申报(TRA) E2E 整合策划书 (planning_v5 Full Spec)</h1>
-    <div style="background:#fff3cd;border-left:5px solid #856404;padding:12px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#856404;"><strong>[2026-08-10 更正]</strong> 依据韩国关税厅 REST API 规格 v1.4.1 修正字段名与类型：dlvr_vcex_bsmn_* → <code>shpn_vcex_bsmn_*</code>、sale_ents_biz_no → <code>sale_ents_bsns_no</code>、prod_mnfcr_nm → <code>prod_mkr_nm</code>、prod_mdl_no → <code>prod_mkr_mdl_no</code>。另新增必填项 <code>ord_site_url</code>（详见 risk_list.html）。</div>
+    <h1>KCS 预先交易信息申报(TRA) E2E 整合策划书 (planning_v6 Full Spec)</h1>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">最后更新 <span style="color:#8ab4f8;font-size:16px;">2026-08-13</span> · 文档版本 <span style="color:#8ab4f8;">v6</span><span style="font-weight:400;color:#bdc1c6;"> · 开放 2026-08-28 09:00 (距基准日 D-15) · 韩国海关测试服务器关闭 2026-08-21 (D-8)</span></div>
+<div style="background:#fdecea;border-left:5px solid #d93025;padding:14px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#5f2120;line-height:1.8;">
+<strong>[2026-08-13 重要更正 · 请优先阅读]</strong> 本中文版此前落后于韩文正本，以下 5 项<b>原记载已废止</b>，请勿据旧内容开发：
+<br>① <b>OTP(<code>tempAuthNo</code>)不传递给东数</b> — 不写入 <code>addField</code>，由 Geek 直送 GIANT。东数无需新增字段或开发（原“addField 缺 OTP 属 P0”废止）
+<br>② <b>单价请保留原始 3 位小数</b> — 原“建议固定为 2 位小数”废止，舍入规则待韩国海关回复
+<br>③ <b>重量“±5~10% 属正常误差”废止</b> — 海关 TRA001 无重量字段，预估重量不发送至海关
+<br>④ <b>国内/跨境订单按配送类型拆分为独立订单对象</b>，上级 <code>isCrossBorder=Y/N</code>，国内件也返回 <code>expressNo</code>（原 <code>deliveryType</code>·<code>overseasDirectPurchaseYn</code> 提案不再使用）
+<br>⑤ <b><code>sale_ents_nm</code> / GIANT <code>sellerName</code> 不再全量 Null</b> — A 类型为 (株)KRONE，B 类型由东数按渠道提供；GIANT 侧 A·B 均必填，为空将被拒
+<br><span style="color:#777;">※ 本中文版为摘要版，韩文版 <code>planning_v6.html</code> 为唯一正本；韩文版另有 Stage 0-A(NICE 统一认证)·0-B(AUT001 令牌)·1-1(PER002/003)·5-2(自营商城→GIANT PER 发送)等章节，本版尚未收录。以正本为准。</span>
+</div>
+    <div style="background:#fff3cd;border-left:5px solid #856404;padding:12px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#856404;"><strong>[2026-08-10 更正]</strong> 依据韩国关税厅 REST API 规格 v1.4.1 修正字段名与类型：dlvr_vcex_bsmn_* → <code>shpn_vcex_bsmn_*</code>、sale_ents_biz_no → <code>sale_ents_bsns_no</code>、prod_mnfcr_nm → <code>prod_mkr_nm</code>、prod_mdl_no → <code>prod_mkr_mdl_no</code>。另新增必填项 <code>ord_site_url</code>（详见 리스크_질의대장.html 综合风险·质询台账）。</div>
 
     <div style="background:#e8f0fe; padding:18px 22px; border-left:5px solid #1a73e8; margin-bottom:20px; border-radius:4px; font-size:13.5px; line-height:1.7;">
         <strong>[自营商城主 E2E 及东数系统双轨制定义]</strong> 本策划书是基于 <strong>Geek Studio (自营商城: KRONE) - 东数(EIBE ERP / DS Logistics) - GIANT 特快专递 - 韩国海关 REST API 之间直接销售(A类型) 的实务数据与逻辑</strong>整合编写。<br>
@@ -72,7 +82,7 @@
     </div>
 
     <div style="background:#e6f4ea; padding:15px 20px; border-left:5px solid #137333; margin-bottom:25px; border-radius:4px; font-size:13px; color:#137333;">
-        <strong>[重量微小误差风险核查结果]:</strong> 10:00 EIBE ERP 传输的预估重量(<code>tot_wt</code>)与 17:00 DS Logistics 秤重机测得的实测重量(<code>weight</code>)之间的微小小数位误差，在韩国海关规定中属于<strong>预先交易信息(预估)与实物进口申报(实测)之间的正常误差范围 (±5~10%以内)，在通关中没有任何错误或风险。</strong>
+        <strong>[重量字段更正 · 2026-08-12]:</strong> 韩国海关 TRA001 v1.4.1 <b>不含重量字段</b>，因此东数预估重量(<code>tot_wt</code>)<b>不向海关发送</b>；仅将 WMS 实测确定值 <code>weight</code> 发送至 GIANT。<span class="rule-highlight">原“±5~10% 误差属正常范围”的表述缺乏规格依据，已废止，请勿据此判断。</span>
     </div>
 
     <!-- 顺序图弹窗点击区域 -->
@@ -115,7 +125,7 @@ sequenceDiagram
     Mall->>KCS: 11:50 KST TRA003 交易信息错误明细查询 API 调用
     alt 韩国海关正常批准 (成功件)
         KCS-->>Mall: 无错误批准 (变更 g5 航空发货并更新运单号)
-        Mall->>Mall: 在 addField 中保留 PCCC·OTP（供东数17点 bulk-sync）
+        Mall->>Mall: addField 仅保留 PCCC（OTP 仅存 Geek DB，不传东数）
     else 韩国海关发生错误 (失败件)
         KCS-->>Mall: 接收错误 (还原 p1 & 失败专用列表记录 117/118 错误)
         Mall->>ERP: 单件调用 EIBE ERP 订单删除 API (customerOrderNo 拦截出库)
@@ -125,7 +135,7 @@ sequenceDiagram
     Note over WMS, Giant: Stage 6: 13:00 现场打包出库 & 17:00~18:00 DS Logistics MAWB 发送及海关进口申报
     WMS->>WMS: 13:00 KST 排除已删除订单，实物打包出库正常批准件
     WMS->>Giant: 17:00~18:00 KST 直送 MAWB 主运单 + weight 实测重量/外包装规格
-    WMS->>Giant: 单次发送含 PCCC·OTP 的 HWB bulk-sync
+    WMS->>Giant: 单次发送含 PCCC 的 HWB bulk-sync（不含 OTP）
     Giant->>KCS: 使用东数 bulk-sync 数据提交海关进口申报(DKW/DKX)
 
     Note over Giant, Customer: Stage 7: 韩国国内配送交接及签收后退货 CS
@@ -170,7 +180,7 @@ sequenceDiagram
             <tr><td><span class="api-tag api-per">PER001</span></td><td><code>cnsi_nm</code></td><td>收件人姓名</td><td>String(150)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>实物收件人韩文姓名</td><td>结账时顾客输入。海关 PER001 有效性验证必传</td></tr>
             <tr><td><span class="api-tag api-per">PER001</span></td><td><code>cnsi_pers_ecm</code></td><td>个人通关固有符号</td><td>String(13)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>P开头的13位字符 (例: P123456789012)</td><td>PER001 有效性验证核心键值</td></tr>
             <tr><td><span class="api-tag api-per">PER001</span></td><td><code>cnsi_telno</code></td><td>收件人电话号码</td><td>String(60)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>不含连字符的数字 (例: 01012345678)</td><td>用于验证与海关注册的电话号码是否一致</td></tr>
-            <tr><td><span class="api-tag api-per">PER001</span></td><td><code>su_crtf_no</code></td><td>一次性认证号码</td><td>String(6)</td><td><span class="badge req-y">Y</span></td><td class="src-kcs">海关响应</td><td>6位数字或 Z99999</td><td>Geek需将 NICE <code>SMARTPCC_11 otp</code> 保存至订单 <code>addField</code>，供东数 TRA001 与 GIANT <code>bulk-sync</code> 使用；<span class="rule-highlight">当前生产、开发均缺少该追加字段</span></td></tr>
+            <tr><td><span class="api-tag api-per">PER001</span></td><td><code>su_crtf_no</code></td><td>一次性认证号码</td><td>String(6)</td><td><span class="badge req-y">Y</span></td><td class="src-kcs">海关响应</td><td>6位数字或 Z99999</td><td><span class="rule-highlight">[2026-08-12 更正]</span> NICE <code>SMARTPCC_11 otp</code> 由 Geek 保存于自有 DB 并<b>直接发送至 GIANT</b>。<b>不写入 <code>addField</code>，不传递给东数</b> — 东数无需为此新增字段或开发。原“addField 缺少 OTP 字段属 P0”的记载已废止</td></tr>
         </tbody>
     </table>
 
@@ -217,7 +227,8 @@ sequenceDiagram
                 - <code>elcm_pcd</code> (销售类型代码): 自营商城固定注入 <span class="rule-highlight">'A' (直接销售)</span><br>
                 - <code>elcm_ents_sgn</code> (提交者符号): 固定注入 <code>K26000099</code> ((株)KRONE((주)크로네))<br>
                 - <code>puch_vcex_bsmn_sgn</code> (代购企业符号): A类型直接销售全量省略 <span class="rule-highlight">Null</span><br>
-                - <code>sale_ents_sgn / sale_ents_nm</code> (销售企业符号/名): 海关选填项，全量省略 <span class="rule-highlight">Null</span><br>
+                - <code>sale_ents_sgn</code> (销售企业符号): 海关选填项，全量省略 <span class="rule-highlight">Null</span><br>
+                - <code>sale_ents_nm</code> (销售企业名): <span class="rule-highlight">[2026-08-10 更正 — 不再省略]</span> A 类型注入 <b>(株)KRONE</b>，B 类型由东数按渠道代码提供实际海外销售企业名。与 GIANT <code>sellerName</code>(A·B 均必填)同值<br>
                 - <code>prod_sale_pge_url</code> (商品 URL): 注入自营商城代表域名 <code>https://nutriciastore.co.kr/</code><br>
                 3. <strong>100条分块发送:</strong> 按海关 REST API 规范，按 100条分块(Chunk)提交 <code>TRA001</code> 预先申报。
             </li>
@@ -262,7 +273,7 @@ sequenceDiagram
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_unprc_curr_cd</code></td><td>单价货币代码</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek固定注入</td><td>USD</td><td>固定注入 USD</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_amt</code></td><td>订单金额</td><td>Number(16,3)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数EIBE ERP采集</td><td>qty * unitPrice USD</td><td>数量 x 단가 산출</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_amt_curr_cd</code></td><td>订单金额货币代码</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek固定注入</td><td>USD</td><td>固定注入 USD</td></tr>
-            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_nm</code></td><td>销售企业名</td><td>String(250)</td><td><span class="badge req-n">N</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>选填项，本公司全量省略 (Null统一)</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_nm</code></td><td>销售企业名</td><td>String(250)</td><td><span class="badge req-n">N</span></td><td class="src-mixed">A: Geek 固定 / B: 东数按渠道提供</td><td>A(自营商城): (株)KRONE / B(入驻渠道): 实际海外销售企业名</td><td><span class="rule-highlight">[2026-08-10 更正] 原“全量省略(Null统一)”已废止。</span> 与 GIANT <code>sellerName</code> 同值统一 — GIANT 侧 <b>A·B 均为必填(Y)</b>，为空将导致 HWB 注册被拒。B 类型值由东数 EIBE ERP 按渠道代码提供</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_id</code></td><td>销售企业 ID</td><td>String(30)</td><td><span class="badge req-n">N</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>选填项，全量省略</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_bsns_no</code></td><td>销售企业营业执照号</td><td>String(30)</td><td><span class="badge req-n">N</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>选填项，全量省略</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_sgn</code></td><td>销售企业符号</td><td>String(9)</td><td><span class="badge req-n">N</span></td><td class="src-gen">不适用 (Null)</td><td>Null</td><td>选填项，本公司全量省略 (Null统一)</td></tr>
@@ -311,7 +322,7 @@ sequenceDiagram
     <div class="stage-box">
         <p><strong>详细发送及处理逻辑 (DS Logistics 物流联动):</strong></p>
         <ul>
-            <li>13:00 排除已删除订单后现场出库；17:00 由东数 DS Logistics 通过一次 <code>POST /api/hwb/bulk-sync</code> 将订单、商品、PCCC、OTP、MAWB 及实测重量(<code>weight</code>)直送 GIANT，由 GIANT 完成海关申报(DKW/DKX)。</li>
+            <li>13:00 排除已删除订单后现场出库；17:00 由东数 DS Logistics 通过一次 <code>POST /api/hwb/bulk-sync</code> 将订单、商品、<b>PCCC</b>、MAWB 及实测重量(<code>weight</code>)直送 GIANT（<span class="rule-highlight">2026-08-12 更正 — 不含 OTP</span>，OTP 由 Geek 直送 GIANT），由 GIANT 按 HBL 合并两侧数据后完成海关申报(DKW/DKX)。</li>
         </ul>
     </div>
     <table>
@@ -331,7 +342,7 @@ sequenceDiagram
             <tr><td><span class="api-tag api-hwb">HWB注册</span></td><td><code>weight</code></td><td>实测重量</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>实测重量 kg (例: 2.5)</td><td>17点 DS Logistics 实测重量直送 (海关申报确认重量)</td></tr>
             <tr><td><span class="api-tag api-hwb">HWB注册</span></td><td><code>packageCount</code></td><td>外包装件数</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>箱数 (例: 1)</td><td>17点 DS Logistics 直送</td></tr>
             <tr><td><span class="api-tag api-hwb">HWB注册</span></td><td><code>innerPackageCount</code></td><td>内包装件数</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>内包装数 (例: 3)</td><td>17点 DS Logistics 直送</td></tr>
-            <tr><td><span class="api-tag api-hwb">HWB注册</span></td><td><code>totalValueUsd</code></td><td>USD 采购总额</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>USD 总额 (例: 45.00)</td><td><span class="rule-highlight">[2026-08-11 修正]</span> GIANT <code>totalValueUsd</code> 为<b>小数点后 2 位</b>，而 <code>unitPrice</code> 为 3 位、韩国海关 <code>tot_stlm_amt</code> 为 Number(16,3)。2026-08-11 实际响应中 <code>unitPrice 10.368 × 4 = 41.472</code>，发送至 GIANT 时将四舍五入为 <code>41.47</code>，导致三方金额对账不一致。<b>建议单价统一固定为小数点后 2 位</b>。GIANT 通关异常代码 <code>24-撤回(价格不符)</code> 即属此类</td></tr>
+            <tr><td><span class="api-tag api-hwb">HWB注册</span></td><td><code>totalValueUsd</code></td><td>USD 采购总额</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>USD 总额 (例: 45.00)</td><td><span class="rule-highlight">[2026-08-11 修正]</span> GIANT <code>totalValueUsd</code> 为<b>小数点后 2 位</b>，而 <code>unitPrice</code> 为 3 位、韩国海关 <code>tot_stlm_amt</code> 为 Number(16,3)。2026-08-11 实际响应中 <code>unitPrice 10.368 × 4 = 41.472</code>，发送至 GIANT 时将四舍五入为 <code>41.47</code>，导致三方金额对账不一致。<span class="rule-highlight">[2026-08-12 更正] 原“建议单价统一固定为小数点后 2 位”的方案已废止 — 请<b>保留东数原始 3 位小数</b>，不要擅自四舍五入固定为 2 位。海关 <code>prod_unprc</code>·<code>ord_amt</code>·<code>tot_stlm_amt</code> 的计算·舍入顺序与合计允许误差已向韩国海关提出质询，回复前不确定金额政策。</span>。GIANT 通关异常代码 <code>24-撤回(价格不符)</code> 即属此类</td></tr>
             <tr><td><span class="api-tag api-item">Item注册</span></td><td><code>itemSeq</code></td><td>商品序号</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 직송</td><td>001, 002 等 3位</td><td>17点 DS Logistics 直送 (001 格式)</td></tr>
             <tr><td><span class="api-tag api-item">Item注册</span></td><td><code>categoryName1</code></td><td>商品分类 1</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 직송</td><td>食品 等</td><td>17点 DS Logistics 直送</td></tr>
             <tr><td><span class="api-tag api-item">Item注册</span></td><td><code>categoryName2</code></td><td>商品分类 2</td><td>String(100)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 직송</td><td>奶粉 等</td><td>17点 DS Logistics 直送</td></tr>
@@ -340,7 +351,7 @@ sequenceDiagram
             <tr><td><span class="api-tag api-item">Item注册</span></td><td><code>qtyUnit</code></td><td>数量单位</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 直送</td><td>EA</td><td>由东数固定注入；不与海关规格外字段 <code>ord_qty_ut</code> 直接映射</td></tr>
             <tr><td><span class="api-tag api-item">Item注册</span></td><td><code>unitPrice</code></td><td>单价</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 직송</td><td>采购单价 USD</td><td>17点 DS Logistics 직送</td></tr>
             <tr><td><span class="api-tag api-item">Item注册</span></td><td><code>itemAmount</code></td><td>订单金额</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数 DS Logistics 직송</td><td>qty * unitPrice USD</td><td>17点 DS Logistics 直送</td></tr>
-            <tr><td><span class="api-tag api-etc">DKW/DKX</span></td><td><code>DKW / DKX</code></td><td>电子商务进口申报</td><td>-</td><td><span class="badge req-y">Y</span></td><td class="src-giant">GIANT特快专递</td><td>东数 DS Logistics 单次 <code>bulk-sync</code> 数据</td><td>GIANT 使用订单、PCCC、OTP、物流及商品数据提交海关</td></tr>
+            <tr><td><span class="api-tag api-etc">DKW/DKX</span></td><td><code>DKW / DKX</code></td><td>电子商务进口申报</td><td>-</td><td><span class="badge req-y">Y</span></td><td class="src-giant">GIANT特快专递</td><td>东数 DS Logistics 单次 <code>bulk-sync</code> 数据</td><td>GIANT 将东数的订单·PCCC·物流·商品数据与 Geek 直送的 OTP·收件人通关信息<b>按 HBL 合并</b>后提交海关</td></tr>
         </tbody>
     </table>
 
@@ -418,7 +429,7 @@ sequenceDiagram
 
     <div style="background:#f8f9fa; padding:15px; border:1px solid #ddd; border-radius:4px; font-size:13px;">
         <strong>[通用原则]</strong><br>
-        1. <code>sale_ents_sgn</code> (销售企业符号) 及 <code>sale_ents_nm</code> (销售企业名) 为海关选填项 (N)，<strong>所有购物商城渠道全量省略 (Null统一)</strong>。<br>
+        1. <code>sale_ents_sgn</code> (销售企业符号) 为海关选填项 (N)，<strong>所有渠道全量省略 (Null)</strong>。<span class="rule-highlight">[2026-08-10 更正]</span> 但 <code>sale_ents_nm</code> (销售企业名) <strong>不再省略</strong> — A 类型为 (株)KRONE，B 类型由东数按渠道代码提供实际海外销售企业名(GIANT <code>sellerName</code> 为全类型必填)。<br>
         2. <code>prod_srno</code> (商品序号) 由东数 EIBE ERP 在海外仓库打包时，按 1个 HBL 内商品件数 (1~5) <strong>自动顺序采番</strong>并返回。
     </div>
 
@@ -521,7 +532,7 @@ sequenceDiagram
                 <tr><td><code>prod_clsf_nm_stp1</code></td><td><code>"국내 발송"</code> / <code>"국제 직구"</code></td><td>规格为"商品信息中的<b>商品分类名称第 1 级</b>"(例: 食品)。<b>配送区分不属于商品分类</b></td></tr>
                 <tr><td><code>prod_clsf_nm_stp2</code></td><td><code>"뉴트리시아"</code> / <code>"Nutricia"</code></td><td>商品分类第 2 级(例: 奶粉)。<b>品牌名应填入 <code>prod_brnd_nm</code> 单独字段</b>。另外同一商品出现韩文/英文混用，请统一</td></tr>
                 <tr><td><code>prod_ord_qty</code><br><code>prod_unprc</code></td><td>以字符串返回 (<code>"3"</code>, <code>"0.000"</code>)</td><td>海关 Integer(4) / Number(16,3)，GIANT Integer / BigDecimal。请以数值类型返回</td></tr>
-                <tr><td>小数位数</td><td><code>unitPrice 10.368</code> → <code>ordAmt 41.472</code></td><td>GIANT <code>totalValueUsd</code> 为<b>小数点后 2 位</b>，发送时将变为 <code>41.47</code>，与海关值不一致。<b>建议单价统一固定为 2 位小数</b></td></tr>
+                <tr><td>小数位数</td><td><code>unitPrice 10.368</code> → <code>ordAmt 41.472</code></td><td>GIANT <code>totalValueUsd</code> 为<b>小数点后 2 位</b>，发送时将变为 <code>41.47</code>，与海关值不一致。<b>[2026-08-12 更正]</b> 原“建议固定为 2 位小数”已废止 — <b>东数请保留原始 3 位小数</b>；舍入规则待韩国海关回复后确定</td></tr>
             </tbody>
         </table>
 
@@ -551,16 +562,16 @@ sequenceDiagram
         <h3 style="color:#7b1fa2;">6. [2026-08-11 新增] 自营商城 → GIANT 直接发送 PER 通关信息</h3>
         <p>关税厅申报<b>正常受理的订单</b>，由自营商城将通关信息直接发送至 GIANT；东数 DS Logistics 于 17:00~18:00 直送物流·商品数据，<b>由 GIANT 合并后向海关申报</b>。</p>
         <p><b>自营商城发送项</b> — <code>hwbNo</code> · <code>orderNo</code> · <code>pccCode</code> · <code>tempAuthNo</code> · <code>ordererName</code> · <code>consigneeName</code>(Max 100) · <code>consigneeNameEng</code> · <code>consigneeAddr</code>(Max 150) · <code>consigneeAddrDet</code> · <code>consigneeAddressEng</code>(Max 200) · <code>consigneeZip</code>(5位固定) · <code>consigneeTel</code>(Max 40)</p>
-        <p style="color:#c5221f;">※ 个人通关唯一编码(PCCC)·一次性认证码(OTP)同时通过 Godomall <code>addField</code> 传递给东数，东数在 <code>bulk-sync</code> 中一并发送。<b>请确认东数侧接收与传输是否正常。</b></p>
+        <p style="color:#c5221f;">※ <b>[2026-08-12 更正]</b> 仅个人通关唯一编码(PCCC)通过 Godomall <code>addField</code> 传递给东数并由东数在 <code>bulk-sync</code> 中发送。<b>一次性认证码(OTP / <code>tempAuthNo</code>)不经由 <code>addField</code>、不传递给东数</b>，由 Geek 直接发送至 GIANT，GIANT 按 HBL 合并。东数无需为 OTP 新增字段或开发。</p>
 
         <h3 style="color:#137333;">7. 已确认事项 (无需再讨论)</h3>
         <ul>
-            <li><b>国内/跨境混合订单</b> — 08-06/08-11 的“排除国内件”决定已于08-12重新协商。建议两类包裹均返回，并新增 <code>deliveryType</code> 或 <code>overseasDirectPurchaseYn</code> 及 <code>expressNo</code>；Geek仅将跨境且HBL非空的包裹提交TRA001</li>
+            <li><b>国内/跨境混合订单 — [2026-08-12 已确定]</b> 08-06/08-11 的“排除国内件”决定已废止。<b>东数按配送类型拆分为独立订单对象</b>，每个 <code>packageList[]</code> <b>只包含单一配送类型</b>，国内件也返回 <code>expressNo</code>。上级字段 <code>isCrossBorder=Y</code>(跨境) / <code>N</code>(国内)，<b>该字段与国内 <code>expressNo</code> 仅供 Geek 分支及 Godomall 运单号更新使用，不发送至韩国海关与 GIANT</b>。<code>isCrossBorder</code> 与 <code>elcmPcd</code>(A 直接销售 / B 代购)是两个不同维度。原提议的 <code>deliveryType</code>·<code>overseasDirectPurchaseYn</code> 命名不再使用。Geek 仅提交 <code>isCrossBorder=Y</code> 且 HBL 非空的包裹至 TRA001</li>
             <li><b>套装商品</b> — 以套装内单品信息提供，而非套装单位 (2026-08-06)</li>
             <li><b>跨日拆单发货</b> — 1个HBL对应1次TRA001；3天分3次发货则提交3次。Godomall只保存第一个运单号，但Geek内部必须按分拆包裹管理提交状态。若不增加Geek批处理，东数必须首次查询时预分配全部HBL，或在后续HBL生成时Push (2026-08-12)</li>
             <li><b>快照一致性</b> — 14 个属性中仅实测重量(<code>weight</code>)在 10:00 与 17:00 之间存在差异，其余 13 项保持完全一致 (2026-08-05)</li>
             <li><b>订单删除 API</b> — <code>POST /api/openAPI/erp/orderInfo/orderDelete</code>, 参数 <code>customerOrderNo</code>, 单次 1 件 (2026-08-03)</li>
-            <li><b>个人通关唯一编码(PCCC)</b> — <b>通过 Godomall 订单查询 API 的 <code>addField</code> 传递给东数</b>。生产字段名为“개인통관부호”，开发为“개인통관고유부호”；兼容两个名称，并校验 <code>process=order</code>、<code>type=text</code>、P/O开头13位，不使用键值/<code>no</code>/<code>sort</code>。<br><span style="color:#c5221f;">※ GIANT 必填的 <code>tempAuthNo</code> 对应 OTP 当前尚未写入 addField；Geek需新增“일회용 인증번호”订单字段后再测试。东数在17:00~18:00单次 <code>bulk-sync</code> 中同时发送 PCCC 与 OTP。</span></li>
+            <li><b>个人通关唯一编码(PCCC)</b> — <b>通过 Godomall 订单查询 API 的 <code>addField</code> 传递给东数</b>。生产字段名为“개인통관부호”，开发为“개인통관고유부호”；兼容两个名称，并校验 <code>process=order</code>、<code>type=text</code>、P/O开头13位，不使用键值/<code>no</code>/<code>sort</code>。<br><span style="color:#c5221f;">※ <b>[2026-08-12 更正]</b> GIANT 必填的 <code>tempAuthNo</code>(OTP) <b>不进入 <code>addField</code>，也不由东数发送</b> — 由 Geek 保存并直送 GIANT。东数 <code>bulk-sync</code> 只发送 PCCC。原“Geek需新增 일회용 인증번호 订单字段”的要求已废止。</span></li>
         </ul>
     </div>
 </body>

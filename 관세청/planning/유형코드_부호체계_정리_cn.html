@@ -21,6 +21,7 @@
 <div class="container">
     <a href="./api_field_mapping_cn.html" class="nav-btn">[ -> api_field_mapping_cn.html 查看API字段映射文档 ]</a>
     <h1>类型代码及符号体系整理</h1>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">最后更新 <span style="color:#8ab4f8;font-size:16px;">2026-08-13</span><span style="font-weight:400;color:#bdc1c6;"> · 开放 2026-08-28 09:00 (距基准日 D-15) · 韩国海关测试服务器关闭 2026-08-21 (D-8)</span></div>
 
     <h2>1. 销售类型代码 (elcm_pcd) 详细说明 <span style="background:#fff3cd;color:#856404;padding:2px 6px;border-radius:3px;font-size:13px;font-weight:bold;">[2026-08-10 更正] 旧版文件的 A/B 定义相互颠倒。依据韩国关税厅 v1.4.1，<u>A=直接销售，B=代购</u>。</span></h2>
     <table>
@@ -119,7 +120,7 @@
                 <td>Null</td>
                 <td>Null</td>
                 <td>Null</td>
-                <td>Null</td>
+<td><strong>(株)KRONE((주)크로네)</strong> <span style="color:#856404;">[08-10 更正]</span></td>
             </tr>
             <tr>
                 <td>Naver Store ((株)AIBE((주)아이베)运营)</td>
@@ -128,7 +129,7 @@
                 <td>K26014765</td>
                 <td>(株)AIBE((주)아이베)</td>
                 <td>Null</td>
-                <td>Null</td>
+<td><strong>实际海外销售企业名</strong> <span style="color:#856404;">(东数提供)</span></td>
             </tr>
             <tr>
                 <td>其他外部购物商城代购</td>
@@ -137,10 +138,11 @@
                 <td>K26000099</td>
                 <td>(株)KRONE((주)크로네)</td>
                 <td>Null</td>
-                <td>Null</td>
+<td><strong>实际海外销售企业名</strong> <span style="color:#856404;">(东数提供)</span></td>
             </tr>
         </tbody>
     </table>
+<p style="font-size:13px;color:#856404;background:#fff3cd;padding:10px 14px;border-radius:4px;"><strong>[2026-08-10 更正]</strong> 上表 <code>sale_ents_nm</code> 已由原“全渠道 Null 统一”变更。代码(<code>sale_ents_sgn</code>)仅在关税厅登记企业时填写故保持 Null，<strong>但企业名称全渠道均需填写</strong> — 因 GIANT <code>sellerName</code> 在 A·B 类型下均为必填。详见第 5 节。</p>
 
     <h2>4. 商品销售页面URL (prod_sale_pge_url / productPageUrl / orderSiteUrl)</h2>
     <p>说明: 海关TRA001的prod_sale_pge_url、GIANT Item的productPageUrl、HWB的orderSiteUrl均使用相同值。不使用包含单个商品ID的详细URL，而是统一注入各商城的代表域名URL。</p>
