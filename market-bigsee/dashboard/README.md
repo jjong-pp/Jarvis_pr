@@ -1,13 +1,12 @@
-# BIGSEE 단일 대시보드 출력
+# BIGSEE 연결형 대시보드
 
-| 파일 | 역할 |
-|---|---|
-| `index.html` | 모든 사업 현황을 내비 태그와 접기/펼치기로 합친 유일한 HTML |
-| `styles.css`, `unified.css` | 기본 화면과 전체 표 스타일 |
-| `app.js`, `unified.js` | 복사·전체 접기·내비 태그 동작 |
+`index.html`은 진입 화면이고 `pages/`에는 타깃·시장진입·제품·운영·결정 화면이 있습니다. 모든 화면은 `assets/`의 공통 스타일과 동작을 사용합니다.
 
-사업 내용은 `../control/`, `../system/`, `../personas/`의 Markdown에서 관리합니다. HTML이 길어져도 다른 HTML을 추가하지 않고 `../scripts/dashboard/`의 생성 로직을 분리합니다.
+이 폴더의 HTML은 Markdown 정본에서 자동 생성되는 읽기 전용 결과물입니다. 내용을 직접 수정하지 말고 `system/dashboard/SECTION_REGISTRY.md`에서 담당 정본을 찾아 수정한 뒤 아래 명령을 실행합니다.
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\build-dashboard.ps1
 ```
+
+과거 단일 화면에서 사용하던 미사용 자산은 `.history/single-page-assets/`에 보존했습니다.
+

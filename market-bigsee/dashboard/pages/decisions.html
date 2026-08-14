@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="바뀐 결정을 대체 관계로 남기고, 의견을 실제 고객 행동으로 검증합니다.">
+  <title>결정과 가설을 삭제하지 않고 추적합니다 · BIGSEE</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body data-page="decisions">
+  <header class="site-header">
+    <a class="brand" href="../index.html"><span>BIG</span>SEE <small>사업 운영판</small></a>
+    <nav class="site-nav" aria-label="주요 화면">
+      <a href="../index.html">개요</a>
+<a href="personas.html">타깃</a>
+<a href="launch.html">시장진입</a>
+<a href="product.html">제품</a>
+<a href="operations.html">운영</a>
+<a href="decisions.html" aria-current="page">결정</a>
+
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">DECISIONS & TESTS</p>
+        <h1>결정과 가설을 삭제하지 않고 추적합니다</h1>
+        <p class="lede">바뀐 결정을 대체 관계로 남기고, 의견을 실제 고객 행동으로 검증합니다.</p>
+      </div>
+      <div class="hero-actions">
+        <button type="button" data-expand-all>전체 펼치기</button>
+        <button type="button" data-collapse-all>전체 접기</button>
+      </div>
+    </section>
+    <section class="content" data-dashboard-content>
+      <p>중요한 사업&#183;제품&#183;운영 결정의 맥락을 보존합니다. 기존 결정을 바꿀 때 행을 삭제하지 않고 새 ID를 추가하고 대체 관계를 기록합니다.</p>
+<details class="section" open><summary><h2>결정 목록</h2><span class="chevron">⌄</span></summary><div class="section-body">
+<div class="table-wrap"><table><thead><tr>
+<th>ID</th>
+<th>날짜</th>
+<th>상태</th>
+<th>결정</th>
+<th>이유</th>
+<th>주요 결과</th>
+<th>대체</th>
+</tr></thead><tbody>
+<tr>
+<td>D-001</td>
+<td>2026-08-13</td>
+<td>대체됨</td>
+<td>첫 고객을 2~20인 이커머스 전문 광고&#183;마케팅 대행사로 둔다</td>
+<td>여러 고객을 반복 조사해 사용 빈도&#183;지불의사&#183;결과물 전파가 개인보다 높음</td>
+<td>일반 소상공인 전체 대상 광고는 후순위</td>
+<td>D-012</td>
+</tr>
+<tr>
+<td>D-002</td>
+<td>2026-08-13</td>
+<td>채택</td>
+<td>키워드 도구가 아니라 제안서&#183;캠페인 조사 결과를 판매한다</td>
+<td>무료 데이터 도구와 기능 수 경쟁을 피하고 결과물 가치로 가격을 설명하기 위함</td>
+<td>메시지&#183;데모&#183;콘텐츠가 대행사 업무 중심이 됨</td>
+<td>-</td>
+</tr>
+<tr>
+<td>D-003</td>
+<td>2026-08-13</td>
+<td>채택</td>
+<td>제품 중심 루프를 조사→콘텐츠→SKU&#183;캠페인→구매 측정→다음 추천으로 확장한다</td>
+<td>조사만으로는 반복 사용과 사업 성과 증명이 약함</td>
+<td>콘텐츠&#183;상품&#183;주문 연결이 장기 데이터 자산이 됨</td>
+<td>-</td>
+</tr>
+<tr>
+<td>D-004</td>
+<td>2026-08-13</td>
+<td>채택</td>
+<td>블로그는 근거 기반 초안과 사람 승인을 제공하고 허위 리뷰 생성은 제공하지 않는다</td>
+<td>검색 스팸&#183;환각&#183;광고 규정&#183;플랫폼 신뢰 위험</td>
+<td>자동 대량 게시와 가짜 후기 기능은 제외</td>
+<td>-</td>
+</tr>
+<tr>
+<td>D-005</td>
+<td>2026-08-13</td>
+<td>채택</td>
+<td>MVP는 SKU&#183;주문 CSV와 추적 링크로 먼저 검증한다</td>
+<td>플랫폼 심사와 복수 API 개발 전에 가치와 데이터 구조를 시험할 수 있음</td>
+<td>GA4와 커머스 API는 P1으로 이동</td>
+<td>-</td>
+</tr>
+<tr>
+<td>D-006</td>
+<td>2026-08-13</td>
+<td>채택</td>
+<td>Markdown을 단일 정본으로 두고 HTML은 자동 생성된 읽기 전용 파생물로 사용한다</td>
+<td>사람에게는 한눈에 보이는 화면, AI에는 짧고 선택적인 컨텍스트가 필요함</td>
+<td>HTML 직접 편집 금지, MD 변경 후 재생성</td>
+<td>-</td>
+</tr>
+<tr>
+<td>D-007</td>
+<td>2026-08-13</td>
+<td>채택</td>
+<td>사업 탐색을 7개 persona 폴더로 분리하고 표준 state&#183;output만 대시보드에 취합한다</td>
+<td>역할별 컨텍스트와 책임을 분리하면서 충돌&#183;근거&#183;인계를 추적하기 위함</td>
+<td>inbox→research→state→output 계약과 전사 정본 승격 도입</td>
+<td>-</td>
+</tr>
+<tr>
+<td>D-008</td>
+<td>2026-08-13</td>
+<td>대체됨</td>
+<td>긴 화면을 여러 실행 페이지와 별도 전체판으로 분리한다</td>
+<td>긴 표가 현재 행동을 가림</td>
+<td>여러 HTML과 실행 정본 도입</td>
+<td>D-009</td>
+</tr>
+<tr>
+<td>D-009</td>
+<td>2026-08-13</td>
+<td>대체됨</td>
+<td>실행 정보를 큰 대제목 없는 단일 화면으로 합치되 전체판은 별도로 유지한다</td>
+<td>현재 행동을 먼저 보고 필요한 정보만 열기 위함</td>
+<td>실행판과 별도 전체판 유지</td>
+<td>D-011</td>
+</tr>
+<tr>
+<td>D-010</td>
+<td>2026-08-13</td>
+<td>채택</td>
+<td>루트에는 진입 파일만 두고 정본을 control&#183;system&#183;persona reference로 분리한다</td>
+<td>루트의 많은 MD가 역할 책임과 선택적 로딩을 방해함</td>
+<td>루트 MD는 README&#183;AGENTS만 유지</td>
+<td>-</td>
+</tr>
+<tr>
+<td>D-011</td>
+<td>2026-08-13</td>
+<td>대체됨</td>
+<td>모든 사업 현황을 <code>dashboard/index.html</code> 하나에 합치고 같은 화면의 내비 태그로 구분한다</td>
+<td>여러 HTML 이동 없이 전체 상황을 보고 생성 로직과 MD 선택 로딩으로 복잡도와 토큰을 통제하기 위함</td>
+<td>HTML은 하나만 유지, 생성 로직은 <code>scripts/dashboard/</code>, 섹션 라우팅은 <code>system/dashboard/</code>에서 관리</td>
+<td>D-014</td>
+</tr>
+<tr>
+<td>D-012</td>
+<td>2026-08-14</td>
+<td>대체됨</td>
+<td>광고 집행표보다 고객&#183;매출&#183;현금&#183;마케팅&#183;개발 협업을 보는 사업 운영판을 우선하고 첫 고객은 기존 사용자 증거로 다시 선택한다</td>
+<td>운영자는 개발자가 제품에 집중하도록 고객 증거와 현금&#183;우선순위를 책임져야 하며 약 20명의 실제 사용&#183;결제가 미확인임</td>
+<td>대행사&#183;셀러&#183;인하우스를 비교하고 커뮤니티&#183;직접 판매&#183;Meta를 단계적으로 검증</td>
+<td>D-013</td>
+</tr>
+<tr>
+<td>D-013</td>
+<td>2026-08-14</td>
+<td>채택</td>
+<td>대행사 실무&#183;책임자를 1순위, 인하우스 마케터와 활성 다채널 셀러를 비교군으로 두고 대형 커뮤니티와 Meta를 같은 14일에 동시 검증한다</td>
+<td>막연한 B2C나 채널 순서보다 실제 구매상황&#183;결제&#183;첫 가치&#183;반복을 같은 제안으로 비교해야 타깃과 개발 우선순위를 고를 수 있음</td>
+<td>아이보스&#183;셀러오션과 Meta 3개 소재를 UTM&#183;폼&#183;CRM으로 연결하고 제외 대상을 명시</td>
+<td>-</td>
+</tr>
+<tr>
+<td>D-014</td>
+<td>2026-08-14</td>
+<td>채택</td>
+<td>대시보드는 <code>dashboard/</code> 폴더 안에서 개요&#183;타깃&#183;시장진입&#183;제품&#183;운영&#183;결정 페이지를 상호 연결한다</td>
+<td>한 HTML이 과도하게 길어져 판단 영역이 섞였고 사용자가 연결형 폴더 구조를 명시적으로 요청함</td>
+<td>MD 정본과 자동 생성은 유지하고 공통 내비&#183;자산&#183;소스 해시로 일관성을 통제</td>
+<td>-</td>
+</tr>
+</tbody></table></div>
+</div></details>
+<details class="section" open><summary><h2>제안 상태의 결정</h2><span class="chevron">⌄</span></summary><div class="section-body">
+<div class="table-wrap"><table><thead><tr>
+<th>ID</th>
+<th>제안</th>
+<th>결정에 필요한 증거</th>
+<th>담당</th>
+<th>상태</th>
+</tr></thead><tbody>
+<tr>
+<td>P-001</td>
+<td>첫 커머스 API를 스마트스토어로 시작</td>
+<td>파일럿 고객의 주 사용 채널과 API 권한 확보 가능성</td>
+<td>사업&#183;제품</td>
+<td>증거 대기</td>
+</tr>
+<tr>
+<td>P-002</td>
+<td>Agency Starter를 월 99,000~149,000원에서 시험</td>
+<td>지불의사&#183;직접원가&#183;지원 공수</td>
+<td>사업</td>
+<td>증거 대기</td>
+</tr>
+<tr>
+<td>P-003</td>
+<td>팀 워크스페이스를 첫 유료 MVP에 포함</td>
+<td>실제 파일럿의 좌석&#183;승인&#183;고객 폴더 요구</td>
+<td>제품</td>
+<td>증거 대기</td>
+</tr>
+<tr>
+<td>P-004</td>
+<td>B2C 후 B2B를 업무형 개인 좌석에서 시작하는 Bottom-up B2B&#183;Product-Led Sales로 정의</td>
+<td>개인 ICP별 활성화&#183;4주 유지&#183;PQL→팀 전환&#183;채널별 활성 고객 CAC</td>
+<td>전략&#183;세일즈&#183;제품</td>
+<td>증거 대기</td>
+</tr>
+<tr>
+<td>P-005</td>
+<td>GTM 보상을 단순 건당 15%에서 90일 파일럿과 성과별 운영 보수&#183;반복매출&#183;권리&#183;공동사업 논의로 승급</td>
+<td>역할&#183;시간&#183;비용&#183;귀속 매출&#183;갱신&#183;MRR&#183;유지율&#183;CAC&#183;총마진&#183;장기 책임 합의</td>
+<td>전략&#183;재무&#183;리스크</td>
+<td>협상 대기</td>
+</tr>
+<tr>
+<td>P-006</td>
+<td>첫 시장진입을 아이보스&#183;셀러오션과 Meta의 페르소나별 14일 동시 시험으로 운영</td>
+<td>랜딩&#183;샘플&#183;UTM&#183;CRM 준비와 유효 상담&#183;첫 가치&#183;유료&#183;반복 기록</td>
+<td>전략&#183;세일즈&#183;시장</td>
+<td>D-013 채택</td>
+</tr>
+<tr>
+<td>P-007</td>
+<td>첫 14일 사업개발비를 150만~300만원 상한 가설로 항목별 승인</td>
+<td>현금 잔액&#183;비용 부담&#183;부가세&#183;2026 커뮤니티 견적&#183;Meta&#183;소재&#183;후속 인력 합의</td>
+<td>전략&#183;재무</td>
+<td>결정 대기</td>
+</tr>
+</tbody></table></div>
+<p>사업 방향은 문서의 설득력이 아니라 고객 행동과 운영 데이터로 검증합니다. 임계값은 현재의 운영 가설이며 실제 결과에 따라 결정 기록을 남기고 수정합니다.</p>
+</div></details>
+<details class="section" open><summary><h2>핵심 가설</h2><span class="chevron">⌄</span></summary><div class="section-body">
+<div class="table-wrap"><table><thead><tr>
+<th>ID</th>
+<th>우선순위</th>
+<th>가설</th>
+<th>시험</th>
+<th>통과 기준</th>
+<th>현재 증거</th>
+<th>다음 행동</th>
+<th>상태</th>
+</tr></thead><tbody>
+<tr>
+<td>H-001</td>
+<td>P0</td>
+<td>대행사는 멀티채널 제안서 조사 문제에 돈을 낸다</td>
+<td>실제 고객 키워드로 14일 유료 파일럿</td>
+<td>파일럿 제안 5건 중 3건 이상 결제</td>
+<td>공개 사용사례만 있고 직접 증거 없음</td>
+<td>대행사 20회 데모</td>
+<td>미시작</td>
+</tr>
+<tr>
+<td>H-002</td>
+<td>P0</td>
+<td>마켓빅시는 제안서 조사 시간을 의미 있게 줄인다</td>
+<td>기존 방식과 동일 과제 전후 시간 측정</td>
+<td>프로젝트당 중앙값 60분 이상 절감</td>
+<td>미측정</td>
+<td>파일럿 시작&#183;종료 시 시간 기록</td>
+<td>미시작</td>
+</tr>
+<tr>
+<td>H-003</td>
+<td>P0</td>
+<td>유료 고객이 4주 동안 반복 사용한다</td>
+<td>주간 완성 리포트와 로그인 코호트</td>
+<td>유료 고객 60% 이상이 4주차 활성</td>
+<td>미측정</td>
+<td>리포트 완료 이벤트 정의</td>
+<td>미시작</td>
+</tr>
+<tr>
+<td>H-004</td>
+<td>P0</td>
+<td>사용자별 직접원가가 매출의 25% 이하다</td>
+<td>API&#183;AI&#183;Functions&#183;DB 사용량 원장</td>
+<td>2주 연속 직접원가 비율 25% 이하</td>
+<td>비용 항목만 파악</td>
+<td>UsageLedger 구현&#183;수집</td>
+<td>미시작</td>
+</tr>
+<tr>
+<td>H-005</td>
+<td>P1</td>
+<td>조사 기반 블로그 초안이 실제 게시된다</td>
+<td>초안→승인→게시 퍼널</td>
+<td>생성 초안의 60% 이상 게시</td>
+<td>정책&#183;기능 가설만 있음</td>
+<td>대행사 3곳에 수동 초안 제공</td>
+<td>미시작</td>
+</tr>
+<tr>
+<td>H-006</td>
+<td>P1</td>
+<td>콘텐츠와 SKU를 연결하면 성과 보고 가치가 커진다</td>
+<td>콘텐츠 링크와 주문 CSV를 같은 리포트에 표시</td>
+<td>파일럿 3곳 중 2곳 이상이 월간 보고에 사용</td>
+<td>경쟁사 공백만 확인</td>
+<td>CSV 프로토타입 시연</td>
+<td>미시작</td>
+</tr>
+<tr>
+<td>H-007</td>
+<td>P1</td>
+<td>스마트스토어가 첫 커머스 연동으로 가장 적합하다</td>
+<td>파일럿 고객 채널 조사</td>
+<td>5곳 중 3곳 이상이 주 판매 채널로 사용</td>
+<td>국내 시장 적합성만 있음</td>
+<td>데모 질문에 채널 항목 추가</td>
+<td>미시작</td>
+</tr>
+<tr>
+<td>H-008</td>
+<td>P1</td>
+<td>99,000~149,000원 Agency Starter가 수용된다</td>
+<td>가격 3안 제시와 실제 결제</td>
+<td>목표 고객 5곳 중 3곳이 할인 없이 선택</td>
+<td>경쟁 가격 비교만 있음</td>
+<td>가격 인터뷰가 아닌 결제 시험</td>
+<td>미시작</td>
+</tr>
+<tr>
+<td>H-009</td>
+<td>P0</td>
+<td>업무형 개인 사용자를 유료 활성화한 뒤 팀&#183;대행사 계정으로 확장할 수 있다</td>
+<td>개인 ICP별 광고→가입→첫 리포트→4주 활성→팀 의도→영업 전환 코호트</td>
+<td>유료 개인 30명 이상에서 4주 활성 60% 이상, 팀 의도 20% 이상, 팀 전환 3건 이상</td>
+<td>SaaS PLS 연구만 있고 제품&#183;고객 행동 증거 없음</td>
+<td>첫 가치&#183;PQL 이벤트 구현 후 검색 채널부터 4주 시험</td>
+<td>미시작</td>
+</tr>
+<tr>
+<td>H-010</td>
+<td>P0</td>
+<td>기존 약 20명 안에서 첫 고객군과 반복 구매 상황을 찾을 수 있다</td>
+<td>10명 인터뷰&#183;5명 화면 동행&#183;대행사/셀러/인하우스 점수화</td>
+<td>같은 고객군 6명 이상이 같은 최근 문제를 말하고 데모 5건 중 유료 2건</td>
+<td>등록 사용자 약 20명이라는 전달만 있음</td>
+<td>전수 연락&#183;역할 분류&#183;최근 실제 상황 인터뷰</td>
+<td>진행</td>
+</tr>
+<tr>
+<td>H-011</td>
+<td>P0</td>
+<td>커뮤니티 보조 직접 판매 후 Meta 순차 시험이 초기 시장진입에 적합하다</td>
+<td>도움 답변 20개&#183;자료 2개&#183;데모 5건 후 Meta 7일</td>
+<td>유료 2건과 목표 고객 유효 상담→첫 가치 흐름 발견</td>
+<td>사용자 요청으로 순차 구조를 동시 비교로 수정</td>
+<td>H-012로 대체</td>
+<td>수정</td>
+</tr>
+<tr>
+<td>H-012</td>
+<td>P0</td>
+<td>대형 실무 커뮤니티와 Meta에서 같은 페르소나&#183;제안을 동시 시험하면 유효 고객군을 비교할 수 있다</td>
+<td>3개 제안&#183;샘플&#183;랜딩을 아이보스/셀러오션과 Meta에 14일 동시 집행</td>
+<td>persona/source별 유효 상담&#183;첫 가치&#183;유료가 모두 추적되고 한 페르소나에서 유료 2건 이상</td>
+<td>채널과 Meta 기능의 공개 근거만 있고 BIGSEE 실적 없음</td>
+<td>UTM&#183;폼&#183;CRM&#183;24시간 후속을 먼저 구축</td>
+<td>준비</td>
+</tr>
+<tr>
+<td>H-013</td>
+<td>P0</td>
+<td>대행사 실무&#183;책임자가 인하우스&#183;활성 셀러보다 반복&#183;팀 확장 가치가 높다</td>
+<td>동일 난이도 샘플과 가격으로 세 페르소나 비교</td>
+<td>결제&#183;4주 반복&#183;팀 신호&#183;지원 공수의 종합 우위</td>
+<td>업무 빈도와 커뮤니티 적합성 가설만 있음</td>
+<td>기존 20명 분류와 14일 동시 시험</td>
+<td>진행</td>
+</tr>
+<tr>
+<td>H-014</td>
+<td>P1</td>
+<td>조사 근거&#183;SKU&#183;사람 승인 콘텐츠&#183;추적&#183;경량 CRM을 묶으면 단순 조사보다 유료 가치가 커진다</td>
+<td>수동 P0 흐름을 페르소나별 파일럿에 제공</td>
+<td>파일럿의 50% 이상이 첫 흐름 완성, 60% 이상이 다음 사용일 명시</td>
+<td>공식 제품&#183;정책 문서와 내부 기획만 있음</td>
+<td>실제 코드 점검 후 수동 파일럿</td>
+<td>준비</td>
+</tr>
+</tbody></table></div>
+</div></details>
+<details class="section" open><summary><h2>증거 기록</h2><span class="chevron">⌄</span></summary><div class="section-body">
+<p>새 증거는 아래 표에 추가하고 연결 가설 ID를 표시합니다. 의견과 실제 행동을 분리합니다.</p>
+<div class="table-wrap"><table><thead><tr>
+<th>날짜</th>
+<th>가설 ID</th>
+<th>증거 유형</th>
+<th>관찰&#183;수치</th>
+<th>출처</th>
+<th>신뢰도</th>
+<th>판단 영향</th>
+</tr></thead><tbody>
+<tr>
+<td>2026-08-13</td>
+<td>H-006</td>
+<td>경쟁사 조사</td>
+<td>국내 멀티채널 조사부터 SKU&#183;주문 성과까지 한 흐름으로 제공하는 직접 경쟁사는 공개 조사에서 확인되지 않음</td>
+<td>personas/02_customer_market/reference/06_competitor_benchmark.md</td>
+<td>B</td>
+<td>차별화 가설은 유지하되 고객 검증 필요</td>
+</tr>
+<tr>
+<td>2026-08-13</td>
+<td>H-009</td>
+<td>SaaS GTM 연구</td>
+<td>제품 체험&#183;사용 분석&#183;제품 적격 계정과 영업을 결합한 PLS가 개인 사용에서 팀 계약으로 이어지는 구조를 설명</td>
+<td>personas/04_sales_marketing/reference/13_it_saas_gtm_paid_acquisition.md</td>
+<td>B</td>
+<td>메커니즘은 타당하지만 BIGSEE의 전환율은 별도 검증 필요</td>
+</tr>
+<tr>
+<td>2026-08-14</td>
+<td>H-010</td>
+<td>사용자 전달</td>
+<td>기존 등록 사용자가 약 20명이라는 정보를 받았으나 실제&#183;활성&#183;반복&#183;유료&#183;역할은 미확인</td>
+<td>personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md</td>
+<td>C</td>
+<td>광고 최적화보다 고객 연구 집단으로 먼저 사용</td>
+</tr>
+<tr>
+<td>2026-08-14</td>
+<td>H-011</td>
+<td>사용자 방향 수정</td>
+<td>커뮤니티를 먼저 끝낸 뒤 Meta로 가는 순차 설계가 아니라 대형 커뮤니티와 Meta를 함께 비교해야 한다는 요구</td>
+<td>control/16_replanning_brief.md</td>
+<td>A</td>
+<td>H-011을 수정하고 H-012 동시 시험으로 전환</td>
+</tr>
+<tr>
+<td>2026-08-14</td>
+<td>H-012</td>
+<td>외부 채널 조사</td>
+<td>아이보스는 마케팅 실무 범주&#183;교육&#183;대행 접점, 셀러오션은 실제 쇼핑몰 운영&#183;마케팅 범주가 활발하고 Meta는 리드&#183;메시지 전환과 CRM/CAPI 연결을 제공</td>
+<td>personas/04_sales_marketing/reference/20_community_meta_parallel_launch.md</td>
+<td>B</td>
+<td>채널 적합성은 있으나 BIGSEE 결제 성과는 14일 시험 필요</td>
+</tr>
+<tr>
+<td>2026-08-14</td>
+<td>H-014</td>
+<td>공식 제품&#183;정책 조사</td>
+<td>Google은 근거 있는 생성 지원과 저가치 대량 콘텐츠 위험을 구분하고, GA4&#183;Meta&#183;카페24는 이벤트&#183;리드&#183;상품/주문 연결 수단을 제공</td>
+<td>personas/03_product_growth/reference/21_product_system_replan.md</td>
+<td>B</td>
+<td>자동 게시보다 근거&#183;승인&#183;측정&#183;내부 ID 우선</td>
+</tr>
+</tbody></table></div>
+</div></details>
+<details class="section" open><summary><h2>검증 원칙</h2><span class="chevron">⌄</span></summary><div class="section-body">
+<ul>
+<li>인터뷰의 호의적 반응보다 실제 결제&#183;반복 사용&#183;게시&#183;보고서 사용을 강한 증거로 봅니다.</li>
+<li>한 번의 성공 사례로 통과시키지 않고 최소 표본과 기간을 사전에 정합니다.</li>
+<li>목표값을 달성하지 못해도 데이터를 숨기지 않고 <code>기각</code>, <code>수정</code>, <code>추가 시험</code> 중 하나로 결정합니다.</li>
+<li>추정 매출과 실제 주문 매출을 같은 지표로 합치지 않습니다.</li>
+<li>시험 결과가 전략을 바꾸면 <code>control/08_decision_log.md</code>에 새 결정을 추가합니다.</li>
+</ul>
+</div></details>
+
+    </section>
+  </main>
+  <footer>
+    <span>정본: <code>control/08_decision_log.md + control/09_validation_board.md</code></span>
+    <span>생성: 2026-08-14 19:57:45 +09:00</span>
+    <span>소스 해시: <code>d501a76303c8</code></span>
+  </footer>
+  <script src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,45 +1,41 @@
-# 마켓빅시 사업·제품 운영 저장소
+# BIGSEE 사업·제품 운영 저장소
 
 기준일: 2026-08-14
 
-현재는 사업 운영 체계를 다시 잡는 단계입니다. 운영자는 고객·매출·현금·마케팅을 책임하고 개발자는 제품에 집중하도록 역할·정보·30일 우선순위를 합의한 뒤, 기존 약 20명에서 첫 고객과 구매 상황을 찾습니다.
+이 저장소는 BIGSEE를 운영·판매·개발하기 위한 정본과 연결형 대시보드를 관리합니다. 현재 방향은 세 개의 실제 업무 페르소나를 대상으로 대형 커뮤니티와 Meta를 동시 검증하고, 조사에서 SKU·콘텐츠·영업·매출 측정까지 제품을 확장하는 것입니다.
 
 ## 바로 보기
 
-- 단일 대시보드: [dashboard/index.html](dashboard/index.html)
-- 전사 현재 상태: [control/00_project_status.md](control/00_project_status.md)
-- 단계와 이번 행동: [control/15_execution_control.md](control/15_execution_control.md)
-- 화면 섹션 라우팅: [system/dashboard/SECTION_REGISTRY.md](system/dashboard/SECTION_REGISTRY.md)
+- 대시보드: [dashboard/index.html](dashboard/index.html)
+- 다음 로컬 전체 인계: [control/17_context_handoff.md](control/17_context_handoff.md)
+- 최신 재기획: [control/16_replanning_brief.md](control/16_replanning_brief.md)
+- 전사 현황: [control/00_project_status.md](control/00_project_status.md)
+- 실행 계획: [control/15_execution_control.md](control/15_execution_control.md)
+- 페이지 라우팅: [system/dashboard/SECTION_REGISTRY.md](system/dashboard/SECTION_REGISTRY.md)
 
-대시보드의 `지금·단계·광고·협업·결정·역할·전체` 태그는 모두 같은 `index.html` 안의 구역입니다. 별도 현황 HTML은 만들지 않습니다.
+## 폴더 책임
 
-## 폴더 구조
-
-| 경로 | 무엇을 두는가 |
+| 경로 | 내용 |
 |---|---|
-| `control/` | 전체 현황·결정·검증·실행 순서 |
-| `system/` | 운영·하네스·단일 대시보드 규칙 |
-| `personas/<역할>/inbox.md` | 역할로 들어온 질문과 완료 기준 |
-| `personas/<역할>/research.md` | 탐색 과정·출처·반증 |
-| `personas/<역할>/state.md` | 현재 진행·차단·다음 행동 |
-| `personas/<역할>/output.md` | 대시보드에 취합할 최신 결론 |
-| `personas/<역할>/reference/` | 해당 역할이 책임지는 상세 분석 정본 |
-| `scripts/dashboard/` | 긴 단일 HTML을 합성하는 전용 생성 로직 |
-| `dashboard/` | 최종 `index.html`과 화면 자산 |
+| `control/` | 전사 현황·결정·가설·실행·재기획 |
+| `personas/` | 역할별 inbox·research·state·output·상세 reference |
+| `system/` | 하네스와 대시보드 운영 계약 |
+| `scripts/dashboard/` | MD 정본을 연결형 HTML로 만드는 생성기 |
+| `dashboard/pages/` | 타깃·시장진입·제품·운영·결정 화면 |
+| `dashboard/assets/` | 공통 CSS·JavaScript |
 
-루트에는 진입 파일인 `README.md`, `AGENTS.md`, `dashboard.html`만 둡니다.
+루트에는 `README.md`, `AGENTS.md`, `dashboard.html`만 둡니다.
 
-## 다음 로컬의 기본 로딩
+## 다음 세션의 최소 로딩
 
-1. `README.md`
-2. 질문과 맞는 태그를 `system/dashboard/SECTION_REGISTRY.md`에서 찾기
-3. 등록부가 지정한 Markdown과 담당 역할의 `output.md`만 먼저 읽기
-4. 필요할 때만 같은 역할의 `state.md`, `research.md`, `reference/` 문서 1~2개 읽기
+1. 이 파일을 읽습니다.
+2. 사업의 배경이나 현재 방향을 이어갈 때는 `control/17_context_handoff.md`를 읽습니다.
+3. `system/dashboard/SECTION_REGISTRY.md`에서 필요한 페이지의 정본을 찾습니다.
+4. 해당 정본 하나와 담당 persona `output.md`만 먼저 읽습니다.
+5. 근거가 부족할 때만 연결된 reference를 읽습니다.
 
-생성된 `dashboard/index.html` 전체를 사업 판단용 컨텍스트로 읽지 않습니다.
+생성 HTML을 사업 판단의 정본으로 읽거나 직접 편집하지 않습니다.
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\build-dashboard.ps1
 ```
-
-HTML은 직접 편집하지 않습니다. 기존 전체 분석 원본은 `C:\MyMain\market-bigsee-service-business-analysis-2026-08-12.md`에 보존돼 있습니다.

@@ -16,4 +16,4 @@ output.md    최신 결론·한계·제안·결정 요청
 reference/   해당 역할이 책임지는 상세 분석 정본
 ```
 
-대시보드는 `state.md`와 `output.md`만 취합합니다. `reference/`는 근거가 필요할 때만 선택해서 읽습니다.
+`state.md`와 `output.md`는 다음 로컬의 짧은 역할 인계입니다. 연결형 대시보드는 `system/dashboard/SECTION_REGISTRY.md`에 등록된 control/reference 정본을 화면별로 표현하며, `reference/`는 관련 근거가 필요할 때만 선택해서 읽습니다.

@@ -1,36 +1,36 @@
 ﻿# 마켓빅시 프로젝트 현황 정본
 
-이 문서는 새 세션과 대시보드가 가장 먼저 읽는 현재 상태의 단일 정본입니다. 상세 근거는 연결된 문서에만 유지하며 이 문서에는 결론, 상태, 다음 게이트만 둡니다.
+이 문서는 대시보드가 읽는 현재 상태 정본입니다. 다음 로컬에서 전체 배경과 판단 변화까지 복구할 때는 `control/17_context_handoff.md`를 먼저 읽고, 이 문서에는 결론·상태·다음 게이트만 둡니다.
 
 ## 기본 현황
 
 | 항목 | 값 |
 |---|---|
 | 마지막 갱신 | 2026-08-14 |
-| 사업 단계 | 운영자 중심 시장진입 재설계 · 고객 및 원가 검증 전 |
-| 제품 단계 | 확장 MVP 기획 완료 · 실제 코드 미검토 |
+| 사업 단계 | 구매상황 기반 3개 페르소나·커뮤니티/Meta 동시 검증 준비 |
+| 제품 단계 | 워크스페이스·SKU·콘텐츠·CRM·원가 원장 재기획 · 실제 코드 미검토 |
 | 전체 상태 | 주의 |
 | 사업성 평가 | 67/100 |
-| 첫 고객 | 대행사 실무자·1인 셀러·인하우스 마케터 중 검증 후 한 곳 선택 |
+| 첫 고객 | 대행사 실무·책임자를 1순위, 인하우스 마케터·활성 다채널 셀러를 비교군으로 검증 |
 | 첫 판매 상황 | 최근 실제 조사 업무를 직접 해결하는 유료 파일럿 |
 | 기존 등록 사용자 | 약 20명 · 사용자 전달값 · 실제/활성/유료 구분 미확인 |
 | 핵심 루프 | 시장 조사 → 콘텐츠 초안 → SKU·캠페인 연결 → 구매 측정 → 다음 실행 추천 |
 | 북극성 지표 | 주간 완성 의사결정 리포트 수 |
-| 다음 사업 게이트 | 기존 사용자 10명 인터뷰에서 같은 고객군 6명 이상·데모 5건 중 유료 2건 확인 |
+| 다음 사업 게이트 | 14일 동시 시험에서 페르소나별 유효 상담·첫 가치·유료·반복 의도 비교 |
 | 다음 기술 게이트 | 현재 코드·사용량 계측·계정 경계·외부 API 구조 점검 |
 
 ## 영역별 상태
 
 | 영역 | 상태 | 현재 근거 | 다음 게이트 | 정본 |
 |---|---|---|---|---|
-| 전략·포지셔닝 | 재검증 | 범용 조사 도구보다 한 고객·한 상황·한 결과를 파는 방향으로 재설계 | 기존 사용자 근거로 첫 고객과 구매 상황 하나 선택 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
-| 시장·경쟁 | 진행 | 국내외 경쟁사 7개군의 기능·가격·빈틈 조사 완료 | 동일 과제 제품 테스트와 대행사 인터뷰 | personas/02_customer_market/reference/06_competitor_benchmark.md |
-| 판매·PMF | 진행 | 기존 등록 사용자 약 20명 존재하나 역할·실사용·유료·반복 미확인 | 10명 인터뷰·5명 동행 사용·데모 5건·유료 2건 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
-| 제품 MVP | 기획 | SKU·브리프·블로그·추적 링크·주문 CSV 범위 정의 | 코드 점검 후 6~8주 범위 재산정 | personas/03_product_growth/reference/04_feature_expansion_plan.md |
+| 전략·포지셔닝 | 재검증 | 대행사·인하우스·활성 셀러의 구매상황과 제외 대상을 명시 | 14일의 결제·반복·팀 신호로 1순위 결정 | control/16_replanning_brief.md |
+| 시장·경쟁 | 진행 | 아이보스·셀러오션의 현재 실무 맥락과 세 페르소나 접근 경로 확인 | 2026 공식 집행 규정·견적과 실제 유효 상담 비교 | personas/02_customer_market/reference/19_target_personas_channel_map.md |
+| 판매·PMF | 진행 | 커뮤니티와 Meta의 동일 제안 동시 시험 설계, 기존 약 20명은 미분류 | UTM·폼·CRM을 갖춘 14일 동시 시험 | personas/04_sales_marketing/reference/20_community_meta_parallel_launch.md |
+| 제품 MVP | 재기획 | 워크스페이스·SKU·근거 콘텐츠·추적·경량 CRM·원가 원장 범위 정의 | 코드 점검 후 P0 4~6주 가설 재산정 | personas/03_product_growth/reference/21_product_system_replan.md |
 | 원가·수익성 | 미측정 | 원가 항목과 손익분기 공식만 정의 | 사용자·기능·API별 2주 사용량 원장 | personas/01_strategy_ceo/reference/01_service_current_state.md |
 | 데이터·API | 기획 | 내부 ID·이벤트·커넥터·공개 API 개념 설계 | CSV MVP와 첫 커머스 연동 선택 | personas/06_technology_data/reference/05_data_api_architecture.md |
 | 콘텐츠·규정 | 주의 | AI 대량 생성·허위 리뷰·광고 관계 표시 위험 확인 | 업종별 검수 규칙과 법률 검토 | personas/04_sales_marketing/reference/03_ecommerce_marketing_sales_flow.md |
-| 프로젝트 운영 | 재설계 | 문서 관리보다 고객·현금·판매·개발 협업을 먼저 보는 운영판으로 전환 | 매주 핵심 12개 숫자와 결정·다음 행동 갱신 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
+| 프로젝트 운영 | 재설계 | 단일 HTML을 상호 연결된 6개 화면으로 전환하고 MD 정본은 유지 | 연결형 페이지 자동 생성·검증 | system/dashboard/RULES.md |
 
 ## 90일 단계
 
@@ -38,8 +38,8 @@
 |---|---|---|---|---|---|
 | 1. 운영 기반 합의 | 진행 | 1주 | 현금·역할·정산·정보권·30일 개발 우선순위 합의 | 개발자와 90분 사업회의 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
 | 2. 고객 진실 확인 | 진행 | 1~2주 | 기존 사용자 10명 인터뷰·5명 동행·첫 고객 선택 | 약 20명 전수 연락과 역할 분류 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
-| 3. 직접 판매 검증 | 대기 | 2~4주 | 데모 5건 중 유료 2건·거절 이유 5건 | 한 문장 제안과 샘플 3개 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
-| 4. 커뮤니티·Meta 검증 | 대기 | 4~6주 | 도움→상담→데모→첫 가치 흐름 재현 | 커뮤니티 자료 2개와 Meta 7일 시험 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
+| 3. 타깃·제안 준비 | 진행 | 1주 | 페르소나별 제안·샘플·랜딩·폼·UTM 3세트 | 실제 결과 화면과 후속 담당 연결 | control/16_replanning_brief.md |
+| 4. 커뮤니티·Meta 동시 검증 | 대기 | 2주 | 유입→유효 상담→첫 가치→유료 흐름을 source/persona별 측정 | 아이보스·셀러오션과 Meta 3소재 같은 주 시작 | personas/04_sales_marketing/reference/20_community_meta_parallel_launch.md |
 | 5. 반복·B2B 확대 | 대기 | 7~13주 | 유료 5건 중 반복 3건·사례 2개·원가와 CAC 계산 | 팀 의도 계정과 파트너 후보 선별 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
 
 ## 핵심 지표
@@ -84,9 +84,9 @@
 |---|---|---|---|
 | 1 | 개발자와 90분 사업회의 | 현금 현황·30일 개발 우선순위·역할/정산 합의 | 진행 |
 | 2 | 기존 약 20명 전수 연락·분류 | 실제 사용자·역할·최근 사용·반복·유료가 구분됨 | 진행 |
-| 3 | 사용자 10명 인터뷰·5명 화면 동행 | 같은 고객군·최근 문제·기존 대안·첫 가치 증거 | 대기 |
-| 4 | 첫 고객 후보 3개 점수화 | 대행사·셀러·인하우스 중 한 곳 선택 | 대기 |
-| 5 | 한 문장 제안·샘플 3개·데모 5건 | 유료 2건 또는 명확한 거절 이유 5건 | 대기 |
+| 3 | 페르소나별 제안·샘플·랜딩 3세트 | 실제 결과, 역할 폼, UTM, 후속 담당이 연결됨 | 진행 |
+| 4 | 커뮤니티 현재 규정·공식 견적 확인 | 아이보스·셀러오션의 2026 집행 방식과 상한 승인 | 대기 |
+| 5 | 커뮤니티·Meta 14일 동시 시험 | persona/source/creative별 상담·첫 가치·결제 기록 | 대기 |
 
 
 
