@@ -1,40 +1,45 @@
-# 마켓빅시 사업·제품 기획 저장소
+# 마켓빅시 사업·제품 운영 저장소
 
 기준일: 2026-08-13
 
-이 폴더는 마켓빅시의 사업 현황, 판매 전략, 이커머스 마케팅 조사, 기능 확장 기획을 다음 로컬 환경에서도 이어가기 위한 정본입니다.
+현재는 광고 확대 전 단계입니다. 개발 총괄과 역할·정산·정보 접근을 합의하고 제품 원가와 사용자 행동을 측정할 수 있는지 확인하고 있습니다.
 
-## 핵심 결론
+## 바로 보기
 
-마켓빅시는 단순한 키워드 조회 도구보다 다음의 폐쇄형 업무 흐름을 지향해야 합니다.
+- 단일 대시보드: [dashboard/index.html](dashboard/index.html)
+- 전사 현재 상태: [control/00_project_status.md](control/00_project_status.md)
+- 단계와 이번 행동: [control/15_execution_control.md](control/15_execution_control.md)
+- 화면 섹션 라우팅: [system/dashboard/SECTION_REGISTRY.md](system/dashboard/SECTION_REGISTRY.md)
 
-> 시장 조사 → 콘텐츠 기획·초안 → SKU·캠페인 연결 → 유입·구매 측정 → 다음 실행 추천
+대시보드의 `지금·단계·광고·협업·결정·역할·전체` 태그는 모두 같은 `index.html` 안의 구역입니다. 별도 현황 HTML은 만들지 않습니다.
 
-첫 판매 시장은 2~20인 광고·마케팅 대행사이며, 첫 제품 진입점은 신규 광고주 제안서와 캠페인 조사입니다. 기능 확장은 블로그 초안 생성부터 시작하되 반드시 SKU 및 성과 측정과 연결합니다.
+## 폴더 구조
 
-## 문서 목록
+| 경로 | 무엇을 두는가 |
+|---|---|
+| `control/` | 전체 현황·결정·검증·실행 순서 |
+| `system/` | 운영·하네스·단일 대시보드 규칙 |
+| `personas/<역할>/inbox.md` | 역할로 들어온 질문과 완료 기준 |
+| `personas/<역할>/research.md` | 탐색 과정·출처·반증 |
+| `personas/<역할>/state.md` | 현재 진행·차단·다음 행동 |
+| `personas/<역할>/output.md` | 대시보드에 취합할 최신 결론 |
+| `personas/<역할>/reference/` | 해당 역할이 책임지는 상세 분석 정본 |
+| `scripts/dashboard/` | 긴 단일 HTML을 합성하는 전용 생성 로직 |
+| `dashboard/` | 최종 `index.html`과 화면 자산 |
 
-| 문서 | 내용 | 상태 |
-|---|---|---|
-| [01_service_current_state.md](01_service_current_state.md) | 현재 서비스·요금제·기술·사업성 현황 | 조사 기반 초안 |
-| [02_sales_management_strategy.md](02_sales_management_strategy.md) | 시장 진입·판매·경영·90일 실행 전략 | 실행 초안 |
-| [03_ecommerce_marketing_sales_flow.md](03_ecommerce_marketing_sales_flow.md) | 이커머스 채널의 마케팅·세일즈 흐름 | 조사 완료 |
-| [04_feature_expansion_plan.md](04_feature_expansion_plan.md) | 블로그·리뷰·SKU·매출 측정 기능 기획 | 제품 초안 |
-| [05_data_api_architecture.md](05_data_api_architecture.md) | 데이터 모델·이벤트·외부 API 연동 구조 | 기술 초안 |
+루트에는 진입 파일인 `README.md`, `AGENTS.md`, `dashboard.html`만 둡니다.
 
-## 기존 원본
+## 다음 로컬의 기본 로딩
 
-이 폴더를 만들기 전에 작성한 전체 분석 원본은 다음 파일에 보존되어 있습니다.
+1. `README.md`
+2. 질문과 맞는 태그를 `system/dashboard/SECTION_REGISTRY.md`에서 찾기
+3. 등록부가 지정한 Markdown과 담당 역할의 `output.md`만 먼저 읽기
+4. 필요할 때만 같은 역할의 `state.md`, `research.md`, `reference/` 문서 1~2개 읽기
 
-- `C:\MyMain\market-bigsee-service-business-analysis-2026-08-12.md`
+생성된 `dashboard/index.html` 전체를 사업 판단용 컨텍스트로 읽지 않습니다.
 
-원본은 삭제하거나 덮어쓰지 않았습니다. 새 문서는 원본과 이후 판매 전략을 정상 UTF-8로 재정리한 것입니다.
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\build-dashboard.ps1
+```
 
-## 다음 의사결정
-
-1. 첫 고객군을 `이커머스 전문 마케팅 대행사`로 확정할지 결정
-2. `블로그 초안 + SKU + 캠페인 링크 + 주문 CSV` MVP 범위 확정
-3. 현재 코드 저장소를 확보해 데이터 모델·인증·사용량 계측 가능 여부 점검
-4. 네이버 스마트스토어 또는 카페24 중 첫 커머스 연동 하나 선택
-5. 파일럿 대행사 3곳에서 실제 조사·콘텐츠 제작·판매 측정 흐름 검증
-
+HTML은 직접 편집하지 않습니다. 기존 전체 분석 원본은 `C:\MyMain\market-bigsee-service-business-analysis-2026-08-12.md`에 보존돼 있습니다.

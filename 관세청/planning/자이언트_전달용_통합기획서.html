@@ -98,15 +98,14 @@
 <nav id="toc"><h4>목차</h4><div id="tocList"></div></nav>
 
 <div class="container">
-    <nav class="core-nav" aria-label="주요 문서">
-        <a href="./planning_v6.html" class="active">통합 기획서</a>
-        <a href="./api_field_mapping.html">API 필드 매핑</a>
-        <a href="./리스크_질의대장.html">리스크·질의 대장</a>
-        <a href="./유형코드_부호체계_정리.html">유형·부호 체계</a>
+    <nav class="core-nav" aria-label="자이언트 전달 문서">
+        <a href="./자이언트_전달용_통합기획서.html" class="active">통합 기획서</a>
+        <a href="./자이언트_전달용_API필드매핑.html">API 필드 매핑</a>
     </nav>
 
-    <h1>KCS 사전 거래정보 신고(TRA) E2E 통합 기획서 (planning_v6 Full Spec)</h1>
-<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-08-14</span> · 문서 버전 <span style="color:#8ab4f8;">v6</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 (기준일 대비 D-14) · 관세청 테스트서버 종료 2026-08-21 (D-7)</span></div>
+    <div style="background:#e8f0fe;border-left:4px solid #1a73e8;padding:11px 14px;margin:0 0 18px;border-radius:4px;font-size:13px;line-height:1.65;"><strong>외부 전달본</strong> — 자이언트 개발 협의를 위한 기획서입니다. 내부 관리 문서 링크를 제외했으며, 필드 타입·필수값·회사별 소유권은 함께 전달하는 API 필드 매핑을 정본으로 사용합니다.</div>
+    <h1>[자이언트 전달용] KCS 사전 거래정보 신고(TRA) E2E 통합 기획서</h1>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-08-13</span> · 문서 버전 <span style="color:#8ab4f8;">v6</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 (기준일 대비 D-15) · 관세청 테스트서버 종료 2026-08-21 (D-8)</span></div>
 
     <div style="background:#e8f0fe; padding:18px 22px; border-left:5px solid #1a73e8; margin-bottom:20px; border-radius:4px; font-size:13.5px; line-height:1.7;">
         <strong>[자사몰 메인 E2E 및 동수 시스템 이원화 정의]</strong> 본 기획서는 <strong>Geek Studio(자사몰: 크로네몰) - 동수(EIBE ERP / DS Logistics) - 자이언트 특송사 - 관세청 REST API 간의 직접판매(A유형) 실무 데이터 및 로직</strong>을 기준 집행됩니다.<br>
@@ -227,35 +226,15 @@ sequenceDiagram
     <!-- ================================================================= -->
 
     <div style="background:#fff4e5; padding:18px 22px; border-left:5px solid #e8710a; margin-bottom:25px; border-radius:4px; font-size:13.5px; line-height:1.8;">
-        <strong style="font-size:15px;">[적용 일정]</strong> <span style="color:#888;">2026-08-14 기준</span><br>
+        <strong style="font-size:15px;">[적용 일정]</strong> <span style="color:#888;">2026-08-10 기준</span><br>
         <table style="margin:10px 0 0 0; width:auto; font-size:13px;">
             <thead><tr><th style="padding:6px 14px;">일자</th><th style="padding:6px 14px;">내용</th><th style="padding:6px 14px;">본 기획서와의 관계</th></tr></thead>
             <tbody>
-                <tr><td style="padding:6px 14px;"><strong>2026-08-21</strong></td><td style="padding:6px 14px;">관세청 테스트 서버 이용 종료</td><td style="padding:6px 14px;">테스트 서버에서 가능한 PER·TRA 분기 검증 마감. 이후 미완료 E2E는 08-28 오픈 후 실제 주문 기반 안정화 검증으로 이어감</td></tr>
+                <tr><td style="padding:6px 14px;"><strong>2026-08-21</strong></td><td style="padding:6px 14px;">관세청 테스트 서버 이용 종료</td><td style="padding:6px 14px;">이 날까지 PER·TRA 전 분기 검증 완료 필요</td></tr>
                 <tr><td style="padding:6px 14px;"><strong>2026-08-28 09:00</strong></td><td style="padding:6px 14px;"><strong>자사몰 오픈 (운영 적용)</strong><br><strong style="color:#c5221f;">= 관세청 시범운영 시행일</strong></td><td style="padding:6px 14px;"><span class="rule-highlight">이 시각 이후 결제 완료된 주문만 본 E2E 프로세스 대상</span>. 이전 주문은 기존 통관 방식 유지. 동수 API 조회 대상 필터의 기준 일시를 <strong>2026-08-28 09:00</strong>으로 설정<br><span class="rule-highlight">2026-08-11 확인</span> 관세청 공지(2026-08-04)상 <strong>관세청 시범운영 시행일도 동일한 2026-08-28 09:00</strong>(종료일 별도 공지). 오픈일 = 관세청 플랫폼 가동 첫날. 같은 공지에 "시범운영 기간에는 기존 서식 목록통관도 가능"이 명시되어 <u>폴백 경로 존재</u></td></tr>
-                <tr><td style="padding:6px 14px;"><strong>Geek 개발 준비 완료 즉시<br>~ 2026-09-14 24:00</strong></td><td style="padding:6px 14px;">실제 주문 테스트·오픈 안정화<br>기존 엑셀 신고 양식 병행 가능 기간</td><td style="padding:6px 14px;">오픈 후 약 1주를 우선 안정화 기간으로 운영하되, 필요 시 <code>Z99999</code> 공식 허용 종료 시각까지 연장. Geek은 준비 즉시 실제 주문 테스트를 시작하며 별도 사전 승인이나 회신을 기다리지 않음. 단, 실제 주문번호·HBL·제출경로·결과는 관계사에 즉시 공유</td></tr>
                 <tr><td style="padding:6px 14px;"><strong>2026-09-14 24:00</strong></td><td style="padding:6px 14px;">일회용 인증번호 계도기간 종료</td><td style="padding:6px 14px;"><code>Z99999</code> 임시 코드 사용 종료. 적용 기준은 주문일이 아니라 <u>세관에 수입신고서·통관목록이 제출되는 날짜</u></td></tr>
             </tbody>
         </table>
-    </div>
-
-    <h2 id="live-order-pilot">
-        <span>[실주문 검증·오픈 안정화] 실제 주문 테스트 · 기존 엑셀 신고 양식 병행</span>
-        <span class="time-tag" style="background:#e8710a;">최대 2026-09-14 24:00</span>
-    </h2>
-    <div class="stage-box" style="border-left-color:#e8710a;">
-        <p style="background:#e6f4ea;border-left:3px solid #137333;padding:10px 12px;"><strong>운영 결론</strong> — Geek은 개발 준비가 되는 즉시 <strong>별도 사전 승인이나 관계사 회신을 기다리지 않고 실제 주문으로 테스트를 시작</strong>한다. 동수·자이언트 등 타사는 제공된 API 가이드와 접근권한 개방 절차에 따라 각자 연동 준비를 완료하며, Geek 테스트의 별도 승인 게이트로 두지 않는다. 다만 <strong>사전 승인 불필요는 테스트 주문 공유 생략을 뜻하지 않는다.</strong></p>
-        <table>
-            <thead><tr><th style="width:16%">구분</th><th style="width:23%">운영 기준</th><th>실행 내용</th></tr></thead>
-            <tbody>
-                <tr><td><strong>시작·기간</strong></td><td>Geek 준비 즉시 시작<br>오픈 후 약 1주 우선 운영</td><td>Geek 개발 준비 완료 시점부터 실제 주문으로 E2E를 검증한다. 오픈 후 약 1주가 지난 시점에 안정화 여부를 협의하되, 필요한 경우 <code>Z99999</code>가 공식 허용되는 <strong>2026-09-14 24:00까지</strong>를 최대 테스트 가능 기간으로 한다. 종료 기준은 주문일이 아니라 세관 제출일 기준이다.</td></tr>
-                <tr><td><strong>테스트 주문 공유</strong></td><td>승인 절차 아님<br>시작 즉시 관계사 공유</td><td>실제 주문 생성 또는 테스트 착수 즉시 공용 채널에 <code>orderNo</code>·<code>customerOrderNo</code>·<code>hwbNo</code>(확보 후)·테스트 시나리오·제출경로(<code>API</code>/<code>EXCEL</code>)·처리 결과·오류를 공유한다. 개인정보 원문은 채팅에 올리지 않고 필요한 경우 보안 채널을 사용한다.</td></tr>
-                <tr><td><strong>엑셀 신고 지원</strong></td><td>전면 등록 기능 개발 요청 아님</td><td>기존 관세 신고 엑셀 양식을 기준으로 테스트 주문의 필수값을 확인·추출·대사·공유할 수 있도록 Geek과 지원 범위를 협의한다. 별도의 엑셀 등록 기능 전체를 요청하지 않으며, 현재 제공 예정인 제출 현황·오류 내역 화면 또는 다운로드 자료로 양식 작성에 필요한 정보를 함께 확보하는 방안을 우선 검토한다.</td></tr>
-                <tr><td><strong>제출경로·중복 방지</strong></td><td><code>hwbNo + orderNo</code>별 단일 최종경로</td><td>같은 건을 엑셀과 API로 중복 최종 제출하지 않는다. 테스트 대장에 <code>submissionRoute</code>(API/EXCEL), 제출시각, 제출번호, 결과를 기록하고, 엑셀로 실제 신고한 건은 운영 API 자동 제출 대상에서 제외한다.</td></tr>
-                <tr><td><strong>자동화 전환</strong></td><td>검증 완료 건부터 API 운영</td><td>자이언트 분리 API, HBL 병합, TRA 제출, 오류조회와 주문 원복의 실주문 E2E가 검증되면 해당 범위부터 API를 기준 경로로 전환한다. 본 임시 운영안에는 별도의 재제출 담당자 지정 규칙을 두지 않는다.</td></tr>
-            </tbody>
-        </table>
-        <p style="background:#fff3cd;border-left:3px solid #856404;padding:8px 12px;"><strong>주의:</strong> 실제 주문 테스트는 고객 주문·출고·신고에 영향을 줄 수 있으므로, 승인 대기 없이 시작하되 테스트 식별정보와 처리 결과를 즉시 공유해 Geek·동수·자이언트·운영이 같은 건을 추적할 수 있어야 한다.</p>
     </div>
 
     <h2 id="giant-split-api">
@@ -281,7 +260,7 @@ sequenceDiagram
                 <tr><td>기타 구매대행 채널</td><td><strong>B</strong></td><td><code>K26000099</code> / (주)크로네</td><td><code>K26000099</code> / (주)크로네</td><td>실제 해외 판매업체명</td></tr>
             </tbody>
         </table>
-        <p><strong>자이언트 구현 필수 조건</strong> — ① 어느 API가 먼저 와도 대기 상태로 저장 ② 소스별 null이 타사 값을 덮지 않음 ③ 동일 <code>hwbNo + orderNo</code> 재전송은 <code>H006</code>이 아니라 해당 소스의 멱등 upsert ④ 최종 누락 필드와 대기 회사를 조회 가능 ⑤ 신고 전 House Master Console 전체 수정 가능. 전체 행별 타입·길이·필수 여부는 <a href="./api_field_mapping.html"><strong>api_field_mapping.html</strong></a> 자이언트 63~129번을 기준으로 한다.</p>
+        <p><strong>자이언트 구현 필수 조건</strong> — ① 어느 API가 먼저 와도 대기 상태로 저장 ② 소스별 null이 타사 값을 덮지 않음 ③ 동일 <code>hwbNo + orderNo</code> 재전송은 <code>H006</code>이 아니라 해당 소스의 멱등 upsert ④ 최종 누락 필드와 대기 회사를 조회 가능 ⑤ 신고 전 House Master Console 전체 수정 가능. 전체 행별 타입·길이·필수 여부는 <a href="./자이언트_전달용_API필드매핑.html"><strong>자이언트 전달용 API 필드 매핑</strong></a> 자이언트 63~129번을 기준으로 한다.</p>
         <p style="font-size:12px;color:#5f6368;"><strong>제외</strong> — 자이언트 <code>productId</code>는 회신 기준 비필수이며 연동사 별도 관리가 필요 없어 두 등록 API에서 제외한다. 금액 소수점 공식과 신고 후 정정 절차는 API 개발 후 별도 검증한다.</p>
     </div>
     <h2 id="order-batch-contract">
@@ -892,7 +871,7 @@ flowchart TD
             <li><strong>처리기준:</strong> 11:40 TRA003 오류 조회(제출 후 30~40분 대기) → 11:50 분기 처리 → <strong>정상 건은 <code>g1</code> → <code>g5</code>(항공발송중)</strong> 전환 + 송장번호 업데이트, <strong>오류 건은 <code>g1</code> → <code>p1</code> 원복</strong> + 동수 EIBE ERP 주문 삭제 API 단건 호출 → 익일 09:00 재수집.</li>
             <li style="background:#fff3cd; border-left:3px solid #856404; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[수용된 잔여 리스크 · 2026-08-11 결정]</strong> TRA002를 도입하지 않고 <strong>TRA003 단독 판정을 유지</strong>합니다.<br>
                 v1.4.1 [붙임1]상 TRA003은 <u>한 번도 조회하지 않은 오류만</u> 응답하는 보조 API이며, ⓐ 1회 조회 후 재조회 불가 ⓑ <code>txif_rgsr_err_cnt</code>가 0이어도 상품 개별 오류 존재 가능. 따라서 <span class="rule-highlight">일부 반려 건이 "승인"으로 처리되어 출고될 수 있음</span>을 인지하고 운영합니다.<br>
-                <strong>완화책</strong> ① 제출 건수 vs TRA003 응답 건수 일 단위 대사 ② 자이언트 <code>gngMsgCode</code>(<code>44</code> 통관오류 · <code>99</code> 통관불가)로 사후 탐지 ③ 오류 반복 시 오픈 후 TRA002 전환 재검토. 상세는 <a href="./리스크_질의대장.html#active">통합 리스크·질의·협의 대장</a>.</li>
+                <strong>완화책</strong> ① 제출 건수 vs TRA003 응답 건수 일 단위 대사 ② 자이언트 <code>gngMsgCode</code>(<code>44</code> 통관오류 · <code>99</code> 통관불가)로 사후 탐지 ③ 오류 반복 시 오픈 후 TRA002 전환 재검토. 본 전달본에 기재된 완화책을 적용합니다.</li>
         
             <li style="background:#fce8e6; border-left:3px solid #c5221f; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[2026-08-12 신설] 주문 삭제 API가 실패하는 경우 — 자동화 불가 구간</strong><br>
                 동수 회신(2026-08-12 10:04) — "<u>해당 주문이 창고에서 작업이 시작된 상태라면 이 API는 <strong>실패(Fail)를 리턴</strong>하며, 취소가 필요할 경우 별도로 오프라인(유선) 연락하여 처리</u>해야 함".<br>
@@ -966,7 +945,7 @@ flowchart TD
             <li style="background:#e6f4ea; border-left:3px solid #137333; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[동수 확인사항 · 2026-08-10 추가]</strong> 동수 DS Logistics가 자이언트로 직송하는 구간. <span class="rule-highlight">특이사항</span> ① <code>mwbNo</code>·<code>departureDate</code>·<code>arrivalDate</code>는 2026-07-25 협의로 자이언트 필수값에서 해제 예정이며 동수·자이언트 간 직접 처리하기로 정리됨 — 최신 규격 재확인 필요 ② <code>weight</code>는 17:00 실측값이며 10:00에 받은 예정 중량과 다를 수 있음(관세청 TRA001에는 중량 항목이 없으므로 관세청 신고와는 무관) ③ <code>shipperName</code>·<code>shipperAddr</code>는 동수 고정값으로 자이언트 필수 항목임.</li>
         </ul>
     </div>
-    <p style="background:#e8f0fe;border-left:3px solid #1a73e8;padding:8px 12px;font-size:12.5px;"><strong>표의 역할</strong> — 아래 표는 Stage 6 이해를 위한 핵심 필드 발췌입니다. 개발 필수값·선택값·타입·길이의 정본은 <a href="./api_field_mapping.html"><strong>api_field_mapping.html 자이언트 63~118번</strong></a>이며, 해당 표의 <code>동수 API</code>·<code>동수 API Item</code> 행 전체를 적용합니다.</p>
+    <p style="background:#e8f0fe;border-left:3px solid #1a73e8;padding:8px 12px;font-size:12.5px;"><strong>표의 역할</strong> — 아래 표는 Stage 6 이해를 위한 핵심 필드 발췌입니다. 개발 필수값·선택값·타입·길이의 정본은 <a href="./자이언트_전달용_API필드매핑.html"><strong>자이언트 전달용 API 필드 매핑 63~118번</strong></a>이며, 해당 표의 <code>동수 API</code>·<code>동수 API Item</code> 행 전체를 적용합니다.</p>
     <table>
         <thead><tr><th>API 구분</th><th>필드명(코드)</th><th>한글 필드명</th><th>타입</th><th>필수</th><th>데이터 채움 출처</th><th>자사몰 실제 데이터 값</th><th>상세설명 및 처리 로직</th></tr></thead>
         <tbody>
@@ -1082,7 +1061,7 @@ flowchart TD
             <li><strong>자이언트 규격:</strong> <code>items[].sellerName</code>은 <span class="rule-highlight">A·B 구분 없이 항상 필수(Y)</span>입니다(GGATE v1.3.5, 예시값 <code>TAOBAO SHOP</code>). 즉 관세청에서는 선택인 B유형도 자이언트에는 값이 반드시 있어야 하므로, <strong>B 채널의 판매업체명 누락 시 HWB 등록이 거부</strong>됩니다.</li>
             <li><strong>운영 규칙:</strong> 관세청 <code>sale_ents_nm</code>과 자이언트 <code>sellerName</code>은 <u>동일 값으로 통일</u>합니다. 관세청 제출은 A유형을 Geek이 고정 주입하고 B유형 값을 동수에서 수신합니다. 자이언트 <code>sellerName</code>은 A·B 모두 동수 API가 전송합니다.</li>
             <li><strong>확정:</strong> A유형 제출자 상호와 판매업체명은 정식 등록 상호 <strong>(주)크로네</strong>를 사용합니다. 과거 TRA001 샘플의 <code>elcm_ents_nm="뉴트리시아몰"</code> 값은 운영 적용 전에 정정합니다.</li>
-            <li>부호 체계 전반은 <a href="./유형코드_부호체계_정리.html">유형코드_부호체계_정리.html</a> 참조.</li>
+            <li>A/B 부호 체계는 위 채널 매트릭스와 첨부 API 필드 매핑의 확정값을 적용합니다.</li>
         </ul>
     </div>
 
@@ -1172,7 +1151,7 @@ flowchart TD
         <tbody>
             <tr><td>QB-1</td><td>동수</td><td><code>getTRA001OrderInfo</code> 호출당 다건 상한·Rate Limit 미확정</td><td>최대 주문번호 수·문자열 길이·재조회 주기를 실측하고 청크 크기를 환경설정화</td><td>08-17</td></tr>
             <tr><td>QB-2</td><td>동수</td><td><code>prod_srno</code> 미제공</td><td>HBL 안에서 1부터 연속 채번된 값을 응답</td><td>08-15</td></tr>
-            <tr><td>QB-3</td><td>자이언트</td><td>Geek·동수 분리 API 미개발</td><td><code>hwbNo + orderNo</code> 병합, 회사별 독립검증, 선도착 저장, 멱등 upsert, 최종검증·상태조회 명세 수령</td><td>다음 주<br>정확일 회신 대기</td></tr>
+            <tr><td>QB-3</td><td>자이언트</td><td>Geek·동수 분리 API 미개발</td><td><code>hwbNo + orderNo</code> 병합, 회사별 독립검증, 선도착 저장, 멱등 upsert, 최종검증·상태조회 명세 수령</td><td>08-14</td></tr>
             <tr><td>QB-4</td><td>동수</td><td><code>orderDelete</code>가 창고 작업 착수 후 Fail</td><td>Fail 즉시 운영자 알림·수기 연락·작업 착수 시각 확인</td><td>08-17</td></tr>
             <tr><td>QB-5</td><td>동수</td><td><code>prod_clsf_nm_stp1/2</code>에 상품분류가 아닌 값 수신 가능</td><td>실제 상품분류 1·2단계 데이터로 검증</td><td>08-18</td></tr>
         </tbody>
@@ -1211,11 +1190,9 @@ flowchart TD
             <tr><td>E-02</td><td>전사</td><td>오류건 원복·재수집</td><td><code>g1→p1</code> 원복, 동수 삭제, 익일 반복 배치 유지</td><td>08-21</td><td>QA 대기</td></tr>
             <tr><td>E-03</td><td>전사</td><td>1주문 3포장</td><td>전 HBL 확보 후 TRA001 3건·자이언트 HWB 3건·첫 송장 고도몰 저장</td><td>08-21</td><td>QA 대기</td></tr>
             <tr><td>E-04</td><td>전사</td><td>null/non-null 혼재 방어</td><td><code>CONTRACT_ERROR</code> 격리·TRA 미제출·동수/운영자 알림</td><td>08-21</td><td>QA 대기</td></tr>
-            <tr><td>E-05</td><td>Geek·전사</td><td>실제 주문 즉시 테스트·공유</td><td>별도 승인 대기 없이 시작하고 주문번호·HBL·시나리오·제출경로·결과를 관계사 공용 채널에서 추적</td><td>준비 즉시~09-14</td><td>운영 검증</td></tr>
-            <tr><td>E-06</td><td>Geek·운영</td><td>엑셀/API 병행 중복 방지</td><td><code>hwbNo + orderNo</code>별 <code>submissionRoute</code>를 기록하고 엑셀 신고 건의 API 자동 제출을 차단</td><td>08-28~09-14</td><td>운영 검증</td></tr>
         </tbody>
     </table>
-    <p style="background:#fff3cd;border-left:3px solid #856404;padding:8px 12px;"><strong>검증 일정:</strong> 08-21까지 관세청 테스트 서버에서 가능한 검증을 수행한다. 자이언트 분리 API는 다음 주 제공 예정이며 정확한 명세일을 회신받는다. Geek은 개발 준비 즉시 실제 주문 E2E를 진행하고, 08-28 오픈 후에는 기존 엑셀 신고 양식을 안전망으로 병행한다. 약 1주 후 안정화 여부를 우선 판단하되, 최대 운영 검증 기한은 <code>Z99999</code> 공식 허용 종료일인 09-14 24:00이다.</p>
+    <p style="background:#fff3cd;border-left:3px solid #856404;padding:8px 12px;"><strong>역산 일정:</strong> 08-14 자이언트 분리 API 명세 컷오프 → 08-17 동수 상한·필드 컷오프 → 08-18 최초 TRA001 → 08-20 정상 E2E → 08-21 오류·분할·500건 최종 리허설. 08-28 03~04시 관세청 창구는 08-21 미완료 항목만 실행하며 신규 검증은 하지 않습니다.</p>
 </div>
 
 <h2 id="source-index">
@@ -1226,11 +1203,11 @@ flowchart TD
     <table>
         <thead><tr><th>대상</th><th>기준 문서·URL</th><th>현재 사용 원칙</th></tr></thead>
         <tbody>
-            <tr><td>NICE PCCC·NICE KEY</td><td><a href="../documents/개인통관고유부호 유효성 검증 서비스_고유식별키활용_20260728.pdf">고유식별키 활용 가이드</a> · <a href="../documents/NICE [CI] 개인통관고유부호 유효성 검증 API 개발 가이드_20260724.pdf">PCCC 검증 가이드</a></td><td>현재 실행 기준은 <code>SMARTPCC_01/02/03/10/11/20/30</code>. NICE KEY는 회원별 식별값이며 API 인증키가 아님</td></tr>
+            <tr><td>NICE PCCC·NICE KEY</td><td>NICE 고유식별키 활용 가이드 · PCCC 검증 가이드</td><td>현재 실행 기준은 <code>SMARTPCC_01/02/03/10/11/20/30</code>. NICE KEY는 회원별 식별값이며 API 인증키가 아님</td></tr>
             <tr><td>NICE 통합인증 일반 가이드</td><td><a href="https://auth-guide.niceid.co.kr/#tag/1.-API/1">공식 통합인증 가이드</a></td><td>과거 별도 <code>/ido/intc/...</code> 검토 근거. 현재 PER 실행 흐름은 위 PCCC 내장 본인확인 가이드를 우선</td></tr>
             <tr><td>자이언트 GGATE V2</td><td><a href="https://documenter.getpostman.com/view/11773234/2sBXqGrh3A#139b3cfe-ee5f-41cf-b986-190125e48891">Postman 문서</a> · <a href="https://documenter.gw.postman.com/api/collections/11773234/2sBXqGrh3A?segregateAuth=true&amp;versionTag=latest">컬렉션 원본 JSON</a></td><td>공개 API 근거는 컬렉션 원본으로 대조. 분리 API의 실제 URL·Method·응답은 자이언트 신규 명세로 확정</td></tr>
-            <tr><td>관세청</td><td><a href="../documents/관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1.pdf">REST API 명세서 v1.4.1</a></td><td>AUT·PER·TRA 필드·오류코드 기준</td></tr>
-            <tr><td>고도몰</td><td><a href="../documents/godomall5_openAPI_spec_v1.0_20250616.pdf">고도몰5 Open API v1.0</a></td><td>주문조회·상태·<code>addField</code> 근거</td></tr>
+            <tr><td>관세청</td><td>관세청 REST API 명세서 v1.4.1</td><td>AUT·PER·TRA 필드·오류코드 기준</td></tr>
+            <tr><td>고도몰</td><td>고도몰5 Open API v1.0</td><td>주문조회·상태·<code>addField</code> 근거</td></tr>
         </tbody>
     </table>
     <p><strong>보안:</strong> 실제 Client ID·Secret·API Key·접근토큰은 HTML·Git·채팅·화면캡처에 기록하지 않습니다. 개발/운영 값을 분리해 서버 환경변수 또는 Secret Vault에 저장하고 보안 채널로 전달합니다.</p>
@@ -1242,11 +1219,10 @@ flowchart TD
     <table>
         <thead><tr><th style="width:12%">일자</th><th style="width:16%">구분</th><th>변경 내용</th></tr></thead>
         <tbody>
-            <tr><td><strong>2026-08-14</strong></td><td>오픈 안정화 · 실제 주문 테스트</td><td>Geek이 준비되는 즉시 별도 사전 승인 없이 실제 주문 테스트를 시작하도록 확정. 단, 주문번호·HBL·테스트 시나리오·API/엑셀 제출경로·결과는 관계사에 즉시 공유한다. 오픈 후 약 1주를 우선 안정화 기간으로 운영하고 필요 시 <code>Z99999</code> 공식 허용 종료일인 <strong>2026-09-14 24:00</strong>까지 연장한다. 엑셀 등록 기능 전체를 추가 요청하지 않고 기존 신고 양식을 기준으로 필수값 확인·추출·대사·공유 지원 범위를 Geek과 협의한다. <code>hwbNo + orderNo</code>별 단일 최종 제출경로를 기록하여 엑셀/API 중복 신고를 방지하며, 별도 재제출 담당자 지정 규칙은 추가하지 않음.</td></tr>
             <tr><td><strong>2026-08-13</strong></td><td>보조 문서 통합</td><td><code>테스트검증계획.md</code>의 최신 QA 시나리오와 <code>외부_API_문서_포인터.md</code>의 원문 링크·보안 원칙을 본 문서의 <strong>개발·QA 검증 대장</strong>과 <strong>외부 API·원문 문서 인덱스</strong>로 흡수. 오래된 자이언트 PER/PATCH 대체안은 Geek·동수 분리 API 기준으로 교체.</td></tr>
             <tr><td><strong>2026-08-13</strong></td><td>NICE KEY·PER 연동 명세 갱신</td><td><strong>「개인통관고유부호 유효성 검증 서비스_고유식별키활용_20260728」 반영</strong> — 종전 별도 통합인증 <code>/ido/intc/...</code> 가정을 폐기하고 PCCC 내장 본인확인의 <code>SMARTPCC_01/02/03</code> NICE KEY 발급 흐름으로 교체. 회원별 NICE KEY 암호화 저장, 10분 거래·콜백·결과조회 상태를 정의함.<br><strong>PER001</strong>은 <code>SMARTPCC_10 svc_type=A + ord_info.ordrr_key</code> 요청과 <code>result_type=1/2</code> 분기, <code>SMARTPCC_11</code> 무결성 검증·복호화를 실행 규격으로 재작성. <strong>PER002/003</strong>은 관세청 직접필드 <code>reqt_no/brno</code>를 Geek 개발필드에서 제거하고 NICE 대응 API <code>SMARTPCC_20/30</code>의 실제 요청·응답 및 장애 스냅샷으로 변경. <code>result_msg → result_message</code> 변경과 NICE 문서의 키 필드명·길이·SMARTPCC_03 샘플 오류 확인사항을 명시함.</td></tr>
             <tr><td><strong>2026-08-13</strong></td><td>주문번호 배치 · HBL 대기 루프 확정</td><td><code>getTRA001OrderInfo</code>를 해외 TRA 전용으로 확정하고 요청 키를 <code>customerOrderNos</code> 쉼표 연결 문자열로 변경. <code>serachOrderInfo</code>가 국내·해외 송장번호와 <code>isCrossBorder</code>를 반환하도록 역할 분리. 주문별 HBL은 전건 할당 후 일괄 반환하며 하나라도 미할당이면 전부 null. Geek은 해당 원주문을 <code>HBL_WAITING</code>으로 계속 배치 조회하고, 전부 non-null일 때만 분할 주문번호별 TRA001 작업을 생성. 백엔드 주문번호 배치 계약·상태 흐름도·스테이지 표를 신설함.</td></tr>
-            <tr><td><strong>2026-08-12</strong></td><td>혼재 주문 · 누락 Stage · 표 통일</td><td><strong>당시 가정</strong> — 국내/해외를 한 조회 응답에서 플래그로 분기하는 안을 정리했으나, <strong>2026-08-13 동수 공식 회신으로 폐기</strong>. 현재 기준은 <code>serachOrderInfo</code>=국내·해외 송장 및 <code>isCrossBorder</code>, <code>getTRA001OrderInfo</code>=해외 TRA 전용이다.<br><strong>누락 단계 편입</strong> — Stage 0-A NICE 통합인증·NICE KEY, Stage 0-B AUT001, Stage 1-1 PER002/PER003, Stage 7 통관 이상 CS·반품 세관 정정을 Master와 상세 스테이지에 추가.<br><strong>필드 표 통일</strong> — 모든 Stage 데이터 표를 <code>api_field_mapping.html</code>과 같은 11열(No·분류·API 구분·필드명·한글명·타입·필수·매핑 코드·출처·실제값·상세설명)로 정규화.</td></tr>
+            <tr><td><strong>2026-08-12</strong></td><td>혼재 주문 · 누락 Stage · 표 통일</td><td><strong>당시 가정</strong> — 국내/해외를 한 조회 응답에서 플래그로 분기하는 안을 정리했으나, <strong>2026-08-13 동수 공식 회신으로 폐기</strong>. 현재 기준은 <code>serachOrderInfo</code>=국내·해외 송장 및 <code>isCrossBorder</code>, <code>getTRA001OrderInfo</code>=해외 TRA 전용이다.<br><strong>누락 단계 편입</strong> — Stage 0-A NICE 통합인증·NICE KEY, Stage 0-B AUT001, Stage 1-1 PER002/PER003, Stage 7 통관 이상 CS·반품 세관 정정을 Master와 상세 스테이지에 추가.<br><strong>필드 표 통일</strong> — 모든 Stage 데이터 표를 <code>자이언트 전달용 API 필드 매핑</code>과 같은 11열(No·분류·API 구분·필드명·한글명·타입·필수·매핑 코드·출처·실제값·상세설명)로 정규화.</td></tr>
             <tr><td><strong>2026-08-12</strong></td><td>운영 정책 정정</td><td><strong>OTP는 <code>addField</code>·동수 전달에서 제외</strong>하고 Geek DB → 자이언트 직접 전송으로 확정. 오류 건은 재시도 상한 없이 매일 <code>p1</code> 원복·재수집하며 CS팀이 일일 확인. 계도기간 종료는 <strong>2026-09-14 24:00 유지</strong>. 수하인 영문명·영문주소는 <code>consigneeNameEng</code>·<code>consigneeAddressEng</code>로 정정. 금액 소수점 규칙은 관세청 질의 후 확정.</td></tr>
             <tr><td><strong>2026-08-11 17:54</strong></td><td>전송 구조 재정리</td><td>운영·개발 <code>addField</code> 실 JSON 대조 반영 — PCCC는 양쪽 모두 존재하나 명칭·키가 달라 두 별칭 파싱으로 확정, 실제 값은 문서에서 마스킹. <strong>OTP 항목 미존재를 P0로 신설</strong>. Geek 11:50 자이언트 직접 PER 전송·PATCH 병행안을 폐기하고 <strong>동수 DS Logistics의 17:00~18:00 단일 <code>bulk-sync</code></strong>를 당시 구현 기준안으로 변경했으나, <strong>2026-08-13 Geek·동수 분리 API 요청으로 다시 폐기</strong>. 관세청 <code>ord_qty_ut</code> 미전송, 자이언트 <code>qtyUnit=EA</code> 동수 주입, <code>brokerCode/brokerName</code> 임의 매핑 금지를 반영.</td></tr>
             <tr><td><strong>2026-08-11</strong></td><td>PER 전송 · 목차 · 누락 검토</td><td><strong>Stage 5-2「자사몰 → 자이언트 PER 통관정보 전송」신설</strong> — 종전 기획서에 이 단계가 없어 추가. 대상은 TRA 정상 승인 건(<code>g5</code>)만이며 전송 항목을 표로 정의. 당시 엔드포인트 대기 상태였으나 <strong>2026-08-13 Geek·동수 분리 API 개발 요청으로 확정안 변경</strong>. 「[기준안] 동수 단일 bulk-sync」 섹션을 <strong>「[확정] 3사 데이터 병합」</strong>으로 교체.<br>
@@ -1338,7 +1314,7 @@ flowchart TD
         isPanning = false;
     }
 
-    /* ---- Stage 필드 표를 api_field_mapping.html과 동일한 11열 양식으로 통일 ---- */
+    /* ---- Stage 필드 표를 자이언트 전달용 API 필드 매핑과 동일한 11열 양식으로 통일 ---- */
     (function () {
         var mapping = {
             'cnsi_nm':'consigneeName', 'cnsi_pers_ecm':'pccCode', 'cnsi_telno':'consigneeTel',

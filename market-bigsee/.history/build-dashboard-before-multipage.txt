@@ -1,0 +1,14 @@
+﻿$ErrorActionPreference = 'Stop'
+
+$coreBuilder = Join-Path $PSScriptRoot 'build-dashboard-core.ps1'
+$personaBuilder = Join-Path $PSScriptRoot 'build-persona-dashboard.ps1'
+
+foreach ($required in @($coreBuilder, $personaBuilder)) {
+    if (-not (Test-Path -LiteralPath $required)) {
+        throw "Dashboard build stage not found: $required"
+    }
+}
+
+& $coreBuilder | Out-Null
+& $personaBuilder
+

@@ -15,11 +15,21 @@
         .nav-btn:hover { background:#1557b0; }
         p, li { font-size: 14px; margin-bottom: 8px; }
         ul { padding-left: 20px; margin-bottom: 20px; }
-    </style>
+    
+  .core-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+  .core-nav a{display:inline-block;background:#3c4043;color:#fff;padding:8px 13px;border-radius:4px;text-decoration:none;font-size:13px;font-weight:700;margin:0}
+  .core-nav a:hover{background:#202124}
+  .core-nav a.active{background:#1a73e8}
+</style>
 </head>
 <body>
 <div class="container">
-    <a href="./api_field_mapping.html" class="nav-btn">[ -> api_field_mapping.html 기획서 보기 ]</a>
+<nav class="core-nav" aria-label="주요 문서">
+  <a href="./planning_v6.html">통합 기획서</a>
+  <a href="./api_field_mapping.html">API 필드 매핑</a>
+  <a href="./리스크_질의대장.html">리스크·질의 대장</a>
+  <a href="./유형코드_부호체계_정리.html" class="active">유형·부호 체계</a>
+</nav>
     <h1>유형코드 및 부호체계 정리</h1>
 <div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-08-13</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 (기준일 대비 D-15) · 관세청 테스트서버 종료 2026-08-21 (D-8)</span></div>
 
@@ -63,7 +73,7 @@
         <li>XXXXXX = 고유 식별번호</li>
     </ul>
 
-    <p><strong>3개 부호 비교표:</strong></p>
+    <p><strong>관세청 3개 부호 + 자이언트 판매중개자 부호 비교표:</strong></p>
     <table>
         <thead>
             <tr>
@@ -96,6 +106,7 @@
                 <td>선택 항목</td>
                 <td>Null (당사 전건 생략)</td>
             </tr>
+            <tr><td>판매중개자 부호·명</td><td><code>brokerCode</code> / <code>brokerName</code></td><td>통신판매(중개)자로 등록된 부호와 상호</td><td><strong>A·B 필수</strong>, C 선택</td><td>A: K26000099 / (주)크로네<br>B: 채널별 아이베·크로네</td></tr>
         </tbody>
     </table>
 
@@ -110,6 +121,7 @@
                 <th style="width:15%">puch_vcex_bsmn_nm</th>
                 <th style="width:15%">sale_ents_sgn</th>
                 <th style="width:15%">sale_ents_nm</th>
+                <th style="width:15%">brokerCode / brokerName<br>자이언트</th>
             </tr>
         </thead>
         <tbody>
@@ -121,6 +133,7 @@
                 <td>Null</td>
                 <td>Null</td>
 <td><strong>(주)크로네</strong> <span style="color:#856404;">[08-10 정정]</span></td>
+                <td><strong>K26000099<br>(주)크로네</strong></td>
             </tr>
             <tr>
                 <td>네이버스토어 (아이베 운영)</td>
@@ -130,6 +143,7 @@
                 <td>(주)아이베</td>
                 <td>Null</td>
 <td><strong>실제 해외 판매업체명</strong> <span style="color:#856404;">(동수 제공)</span></td>
+                <td><strong>K26014765<br>(주)아이베</strong></td>
             </tr>
             <tr>
                 <td>기타 외부 쇼핑몰 구매대행</td>
@@ -139,10 +153,11 @@
                 <td>(주)크로네</td>
                 <td>Null</td>
 <td><strong>실제 해외 판매업체명</strong> <span style="color:#856404;">(동수 제공)</span></td>
+                <td><strong>K26000099<br>(주)크로네</strong></td>
             </tr>
         </tbody>
     </table>
-<p style="font-size:13px;color:#856404;background:#fff3cd;padding:10px 14px;border-radius:4px;"><strong>[2026-08-10 정정]</strong> 위 매트릭스의 <code>sale_ents_nm</code>은 종전 "전 채널 Null 통일"에서 바뀌었다. 부호(<code>sale_ents_sgn</code>)는 관세청 등록 업체만 기재하므로 Null 유지, <strong>업체명은 전 채널 기재</strong>한다 — 자이언트 <code>sellerName</code>이 A·B 무관 필수이기 때문. 상세는 아래 5절.</p>
+<p style="font-size:13px;color:#856404;background:#fff3cd;padding:10px 14px;border-radius:4px;"><strong>[2026-08-13 확정]</strong> 자이언트 <code>brokerCode/brokerName</code>은 A·B 모두 필수다. A는 <code>K26000099/(주)크로네</code>, B는 동수가 채널코드에 따라 네이버 아이베 운영 채널 <code>K26014765/(주)아이베</code> 또는 기타 구매대행 채널 <code>K26000099/(주)크로네</code>를 주입한다. 자이언트 분리 API에서는 동수 단일 소유 필드다.</p>
 
     <h2>4. 상품 판매 페이지 URL (prod_sale_pge_url / productPageUrl / orderSiteUrl)</h2>
     <p>설명: 관세청 TRA001의 prod_sale_pge_url, 자이언트 Item의 productPageUrl, HWB의 orderSiteUrl은 모두 동일한 값을 사용한다. 개별 상품 ID를 포함한 상세 URL이 아닌 스토어별 대표 도메인 URL을 통일 주입한다.</p>
@@ -205,7 +220,7 @@
     <h3>5.1 채널별 기재값 및 채움 주체</h3>
     <table>
         <thead>
-            <tr><th>채널</th><th>elcm_pcd</th><th>sale_ents_nm / sellerName 값</th><th>채움 주체</th><th>비고</th></tr>
+            <tr><th>채널</th><th>elcm_pcd</th><th>관세청 sale_ents_nm</th><th>관세청 값 원천</th><th>자이언트 sellerName (동수 API)</th><th>brokerCode / brokerName (동수 API)</th></tr>
         </thead>
         <tbody>
             <tr>
@@ -213,34 +228,37 @@
                 <td>A (직접판매)</td>
                 <td><strong>(주)크로네</strong></td>
                 <td>Geek 고정 주입</td>
-                <td>관세청·자이언트 모두 필수. 값 확정 필요 (아래 5.3)</td>
+                <td><strong>(주)크로네</strong></td>
+                <td><strong>K26000099<br>(주)크로네</strong></td>
             </tr>
             <tr>
                 <td>네이버 브랜드스토어 (아이베 운영)</td>
                 <td>B (구매대행)</td>
                 <td>실제 구매한 <strong>해외 판매업체명</strong></td>
                 <td><strong>동수 EIBE ERP</strong> (채널DB)</td>
-                <td>관세청은 선택이나 자이언트는 필수 → 누락 시 HWB 등록 거부</td>
+                <td>동일한 해외 판매업체명</td>
+                <td><strong>K26014765<br>(주)아이베</strong></td>
             </tr>
             <tr>
                 <td>기타 외부 쇼핑몰 (28개 채널)</td>
                 <td>B (구매대행)</td>
                 <td>실제 구매한 <strong>해외 판매업체명</strong></td>
                 <td><strong>동수 EIBE ERP</strong> (채널DB)</td>
-                <td>동일</td>
+                <td>동일한 해외 판매업체명</td>
+                <td><strong>K26000099<br>(주)크로네</strong></td>
             </tr>
         </tbody>
     </table>
     <h3>5.2 운영 원칙</h3>
     <ul>
         <li>관세청 <code>sale_ents_nm</code>과 자이언트 <code>sellerName</code>은 <strong>동일 값으로 통일</strong>한다. 두 값이 다르면 3사 데이터 대사가 불가능해진다.</li>
-        <li>A유형은 Geek이 고정 주입하고, B유형은 10:00 역수집 응답에 동수가 채널코드 기반으로 실어 내려준다. <code>store_url_mapping.csv</code>와 같은 방식으로 <strong>채널 → 판매업체명 매핑표</strong>를 별도 관리한다.</li>
+        <li>관세청 <code>sale_ents_nm</code>은 A유형을 Geek이 고정 주입하고 B유형 값을 10:00 역수집 응답에서 동수가 제공한다. 자이언트 <code>sellerName</code>은 A·B 모두 동수 API 단일 소유로 전송한다. <code>store_url_mapping.csv</code>와 같은 방식으로 <strong>채널 → 판매업체명 매핑표</strong>를 별도 관리한다.</li>
         <li>종전 문서의 "판매업체명·판매업체부호는 선택 항목이므로 전건 Null 통일" 지침은 <strong>폐기</strong>한다. A유형 관세청 필수 조건과 자이언트 전건 필수 조건을 모두 위반하기 때문이다.</li>
         <li>판매업체부호 <code>sale_ents_sgn</code> / <code>sellerCode</code>는 성격이 다르다. 관세청 규격은 "판매업체가 관세청에 전자상거래업자로 <u>등록되어 있는 경우에만</u> 제출"이므로, 등록 부호가 있을 때만 기재하고 없으면 미입력한다. 해외 판매처는 통상 미등록이므로 B유형은 미입력이 원칙이다.</li>
     </ul>
-    <h3>5.3 미확정 사항</h3>
+    <h3>5.3 잔여 확인 사항</h3>
     <ul>
-        <li>A유형(자사몰) 판매업체명을 <strong>"(주)크로네"</strong>로 할지 <strong>"뉴트리시아몰"</strong>로 할지 확정이 필요하다. 실제 TRA001 전송 JSON에는 제출자명(<code>elcm_ents_nm</code>)이 "뉴트리시아몰"로 들어가 있었다. 관세청 등록 상호와 상품 판매 페이지의 판매자 표기를 확인해 통일한다.</li>
+        <li>A유형(자사몰) 판매업체명·판매중개자명은 <strong>"(주)크로네"</strong>로 확정한다. TRA001 샘플의 <code>elcm_ents_nm="뉴트리시아몰"</code>은 운영 전송값을 정식 등록 상호인 <strong>(주)크로네</strong>로 정정한다.</li>
         <li>B유형 해외 판매업체명의 표기 언어(원문 / 영문 / 한글)와 특수문자 처리 기준을 동수와 합의해야 한다. 상품명에서 이미 <code>*</code> 등 특수문자 이슈가 있었다.</li>
     </ul>
 

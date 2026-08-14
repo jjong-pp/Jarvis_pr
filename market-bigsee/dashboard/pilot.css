@@ -1,0 +1,33 @@
+.pilot-panel { margin: 10px 0; padding: 13px; border: 1px solid #cbdad5; border-radius: 11px; background: #f4f9f7; }
+.pilot-title { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.pilot-title strong, .pilot-title small { display: block; }
+.pilot-title strong { font-size: 13px; }
+.pilot-title small { margin-top: 3px; color: #667377; font-size: 11px; }
+.pilot-title a { flex: none; font-size: 11px; font-weight: 800; }
+.pilot-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; }
+.pilot-metric { min-width: 0; padding: 10px; border-radius: 9px; background: #fff; }
+.pilot-metric span, .pilot-metric strong, .pilot-metric small { display: block; }
+.pilot-metric span { color: #667377; font-size: 9px; font-weight: 800; }
+.pilot-metric strong { margin-top: 4px; font-size: 11px; }
+.pilot-metric small { margin-top: 3px; color: #7a8683; font-size: 9px; line-height: 1.35; }
+.pilot-detail { margin: 10px 0; }
+.pilot-budget-list { display: grid; gap: 1px; overflow: hidden; border: 1px solid #e2e7e4; border-radius: 9px; background: #e2e7e4; }
+.pilot-budget-row { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 9px; padding: 9px 10px; background: #fff; }
+.pilot-order { display: grid; width: 22px; height: 22px; place-items: center; border-radius: 50%; background: #e7f0ef; color: #173d4a; font-size: 9px; font-weight: 900; }
+.pilot-budget-row strong, .pilot-budget-row small { display: block; }
+.pilot-budget-row strong { font-size: 11px; }
+.pilot-budget-row small { margin-top: 2px; color: #667377; font-size: 9px; }
+.pilot-budget-row b { color: #173d4a; font-size: 11px; white-space: nowrap; }
+.scenario-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+.scenario-cell { padding: 10px; border-radius: 9px; background: #edf3f1; }
+.scenario-cell span, .scenario-cell strong, .scenario-cell small { display: block; }
+.scenario-cell span { color: #667377; font-size: 9px; font-weight: 800; }
+.scenario-cell strong { margin-top: 3px; font-size: 14px; }
+.scenario-cell small { margin-top: 3px; color: #667377; font-size: 9px; }
+.pilot-caveat { margin: 0; color: #667377; font-size: 10px !important; }
+@media (max-width: 760px) {
+  .pilot-title { align-items: flex-start; }
+  .pilot-metrics { grid-template-columns: 1fr 1fr; }
+  .scenario-grid { grid-template-columns: 1fr; }
+  .pilot-budget-row { align-items: start; }
+}
