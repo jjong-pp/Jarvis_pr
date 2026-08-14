@@ -29,3 +29,24 @@
 
 상세 분석과 실행안은 `reference/13_it_saas_gtm_paid_acquisition.md`에 유지합니다.
 
+## 2026-08-14 · 커뮤니티·Meta 중심 초기 시장진입 재평가
+
+이전 검색 우선 150만원 광고 가설을 현재 실행안에서 보류했습니다.
+
+판정:
+
+- 커뮤니티는 홍보 채널보다 고객 언어·신뢰·추천·제품 피드백을 얻는 채널입니다.
+- 새 커뮤니티를 만드는 대신 아이보스·셀러오션 등 기존 고객 커뮤니티에서 규정을 지키며 도움·사례·샘플을 제공합니다.
+- Meta는 전환량이 적은 현재 구독 구매보다 리드·Instagram 메시지·데모 상담을 목표로 7일 30만~50만원만 시험합니다.
+- 핵심 지표는 조회수·팔로워·CPL이 아니라 유효 상담→데모→첫 가치→결제→4주 반복입니다.
+- 네이버·Google 검색은 인터뷰에서 반복된 실제 문제 문장이 확보된 뒤 사용하고 TikTok은 후순위입니다.
+
+근거:
+
+- [Springer, Community-led growth as a market-entry strategy](https://link.springer.com/article/10.1365/s40702-024-01076-1): 초기 B2B 소프트웨어의 고객 접점·신뢰·피드백 가능성. 개념적 연구이므로 BIGSEE 실증 필요.
+- [Meta lead ads](https://www.facebook.com/business/ads/ad-objectives/lead-generation): 고려가 복잡한 서비스의 폼·메시지·통화 리드 방식.
+- [Meta ad budgets](https://www.facebook.com/business/ads/pricing): 최소 7일 학습 예산 권고.
+- [아이보스](https://www.i-boss.co.kr/), [셀러오션](https://www.sellerocean.com/): 현재 활동 중인 국내 마케터·셀러 커뮤니티 후보.
+
+자문 질문 정본은 `reference/18_marketing_advisor_questions.md`, 전체 실행안은 `../01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md`에 유지합니다.
+

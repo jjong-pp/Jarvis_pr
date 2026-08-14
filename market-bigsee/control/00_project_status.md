@@ -6,41 +6,41 @@
 
 | 항목 | 값 |
 |---|---|
-| 마지막 갱신 | 2026-08-13 |
-| 사업 단계 | 전략 수립 완료 · 고객 및 원가 검증 전 |
+| 마지막 갱신 | 2026-08-14 |
+| 사업 단계 | 운영자 중심 시장진입 재설계 · 고객 및 원가 검증 전 |
 | 제품 단계 | 확장 MVP 기획 완료 · 실제 코드 미검토 |
 | 전체 상태 | 주의 |
 | 사업성 평가 | 67/100 |
-| 첫 고객 | 2~20인 이커머스 전문 광고·마케팅 대행사 |
-| 첫 판매 상황 | 신규 광고주 제안서와 캠페인 조사 |
+| 첫 고객 | 대행사 실무자·1인 셀러·인하우스 마케터 중 검증 후 한 곳 선택 |
+| 첫 판매 상황 | 최근 실제 조사 업무를 직접 해결하는 유료 파일럿 |
 | 기존 등록 사용자 | 약 20명 · 사용자 전달값 · 실제/활성/유료 구분 미확인 |
 | 핵심 루프 | 시장 조사 → 콘텐츠 초안 → SKU·캠페인 연결 → 구매 측정 → 다음 실행 추천 |
 | 북극성 지표 | 주간 완성 의사결정 리포트 수 |
-| 다음 사업 게이트 | 기존 약 20명의 활성·첫 가치·반복·유료·팀 의도 분류 후 신규 유료 파일럿 확인 |
+| 다음 사업 게이트 | 기존 사용자 10명 인터뷰에서 같은 고객군 6명 이상·데모 5건 중 유료 2건 확인 |
 | 다음 기술 게이트 | 현재 코드·사용량 계측·계정 경계·외부 API 구조 점검 |
 
 ## 영역별 상태
 
 | 영역 | 상태 | 현재 근거 | 다음 게이트 | 정본 |
 |---|---|---|---|---|
-| 전략·포지셔닝 | 확정 | 키워드 도구가 아니라 대행사의 조사·제안·성과 증명 흐름으로 정의 | 실제 대행사 3곳이 같은 문제를 유료로 인정 | personas/01_strategy_ceo/reference/02_sales_management_strategy.md |
+| 전략·포지셔닝 | 재검증 | 범용 조사 도구보다 한 고객·한 상황·한 결과를 파는 방향으로 재설계 | 기존 사용자 근거로 첫 고객과 구매 상황 하나 선택 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
 | 시장·경쟁 | 진행 | 국내외 경쟁사 7개군의 기능·가격·빈틈 조사 완료 | 동일 과제 제품 테스트와 대행사 인터뷰 | personas/02_customer_market/reference/06_competitor_benchmark.md |
-| 판매·PMF | 진행 | 기존 등록 사용자 약 20명 존재하나 활성·유료·반복 사용 미확인 | 20명 전수 분류와 5명 인터뷰, 이후 검색 광고 파일럿 | personas/01_strategy_ceo/reference/02_sales_management_strategy.md |
+| 판매·PMF | 진행 | 기존 등록 사용자 약 20명 존재하나 역할·실사용·유료·반복 미확인 | 10명 인터뷰·5명 동행 사용·데모 5건·유료 2건 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
 | 제품 MVP | 기획 | SKU·브리프·블로그·추적 링크·주문 CSV 범위 정의 | 코드 점검 후 6~8주 범위 재산정 | personas/03_product_growth/reference/04_feature_expansion_plan.md |
 | 원가·수익성 | 미측정 | 원가 항목과 손익분기 공식만 정의 | 사용자·기능·API별 2주 사용량 원장 | personas/01_strategy_ceo/reference/01_service_current_state.md |
 | 데이터·API | 기획 | 내부 ID·이벤트·커넥터·공개 API 개념 설계 | CSV MVP와 첫 커머스 연동 선택 | personas/06_technology_data/reference/05_data_api_architecture.md |
 | 콘텐츠·규정 | 주의 | AI 대량 생성·허위 리뷰·광고 관계 표시 위험 확인 | 업종별 검수 규칙과 법률 검토 | personas/04_sales_marketing/reference/03_ecommerce_marketing_sales_flow.md |
-| 프로젝트 운영 | 진행 | MD 정본·HTML 파생 현황판·결정·검증 기록 구조 도입 | 매주 갱신 습관과 불일치 0건 유지 | system/10_operating_manual.md |
+| 프로젝트 운영 | 재설계 | 문서 관리보다 고객·현금·판매·개발 협업을 먼저 보는 운영판으로 전환 | 매주 핵심 12개 숫자와 결정·다음 행동 갱신 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
 
 ## 90일 단계
 
 | 단계 | 상태 | 기간 | 완료 조건 | 바로 다음 행동 | 정본 |
 |---|---|---|---|---|---|
-| 1. 기반 확인 | 진행 | 1~2주 | 코드 구조·원가 계측·정책 불일치·파일럿 조건 확인 | 실제 코드 저장소와 운영 로그 확보 | personas/01_strategy_ceo/reference/01_service_current_state.md |
-| 2. 고객 문제 검증 | 대기 | 3~6주 | 대행사 20회 데모, 유료 파일럿 3곳 이상 | 이커머스 전문 대행사 100곳 목록화 | personas/01_strategy_ceo/reference/02_sales_management_strategy.md |
-| 3. 수동형 MVP 검증 | 대기 | 4~8주 | 조사→초안→링크→주문 CSV 흐름을 3곳이 완주 | 클릭 가능한 프로토타입과 수동 운영 설계 | personas/03_product_growth/reference/04_feature_expansion_plan.md |
-| 4. 유료 반복성 확인 | 대기 | 7~10주 | 유료 고객 사례 3건과 4주 반복 사용 | 업종 한 곳과 반복 템플릿 확정 | personas/01_strategy_ceo/reference/02_sales_management_strategy.md |
-| 5. 확장 여부 결정 | 대기 | 11~13주 | 가격·유지율·원가·획득 채널의 통과 기준 충족 | 첫 커머스 API와 팀 기능 투자 결정 | personas/01_strategy_ceo/reference/07_competitor_strategy_actions.md |
+| 1. 운영 기반 합의 | 진행 | 1주 | 현금·역할·정산·정보권·30일 개발 우선순위 합의 | 개발자와 90분 사업회의 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
+| 2. 고객 진실 확인 | 진행 | 1~2주 | 기존 사용자 10명 인터뷰·5명 동행·첫 고객 선택 | 약 20명 전수 연락과 역할 분류 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
+| 3. 직접 판매 검증 | 대기 | 2~4주 | 데모 5건 중 유료 2건·거절 이유 5건 | 한 문장 제안과 샘플 3개 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
+| 4. 커뮤니티·Meta 검증 | 대기 | 4~6주 | 도움→상담→데모→첫 가치 흐름 재현 | 커뮤니티 자료 2개와 Meta 7일 시험 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
+| 5. 반복·B2B 확대 | 대기 | 7~13주 | 유료 5건 중 반복 3건·사례 2개·원가와 CAC 계산 | 팀 의도 계정과 파트너 후보 선별 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
 
 ## 핵심 지표
 
@@ -48,12 +48,12 @@
 
 | 지표 | 현재 | 90일 목표·통과 기준 | 측정 시작 조건 | 정본 |
 |---|---:|---:|---|---|
-| 유료 대행사 고객 | 미측정 | 8~10곳 | 영업 CRM 또는 파일럿 대장 생성 | personas/01_strategy_ceo/reference/02_sales_management_strategy.md |
-| 파일럿→유료 전환율 | 미측정 | 50% 이상 | 파일럿 5건 이상 | personas/01_strategy_ceo/reference/02_sales_management_strategy.md |
+| 유료 고객·파일럿 | 미측정 | 5건 이상 | 접촉→상담→데모→결제 대장 생성 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
+| 데모→유료 전환 | 미측정 | 첫 5건 중 2건 이상 | 데모 5건 이상 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
 | 4주차 유료 활성률 | 미측정 | 60% 이상 | 유료 고객 코호트 생성 | personas/01_strategy_ceo/reference/02_sales_management_strategy.md |
 | 고객당 월 유효 리포트 | 미측정 | 4건 이상 | 리포트 완료 이벤트 계측 | personas/01_strategy_ceo/reference/02_sales_management_strategy.md |
 | 직접원가 비율 | 미측정 | 매출의 25% 이하 | UsageLedger 2주 이상 | personas/06_technology_data/reference/05_data_api_architecture.md |
-| 재현 가능한 획득 채널 | 미측정 | 1개 이상 | 접촉→유료 퍼널 기록 | personas/01_strategy_ceo/reference/02_sales_management_strategy.md |
+| 재현 가능한 획득 흐름 | 미측정 | 같은 채널에서 유료 2회 이상 | 커뮤니티·직접 판매·Meta 접촉→유료 기록 | personas/01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md |
 | 초안→실제 게시율 | 미측정 | 60% 이상을 가설로 시험 | 콘텐츠 승인·게시 이벤트 계측 | personas/03_product_growth/reference/04_feature_expansion_plan.md |
 | API·분석 성공률 | 미측정 | 95% 이상을 가설로 시험 | 공급자별 요청 로그 구축 | personas/06_technology_data/reference/05_data_api_architecture.md |
 
@@ -82,11 +82,11 @@
 
 | 우선순위 | 행동 | 완료 조건 | 상태 |
 |---|---|---|---|
-| 1 | 기존 약 20명 사용자 백필표 확보 | 실제·활성·첫 가치·반복·유료·팀 의도·원가가 사용자별로 구분됨 | 진행 |
-| 2 | 신규 퍼널·UTM·원가 이벤트 검수 | 테스트 5회에서 랜딩→가입→첫 가치와 원가가 연결됨 | 대기 |
-| 3 | 샘플 리포트 3종 제작 | 실제 업종 키워드와 출처가 포함됨 | 대기 |
-| 4 | 유료 파일럿 대장 생성 | 접촉→데모→파일럿→유료 상태를 기록함 | 대기 |
-| 5 | 스마트스토어·카페24 사용 비중 질문 | 파일럿 고객별 주 채널과 필수 데이터가 기록됨 | 대기 |
+| 1 | 개발자와 90분 사업회의 | 현금 현황·30일 개발 우선순위·역할/정산 합의 | 진행 |
+| 2 | 기존 약 20명 전수 연락·분류 | 실제 사용자·역할·최근 사용·반복·유료가 구분됨 | 진행 |
+| 3 | 사용자 10명 인터뷰·5명 화면 동행 | 같은 고객군·최근 문제·기존 대안·첫 가치 증거 | 대기 |
+| 4 | 첫 고객 후보 3개 점수화 | 대행사·셀러·인하우스 중 한 곳 선택 | 대기 |
+| 5 | 한 문장 제안·샘플 3개·데모 5건 | 유료 2건 또는 명확한 거절 이유 5건 | 대기 |
 
 
 

@@ -30,3 +30,25 @@
 
 상세 계약 프레임은 `reference/14_gtm_compensation_partnership_framework.md`를 정본으로 합니다.
 
+## 2026-08-14 · 운영자 중심 전략 재설계
+
+사용자 판단:
+
+- 개발자가 제품에 집중하도록 본인이 사업 운영·마케팅·기획·현금흐름을 책임해야 합니다.
+- 기존 문서와 광고 집행 중심 계획이 실제 운영자의 의사결정을 충분히 보여주지 못했습니다.
+
+리서치 결론:
+
+- 약 20명 단계에서는 광고 확장보다 실제 사용자·반복 문제·직접 결제 증거가 먼저입니다.
+- 첫 고객을 대행사로 확정하지 않고 대행사 실무자·1인 셀러·인하우스 마케터를 같은 기준으로 비교합니다.
+- 초기 엔진은 커뮤니티가 보조하는 직접 판매이며 Meta는 상담·메시지 수요를 검증하는 증폭기입니다.
+- 개발자와는 기능 목록보다 현금·원가·판매 가능 범위·30일 제품 우선순위·역할/정산을 논의해야 합니다.
+
+근거:
+
+- [Y Combinator, Before You Grow](https://www.ycombinator.com/blog/before-you-grow/): 제품을 사랑하는 사용자가 생기기 전 성장 확대의 누수 위험.
+- [Bessemer, Scaling to $100 Million](https://www.bvp.com/atlas/scaling-to-100-million): 유지·총마진·CAC 회수·현금흐름의 연결.
+- [Stripe, CAC in SaaS](https://stripe.com/resources/more/cac-in-saas): 광고 외 인건비·콘텐츠·도구를 포함한 획득비 계산.
+
+상세 실행안은 `reference/17_operator_gtm_cashflow_reset.md`를 정본으로 합니다.
+
