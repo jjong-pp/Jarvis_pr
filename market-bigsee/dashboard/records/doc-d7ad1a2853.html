@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>연결형 대시보드 관리 규칙 · BIGSEE</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body data-page="record">
+  <button class="mobile-nav-button" type="button" data-nav-toggle aria-controls="primary-navigation" aria-expanded="false"><span>메뉴</span><strong>자료 상세</strong></button>
+  <div class="app-shell">
+    <aside class="sidebar" id="primary-navigation">
+      <a class="brand" href="../index.html"><strong>BIGSEE</strong><span>사업 운영</span></a>
+      <nav class="primary-nav" aria-label="대시보드 화면"><a class="nav-link" href="../index.html"><span>전체</span><strong>전체 현황</strong></a>
+<a class="nav-link" href="../pages/str.html"><span>STR</span><strong>전략·경영</strong></a>
+<a class="nav-link" href="../pages/mkt.html"><span>MKT</span><strong>고객·시장</strong></a>
+<a class="nav-link" href="../pages/prd.html"><span>PRD</span><strong>제품·성장</strong></a>
+<a class="nav-link" href="../pages/sal.html"><span>SAL</span><strong>세일즈·마케팅</strong></a>
+<a class="nav-link" href="../pages/fin.html"><span>FIN</span><strong>재무·가격</strong></a>
+<a class="nav-link" href="../pages/tec.html"><span>TEC</span><strong>기술·데이터</strong></a>
+<a class="nav-link" href="../pages/rsk.html"><span>RSK</span><strong>리스크·운영</strong></a></nav>
+      <div class="sidebar-meta"><span>자료 ID</span><strong>DOC-D7AD1A2853</strong><small>설계&#183;기획</small></div>
+    </aside>
+    <div class="page-shell">
+      <main>
+        <header class="page-header record-header">
+          <div><p>전사 · 설계&#183;기획</p><h1>연결형 대시보드 관리 규칙</h1><span>- 진입점은 dashboard/index.html이다.</span></div>
+          <dl><div><dt>상태</dt><dd>기록</dd></div><div><dt>기준일</dt><dd>2026-08-16</dd></div></dl>
+        </header>
+        <section class="record-meta" aria-label="자료 정보">
+          <div><span>자료 ID</span><strong>DOC-D7AD1A2853</strong></div>
+          <div><span>담당</span><strong>전사</strong></div>
+          <div><span>우선순위</span><strong>-</strong></div>
+          <div><span>목표일</span><strong>-</strong></div>
+        </section>
+        
+        <section class="panel record-document"><div class="section-heading"><div><p>정본 내용</p><h2>문서 보기</h2></div></div><article class="markdown-body"><h2>연결형 대시보드 관리 규칙</h2>
+<h3>구조</h3>
+<ul>
+<li>진입점은 <code>dashboard/index.html</code>이다.</li>
+<li>상세 화면은 <code>dashboard/pages/str.html</code>, <code>mkt.html</code>, <code>prd.html</code>, <code>sal.html</code>, <code>fin.html</code>, <code>tec.html</code>, <code>rsk.html</code>이다.</li>
+<li>모든 화면은 같은 상단 내비와 <code>dashboard/assets/styles.css</code>, <code>app.js</code>를 사용한다.</li>
+<li>내비게이션에는 전체 현황과 등록된 7개 역할만 표시한다.</li>
+<li>전체 현황은 사업 KPI&#183;실행 단계&#183;역할별 최근 작업과 결과&#183;다음 행동&#183;결정&#183;리스크를 표시한다.</li>
+<li>역할 화면은 책임&#183;목표&#183;현재 작업&#183;결과&#183;작업 목록&#183;업데이트 이력&#183;근거 경로를 표시한다.</li>
+<li>한 행에는 하나의 상위 섹션만 배치하고, 설명을 줄 수로 잘라 숨기지 않는다.</li>
+<li>[2026-08-16 정정] 종전 <code>별도 증거 페이지를 만들지 않는다</code>에서 <code>내비를 늘리지 않고 생성형 자료 상세 페이지를 제공한다</code>로 변경한다. 상세 페이지는 <code>dashboard/records/</code>에 만들며 내비 항목으로 추가하지 않는다.</li>
+<li>전체 현황과 역할 화면의 <code>전체 자료</code>에서 질문지&#183;설계&#183;과업&#183;예정&#183;결정&#183;결과&#183;이력을 검색한다.</li>
+<li>페이지가 독립적인 의사결정 단위로 너무 길어질 때만 <code>dashboard/pages/</code>에 화면을 추가한다.</li>
+</ul>
+<h3>정본</h3>
+<ul>
+<li>사업 사실은 Markdown에서만 바꾼다.</li>
+<li>HTML은 읽기 전용 생성물이며 직접 편집하지 않는다.</li>
+<li>각 페이지에 정본 경로&#183;생성 시각&#183;소스 해시를 표시한다.</li>
+<li>과거 결정을 삭제하지 않고 <code>대체됨</code>과 대체 ID를 남긴다.</li>
+<li>현재 상태는 <code>state.md</code>&#183;<code>output.md</code>, 과업은 <code>inbox.md</code>, 날짜별 업무 결과는 <code>updates.md</code>를 사용한다.</li>
+<li>통합 레코드와 확장자 책임은 <code>system/data/RECORD_SCHEMA.md</code>를 따른다.</li>
+<li>측정하지 않은 사업 지표를 0이나 추정값으로 표시하지 않는다.</li>
+</ul>
+<h3>토큰 절약 로딩</h3>
+<ol>
+<li><code>system/dashboard/SECTION_REGISTRY.md</code>에서 요청과 맞는 화면을 찾는다.</li>
+<li>해당 행의 <code>먼저 읽을 정본</code> 하나만 먼저 읽는다.</li>
+<li>역할 결론이 필요하면 그 persona의 <code>output.md</code>를 읽는다.</li>
+<li>근거나 충돌이 있을 때만 <code>state.md</code>, <code>research.md</code>, <code>reference/</code>를 추가한다.</li>
+<li>생성된 HTML 전체를 AI 작업 컨텍스트로 읽지 않는다.</li>
+</ol>
+<h3>생성 코드</h3>
+<div class="table-wrap"><table class="business-table responsive-table"><thead><tr><th>경로</th><th>역할</th></tr></thead><tbody><tr><td data-label="경로"><code>scripts/build-dashboard.ps1</code></td><td data-label="역할">생성 진입점</td></tr><tr><td data-label="경로"><code>scripts/dashboard/build-data-catalog.ps1</code></td><td data-label="역할">MD 문서&#183;표를 통합 레코드와 상세 화면으로 변환</td></tr><tr><td data-label="경로"><code>scripts/dashboard/build-linked-dashboard.ps1</code></td><td data-label="역할">MD 로딩&#183;HTML 페이지&#183;내비&#183;검증 생성</td></tr><tr><td data-label="경로"><code>dashboard/data/catalog.js</code></td><td data-label="역할">서버 없이 읽는 검색 카탈로그 생성물</td></tr><tr><td data-label="경로"><code>dashboard/data/manifest.json</code></td><td data-label="역할">원본&#183;레코드&#183;유형&#183;역할 집계 생성물</td></tr><tr><td data-label="경로"><code>dashboard/records/</code></td><td data-label="역할">레코드별 정적 상세 화면 생성물</td></tr><tr><td data-label="경로"><code>dashboard/assets/styles.css</code></td><td data-label="역할">공통 스타일</td></tr><tr><td data-label="경로"><code>dashboard/assets/app.js</code></td><td data-label="역할">내비&#183;자료 검색&#183;필터&#183;더 보기 동작</td></tr></tbody></table></div>
+<p>과거 단일&#183;주제별 HTML을 직접 수정하던 스크립트는 재사용하지 않는다.</p>
+<h3>완료 조건</h3>
+<ul>
+<li>진입 페이지와 역할 상세 7페이지가 존재한다.</li>
+<li>모든 페이지에서 전체 현황과 7개 역할 내비 링크가 정상 상대경로를 사용한다.</li>
+<li>사업 정본에만 있는 최신 핵심 결론이 화면에 반영된다.</li>
+<li>전체 화면에 현재값&#183;목표&#183;측정 조건이 있는 사업 KPI가 표시된다.</li>
+<li>역할 화면에 현재 작업&#183;현재 판단&#183;다음 행동&#183;과업&#183;업데이트 이력이 표시된다.</li>
+<li>상위 섹션은 단일 열이며 데스크톱에서도 서로 옆에 배치되지 않는다.</li>
+<li>문장과 표 셀은 줄 수 제한으로 숨기지 않는다.</li>
+<li>질문지&#183;설계&#183;과업&#183;예정&#183;결정&#183;결과&#183;이력을 검색할 수 있다.</li>
+<li>모든 카탈로그 레코드에 상세 화면과 Markdown 원본 경로가 있다.</li>
+<li>내부 파일 링크와 외부 출처 링크가 유효한 형식이다.</li>
+<li>공통 JavaScript의 구문 오류가 없다.</li>
+<li>모든 페이지에 정본 경로&#183;생성 시각&#183;소스 해시가 있다.</li>
+<li>320 CSS 픽셀에서 표를 제외한 본문이 가로로 넘치지 않는다.</li>
+</ul></article></section>
+        <section class="panel record-source"><div class="section-heading"><div><p>원본</p><h2>원본 자료</h2></div><span class="section-note">검증 fd7fc13d6d74</span></div><a href="../../system/dashboard/RULES.md">system/dashboard/RULES.md</a><p>내용 수정은 원본 Markdown에서만 하고 대시보드를 다시 생성합니다.</p></section>
+      </main>
+      <footer><span>자료 기준 2026-08-16 · 정적 상세 화면</span></footer>
+    </div>
+  </div>
+  <div class="nav-backdrop" data-nav-close></div>
+  <script src="../assets/app.js"></script>
+</body>
+</html>

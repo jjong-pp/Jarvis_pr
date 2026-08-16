@@ -2,10 +2,13 @@
 
 | 항목 | 값 |
 |---|---|
-| 결론 | 광고·가격·팀 판매 전에 user/workspace 경계, 첫 가치·결제 이벤트, 공급자별 UsageLedger를 확인해야 합니다. |
+| 결론 | 광고·가격·팀 판매 전에 사용자·워크스페이스 경계, 첫 가치·결제 이벤트, 공급자별 사용량 원장을 확인해야 합니다. |
 | P0 | 워크스페이스·SKU CSV·조사/콘텐츠 승인·UTM·경량 CRM·원가 원장을 검증된 판매 흐름에 맞춰 구현합니다. |
 | 확인 | 기능 게이팅, 사용량 차감, 외부 쿼터, 동시성, 1,000명 병목, 백업·알림·개인정보 삭제를 코드와 청구 정보로 답합니다. |
 | 운영 | 고객 요구는 주 1회 증거와 우선순위로 묶어 개발자에게 전달합니다. |
+| 개발자 질문 | 비식별 사용자·로그·청구·코드·배포 이력을 사전 요청하고 15개 질문으로 판매 범위·원가·계측·P0·정보권을 합의합니다. |
+| 운영 데이터 | Markdown 정본을 문서·과업·이력·결정·질문·리스크·지표·가설·예정 레코드로 정규화하고 서버 없는 검색·상세 화면을 생성합니다. |
 | 한계 | 실제 코드·로그·청구·개발 가능 시간이 미확인입니다. |
-| 정본 | `../03_product_growth/reference/21_product_system_replan.md`, `../../control/17_context_handoff.md` |
+| 마지막 갱신 | 2026-08-16 |
+| 정본 | `reference/22_developer_business_technical_review.md`, `../03_product_growth/reference/21_product_system_replan.md`, `../../control/17_context_handoff.md`, `../../system/data/RECORD_SCHEMA.md` |
 

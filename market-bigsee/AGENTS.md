@@ -24,7 +24,7 @@
 ## 페르소나 하네스
 
 - 주 담당 하나와 필요한 검토 역할을 정한다.
-- 작업 순서는 `inbox → research → state → output`이다.
+- 작업 순서는 `inbox → research → state → output`이며, 의미 있는 상태 변경은 `updates` 이력에 추가한다.
 - 전사 판단으로 승격할 내용만 `control/`에 반영한다.
 - 역할 간 충돌은 `control/08_decision_log.md`에 올린다.
 - 상세 계약은 `system/12_persona_harness.md`를 따른다.
@@ -34,7 +34,7 @@
 - 사람이 처음 여는 HTML은 `dashboard/index.html`이다.
 - 상세 화면은 `dashboard/pages/` 아래의 상호 연결 HTML로 나눈다.
 - 공통 디자인과 동작은 `dashboard/assets/`에서 관리한다.
-- 현재 페이지 구조는 `개요·타깃·시장진입·제품·운영·결정`이다.
+- 현재 페이지 구조는 `전체 현황·전략·시장·제품·마케팅·재무·기술·리스크`다.
 - 사업 사실은 MD에서만 수정하며 생성 HTML을 직접 고치지 않는다.
 - 페이지가 길어지면 새 화면을 만들기 전에 기존 정본의 책임을 확인하고, 독립적인 의사결정 영역일 때만 `dashboard/pages/`에 추가한다.
 - 생성기는 `scripts/dashboard/`에서 분리하고 진입점은 `scripts/build-dashboard.ps1` 하나로 유지한다.
@@ -46,6 +46,6 @@ Markdown 변경 후 실행한다.
 powershell -ExecutionPolicy Bypass -File .\scripts\build-dashboard.ps1
 ```
 
-생성 후 진입 페이지, 연결 페이지 6개, 공통 내비, 내부 링크, JavaScript 구문, 소스 경로·해시를 확인한다.
+생성 후 진입 페이지와 역할 페이지 7개, 공통 내비, 내부 링크, JavaScript 구문, 소스 경로·해시를 확인한다.
 
 과거 결정과 근거를 삭제하지 않으며 코드·원가·계약·채널 견적을 확인하지 않은 추정을 확정하지 않는다.

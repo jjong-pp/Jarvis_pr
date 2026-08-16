@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>통합 리스크 · 질의 · 협의 대장 — 2026-08-14</title>
+<title>통합 리스크 · 질의 · 협의 대장 — 2026-08-15</title>
 <style>
   *{box-sizing:border-box}
   body{font-family:'Inter',-apple-system,'Malgun Gothic',sans-serif;background:#f6f7f9;color:#202124;line-height:1.6;margin:0;padding:30px 18px}
@@ -55,32 +55,109 @@
   <a href="./유형코드_부호체계_정리.html">유형·부호 체계</a>
 </nav>
 <h1>통합 리스크 · 질의 · 협의 대장</h1>
-<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-08-14</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 (기준일 대비 D-14) · 관세청 테스트서버 종료 2026-08-21 (D-7) · 계도기간 종료 2026-09-14 24:00</span></div>
-<div class="sub">현재 미결 항목과 확정 정책·결정 변경·협의 타임라인을 한 문서에서 관리 · 리스크 집계 기준일 <strong>2026-08-14</strong></div>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-08-15</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 (기준일 대비 D-13) · 관세청 테스트서버 종료 2026-08-21 (D-6) · <code>Z99999</code> PER 허용 종료 2026-09-14 24:00</span></div>
+<div class="sub">현재 미결 항목과 확정 정책·결정 변경·협의 타임라인을 한 문서에서 관리 · 리스크 집계 기준일 <strong>2026-08-15</strong></div>
 <div class="nav" aria-label="대장 내 이동">
+  <a href="#stage-simulation">스테이지·필드 시뮬레이션</a>
   <a href="#active" class="r">현재 리스크·질의</a>
   <a href="#history" class="k">확정·변경 이력</a>
   <a href="#timeline" class="g">날짜별 타임라인</a>
 </div>
 
 <div class="board">
-  <div class="kpi red"><div class="n">5</div><div class="l">P0 — 오픈 차단</div></div>
+  <div class="kpi red"><div class="n">6</div><div class="l">P0 — 오픈 차단</div></div>
   <div class="kpi amber"><div class="n">16</div><div class="l">P1 — 오픈 전 필수</div></div>
   <div class="kpi blue"><div class="n">6</div><div class="l">P2 — 확인 권고</div></div>
-  <div class="kpi green"><div class="n">27</div><div class="l">해결 · 기준 확정</div></div>
+  <div class="kpi green"><div class="n">31</div><div class="l">해결 · 기준 확정</div></div>
 </div>
 
 <div class="box g">
   <strong>2026-08-12~13 신규 해결</strong> — ⑬ <strong><code>hblNo</code> null은 단순 필드 버그가 아님</strong>. 포장별 값/null 혼재 실응답은 테스트 단계 사례이며 운영 판단은 ㉗의 공식 일괄 반환 정책을 따름 ⑭ 동수가 <strong>TRA001 전용 신규 API <code>getTRA001OrderInfo</code></strong> 개설 ⑮ <strong>PCCC는 DS ERP에 저장</strong> 확정 ⑯ <strong><code>shipperName</code>·<code>shipperAddr</code>는 동수 고정값</strong> 확정 ⑰ 주문 삭제 API 명세 재확인(<code>orderDelete</code>, 파라미터 <code>customerOrderNo</code>) ⑱ <strong>HWB 검색 상한은 500건으로 확정</strong>(증설 불가, 500건 단위 분할 구현) ⑲ <strong>OTP는 <code>addField</code>·동수 전달 대상이 아님</strong>(Geek DB 보관 후 자이언트 직접 전송) ⑳ <strong><code>p1</code> 반복 재처리는 의도된 정책</strong>(재시도 상한 없이 CS팀 매일 확인) ㉑ <strong>계도기간 종료는 2026-09-14 24:00 그대로 확정</strong> ㉒ <strong>국내·해외 조회 API 역할 분리 확정</strong> — <code>getTRA001OrderInfo</code>는 KR 국내 주문을 반환하지 않고 해외 TRA 대상만 반환. <code>serachOrderInfo</code>는 국내·해외 송장번호와 <code>isCrossBorder</code>(Y=해외, N=KR 국내)를 반환 ㉓ <strong>KR WMS 자동 연동 범위 확정</strong> — KR WMS 가동 후 국내 택배 송장 연동은 별도 추가 작업 없이 자동 연결되며 본 개발 범위에 포함 ㉔ <strong>고도몰 운영 OpenHub → 동수 ERP Pull 검증 완료</strong> — 운영 URL을 유지하고 Key만 교체하여 기간 조회한 결과 25건이 ERP로 정상 동기화됨 ㉕ <strong>테스트 주문 출고 통제 방식 확정</strong> — 특정 스토어만 출고 중지하는 기능은 미지원이므로 평시 Pull OFF, 테스트 요청 시 ON, 수집된 테스트 주문은 심사 보류 또는 ERP 즉시 삭제 ㉖ <strong><code>getTRA001OrderInfo</code> 다건 조회 지원 확정</strong> — 요청 파라미터는 <code>customerOrderNos</code>, 값은 주문번호를 쉼표로 연결한 문자열 ㉗ <strong>주문별 HBL 일괄 할당·반환 정책 확정</strong> — 모든 송장번호가 할당된 뒤 일괄 조회되며 하나라도 미할당이면 해당 주문의 모든 <code>hblNo</code>가 null. 테스트 단계에서는 동수 수동 할당 필요
   <br><strong>㉘ 판매중개자 부호 해결</strong> — 자이언트 회신으로 <code>brokerCode/brokerName</code>은 A·B 필수(C 선택). A는 <code>K26000099/(주)크로네</code>, B는 동수가 채널별 <code>K26014765/(주)아이베</code> 또는 <code>K26000099/(주)크로네</code>를 주입.<br><strong>㉙ 제출자 상호 확정</strong> — 관세청 <code>elcm_ents_nm</code>은 정식 등록 상호 <code>(주)크로네</code>로 고정하고 과거 샘플의 <code>뉴트리시아몰</code> 값은 운영 전에 정정한다. 판매중개자명·판매업체명과는 필드 의미를 분리한다.<br><strong>11:57 Geek 구현 결론</strong> — 전부 null인 원주문은 조회 배치에서 제거하지 않고 <code>HBL_WAITING</code>으로 계속 유지한다.
+  <br><strong>㉚ <code>Z99999</code> PER 허용기간 확정</strong> — 실제 운영 허용코드이며 <strong>2026-09-14 24:00까지</strong> 사용 가능하다. 별도 가이드 재확인 대상으로 되돌리지 않고 확정 운영사실로 취급한다.<br><strong>㉛ 총 결제금액 원천 확정</strong> — <code>tot_stlm_amt</code>는 동수 ERP의 <strong>실제 매입금</strong>을 원천으로 하며 배송비·할인·통관대행료가 반영된 최종 금액이다. 한 원주문이 여러 HBL로 분할되어도 동일한 원주문 전체 금액과 주문단위 부대금액을 각 HBL에 반복한다. 포장별 상품금액이나 자이언트 2자리 금액으로 재산출하지 않는다.
   <br><span style="color:#5f6368;font-size:12px;">08-11 당시 확정 사항 — 자이언트 구조 통보 · SKU 단가 · <code>ord_prod_nm</code> · <code>hs_cd</code> 동수 매핑 · <code>addField</code> PCCC · PCCC 두 명칭 허용 · <code>p1</code> 원복 · <code>g5</code> 커스텀 · <code>ord_qty_ut</code> · PCC 검증 GET/POST. <strong>상품코드는 08-14 실응답 검증에서 고도몰 <code>platSkuCode</code>와 신고 단품 <code>prod_id</code>의 의미·매핑 관계가 미확정임을 확인하여 P0로 재개</strong>. 종전 ⑧ “국내건 제외”는 08-12 동수 회신으로 폐기되어 해결 건수에서 제외</span>
 </div>
 
 <div class="box r">
-  <strong>2026-08-14 구현 검증 재개.</strong> 국내·해외 API 역할과 주문별 HBL 일괄 반환은 정책으로 합의됐으나, 최신 <code>getTRA001OrderInfo</code> 실응답에서 ① 고도몰 플랫폼 주문상품을 신고 단품·분할 HBL과 연결할 식별정보가 없고 ② 같은 원주문의 <code>hblNo</code>가 값/null로 혼재함을 확인했습니다. 정책 확정과 구현 완료를 구분하며 아래 두 건을 P0로 추적합니다.
+  <strong>2026-08-15 상품 식별·주문번호 검증 갱신.</strong> 동수 회신으로 자사몰은 조합 SKU, ERP 신고는 단품 SKU 기준이며, 혼합구매에서는 조합 SKU만으로 정확한 신고 단품·HBL 매칭이 불가능하다는 구조적 제한을 확인했습니다. <code>platSkuCode</code> 단일 추가로는 해결되지 않으므로 원주문상품행→단품→포장/HBL의 다대다 변환 이력과 원주문번호/ERP 분할번호 역할 분리를 P0로 관리합니다. 기존 HBL 일괄 반환 계약 위반 건은 별도 P0로 계속 추적합니다.
 </div>
 
 <div class="box b"><strong>QA 실행 원본 통합</strong> — 종전 <code>테스트검증계획.md</code>의 최신 시나리오를 <a href="./planning_v6.html#qa-plan">통합 기획서의 개발·QA 검증 대장</a>으로 편입했습니다. 이 문서는 우선순위·미결 여부를 관리하고, 실행 결과와 합격 기준은 기획서 QA 대장에서 갱신합니다.</div>
+
+<h2 id="stage-simulation">2026-08-15 스테이지·필드 시뮬레이션</h2>
+<div class="box g">
+  <strong>시뮬레이션 전제</strong> — <code>Z99999</code>는 2026-09-14 24:00까지 실제 PER 허용코드로 사용한다. 관세청 <code>tot_stlm_amt</code>는 동수 ERP 실제 매입금 원천의 최종 금액이며, 배송비·할인·통관대행료 반영 후 값을 사용한다. 이 두 항목은 재질의하지 않고 구현 검증값으로 취급한다.
+</div>
+<table>
+  <thead><tr><th style="width:13%">스테이지</th><th style="width:31%">반드시 보존·전달할 필드</th><th style="width:27%">필요하지 않거나 혼용 금지</th><th>통과 조건·시뮬레이션 결과</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Stage 1~2</strong><br>결제완료·고도몰 주문 스냅샷</td>
+      <td><code>originalOrderNo</code>, 고도몰 <code>orderGoodsData.sno</code>, <code>apiOrderGoodsNo</code>(외부채널 값이 있을 때), <code>goodsNo</code>, <code>goodsCd</code>, <code>platSkuCode</code>, <code>optionInfo</code>, <code>goodsCnt</code>, <code>orderCompletionDate</code>, 스냅샷 시각·버전</td>
+      <td>동수 신고상품명 <code>ord_prod_nm</code>, 신고 단품 SKU, HBL은 이 시점에 없음. <code>platSkuCode</code>를 주문상품행의 유일키로 사용하면 동일 코드 반복·부분취소를 구분할 수 없음</td>
+      <td><strong><code>orderGoodsData.sno</code>를 플랫폼 주문상품행 PK로 동결</strong>. 이후 상품명·수량·옵션 변경을 덮어쓰지 않고 새 버전으로 기록</td>
+    </tr>
+    <tr>
+      <td><strong>Stage 2</strong><br>동수 Pull·세트→단품 변환</td>
+      <td>원주문상품행별 <code>orderGoodsSno</code>·<code>platSkuCode</code>·판매수량과, 변환된 <code>erpUnitSku</code>·단품수량·환산계수의 연결. 최소 구조는 <code>conversionMappings[]</code></td>
+      <td>조합 SKU만 반환하거나 단품 SKU만 반환하는 방식. 상품명·가격·수량 유사도로 역추정하는 매칭</td>
+      <td>단일 세트뿐 아니라 <strong>혼합구매, 동일 단품을 포함한 복수 세트, 한 판매행의 복수 HBL 분할</strong>에서도 각 단품 수량의 원천 주문상품행 합계가 보존되어야 함</td>
+    </tr>
+    <tr>
+      <td><strong>Stage 3</strong><br>HBL 할당·TRA 역수집</td>
+      <td><code>originalOrderNo</code>, <code>erpPackageOrderNo</code>(원주문 또는 <code>-1/-2</code>), <code>packageSeq</code>, <code>hblNo</code>, <code>prod_srno</code>, 신고 단품 필드, <code>originMappings[]</code>, 주문단위 금액 스냅샷 ID</td>
+      <td><code>customerOrderNo</code> 하나에 원주문번호와 포장번호 의미를 동시에 부여 금지. <code>platSkuCode</code> 하나를 <code>itemList[]</code>에 복사하는 것만으로 완료 처리 금지</td>
+      <td>각 HBL의 단품마다 원천 <code>orderGoodsSno</code>와 배정수량을 역추적할 수 있고, 전 HBL 원자성·수량보존·중복 HBL 검사를 통과해야 <code>HBL_READY</code></td>
+    </tr>
+    <tr>
+      <td><strong>Stage 3</strong><br>관세청 TRA001 생성</td>
+      <td><code>hbl_no=hblNo</code>, <code>ord_no=originalOrderNo</code> 권고, HBL에 실제 포함된 <code>product_info[]</code>. <code>tot_stlm_amt</code>·<code>tot_ord_prod_qty</code>·배송비·할인·통관대행료는 원주문 전체값을 모든 HBL에 반복</td>
+      <td><code>erpPackageOrderNo</code>를 관세청 주문번호로 자동 사용하지 않음. <code>platSkuCode</code>는 <code>ord_prod_nm</code>이 아님. <code>prod_id</code>는 선택값이며 내부 대사키를 대신하지 않음</td>
+      <td>HBL별 상품수량은 해당 포장분, 주문단위 총수량·총액은 원주문 전체값으로 분리. <code>Σ(수량×단가)</code>와 최종금액 차이는 주문단위 배송비·할인·통관대행료로 설명 가능해야 함</td>
+    </tr>
+    <tr>
+      <td><strong>Stage 4~5</strong><br>오류·삭제·재수집</td>
+      <td>관세청 <code>txif_sbmt_no</code>, <code>hblNo</code>, <code>originalOrderNo</code>, 동수 삭제용 <code>erpPackageOrderNo</code>, 고도몰 원복 대상 <code>orderGoodsSno[]</code>, 재시도 세대번호</td>
+      <td>관세청 <code>ord_no</code>만으로 동수 <code>orderDelete</code> 호출 금지. 이전 세대 HBL·제출번호를 새 재수집 건에 재사용 금지</td>
+      <td>삭제·원복·재수집 후에도 동일 상품행의 이전 HBL과 신규 HBL을 구분하고 API/엑셀 중복제출이 없어야 함</td>
+    </tr>
+    <tr>
+      <td><strong>Stage 5</strong><br>고도몰 송장·<code>g5</code></td>
+      <td><code>orderGoodsSno + hblNo + allocatedQty</code> 매핑. 한 상품행이 여러 HBL이면 복수 연결을 허용하고, 같은 HBL에 포함된 상품행만 상태·송장 처리</td>
+      <td><code>ord_prod_nm</code>, 단품 SKU, 금액으로 고도몰 행을 찾지 않음. 원주문 전체를 일괄 <code>g5</code>로 바꾸기 전에 부분 HBL 정책 확인</td>
+      <td>혼합주문에서 A상품 HBL을 B상품 행에 등록하지 않고, 모든 해외 대상 행의 HBL 확보·TRA 정상처리 후 주문단위 <code>g5</code> 전환</td>
+    </tr>
+    <tr>
+      <td><strong>Stage 5-2~6</strong><br>자이언트 병합·MAWB</td>
+      <td>공통키는 <code>hwbNo + originalOrderNo</code> 권고. Geek/동수 소유 필드를 분리하고 <code>erpPackageOrderNo</code>는 추적용 별도 필드로 보존. 동수는 HBL별 상품·포장·실측값, Geek은 수하인·PCCC·OTP를 전송</td>
+      <td>관세청 주문전체 <code>tot_stlm_amt</code>와 자이언트 HBL 물품가 <code>totalValueUsd</code>의 자동 1:1 매핑 금지. 서로 다른 소스 필드를 null로 덮어쓰기 금지</td>
+      <td>자이언트에 <code>totalValueUsd</code>가 주문전체인지 HBL 물품가인지 명세 확정. 두 API 도착순서가 바뀌어도 동일 HWB 1건으로 병합되고 MAWB가 후속 upsert되어야 함</td>
+    </tr>
+  </tbody>
+</table>
+<h3>동수 <code>getTRA001OrderInfo</code> 권고 최소 데이터 계약</h3>
+<table>
+  <thead><tr><th style="width:18%">레벨</th><th style="width:36%">필드</th><th>필요 이유</th></tr></thead>
+  <tbody>
+    <tr><td>원주문</td><td><code>originalOrderNo</code>, <code>snapshotId</code>, <code>snapshotVersion</code>, <code>generatedAt</code></td><td>고도몰 원주문 식별과 09시 수집·10시 역조회·재조회 간 스냅샷 혼합 방지</td></tr>
+    <tr><td>주문단위 금액</td><td><code>erpFinalPurchaseAmount</code>, <code>currencyCode</code>, <code>totalOrderQty</code>, 구분 가능한 경우 <code>shippingFee</code>, <code>shippingDiscount</code>, <code>customsAgencyFee</code>, <code>rewardUseAmount</code>, <code>totalDiscount</code></td><td>관세청 주문단위 금액을 각 HBL에 동일 반복하고 상품금액과 부대금액을 검산. 선택 부대금액을 구분할 수 없으면 임의 역산하지 않음</td></tr>
+    <tr><td>포장/HBL</td><td><code>erpPackageOrderNo</code>, <code>packageSeq</code>, <code>hblNo</code>, <code>packageCount</code>, <code>innerPackageCount</code>, <code>packageGoodsAmount</code></td><td>동수 조회·삭제, HBL 원자성, 자이언트 HWB별 물품가·포장수 제공. <code>packageGoodsAmount</code>는 관세청 주문전체 총액과 별도</td></tr>
+    <tr><td>신고 단품</td><td><code>prodSrno</code>, <code>erpUnitSku</code>, <code>ordProdNm</code>, <code>category1/2</code>, <code>hsCode</code>, <code>qty</code>, <code>unitPrice</code>, <code>productDiscount</code>, <code>ordAmount</code>, 각 금액 통화코드</td><td>관세청 <code>product_info[]</code>와 자이언트 <code>items[]</code> 생성. 문자열 숫자는 파싱 후 범위·소수점 검증</td></tr>
+    <tr><td>원천행 연결</td><td><code>originMappings[]</code>: <code>orderGoodsSno</code>, <code>apiOrderGoodsNo</code>, <code>platSkuCode</code>, <code>platformOrderQty</code>, <code>convertedUnitQty</code>, <code>allocatedQty</code></td><td>조합 SKU→단품 SKU→HBL의 1:N/N:M 변환을 보존하고 고도몰 송장등록·상태변경 대상을 결정</td></tr>
+  </tbody>
+</table>
+<h3>오픈 전 필수 E2E 시뮬레이션</h3>
+<table>
+  <thead><tr><th style="width:9%">ID</th><th style="width:29%">입력 시나리오</th><th style="width:39%">기대 결과</th><th>이 시나리오가 요구하는 필드</th></tr></thead>
+  <tbody>
+    <tr><td><strong>SIM-01</strong></td><td>고도몰 한 상품행 <code>Aptamil Comfort * 6 × 1</code> → ERP 단품 6개 → HBL 1개</td><td>신고 단품 수량 6, <code>originMappings[]</code> 1건, 해당 고도몰 상품행에만 송장 등록. <code>ord_prod_nm</code>은 동수 신고상품명 사용</td><td><code>orderGoodsSno</code>, <code>platSkuCode</code>, <code>erpUnitSku</code>, 환산수량</td></tr>
+    <tr><td><strong>SIM-02</strong></td><td>혼합구매 A세트×1 + B세트×1, A단품 일부와 B단품이 HBL-1, 나머지 A단품이 HBL-2</td><td>각 HBL 상품수량은 포장분만, <code>tot_stlm_amt</code>·총수량·주문단위 부대금액은 두 HBL에 동일 반복. 두 고도몰 상품행에 올바른 HBL만 연결</td><td>포장별 <code>originMappings[].allocatedQty</code>, <code>packageSeq</code>, 원주문 금액 스냅샷</td></tr>
+    <tr><td><strong>SIM-03</strong></td><td>서로 다른 두 조합 SKU에 동일 단품 SKU X가 포함되고 ERP가 X를 한 행으로 합산</td><td>단품 X 한 행 아래 원천 고도몰 상품행 2개를 보존. 단품 SKU 하나만으로 고도몰 송장대상을 결정하지 않음</td><td><code>originMappings[]</code> 복수 항목, 각 원천행 환산·배정수량</td></tr>
+    <tr><td><strong>SIM-04</strong></td><td>09시 수집 후 한 상품행 부분취소 또는 수량변경, 10시 TRA 역조회</td><td>09시 구 스냅샷과 변경 스냅샷을 섞지 않고 TRA를 차단하거나 최신 버전으로 전량 재생성. 삭제·원복 후 이전 HBL/제출번호 재사용 금지</td><td><code>snapshotId</code>, <code>snapshotVersion</code>, <code>generatedAt</code>, 재시도 세대번호</td></tr>
+    <tr><td><strong>SIM-05</strong></td><td>고도몰 원주문번호 자체가 <code>ABC-1</code>이고 동수 두 번째 포장이 별도 생성됨</td><td>문자열 끝의 <code>-1</code> 제거로 원주문을 추정하지 않음. 명시적인 <code>originalOrderNo</code>와 <code>erpPackageOrderNo</code>로 구분</td><td>두 주문번호의 별도 필드, <code>packageSeq</code></td></tr>
+    <tr><td><strong>SIM-06</strong></td><td>가상 원주문: 상품 gross 120, 배송비 10, 통관대행료 5, 적립금 3, 총할인 12, HBL 물품가 70/50 분할</td><td>검산 최종금액은 <code>120+10+5-3-12=120</code>. 두 TRA001의 <code>tot_stlm_amt</code>는 각각 120, 자이언트 HBL 물품가는 70/50으로 별도 유지. 상품할인이 <code>ord_amt</code>에 이미 반영됐으면 이중 차감 금지</td><td>주문단위 최종금액·부대금액, HBL별 <code>packageGoodsAmount</code>, 통화·소수점 원천</td></tr>
+  </tbody>
+</table>
 <!-- ================= P0 ================= -->
 <h2 id="active">P0 — 오픈을 막는 항목</h2>
 <table>
@@ -91,9 +168,19 @@
       <td><span class="who w-ds">동수</span><br><span class="who w-geek">Geek</span></td>
       <td><strong>고도몰 플랫폼 주문상품 ↔ 신고 단품·HBL 매핑 계약 부재</strong><span class="new">NEW</span></td>
       <td><strong>현상:</strong> 동수는 09:00 고도몰 주문 수집 시 플랫폼 주문상품의 <code>platSkuCode</code>를 보유하지만, 10:00 <code>getTRA001OrderInfo</code>는 세트/판매상품을 신고 단품으로 변환한 <code>itemList[]</code>만 반환합니다. 2026-08-14 실응답에는 <code>platSkuCode</code>, 고도몰 주문상품 행 식별자, 동수 품목 SKU, 세트→단품 환산관계가 모두 없습니다.<br>
+      <strong>2026-08-15 동수 회신:</strong> 자사몰 판매는 <strong>조합 SKU</strong>, ERP 통관신고는 <strong>단품 SKU</strong> 기준이다. 조합 SKU 자체는 기술적으로 제공할 수 있으나, 여러 상품 혼합구매 시 직접구매 분할 규칙 때문에 정확한 SKU 매칭·전송이 어렵고 단품 데이터만 정상 제공 가능하다고 답변했다. 따라서 Geek이 요청한 <code>platSkuCode="Aptamil Comfort * 6"</code>를 단순 추가하는 방식은 단일 세트 사례만 해결하며 혼합구매·부분분할을 해결하지 못한다.<br>
       <strong>영향:</strong> Geek은 <code>customerOrderNo</code>로 주문까지만 찾을 수 있고, 어떤 고도몰 상품/옵션 행에 어느 분할 HBL을 등록할지 확정할 수 없습니다. 상품명은 한글 판매명↔영문 신고명, 수량은 세트 1↔단품 N, 금액은 KRW 판매가↔USD 신고가여서 이름·수량·가격 기반 추정 매칭은 오등록 위험이 있습니다. 송장등록과 <code>g1→g5</code> 상태 전환이 차단되거나 잘못된 상품에 반영될 수 있습니다.<br>
       <strong>책임 경계:</strong> 관세청의 <code>prod_id</code> 선택 여부와 무관한 내부 연동 필수정보입니다. <u>동수는 자신이 수행한 원주문상품→신고 단품·포장 변환의 추적 관계를 제공</u>하고, <u>Geek은 합의된 키로 고도몰 DB 매칭·송장/상태 반영 로직을 구현</u>해야 합니다. 기존 기획이 <code>prod_id</code>·동수 SKU·고도몰 <code>platSkuCode</code>를 “SKU”로 통칭하고 <code>orderGoodsData</code>를 신고 원천에서 제외하여 범위 오인을 유발했습니다.<br>
-      <strong>완료 조건:</strong> ⓐ <code>getTRA001OrderInfo</code> 확장 또는 ⓑ 별도 매핑 API 중 하나를 확정. 어느 방식이든 원주문번호 + 원주문상품 행 식별자 + <code>platSkuCode</code> + 플랫폼 주문수량 + 분할 주문번호/HBL + 신고 item 식별자(<code>prod_srno</code> 등) + 세트→단품 환산관계를 한 스냅샷에서 추적 가능해야 합니다. 별도 API라면 두 응답을 연결하는 공통 item 키와 정합 시점이 필수입니다.</td>
+      <strong>완료 조건:</strong> ⓐ <code>getTRA001OrderInfo</code> 확장 또는 ⓑ 별도 매핑 API 중 하나를 확정. 단순 <code>platSkuCode</code>가 아니라 각 신고 단품 아래 <code>originMappings[]</code>로 <code>orderGoodsSno</code>·<code>platSkuCode</code>·플랫폼 주문수량·<code>erpUnitSku</code>·환산수량·해당 HBL 배정수량을 1:N/N:M으로 표현해야 한다. 원주문번호 + ERP 분할번호/HBL + <code>prod_srno</code> + 변환 스냅샷 버전까지 한 번에 추적 가능해야 하며, 별도 API라면 두 응답을 연결하는 불변 item 키와 동일 스냅샷 시각이 필수이다. 기존 <code>serachOrderInfo</code> 추가 조회는 <code>orderGoodsSno↔HBL</code> 연결값까지 반환할 때만 대안이 되며, 조합 SKU만 추가 조회하면 공수만 늘고 결정성은 확보되지 않는다.</td>
+    </tr>
+    <tr>
+      <td><span class="pri p0">P0</span></td>
+      <td><span class="who w-ds">동수</span><br><span class="who w-geek">Geek</span><br><span class="who w-giant">자이언트</span></td>
+      <td><strong>원주문번호·ERP 분할번호·HBL 역할 미분리</strong><span class="new">NEW</span></td>
+      <td><strong>발견:</strong> 동수는 HBL별로 <code>2608111211436555-1</code>처럼 주문번호 뒤에 인덱스를 붙인다. 현재 기획은 이 분할번호를 관세청 <code>ord_no</code>·자이언트 <code>orderNo</code>·<code>itemGroupOrderNo</code>에 동일 전송하도록 되어 있으나, Geek은 관세청에는 원주문번호로 한 번에 연결하는 것이 맞는지 질의했다.<br>
+      <strong>권고 역할:</strong> ① <code>originalOrderNo</code>=고도몰 원주문번호, 고객·관세청·자이언트 공통 주문 식별자 ② <code>erpPackageOrderNo</code>=동수 원주문/<code>-1/-2</code> 포장 식별자, <code>getTRA001OrderInfo</code>·<code>orderDelete</code>·ERP 추적 전용 ③ <code>hblNo</code>=실제 포장·TRA001·HWB 식별자 ④ <code>orderGoodsSno</code>=고도몰 송장·상태변경 대상 행 식별자.<br>
+      <strong>근거·효과:</strong> 관세청 <code>ord_no</code>는 “전자상거래 사이트에서 관리하는 고유 주문번호”이므로 동수에서 새로 만든 포장번호보다 고도몰 원주문번호가 의미에 맞다. 같은 원주문번호가 여러 HBL에 반복되어도 <code>hbl_no</code>가 각 주문정보를 구분한다. 자이언트 병합도 <code>hwbNo + originalOrderNo</code>면 충돌하지 않는다.<br>
+      <strong>완료 조건:</strong> 동수 응답에 원주문번호와 분할번호를 별도 필드로 제공하거나 Geek이 무손실 분리 저장하고, 관세청·자이언트에는 원주문번호를 전송하는 안을 3사 확정. 1주문 2·3 HBL, 원주문 자체가 첫 포장인 경우, <code>-1</code> 포함 원래 주문번호, 삭제 후 재수집 시나리오를 통과해야 한다.</td>
     </tr>
     <tr>
       <td><span class="pri p0">P0</span></td>
@@ -160,10 +247,10 @@
     </tr>
     <tr>
       <td><span class="pri p1">P1</span></td>
-      <td class="who w-kcs">관세청</td>
-      <td>금액 <strong>소수점 계산·반올림 기준 질의</strong></td>
-      <td>동수 실응답은 <code>unitPrice 10.368 × 6 = ordAmt 62.208</code>처럼 소수 3자리이며 관세청 규격의 <code>prod_unprc</code>·<code>ord_amt</code>·<code>tot_stlm_amt</code>도 Number(16,3)이다. 반면 자이언트 <code>totalValueUsd</code>는 소수 2자리이므로 임의로 단가를 2자리 고정하면 관세청 원천 금액과 달라질 수 있다.<br>
-      <strong>관세청 질의</strong> ① 상품별 <code>ord_amt</code>를 먼저 2자리 반올림하는지, 3자리 그대로 제출하는지 ② <code>tot_stlm_amt</code>는 상품별 금액 합산 후 반올림하는지 ③ <code>ord_amt</code> 합계와 <code>tot_stlm_amt</code> 사이 허용 오차가 있는지 ④ 자이언트용 2자리 금액과 관세청 3자리 금액이 달라도 되는지 ⑤ 한 원주문을 USD 150 이하 복수 HBL로 나누어 TRA001을 각각 제출할 때 <code>tot_stlm_amt</code>는 원주문 총액을 반복할지, 해당 HBL 포장금액을 보낼지. <strong>회신 전에는 단가 2자리 고정 및 분할 총액 정책을 확정하지 않음.</strong></td>
+      <td><span class="who w-ds">동수</span><br><span class="who w-geek">Geek</span><br><span class="who w-giant">자이언트</span></td>
+      <td>금액 원천 확정 — <strong>산식·통화·자이언트 금액 분리 검증</strong></td>
+      <td><strong class="ok">확정:</strong> <code>tot_stlm_amt</code>는 동수 ERP의 실제 매입금을 원천으로 하며 배송비·할인·통관대행료가 반영된 최종 금액이다. 복수 HBL에서도 <strong>원주문 전체 <code>tot_stlm_amt</code>와 주문단위 부대금액을 각 HBL에 동일 반복</strong>한다. 해당 HBL 상품금액으로 안분하지 않는다.<br>
+      <strong>남은 구현 검증:</strong> ① <code>erpFinalPurchaseAmount</code>와 통화코드를 불변 스냅샷으로 제공 ② 별도 구분 가능한 경우 <code>smon_use_amt</code>·<code>spfe</code>·<code>spfe_dscn_amt</code>·<code>cscl_agcs</code>·<code>tot_dscn_amt</code>도 동일 주문 스냅샷에서 제공하고, 구분 불가능한 선택필드는 임의 역산하지 않음 ③ 검산은 <code>Σ(수량×단가)+배송비+통관대행료-적립금-총할인</code>과 최종 매입금의 차이를 기록하되, <code>ord_amt</code>가 이미 상품할인을 차감한 값이면 상품할인을 이중 차감하지 않음 ④ 관세청은 3자리 원천을 유지하고 반올림 시점·허용오차만 확인 ⑤ 자이언트 <code>totalValueUsd</code>가 HBL 물품가인지 주문전체 결제액인지 확정하여 <code>tot_stlm_amt</code>와 별도 필드로 관리. <strong>종전 “분할 HBL 총액 기준 미정” 질의는 해결</strong>하고 이 5개만 P1로 유지한다.</td>
     </tr>
     <tr>
       <td><span class="pri p1">P1</span></td>
@@ -319,17 +406,18 @@
 <table>
   <thead><tr><th style="width:10%">확정일</th><th style="width:20%">주제</th><th>현재 기준</th><th style="width:10%">상태</th></tr></thead>
   <tbody>
-    <tr><td class="d">07-31<br>→ 08-12</td><td>일정 · 출고 마감</td><td>오픈 <strong>2026-08-28 09:00</strong>, 계도기간 종료 <strong>2026-09-14 24:00</strong>. 오류 건은 11:50 동수 통보 → 12:00 WMS 취소 반영 마감 → 13:00 라벨 부착·현장 출고. 오픈일 새벽 03~04시 대외 오픈 전 데이터 테스트 가능</td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">07-31<br>→ 08-15</td><td>일정 · 출고 마감</td><td>오픈 <strong>2026-08-28 09:00</strong>, <code>Z99999</code>는 실제 PER 허용코드로 <strong>2026-09-14 24:00까지</strong> 사용 가능. 오류 건은 11:50 동수 통보 → 12:00 WMS 취소 반영 마감 → 13:00 라벨 부착·현장 출고. 오픈일 새벽 03~04시 대외 오픈 전 데이터 테스트 가능</td><td><span class="chip c-fix">확정</span></td></tr>
     <tr><td class="d">07-31<br>→ 08-12</td><td>주문 상태 · 오류 반복</td><td><code>p1</code> 결제완료 → 동수 수집 후 <code>g1</code> 상품준비중 → 관세청 제출 완료 건만 <code>g5</code> 항공발송중. 오류 건은 동수 주문 삭제 후 <code>g1→p1</code> 원복하고 익일 재수집. 재시도 상한 없이 반복하며 CS팀이 매일 실패리스트를 확인·보정</td><td><span class="chip c-fix">정책 확정</span></td></tr>
     <tr><td class="d">08-03</td><td>동수 주문 삭제 API</td><td><code>POST /api/openAPI/erp/orderInfo/orderDelete</code>, Body <code>{"customerOrderNo":"...-1"}</code>. 1회 1건, WMS → ERP 순으로 삭제. 가송장은 실제 택배사 할당 전이므로 폐기 가능</td><td><span class="chip c-fix">확정</span></td></tr>
     <tr><td class="d">08-05</td><td>동수 시스템 이원화</td><td>EIBE ERP는 발송 전 예정 데이터를 Geek에 제공하고, DS Logistics는 발송 후 실측·물류 데이터를 자이언트에 전송. 기존 합의 필드는 실측 <code>weight</code> 외에는 사전·실제 스냅샷이 같아야 함</td><td><span class="chip c-fix">확정</span></td></tr>
-    <tr><td class="d">08-05<br>→ 08-11</td><td>상품 · 신고 데이터</td><td>금액은 ERP 신고가격(USD), 상품명은 동수 영문명, HS코드는 동수 매핑. 세트 상품은 구성 단품별 전송. PCCC는 <code>addField</code>에서 두 명칭을 허용해 동수에 전달하고, OTP는 Geek DB에만 저장하여 동수에는 전달하지 않음</td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">08-05<br>→ 08-15</td><td>상품 · 신고 데이터</td><td>상품명은 동수 영문명, HS코드는 동수 매핑, 세트 상품은 구성 단품별 전송. <code>tot_stlm_amt</code>는 동수 ERP 실제 매입금 원천이며 배송비·할인·통관대행료가 반영된 최종 금액. 복수 HBL에는 원주문 전체 총액·총수량·주문단위 부대금액을 반복하고 포장금액으로 안분하지 않음. PCCC는 <code>addField</code>에서 두 명칭을 허용해 동수에 전달하고, OTP는 Geek DB에만 저장하여 동수에는 전달하지 않음</td><td><span class="chip c-fix">확정</span></td></tr>
     <tr><td class="d">08-12</td><td>HWB 검색 상한</td><td>자이언트 <code>POST /api/hwb/search</code>는 <strong>최대 500건이며 증설 불가</strong>. 항상 500건 이하로 분할 조회</td><td><span class="chip c-fix">확정</span></td></tr>
     <tr><td class="d">08-12<br>→ 08-13</td><td>국내·해외 API 역할</td><td><code>serachOrderInfo</code>는 국내·해외 송장번호와 <code>isCrossBorder</code>(Y=해외 직구, N=KR 국내)를 반환. <code>getTRA001OrderInfo</code>는 <strong>KR 국내 주문 제외·해외 TRA 신고정보 전용</strong>. KR WMS 가동 후 국내 송장 연동은 별도 추가 작업 없이 자동 연결되며 본 개발 범위에 포함</td><td><span class="chip c-fix">확정</span></td></tr>
     <tr><td class="d">06-29</td><td>고도몰 Pull 연결·테스트 통제</td><td><code>https://openhub.godo.co.kr/godomall5/order/Order_Search.php</code>를 유지하고 Key만 운영값으로 교체. 기간을 06-22부터 조회해 <strong>25건 ERP 동기화 성공</strong>. 특정 스토어만 출고 중지하는 기능은 미지원이므로 평시 Pull OFF, 테스트 요청 시 ON, 테스트 주문은 심사 보류 또는 ERP 즉시 삭제</td><td><span class="chip c-fix">운영기준 확정</span></td></tr>
     <tr><td class="d">08-12<br>→ 08-13</td><td>해외 분할 출고·HBL 반환</td><td><strong>1 HBL = 1 USD 150 이하 해외 포장 = 1 TRA001 = 1 자이언트 HWB</strong>. 주문의 모든 HBL이 할당된 뒤 일괄 반환하고 하나라도 미할당이면 해당 주문의 모든 HBL을 null로 반환. 테스트 단계는 동수 수동 할당. 11:57 Geek 확정에 따라 전부 null인 원주문은 <code>HBL_WAITING</code>으로 배치 대상에 계속 유지하고, 전건 확보 후에만 제출</td><td><span class="chip c-fix">정책 확정</span></td></tr>
     <tr><td class="d">08-13</td><td><code>getTRA001OrderInfo</code> 다건 요청</td><td>요청 키는 <code>customerOrderNos</code>. 값은 <code>"2607151408150416,xxxxxxx,aaaaaaaa"</code>처럼 주문번호를 쉼표로 연결한 문자열이며 종전 단건 키 <code>customerOrderNo</code>는 파라미터 오류 <code>state=300</code> 발생</td><td><span class="chip c-fix">확정</span></td></tr>
     <tr><td class="d">08-14</td><td>실주문 테스트·오픈 후 엑셀 안전망</td><td>Geek은 준비 즉시 별도 사전 승인 없이 실제 주문 테스트 시작. 승인 대기와 별개로 테스트 주문번호·HBL·시나리오·API/엑셀 제출경로·결과를 즉시 공유. 오픈 후 약 1주 우선 운영 후 협의하며 최대 검증 기한은 <code>Z99999</code> 허용 종료일인 09-14 24:00. 엑셀 등록 기능 전체 개발을 요청하지 않고 기존 양식 기반 확인·추출·대사·공유 지원을 협의하며, <code>hwbNo + orderNo</code>별 최종 제출경로는 하나만 허용</td><td><span class="chip c-fix">내부 정책 확정</span></td></tr>
+    <tr><td class="d">08-15</td><td>PER 유예코드·총 결제금액 사실 잠금</td><td><code>Z99999</code>의 09-14 24:00까지 PER 허용과 동수 ERP 실제 매입금 기반 <code>tot_stlm_amt</code>를 확정사실로 잠금. 향후 검토는 허용 여부·금액 원천을 반복 질의하지 않고, 필드 전달·산식 검산·통화·반올림·자이언트 HBL 물품가 분리만 확인</td><td><span class="chip c-fix">재질의 금지</span></td></tr>
   </tbody>
 </table>
 
@@ -342,7 +430,8 @@
     <tr><td>국내·해외 혼재 주문</td><td><s><code>getTRA001OrderInfo</code> 한 응답에서 <code>isCrossBorder:Y/N</code>으로 분기하고 국내 <code>expressNo</code>도 반환</s></td><td>동수 공식 회신으로 정정. <code>getTRA001OrderInfo</code>에는 KR 국내 주문이 포함되지 않으며 해외 TRA 대상만 반환. <code>serachOrderInfo</code>가 국내·해외 송장번호와 <code>isCrossBorder</code>(Y=해외, N=KR 국내)를 반환하며, KR WMS 가동 후 국내 송장도 자동 연동</td><td><span class="chip c-fix">API·필드 확정</span></td></tr>
     <tr><td>HBL 수집 시점</td><td><s>포장 준비 시 순차 채번 후 Geek가 부분 수집</s> → <s>전 HBL 선발급 또는 Push 방식 중 추후 선택</s></td><td>주문별 모든 HBL을 할당한 뒤 일괄 반환. 하나라도 미할당이면 해당 주문의 모든 HBL이 null이며 Geek는 미준비로 판단해 재조회. 테스트 단계에서는 동수가 수동으로 송장번호를 할당</td><td><span class="chip c-fix">확정</span></td></tr>
     <tr><td>TRA001 조회 요청 단위</td><td><s><code>customerOrderNo</code> 단건 호출</s></td><td><code>customerOrderNos</code> 다건 호출로 변경. 주문번호 여러 개를 쉼표로 연결한 문자열로 전달</td><td><span class="chip c-fix">확정</span></td></tr>
-    <tr><td>상품코드·품목 대사</td><td><s><code>prod_id</code>에 “동수 플랫폼 SKU”를 넣으면 상품 식별 문제가 해결된 것으로 간주</s></td><td>2026-08-14 실응답과 양사 회신으로 재검토. 고도몰 <code>platSkuCode</code>(판매상품/세트), 동수 품목 SKU, 관세청 <code>prod_id</code>(신고 단품)를 구분하고 원주문상품→신고 단품→분할 HBL 추적관계를 별도 계약해야 함. 관세청 선택필드 여부는 Geek 내부 매칭 필요성과 무관</td><td><span class="chip c-open">P0 재협의</span></td></tr>
+    <tr><td>상품코드·품목 대사</td><td><s><code>prod_id</code>에 “동수 플랫폼 SKU”를 넣으면 상품 식별 문제가 해결된 것으로 간주</s> → <s><code>platSkuCode</code>만 TRA 응답에 추가</s></td><td>2026-08-15 동수 회신으로 조합 SKU와 신고 단품 SKU가 다르고 혼합구매에서는 조합 SKU의 정확한 단품·HBL 매칭이 어렵다는 제한을 확인. <code>platSkuCode</code>는 보조속성으로만 사용하고, 고도몰 <code>orderGoodsData.sno</code>→동수 단품 SKU→분할 HBL의 <code>originMappings[]</code> 다대다 변환계약을 신설해야 함. 관세청 선택필드 <code>prod_id</code> 여부는 Geek 내부 매칭 필요성과 무관</td><td><span class="chip c-open">P0 재협의</span></td></tr>
+    <tr><td>주문번호 역할</td><td><s>동수 분할번호를 관세청 <code>ord_no</code>·자이언트 <code>orderNo</code>·<code>itemGroupOrderNo</code>에 동일 사용</s></td><td><code>originalOrderNo</code>(고도몰·관세청·자이언트), <code>erpPackageOrderNo</code>(동수 조회·삭제), <code>hblNo</code>(포장·TRA·HWB), <code>orderGoodsSno</code>(고도몰 상품행)로 역할 분리하는 안을 P0 제안. 3사 확정 전 기존 분할번호 전송안을 개발 확정으로 보지 않음</td><td><span class="chip c-open">P0 신규</span></td></tr>
   </tbody>
 </table>
 
@@ -360,11 +449,12 @@
     <tr><td class="d">08-11</td><td><code>hblNo</code> null 확인 → 운영·개발 <code>addField</code>의 PCCC 구조 차이 확인 → 영문 상품명·HS코드 해결 → 자이언트·동수 잔여 질의 정리</td></tr>
     <tr><td class="d">08-12<br>→ 08-13</td><td><code>serachOrderInfo</code>에 <code>isCrossBorder</code>(Y=해외, N=국내) 추가 및 국내·해외 송장 조회 역할 확정 → <code>getTRA001OrderInfo</code>는 해외 TRA 신고정보 전용으로 정정 → 다건 요청 키를 <code>customerOrderNos</code>와 쉼표 연결 문자열로 확정 → 주문별 전 HBL 할당 후 일괄 반환, 하나라도 미할당이면 전부 null로 확정 → 11:57 Geek이 전부 null 원주문을 배치 대상에 계속 유지하기로 확인 → 테스트 단계 동수 수동 송장 할당 → KR WMS 자동연동·HWB 500건·OTP 동수 제외·<code>p1</code> 반복·09-14 종료 정책 확정</td></tr>
     <tr><td class="d">08-14</td><td>자이언트 분리 API 다음 주 제공 예정 확인 → Geek 준비 즉시 실제 주문 테스트 진행(별도 사전 승인 없음) → 실제 주문 식별정보·제출경로·결과 즉시 공유 → 오픈 후 약 1주 엑셀 양식 안전망 병행, 필요 시 <code>Z99999</code> 허용 종료일 09-14 24:00까지 연장 → Geek에는 엑셀 등록 전체 개발이 아닌 기존 양식 기반 공동 지원 범위 협의 요청<br><strong>추가 실응답 검증:</strong> 동수는 고도몰 <code>platSkuCode</code>가 세트상품이고 TRA 응답은 신고 단품이라 현 API 제공이 어렵다고 회신, Geek은 기존 <code>searchOrderInfo</code> 추가 조회 시 추가 공수라고 회신. 원주문상품↔신고 단품·HBL 공통키가 없는 기획 누락을 P0로 재개. 같은 주문의 HBL 값/null 혼재 반환도 08-13 일괄 반환 정책 위반으로 확인</td></tr>
+    <tr><td class="d">08-15</td><td><strong>확정사실 잠금:</strong> <code>Z99999</code>는 09-14 24:00까지 실제 PER 허용, <code>tot_stlm_amt</code>는 배송비·할인·통관대행료가 반영된 동수 ERP 실제 매입금 원천이며 복수 HBL에 원주문 전체값 반복.<br><strong>Geek·동수 상품매칭 협의:</strong> Geek은 고도몰 주문상품행의 송장등록·<code>g5</code> 전환을 위해 <code>platSkuCode</code>를 요청. 동수는 조합 SKU 제공 자체는 가능하지만 ERP 신고는 단품 SKU이며 혼합구매의 정확한 조합 SKU 매칭이 어렵다고 회신. 단순 코드 추가 대신 <code>orderGoodsData.sno</code> 기반 <code>originMappings[]</code> 다대다 변환계약으로 요구사항을 재정의.<br><strong>주문번호 검토:</strong> 동수의 <code>-1/-2</code> 번호는 ERP 포장 식별자로 분리하고 관세청·자이언트에는 고도몰 원주문번호를 사용하는 안을 P0로 신설. 1주문 다중 HBL·삭제 후 재수집 테스트로 확정 예정.</td></tr>
   </tbody>
 </table>
 
 <footer>
-  2026-08-14 갱신 · 종전 <code>협의이력.html</code>의 확정 정책·변경 이력·타임라인을 이 문서로 이관 · 근거: 관세청 REST API v1.4.1 · 자이언트 GGATE API V2 v1.3.5 · 고도몰5 openAPI v1.0 · 2026-06-29/08-12~14 동수·Geek 채팅 및 API 실응답
+  2026-08-15 갱신 · 종전 <code>협의이력.html</code>의 확정 정책·변경 이력·타임라인을 이 문서로 이관 · 근거: 관세청 REST API v1.4.1 · 자이언트 GGATE API V2 v1.3.5 · 고도몰5 openAPI v1.0 · 2026-06-29/08-12~15 동수·Geek 채팅 및 API 실응답
 </footer>
 
 </div>

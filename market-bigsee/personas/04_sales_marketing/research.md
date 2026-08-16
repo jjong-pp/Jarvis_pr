@@ -50,3 +50,11 @@
 
 자문 질문 정본은 `reference/18_marketing_advisor_questions.md`, 전체 실행안은 `../01_strategy_ceo/reference/17_operator_gtm_cashflow_reset.md`에 유지합니다.
 
+## 2026-08-15 · 현재 마케팅 자문 질문지 재구성
+
+- 종전 35개 질문은 질문 은행으로 보존하되 실제 미팅에서는 현재 D-013의 세 페르소나·커뮤니티×Meta 동시 검증에 맞춰 핵심 질문을 줄일 필요가 있습니다.
+- 자문가는 매체 운영보다 기존 사용자 분류, 고객군별 첫 결과와 유료 파일럿, 2026 커뮤니티 규정, Meta 최소 구조, 후속 판매, 결제·반복 판정을 설계해야 합니다.
+- 광고 계정·Pixel·소재·랜딩·CRM·원자료의 BIGSEE 소유와 외부 집행 전 승인을 조건으로 둡니다.
+
+실제 발송용 초안은 `reference/23_marketing_advisor_current_brief.md`를 사용하고 `reference/18_marketing_advisor_questions.md`는 상세 질문 은행으로 유지합니다.
+

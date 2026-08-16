@@ -4,10 +4,12 @@
 |---|---|
 | 페르소나 ID | SAL |
 | 상태 | 집행 준비 |
-| 현재 과업 | 아이보스·셀러오션과 Meta의 페르소나별 14일 동시 시험 준비 |
+| 현재 과업 ID | SAL-001 |
+| 현재 과업 | 아이보스·셀러오션과 Meta의 고객군별 14일 동시 시험 준비 |
 | 초점 | 샘플·랜딩·폼·UTM·CRM·24시간 후속·유효 상담·첫 가치·유료 |
 | 차단 요인 | 실제 결과 샘플·2026 커뮤니티 규정/견적·광고 계정·후속 담당 미확정 |
-| 다음 행동 | 페르소나별 자산 3세트와 source/persona/creative 측정 검수 |
-| 현재 정본 | `reference/20_community_meta_parallel_launch.md` |
-| 마지막 갱신 | 2026-08-14 |
+| 다음 행동 | 자문 질문지 발송 여부 확정 후 고객군별 자산 3세트와 유입경로·고객군·소재 측정 검수 |
+| 목표일 | 미정 |
+| 현재 정본 | `reference/20_community_meta_parallel_launch.md`, `reference/23_marketing_advisor_current_brief.md` |
+| 마지막 갱신 | 2026-08-15 |
 

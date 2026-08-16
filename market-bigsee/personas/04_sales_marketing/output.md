@@ -2,10 +2,12 @@
 
 | 항목 | 값 |
 |---|---|
-| 결론 | 아이보스·셀러오션의 실무 자료/진단과 Meta Leads·Instagram Direct를 같은 14일에, 같은 페르소나·제안으로 동시 시험합니다. |
+| 결론 | 아이보스·셀러오션의 실무 자료/진단과 Meta Leads·Instagram Direct를 같은 14일에, 같은 고객군·제안으로 동시 시험합니다. |
 | 구조 | 대행사·인하우스·활성 셀러별 샘플 3개, 랜딩 3개, Meta 소재 3개, UTM·폼·CRM을 한 측정 구조로 연결합니다. |
 | 판단 | 클릭·CPL이 아니라 유효 상담→첫 리포트→유료→4주 반복과 팀 신호로 타깃을 고릅니다. |
 | 예산 가설 | 14일 총 150만~300만원의 중단 가능한 상한이며 커뮤니티는 2026 공식 견적 확인 후 집행합니다. |
+| 자문 질문 | 기존 사용자 분류·세 고객군 제안·커뮤니티×Meta 최소 구조·후속·중단 기준·자산 소유권을 12개 핵심 질문으로 확인합니다. |
 | 한계 | 실제 커뮤니티 성과·Meta CAC·BIGSEE 전환율은 아직 미측정입니다. |
-| 정본 | `reference/20_community_meta_parallel_launch.md` |
+| 마지막 갱신 | 2026-08-15 |
+| 정본 | `reference/20_community_meta_parallel_launch.md`, `reference/23_marketing_advisor_current_brief.md` |
 

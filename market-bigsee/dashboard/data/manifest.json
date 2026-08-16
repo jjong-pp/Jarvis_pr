@@ -1,0 +1,107 @@
+{
+    "schemaVersion":  "1.0",
+    "generatedAt":  "2026-08-16",
+    "sourceDocuments":  69,
+    "records":  172,
+    "relationships":  89,
+    "types":  [
+                  {
+                      "type":  "decision",
+                      "count":  23
+                  },
+                  {
+                      "type":  "design",
+                      "count":  14
+                  },
+                  {
+                      "type":  "document",
+                      "count":  13
+                  },
+                  {
+                      "type":  "hypothesis",
+                      "count":  14
+                  },
+                  {
+                      "type":  "metric",
+                      "count":  8
+                  },
+                  {
+                      "type":  "plan",
+                      "count":  12
+                  },
+                  {
+                      "type":  "question",
+                      "count":  7
+                  },
+                  {
+                      "type":  "questionnaire",
+                      "count":  3
+                  },
+                  {
+                      "type":  "research",
+                      "count":  10
+                  },
+                  {
+                      "type":  "result",
+                      "count":  7
+                  },
+                  {
+                      "type":  "risk",
+                      "count":  7
+                  },
+                  {
+                      "type":  "status",
+                      "count":  7
+                  },
+                  {
+                      "type":  "task",
+                      "count":  16
+                  },
+                  {
+                      "type":  "task_register",
+                      "count":  7
+                  },
+                  {
+                      "type":  "update",
+                      "count":  17
+                  },
+                  {
+                      "type":  "update_register",
+                      "count":  7
+                  }
+              ],
+    "roles":  [
+                  {
+                      "role":  "ALL",
+                      "count":  87
+                  },
+                  {
+                      "role":  "FIN",
+                      "count":  8
+                  },
+                  {
+                      "role":  "MKT",
+                      "count":  9
+                  },
+                  {
+                      "role":  "PRD",
+                      "count":  11
+                  },
+                  {
+                      "role":  "RSK",
+                      "count":  8
+                  },
+                  {
+                      "role":  "SAL",
+                      "count":  17
+                  },
+                  {
+                      "role":  "STR",
+                      "count":  19
+                  },
+                  {
+                      "role":  "TEC",
+                      "count":  13
+                  }
+              ]
+}

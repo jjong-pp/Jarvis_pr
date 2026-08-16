@@ -1,3 +1,17 @@
+<!-- bigsee-record
+{
+  "schema_version": "1.0",
+  "id": "SAL-QST-001",
+  "type": "questionnaire",
+  "role": "SAL",
+  "status": "보조 자료",
+  "priority": "P2",
+  "created_at": "2026-08-14",
+  "updated_at": "2026-08-14",
+  "related_ids": ["SAL-002"]
+}
+-->
+
 # BIGSEE 마케팅 자문 질문지
 
 기준일: 2026-08-14  
