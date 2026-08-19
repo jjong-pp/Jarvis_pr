@@ -20,10 +20,12 @@
 <body>
 <div class="container">
     <a href="./api_field_mapping_cn.html" class="nav-btn">[ -> api_field_mapping_cn.html 查看API字段映射文档 ]</a>
+    <a href="./동수_관세신고_연동회의_한중.html" class="nav-btn">[ 查看DONGSHU韩中会议资料 ]</a>
     <h1>类型代码及符号体系整理</h1>
-<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">最后更新 <span style="color:#8ab4f8;font-size:16px;">2026-08-13</span><span style="font-weight:400;color:#bdc1c6;"> · 开放 2026-08-28 09:00 (距基准日 D-15) · 韩国海关测试服务器关闭 2026-08-21 (D-8)</span></div>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">最后更新 <span style="color:#8ab4f8;font-size:16px;">2026-08-19</span><span style="font-weight:400;color:#bdc1c6;"> · 开放 2026-08-28 09:00 (D-9) · 韩国关税厅测试服务器关闭 2026-08-21 (D-2)</span></div>
 
-    <h2>1. 销售类型代码 (elcm_pcd) 详细说明 <span style="background:#fff3cd;color:#856404;padding:2px 6px;border-radius:3px;font-size:13px;font-weight:bold;">[2026-08-10 更正] 旧版文件的 A/B 定义相互颠倒。依据韩国关税厅 v1.4.1，<u>A=直接销售，B=代购</u>。</span></h2>
+    <h2>1. 销售类型代码 (elcm_pcd) 详细说明 <span style="background:#fff3cd;color:#856404;padding:2px 6px;border-radius:3px;font-size:13px;font-weight:bold;">[2026-08-19 更正] A/B/C应按每笔订单中的实际角色判断，而不是按商城类型固定判断。</span></h2>
+    <p style="background:#fce8e6;border-left:4px solid #c5221f;padding:10px 12px;"><strong>韩国关税厅最新答复：</strong>当前说明的KRONE自营商城跨境直购和平台入驻跨境直购均属于<code>B</code>（代购）。不得仅因属于自营商城而使用<code>A</code>。</p>
     <table>
         <thead>
             <tr>
@@ -38,13 +40,13 @@
                 <td><strong>A</strong></td>
                 <td>直接销售(电子商务)</td>
                 <td>在海外网络商城直接向消费者销售/发送商品。卖家预先采购商品，直接管理所有权/库存</td>
-                <td>(株)KRONE((주)크로네) 自营商城</td>
+                <td>当前已说明的业务中暂无确认适用订单</td>
             </tr>
             <tr>
                 <td><strong>B</strong></td>
                 <td>代购(购买代行)</td>
                 <td>代替消费者从海外卖家处购买商品并进口至韩国国内。不拥有商品所有权/库存。使用消费者个人通关固有符号</td>
-                <td>Naver Store((株)AIBE((주)아이베)运营)、其他外部购物商城代购渠道</td>
+                <td><strong>KRONE自营商城跨境直购及平台入驻跨境直购全部适用</strong></td>
             </tr>
             <tr>
                 <td><strong>C</strong></td>
@@ -56,12 +58,9 @@
     </table>
 
     <h2>2. 企业符号体系 (K代码)</h2>
-    <p><strong>K26XXXXXX 格式说明:</strong></p>
-    <ul>
-        <li>K = 大韩民国</li>
-        <li>26 = 电子商务分类</li>
-        <li>XXXXXX = 固有识别号码</li>
-    </ul>
+    <p><strong>[2026-08-19 更正] K代码使用原则:</strong></p>
+    <p><s>原说明：K=大韩民国、26=电子商务分类、XXXXXX=固有识别号码</s><br>
+    在目前取得的韩国关税厅回复及发放资料中，尚未确认上述位数拆分含义的依据。必须<strong>原样使用韩国关税厅发放的9位代码</strong>，例如 <code>K26000099</code>、<code>K26014765</code>；不得按前缀或位数推断企业角色、交易类型，也不得自行组合新代码。</p>
 
     <p><strong>三种符号对比表:</strong></p>
     <table>
@@ -80,24 +79,35 @@
                 <td><code>elcm_ents_sgn</code></td>
                 <td>识别向海关提交通关清单的主体</td>
                 <td>全部必填</td>
-                <td>K26000099 ((株)KRONE((주)크로네))</td>
+                <td>自营商城B：K26000099 / (株)KRONE((주)크로네)<br>平台B：各平台在韩国关税厅登记的代码及商号 <strong>（外部28个渠道逐项待确认）</strong></td>
             </tr>
             <tr>
                 <td>代购企业符号</td>
                 <td><code>puch_vcex_bsmn_sgn</code></td>
                 <td>识别实施代购的经营者。与外汇交易监控联动</td>
                 <td>仅B类型(代购)时必填</td>
-                <td>Naver Store: K26014765 ((株)AIBE((주)아이베))<br>其他代购: K26000099 ((株)KRONE((주)크로네))<br>自营商城: Null</td>
+                <td>自营商城B：K26000099 / (株)KRONE((주)크로네)<br>平台B：实际入驻的韩国企业，即(株)AIBE((주)아이베)或(株)KRONE((주)크로네) <strong>（按渠道待确认）</strong></td>
             </tr>
             <tr>
                 <td>销售企业符号</td>
                 <td><code>sale_ents_sgn</code></td>
                 <td>识别实际销售商品的主体(网络商城/入驻卖家)</td>
                 <td>选填项目</td>
-                <td>Null (本公司全部省略)</td>
+                <td>B类型的<code>sale_ents_sgn</code>不填；如可取得实际海外卖家名称，可选择填写<code>sale_ents_nm</code></td>
+            </tr>
+            <tr>
+                <td>Giant销售中介代码·名称</td>
+                <td><code>brokerCode</code> / <code>brokerName</code></td>
+                <td>依法登记为网络销售中介的固有代码及登记商号；与关税厅提交方、代购企业字段不同</td>
+                <td><strong>A·B必填</strong>，C选填</td>
+                <td>包含自营商城在内的各渠道实际网络销售中介登记值 <strong>（待确认）</strong></td>
             </tr>
         </tbody>
     </table>
+
+    <div style="background:#fce8e6; border-left:4px solid #c5221f; padding:12px 15px; margin:15px 0;">
+        <strong>[P0 提交权限门禁]</strong> 每次TRA提交都必须满足<strong>OAuth令牌企业代码 = <code>elcm_ents_sgn</code> = <code>txif_sbmt_no</code>前9位</strong>。自营商城使用 <code>K26000099</code> 配置；平台须以对应平台已批准的 <code>submissionProfileKey</code> 选择资格。平台代码、OAuth权限未确认或三者不一致时，必须在调用韩国关税厅前阻断。GIANT <code>brokerCode</code> 不能替代此门禁值。
+    </div>
 
     <h2>3. 各渠道符号填写矩阵</h2>
     <table>
@@ -110,39 +120,34 @@
                 <th style="width:15%">puch_vcex_bsmn_nm</th>
                 <th style="width:15%">sale_ents_sgn</th>
                 <th style="width:15%">sale_ents_nm</th>
+                <th style="width:15%">brokerCode / brokerName<br>Giant</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>(株)KRONE((주)크로네) 自营商城</td>
-                <td>A (直接销售)</td>
-                <td>K26000099</td>
-                <td>Null</td>
-                <td>Null</td>
-                <td>Null</td>
-<td><strong>(株)KRONE((주)크로네)</strong> <span style="color:#856404;">[08-10 更正]</span></td>
-            </tr>
-            <tr>
-                <td>Naver Store ((株)AIBE((주)아이베)运营)</td>
-                <td>B (代购)</td>
-                <td>K26000099</td>
-                <td>K26014765</td>
-                <td>(株)AIBE((주)아이베)</td>
-                <td>Null</td>
-<td><strong>实际海外销售企业名</strong> <span style="color:#856404;">(东数提供)</span></td>
-            </tr>
-            <tr>
-                <td>其他外部购物商城代购</td>
+                <td>(株)KRONE((주)크로네) 自营商城跨境直购</td>
                 <td>B (代购)</td>
                 <td>K26000099</td>
                 <td>K26000099</td>
                 <td>(株)KRONE((주)크로네)</td>
                 <td>Null</td>
-<td><strong>实际海外销售企业名</strong> <span style="color:#856404;">(东数提供)</span></td>
+                <td>如可取得，填写实际海外卖家名称<br><span style="color:#856404;">关税厅选填</span></td>
+                <td><strong>待确认</strong><br>需向Giant确认自营商城B应使用的实际网络销售中介登记值</td>
+            </tr>
+            <tr>
+                <td>平台入驻跨境直购<br>（28个外部渠道）</td>
+                <td>B (代购)</td>
+                <td>该平台在韩国关税厅登记的电子商务企业代码<br><strong>按渠道待确认</strong></td>
+                <td>实际入驻韩国企业代码<br>K26014765或K26000099<br><strong>按渠道待确认</strong></td>
+                <td>(株)AIBE((주)아이베)或(株)KRONE((주)크로네)<br><strong>按渠道待确认</strong></td>
+                <td>Null</td>
+                <td>如可取得，填写实际海外卖家名称<br><span style="color:#856404;">关税厅选填</span></td>
+                <td><strong>待确认</strong><br>需逐渠道确认实际网络销售中介登记代码及商号</td>
             </tr>
         </tbody>
     </table>
-<p style="font-size:13px;color:#856404;background:#fff3cd;padding:10px 14px;border-radius:4px;"><strong>[2026-08-10 更正]</strong> 上表 <code>sale_ents_nm</code> 已由原“全渠道 Null 统一”变更。代码(<code>sale_ents_sgn</code>)仅在关税厅登记企业时填写故保持 Null，<strong>但企业名称全渠道均需填写</strong> — 因 GIANT <code>sellerName</code> 在 A·B 类型下均为必填。详见第 5 节。</p>
+<p style="font-size:13px;color:#856404;background:#fff3cd;padding:10px 14px;border-radius:4px;"><strong>[2026-08-19 更正]</strong> 韩国关税厅的<code>elcm_ents_*</code>、<code>puch_vcex_bsmn_*</code>与Giant的<code>brokerCode/brokerName</code>代表不同角色。Giant已答复<code>broker*</code>在A·B必填、C选填，但各渠道实际网络销售中介登记值尚未确认。不得继续使用原AIBE/KRONE简单分支值作为最终值。</p>
+<p style="font-size:13px;background:#fce8e6;border-left:4px solid #c5221f;padding:10px 14px;"><strong>渠道主数据现状：</strong><code>도메인모음.xlsx</code>包含1个自营商城和28个外部平台，共29个渠道，但多个“企业”单元格仍为<code>아이베/크로네</code>模糊值。在逐项确认提交方、代购企业及Giant broker实际值前，不得自动申报。</p>
 
     <h2>4. 商品销售页面URL (prod_sale_pge_url / productPageUrl / orderSiteUrl)</h2>
     <p>说明: 海关TRA001的prod_sale_pge_url、GIANT Item的productPageUrl、HWB的orderSiteUrl均使用相同值。不使用包含单个商品ID的详细URL，而是统一注入各商城的代表域名URL。</p>
@@ -162,30 +167,23 @@
                 <td>自营购物商城代表域名</td>
             </tr>
             <tr>
-                <td>Naver Store</td>
-                <td>https://brand.naver.com/nutricia</td>
-                <td>Naver品牌店代表域名</td>
-            </tr>
-            <tr>
-                <td>其他代购渠道(28个)</td>
+                <td>外部平台渠道（28个，含Naver）</td>
                 <td>各商城代表URL</td>
-                <td>新增渠道时需在URL映射表(CSV)中登记。详见 store_url_mapping.csv</td>
+                <td>包括Naver、Gmarket、Auction、11st、Coupang、SSG等。详见<code>도메인모음.xlsx</code></td>
             </tr>
         </tbody>
     </table>
-    <p>此URL映射以单独的Excel(CSV)文件管理，新增渠道时在该Excel中登记商城代码和代表URL，用于基于东数(Dongsu)WMS渠道代码的自动映射。</p>
+    <p>URL及企业代码映射以<code>도메인모음.xlsx</code>的29个渠道为基础管理。当前文件没有稳定的DONGSHU渠道代码及各平台关税厅代码，因此用于WMS自动分支的渠道主数据仍需单独确认。</p>
 
-    <h2>5. 销售企业名称填写规则 (sale_ents_nm / sellerName) <span style="background:#fff3cd;color:#856404;padding:2px 6px;border-radius:3px;font-size:13px;font-weight:bold;">[2026-08-10 新增]</span></h2>
-    <p><strong>背景：</strong>Geek 仅掌握自营商城(A类型)数据，而东数 EIBE ERP 同时采集自营商城与各入驻渠道订单，
-    是<strong>唯一需要同时应对 A 类型与 B 类型的主体</strong>。因此入驻渠道的销售企业名称必须由东数依据渠道代码提供。</p>
-    <p><strong>关键在于规格差异。</strong>韩国关税厅仅在 A(直接销售)时要求必填，而捷安特(GIANT)不区分 A/B 一律必填。
-    也就是说，关税厅可以省略的 B 类型，<span style="background:#fff3cd;color:#856404;padding:1px 5px;border-radius:3px;font-weight:bold;">在捷安特若无值则 HWB 登记会被拒绝</span>。</p>
+    <h2>5. 销售企业名称填写规则 (sale_ents_nm / sellerName) <span style="background:#fff3cd;color:#856404;padding:2px 6px;border-radius:3px;font-size:13px;font-weight:bold;">[2026-08-19 更正]</span></h2>
+    <p><strong>背景：</strong>当前说明的自营商城跨境直购和平台入驻跨境直购均为B类型。DONGSHU EIBE ERP掌握渠道、包裹及实际海外卖家信息，因此如可取得实际海外卖家名称，应从渠道与商品数据中提供。</p>
+    <p><strong>规格差异：</strong>韩国关税厅B类型的<code>sale_ents_sgn</code>不填，<code>sale_ents_nm</code>在可提供时选填。Giant的<code>sellerName</code>是否必填及其取值定义应遵循Giant的独立接口合同，不得与关税厅选填字段混为一谈。</p>
     <table>
         <thead>
             <tr><th>区分</th><th>关税厅 <code>sale_ents_nm</code></th><th>捷安特 <code>items[].sellerName</code></th></tr>
         </thead>
         <tbody>
-            <tr><td>是否必填</td><td><strong>A 直接销售时必填</strong>（B·C 为选填）</td><td><strong>A·B·C 一律必填 (Y)</strong></td></tr>
+            <tr><td>是否必填</td><td>A直接销售时必填，B·C选填<br><strong>当前对象全部为B</strong></td><td><strong>A·B·C 一律必填 (Y)</strong></td></tr>
             <tr><td>取值定义</td><td>A：商品销售页面显示的销售企业名称<br>B：代购业者实际购买的销售企业名称<br>C：客户输入的销售企业名称</td><td>销售渠道商号（指南示例值 <code>TAOBAO SHOP</code>）</td></tr>
             <tr><td>规格</td><td>String(250)</td><td>String(300)</td></tr>
         </tbody>
@@ -194,21 +192,21 @@
     <table>
         <thead><tr><th>渠道</th><th>elcm_pcd</th><th>sale_ents_nm / sellerName 取值</th><th>提供主体</th><th>备注</th></tr></thead>
         <tbody>
-            <tr><td>KRONE 自营商城</td><td>A（直接销售）</td><td><strong>(株)KRONE</strong></td><td>Geek 固定注入</td><td>关税厅与捷安特均必填。取值待确认（见 5.3）</td></tr>
-            <tr><td>Naver 品牌商城（AIBE 运营）</td><td>B（代购）</td><td>实际购买的<strong>海外销售企业名称</strong></td><td><strong>东数 EIBE ERP</strong>（渠道DB）</td><td>关税厅为选填但捷安特必填 → 缺失将导致 HWB 登记被拒</td></tr>
-            <tr><td>其他外部商城（28个渠道）</td><td>B（代购）</td><td>实际购买的<strong>海外销售企业名称</strong></td><td><strong>东数 EIBE ERP</strong>（渠道DB）</td><td>同上</td></tr>
+            <tr><td>KRONE自营商城跨境直购</td><td>B（代购）</td><td>如可取得，填写实际购买的<strong>海外卖家名称</strong></td><td><strong>DONGSHU EIBE ERP</strong>或不填</td><td>关税厅选填；Giant sellerName的来源及替代值待确认</td></tr>
+            <tr><td>平台入驻跨境直购（28个外部渠道）</td><td>B（代购）</td><td>如可取得，填写实际购买的<strong>海外卖家名称</strong></td><td><strong>DONGSHU EIBE ERP</strong>（渠道DB）</td><td>关税厅选填；Giant sellerName及broker实际值需逐渠道确认</td></tr>
         </tbody>
     </table>
     <h3>5.2 运营原则</h3>
     <ul>
-        <li>关税厅 <code>sale_ents_nm</code> 与捷安特 <code>sellerName</code> <strong>必须统一为同一取值</strong>，否则三方数据无法核对。</li>
-        <li>A 类型由 Geek 固定注入；B 类型由东数在 10:00 回采响应中依据渠道代码提供。参照 <code>store_url_mapping.csv</code> 方式，单独维护<strong>渠道 → 销售企业名称映射表</strong>。</li>
-        <li>旧版"销售企业名称与销售企业代码为选填项，故全部填 Null 统一处理"的方针<strong>予以废止</strong>，因其同时违反关税厅 A 类型必填条件与捷安特全量必填条件。</li>
-        <li>销售企业代码 <code>sale_ents_sgn</code> / <code>sellerCode</code> 性质不同。关税厅规格为"仅在销售企业已在关税厅登记为电子商务经营者时提交"，故仅在持有登记代码时填写。海外销售方通常未登记，B 类型原则上不填。</li>
+        <li>当前B类型对象的关税厅<code>sale_ents_sgn</code>不填；仅在可确认实际海外卖家时选择提交<code>sale_ents_nm</code>。</li>
+        <li>Giant <code>sellerName</code>是其独立合同中的必填字段，应由DONGSHU接口提供，但不得自动假设其与关税厅选填值完全相同；是否可共用同一数据源需与Giant确认。</li>
+        <li><code>sale_ents_sgn</code>、<code>sellerCode</code>、<code>brokerCode</code>含义不同，不得把同一个K代码复制到三个字段。</li>
+        <li>渠道销售方及企业代码映射应按<code>도메인모음.xlsx</code>的29个渠道逐项补充；仍为<code>아이베/크로네</code>多候选值的渠道必须排除在自动申报之外。</li>
     </ul>
     <h3>5.3 待确认事项</h3>
     <ul>
-        <li>A 类型（自营商城）销售企业名称应填 <strong>"(株)KRONE"</strong> 还是 <strong>"Nutricia Mall"</strong> 需确认。实际 TRA001 发送 JSON 中提交者名称(<code>elcm_ents_nm</code>)为"Nutricia Mall"。需核对关税厅登记商号与商品销售页面的卖家标示后统一。</li>
+        <li>需确认29个渠道各自的平台提交方代码及商号、实际入驻韩国企业、Giant <code>brokerCode/brokerName</code>。</li>
+        <li>需确认自营商城B类型在Giant中应填写的实际网络销售中介登记代码及商号。</li>
         <li>B 类型海外销售企业名称的标示语言（原文／英文／韩文）及特殊字符处理基准需与东数协商。商品名称已出现过 <code>*</code> 等特殊字符问题。</li>
     </ul>
 
@@ -216,6 +214,7 @@
     <table>
         <thead><tr><th>日期</th><th>变更内容</th></tr></thead>
         <tbody>
+            <tr><td>2026-08-19</td><td><strong>反映韩国关税厅最新答复。</strong>将A/B/C由商城固定分类更正为按每笔订单角色判断；当前自营商城跨境直购及平台入驻跨境直购均为B。自营商城B的提交方与代购企业均为<code>K26000099/(株)KRONE</code>；平台B由平台作为提交方、实际入驻韩国企业作为代购企业。关税厅企业代码与Giant <code>broker*</code>分开管理，29个渠道实际值均标记为待确认。新增<a href="./동수_관세신고_연동회의_한중.html">DONGSHU韩中会议资料</a>链接。</td></tr>
             <tr><td>2026-08-10</td><td><strong>更正第1节 A/B 定义颠倒。</strong>旧版记载为 A=代购、B=直接销售，与同一文件第3节矩阵及关税厅 v1.4.1 规格矛盾。已按关税厅标准更正为 <strong>A=直接销售、B=代购、C=配送代行</strong>。</td></tr>
             <tr><td>2026-08-10</td><td><strong>新增第5节 销售企业名称填写规则。</strong>反映关税厅仅 A 类型必填而捷安特全量必填的规格差异；因东数是同时应对 A·B 的主体，B 类型取值由东数渠道DB提供。废止旧版"全部填 Null"方针。</td></tr>
         </tbody>
