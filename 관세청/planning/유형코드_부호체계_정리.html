@@ -30,12 +30,14 @@
   <a href="./리스크_질의대장.html">리스크·질의 대장</a>
   <a href="./유형코드_부호체계_정리.html" class="active">유형·부호 체계</a>
   <a href="./동수_관세신고_연동회의_한중.html">동수 한중 회의자료</a>
+  <a href="./CS_QA_통관.html">CS 통관 Q&amp;A</a>
 </nav>
     <h1>유형코드 및 부호체계 정리</h1>
-<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-08-24</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 (D-4) · 관세청 테스트서버 종료 2026-08-21</span></div>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-08-26</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 (D-2) · 관세청 테스트서버 종료 2026-08-21</span></div>
 
     <h2>1. 판매유형코드 (elcm_pcd) 상세 <span style="background:#e6f4ea;color:#137333;padding:2px 6px;border-radius:3px;font-size:13px;font-weight:bold;">[2026-08-24 확정] 자사몰만 A, 외부 입점 채널은 전부 B</span></h2>
     <p style="background:#e6f4ea;border-left:4px solid #137333;padding:10px 12px;"><strong>현재 확정 운영 패턴:</strong> 주문 전에 (주)크로네가 매입·소유하고 해외에 보관한 재고를 자사몰에서 직접 판매하는 주문만 <code>A</code>(직접판매)입니다. 국내 재고 판매는 해외직구 대상이 아닙니다. <strong>자사몰을 제외한 외부 플랫폼 입점 채널은 전부 <code>B</code>(구매대행)</strong>이며 각 플랫폼이 TRA001을 제출합니다. B형 구매대행업체는 <strong>네이버스토어만 (주)아이베</strong>, 나머지 외부 입점 채널은 <strong>(주)크로네</strong>입니다. 자사몰에는 B유형이 없습니다.</p>
+    <p style="background:#e8f0fe;border-left:4px solid #1a73e8;padding:10px 12px;"><strong>[2026-08-26 운영 배치]</strong> 자사몰 A는 매일 <strong>11:10 KST</strong> Geek이 동수에서 HBL·TRA 데이터를 수집하기 시작하고, <strong>11:50 KST 이전</strong> TRA 제출·오류 확인·필요한 삭제 API 요청을 마감합니다. 마감까지 HBL 누락, TRA 지연·결과 미확정, 삭제 실패가 남은 주문은 <code>MANUAL_CLEARANCE_REQUIRED</code>로 격리하여 수기 통관으로 처리하며 자동 TRA·자동 출고에 재편입하지 않습니다. 외부 플랫폼 B의 플랫폼 자체 TRA 제출 책임과는 별도 운영 규칙입니다.</p>
     <table>
         <thead>
             <tr>
@@ -105,7 +107,7 @@
                 <td>A는 등록업체인 경우 입력, B·C 미입력</td>
                 <td>자사몰 A: <code>sale_ents_sgn=K26000099</code>, <code>sale_ents_nm=(주)크로네</code><br>플랫폼 B: <code>sale_ents_sgn</code> 미입력, <code>sale_ents_nm</code>은 실제 해외 판매처명 선택 입력</td>
             </tr>
-            <tr><td>자이언트 판매중개자 부호·명</td><td><code>brokerCode</code> / <code>brokerName</code></td><td>자이언트 API의 통신판매(중개) 등록 부호·상호. 관세청 TRA001의 직접 대응 필드는 아님</td><td><strong>A·B 필수</strong>, C 선택</td><td>자사몰 A: 중개자 부재 시 본인 부호 사용 가능 여부 자이언트 확인 중<br>외부 플랫폼 B: 각 플랫폼 판매중개 등록값 후보이나 실제 입력값·매핑은 채널별 자이언트 확인 필요</td></tr>
+            <tr><td>자이언트 판매중개자 부호·명</td><td><code>brokerCode</code> / <code>brokerName</code></td><td>GGATE API의 통신판매(중개) 등록 부호·상호. 관세청 TRA001의 직접 대응 필드는 아님</td><td><strong>A·B 필수</strong>, C 선택</td><td>자사몰 A: <code>K26000099 / (주)크로네</code><br>네이버스토어 B: <code>K26014765 / (주)아이베</code><br>기타 외부 플랫폼 B: <code>K26000099 / (주)크로네</code><br><small>GGATE v2.0.0은 채널별 부호값 자체를 고정 검증하지 않으므로 승인된 채널 마스터에서 주입</small></td></tr>
         </tbody>
     </table>
 
@@ -136,7 +138,7 @@
                 <td>Null</td>
                 <td>K26000099</td>
                 <td>(주)크로네<br><span style="color:#137333;">관세청 필수</span></td>
-                <td><strong>미확인</strong><br>중개자 없는 A에서 K26000099/(주)크로네 사용 가능 여부 자이언트 확인 중</td>
+                <td><strong>K26000099 / (주)크로네</strong><br>GGATE v2.0.0 A 필수값</td>
             </tr>
             <tr>
                 <td>네이버스토어 입점 해외직구</td>
@@ -146,7 +148,7 @@
                 <td><strong>(주)아이베</strong></td>
                 <td>Null</td>
                 <td>가능한 경우 실제 해외 판매업체명<br><span style="color:#856404;">관세청 선택</span></td>
-                <td><strong>미확인</strong><br>네이버 판매중개 등록값 후보, 자이언트 실입력값 확인 필요</td>
+                <td><strong>K26014765 / (주)아이베</strong><br>승인된 네이버 B 채널 프로필</td>
             </tr>
             <tr>
                 <td>기타 외부 플랫폼 입점 해외직구<br><small>쿠팡·지마켓·옥션·11번가·SSG 등 27개 채널</small></td>
@@ -156,12 +158,12 @@
                 <td><strong>(주)크로네</strong></td>
                 <td>Null</td>
                 <td>가능한 경우 실제 해외 판매업체명<br><span style="color:#856404;">관세청 선택</span></td>
-                <td><strong>채널별 미확인</strong><br>각 플랫폼 판매중개 등록값 후보, 자이언트 실입력값 확인 필요</td>
+                <td><strong>K26000099 / (주)크로네</strong><br>승인된 기타 외부 B 채널 프로필</td>
             </tr>
         </tbody>
     </table>
 <p style="font-size:13px;color:#856404;background:#fff3cd;padding:10px 14px;border-radius:4px;"><strong>[2026-08-24 재정정]</strong> 종전 “자사몰·플랫폼 모두 B”를 폐기합니다. 현재 확정값은 <strong>자사몰만 A, 외부 플랫폼 입점 채널은 전부 B</strong>입니다. B형 구매대행업체는 <strong>네이버스토어만 (주)아이베</strong>, 나머지 외부 플랫폼은 <strong>(주)크로네</strong>입니다.</p>
-<p style="font-size:13px;background:#fce8e6;border-left:4px solid #c5221f;padding:10px 14px;"><strong>채널마스터 현황:</strong> <code>도메인모음.xlsx</code>의 자사몰 1개와 외부 플랫폼 28개를 모두 운영 매트릭스에 포함합니다. 자사몰은 <code>A/KRONE</code>, 네이버스토어는 <code>B/AIBE</code>, 기타 외부 27개 채널은 <code>B/KRONE</code>으로 분기합니다. 각 플랫폼의 TRA001 제출 결과는 당사가 조회하지 못하며, 자이언트 <code>broker*</code> 실입력값은 채널별 확인이 필요합니다.</p>
+<p style="font-size:13px;background:#e6f4ea;border-left:4px solid #137333;padding:10px 14px;"><strong>[2026-08-25 GGATE v2.0.0 반영]</strong> <code>도메인모음.xlsx</code>의 자사몰 1개와 외부 플랫폼 28개를 모두 운영 매트릭스에 포함합니다. 자사몰은 <code>A/KRONE</code>, 네이버스토어는 <code>B/AIBE</code>, 기타 외부 27개 채널은 <code>B/KRONE</code>으로 분기합니다. 동수는 <code>POST /api/hwb/bulk-sync/logistics</code>에 승인된 채널 프로필의 <code>ecTypeCode</code>, <code>broker*</code>, 조건부 <code>buyingAgent*</code>와 <code>sellerCode</code>를 전송합니다.</p>
 
     <h2>4. 상품 판매 페이지 URL (prod_sale_pge_url / productPageUrl / orderSiteUrl)</h2>
     <p>설명: 관세청 TRA001의 <code>prod_sale_pge_url</code>과 자이언트 <code>items[].productPageUrl</code>에는 실제 주문상품 상세 페이지 URL을 사용합니다. 자이언트 <code>orderSiteUrl</code>에는 주문이 발생한 자사몰·플랫폼의 대표 URL을 사용합니다. 세 필드를 하나의 대표 도메인으로 통일하지 않습니다.</p>
@@ -226,7 +228,7 @@
                 <td><strong>(주)크로네</strong> 필수</td>
                 <td>승인된 자사몰 판매자 프로필</td>
                 <td><strong>(주)크로네</strong></td>
-                <td><strong>미확인</strong><br>중개자 없는 A의 본인 부호 사용 여부</td>
+                <td><strong>K26000099 / (주)크로네</strong></td>
             </tr>
             <tr>
                 <td>외부 플랫폼 입점 해외직구 28개<br><small>네이버=AIBE, 기타 27개=KRONE</small></td>
@@ -234,7 +236,7 @@
                 <td>가능한 경우 실제 구매한 <strong>해외 판매업체명</strong></td>
                 <td><strong>동수 EIBE ERP</strong> (채널DB)</td>
                 <td>실제 해외 판매업체명<br><strong>자이언트 필수</strong></td>
-                <td><strong>28개 채널별 미확인</strong><br>플랫폼 판매중개 등록값 후보</td>
+                <td>네이버: <strong>K26014765 / (주)아이베</strong><br>기타 27개: <strong>K26000099 / (주)크로네</strong></td>
             </tr>
         </tbody>
     </table>
@@ -242,16 +244,19 @@
     <ul>
         <li>자사몰 A는 <code>sale_ents_nm=(주)크로네</code>, <code>sale_ents_sgn=K26000099</code>를 사용하며 Geek이 TRA001을 제출한다.</li>
         <li>외부 플랫폼 B는 <code>sale_ents_sgn</code>을 미입력하고 <code>sale_ents_nm</code>은 실제 해외 판매처를 확인할 수 있을 때 선택 제출한다. TRA001 제출은 각 플랫폼이 담당한다.</li>
-        <li>자이언트 <code>sellerName</code>은 별도 계약상 필수 필드이므로 동수 API에서 제공하되, 관세청 선택값과 동일하다고 자동 가정하지 않는다. 동일 원천을 사용할 수 있는지는 자이언트와 확정한다.</li>
-        <li><code>sale_ents_sgn</code>, <code>sellerCode</code>, <code>brokerCode</code>는 각각 의미가 다르다. 하나의 K코드를 세 필드에 복사하지 않는다.</li>
+        <li>GGATE <code>items[].sellerName</code>은 A·B·C 모두 필수이다. 자사몰 A는 <code>(주)크로네</code>, 외부 플랫폼 B는 실제 해외 판매업체명을 전송한다.</li>
+        <li><code>sale_ents_sgn</code>, <code>sellerCode</code>, <code>brokerCode</code>는 의미가 다른 별도 필드다. 다만 승인된 채널 마스터가 동일 K코드를 각 역할에 명시적으로 매핑한 경우에는 그 확정값을 사용하며, 필드 간 자동 복사는 금지한다.</li>
+        <li>GGATE 유형 조건은 A: <code>broker*</code>·<code>sellerCode</code> 필수, <code>buyingAgent*</code> 전송 금지 / B: <code>broker*</code>·<code>buyingAgent*</code> 필수, <code>sellerCode</code> 선택 / C: 세 부호 모두 선택이다. 조건 위반은 <code>H005</code>, 일반 필드 검증 실패는 <code>C001</code>이다.</li>
         <li>외부 플랫폼 B의 HBL은 동수에서 확정한 뒤 각 플랫폼 송장번호로 업로드하고, 같은 값을 자이언트 <code>hwbNo</code>로 전송한다. 플랫폼 TRA001 제출 결과는 당사가 직접 조회하지 못한다.</li>
         <li>구매대행업체 분기는 네이버스토어 <code>K26014765/(주)아이베</code>, 기타 외부 27개 채널 <code>K26000099/(주)크로네</code>로 고정한다.</li>
+        <li>자사몰 A의 자동 처리창은 11:10~11:50이다. 11:50까지 명시적 정상 근거가 없는 건은 승인으로 추정하지 않고 수기 통관 목록으로 이관한다.</li>
+        <li><strong>[2026-08-26 삭제 범위 확정]</strong> 동수 삭제 API에는 <strong>플랫폼 원주문번호(모 주문번호)만</strong> 전송한다. 서브 주문번호(<code>…-1</code>)는 <code>state:300 订单状态不可删除</code>로 실패한다. 원주문 호출 시 모·서브 주문 전체가 삭제되고 <strong>국내(KR) 상품이 혼재된 주문은 내수분도 함께 삭제·재수집</strong>되며, ERP 최소 조회 단위가 주문이라 부분 삭제는 구현 불가다. 당사는 <strong>내수 동반 지연을 정책으로 수용</strong>하고 내수분을 분리 선출고하지 않는다. 다만 <strong style="color:#c5221f;">[창고 처리 중]</strong> 상태는 WMS 반환 결과에 따라 삭제가 거절될 수 있으므로 실패 시 자동 재시도하지 않고 수기 통관·운영 보류로 전환한다.</li>
     </ul>
     <h3>5.3 잔여 확인 사항</h3>
     <ul>
         <li>네이버 주문에서 개인통관고유부호(<code>pccCode</code>)와 일회용 인증번호(<code>tempAuthNo</code>)를 플랫폼이 발급·검증하는지, 판매자에게 제공하는지, 자이언트에 어떤 경로로 전달하는지 확인해야 한다.</li>
         <li>플랫폼 TRA001 제출 결과를 당사가 조회할 수 없으므로 송장번호 업로드 실패·TRA 제출 실패·누락 시 통지 및 재처리 책임을 플랫폼별로 확정해야 한다.</li>
-        <li>자사몰 A와 외부 플랫폼 B의 자이언트 <code>brokerCode/brokerName</code>, B형 <code>sellerCode</code> 미입력 허용 여부를 확정해야 한다.</li>
+        <li>자사몰 A와 외부 플랫폼 B 대표 주문으로 채널 마스터 값이 GGATE 테스트 환경에서 수용되는지 E2E 검증하고 결과를 보관해야 한다. B형 <code>sellerCode</code>는 GGATE v2.0.0상 선택이다.</li>
         <li>B유형 해외 판매업체명의 표기 언어(원문 / 영문 / 한글)와 특수문자 처리 기준을 동수와 합의해야 한다. 상품명에서 이미 <code>*</code> 등 특수문자 이슈가 있었다.</li>
     </ul>
 
@@ -259,6 +264,8 @@
     <table>
         <thead><tr><th>일자</th><th>변경 내용</th></tr></thead>
         <tbody>
+            <tr><td><strong>2026-08-26</strong></td><td><strong>11:10~11:50 자동 처리창 및 수기 통관 예외경로 반영.</strong> Geek의 동수 HBL·TRA 데이터 수집을 11:10 시작, TRA 제출·오류 확인·필요한 삭제 요청을 11:50 이전 완료로 변경했다. HBL 누락, TRA 지연·결과 미확정, 삭제 실패 건은 <code>MANUAL_CLEARANCE_REQUIRED</code>로 격리하여 수기 통관으로 처리하고 자동 재제출·자동 출고를 차단한다. <strong>같은 날 삭제 범위를 확정했다</strong> — 삭제 API에는 플랫폼 원주문번호(모 주문번호)만 전송하고, 서브 주문번호(<code>…-1</code>)는 <code>state:300</code>으로 실패한다(실측). 원주문 호출 시 모·서브 주문 전체가 삭제되며 국내(KR) 상품 혼재 주문은 내수분까지 함께 삭제·재수집된다. ERP 최소 조회 단위가 주문이라 부분 삭제가 불가하므로 <strong>내수 동반 지연을 정책으로 수용</strong>하고 종전의 “혼재 시 자동 삭제 금지” 조건을 해제했다. 또한 TRA003 실오류로 A유형의 <code>sale_ents_nm=(주)크로네</code>·<code>sale_ents_sgn=K26000099</code>가 필수임을 확정했다(운영 이후 동일, 테스트용 <code>K26000127</code>·<code>K26000128</code>은 미사용).</td></tr>
+            <tr><td><strong>2026-08-25</strong></td><td><strong>GGATE API V2 v2.0.0 반영.</strong> Geek 통관 부분저장 <code>POST /api/hwb/bulk-sync/clearance</code>와 동수 물류·상품 부분저장 <code>POST /api/hwb/bulk-sync/logistics</code>를 확정하고, 동수 전송 규칙을 A의 <code>broker*</code>·<code>sellerCode</code> 필수 및 <code>buyingAgent*</code> 전송 금지, B의 <code>broker*</code>·<code>buyingAgent*</code> 필수 및 <code>sellerCode</code> 선택으로 정리했다. 채널 마스터의 broker 값은 자사몰·기타 외부 27개 <code>K26000099/(주)크로네</code>, 네이버 <code>K26014765/(주)아이베</code>로 반영했다. 필드 의미는 분리하되 승인된 마스터에서 동일값을 명시한 경우에만 같은 K코드를 사용한다.</td></tr>
             <tr><td><strong>2026-08-24</strong></td><td><strong>관세청 추가 확인 및 전체 채널 운영 패턴 반영.</strong> 종전 “자사몰·플랫폼 모두 B”를 폐기하고 <strong>자사몰만 A, 외부 플랫폼 입점 채널 28개는 전부 B</strong>로 정정했다. 구매대행업체는 <strong>네이버스토어만 <code>K26014765/(주)아이베</code></strong>, 기타 외부 27개 채널은 <strong><code>K26000099/(주)크로네</code></strong>로 복원했다. 자사몰 A는 (주)크로네가 TRA001을 직접 제출하고, 플랫폼 B는 각 플랫폼이 제출한다. HBL은 플랫폼 송장번호 업로드로 전달하며 같은 값을 자이언트 <code>hwbNo</code>에 사용한다. 플랫폼 TRA001 결과는 당사가 조회할 수 없음을 명시했다.</td></tr>
             <tr><td>2026-08-19</td><td><strong>[종전 이력·2026-08-24 정정으로 폐기]</strong> 당시에는 자사몰 해외직구와 플랫폼 입점 해외직구를 모두 B로 정리하고, 자사몰 B의 제출자·구매대행업체를 <code>K26000099/(주)크로네</code>로 기재했다. 이후 해외 보관 선매입 재고 사실과 관세청 추가 답변을 반영하여 자사몰은 A만 운영하는 것으로 정정했다. 관세청 업체부호와 자이언트 <code>broker*</code>를 분리한 원칙은 유지한다.</td></tr>
             <tr><td>2026-08-10</td><td><strong>1절 A/B 정의 역전 정정.</strong> 종전 문서는 A=구매대행, B=직접판매로 기재되어 있어 같은 문서 3절 매트릭스 및 관세청 v1.4.1 규격과 모순되었다. 관세청 기준 <strong>A=직접판매, B=구매대행, C=배송대행</strong>으로 바로잡았다.</td></tr>

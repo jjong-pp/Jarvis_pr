@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>CS 통관 Q&amp;A 대응집 — 2026-08-26</title>
+<style>
+  *{box-sizing:border-box}
+  body{font-family:'Inter',-apple-system,'Malgun Gothic',sans-serif;background:#f6f7f9;color:#202124;line-height:1.6;margin:0;padding:30px 18px}
+  .wrap{max-width:1240px;margin:0 auto}
+  h1{font-size:23px;margin:0 0 5px}
+  .sub{color:#5f6368;font-size:13px;margin-bottom:18px}
+  .nav a{display:inline-block;background:#1a73e8;color:#fff;padding:7px 13px;border-radius:4px;text-decoration:none;font-size:12.5px;font-weight:600;margin:0 5px 16px 0}
+  .nav a.g{background:#137333}.nav a.r{background:#d93025}.nav a.k{background:#5f6368}
+  .board{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:24px}
+  .kpi{background:#fff;border:1px solid #e3e5e8;border-radius:8px;padding:12px 14px}
+  .kpi .n{font-size:24px;font-weight:700;line-height:1.2}
+  .kpi .l{font-size:11.5px;color:#5f6368;margin-top:2px}
+  .kpi.red .n{color:#c5221f}.kpi.amber .n{color:#a56a00}.kpi.blue .n{color:#1a73e8}.kpi.green .n{color:#137333}
+  h2{font-size:18px;margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid #202124;scroll-margin-top:12px}
+  h3{font-size:15px;margin:24px 0 8px;color:#3c4043;scroll-margin-top:12px}
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;margin-bottom:16px}
+  th,td{border:1px solid #e3e5e8;padding:9px 10px;text-align:left;vertical-align:top}
+  th{background:#f6f7f9;font-weight:600;color:#5f6368;font-size:11.5px}
+  code{background:#f1f3f4;padding:1px 4px;border-radius:3px;font-size:12px;font-family:Consolas,monospace}
+  .no{color:#c5221f;font-weight:700}.ok{color:#137333;font-weight:700}
+  .hi{background:#fff3cd;padding:1px 4px;border-radius:3px;font-weight:600}
+  td.d{white-space:nowrap;font-variant-numeric:tabular-nums;color:#5f6368;font-size:12px}
+  .chip{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap}
+  .c-fix{background:#e6f4ea;color:#137333}.c-open{background:#fce8e6;color:#c5221f}.c-conf{background:#fef7e0;color:#a56a00}
+  .box{border-radius:6px;padding:11px 14px;margin:10px 0;font-size:13px}
+  .box.g{background:#e6f4ea;border-left:4px solid #137333}
+  .box.r{background:#fce8e6;border-left:4px solid #c5221f}
+  .box.b{background:#e8f0fe;border-left:4px solid #1a73e8}
+  .box.y{background:#fef7e0;border-left:4px solid #a56a00}
+  footer{margin-top:36px;padding-top:14px;border-top:1px solid #dadce0;font-size:12px;color:#80868b}
+  .core-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+  .core-nav a{display:inline-block;background:#3c4043;color:#fff;padding:8px 13px;border-radius:4px;text-decoration:none;font-size:13px;font-weight:700;margin:0}
+  .core-nav a:hover{background:#202124}
+  .core-nav a.active{background:#1a73e8}
+
+  .qa{background:#fff;border:1px solid #e3e5e8;border-radius:8px;padding:14px 16px;margin-bottom:12px}
+  .qa .q{font-weight:700;font-size:14px;color:#202124;margin-bottom:8px}
+  .qa .q::before{content:"Q";display:inline-block;background:#1a73e8;color:#fff;width:19px;height:19px;line-height:19px;text-align:center;border-radius:4px;font-size:11px;margin-right:7px;vertical-align:1px}
+  .script{background:#f1f8f4;border-left:3px solid #137333;padding:9px 12px;margin:7px 0;font-size:13px;border-radius:0 4px 4px 0}
+  .script::before{content:"응대 스크립트";display:block;font-size:10.5px;font-weight:700;color:#137333;letter-spacing:.4px;margin-bottom:3px}
+  .why{font-size:12.5px;color:#5f6368;margin-top:7px;padding-left:11px;border-left:2px solid #dadce0}
+  .why::before{content:"내부 근거 · 판단기준 ";font-weight:700;color:#3c4043}
+  .warn{background:#fce8e6;border-left:3px solid #c5221f;padding:8px 12px;margin:7px 0;font-size:12.5px;border-radius:0 4px 4px 0}
+  .warn::before{content:"이렇게 말하면 안 됩니다";display:block;font-size:10.5px;font-weight:700;color:#c5221f;letter-spacing:.4px;margin-bottom:3px}
+  .tag{display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;margin-left:6px;vertical-align:2px}
+  .t-new{background:#7b1fa2;color:#fff}
+  .t-hot{background:#c5221f;color:#fff}
+  .t-chk{background:#a56a00;color:#fff}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="core-nav" aria-label="주요 문서">
+  <a href="./planning_v6.html">통합 기획서</a>
+  <a href="./api_field_mapping.html">API 필드 매핑</a>
+  <a href="./리스크_질의대장.html">리스크·질의 대장</a>
+  <a href="./유형코드_부호체계_정리.html">유형·부호 체계</a>
+  <a href="./동수_관세신고_연동회의_한중.html">동수 회의안·한중</a>
+  <a href="./CS_QA_통관.html" class="active">CS 통관 Q&amp;A</a>
+</nav>
+
+<h1>CS 통관 Q&amp;A 대응집</h1>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-08-26</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 (D-2) · 자동 처리창 11:10~11:50 · <code>Z99999</code> 계도기간 종료 <span style="color:#f28b82;">확정 필요</span></span></div>
+<div class="sub">2026-08-28 자사몰 오픈 이후 해외직구 주문 상담에 쓰는 <strong>응대 스크립트 + 판단 기준</strong> 모음 · 이 문서가 CS 응대의 정본입니다</div>
+
+<div class="nav" aria-label="문서 내 이동">
+  <a href="#timeline">하루 타임라인</a>
+  <a href="#status" class="k">주문 상태 읽는 법</a>
+  <a href="#mixed" class="r">혼재주문·내수 지연</a>
+  <a href="#pccc">개인통관고유부호</a>
+  <a href="#delay">배송지연·통관</a>
+  <a href="#cancel">취소·환불·반품</a>
+  <a href="#tax">세금·합산과세</a>
+  <a href="#codes" class="k">오류코드 대응표</a>
+  <a href="#escalation" class="g">에스컬레이션</a>
+  <a href="#open">확정 필요 항목</a>
+</div>
+
+<div class="box r">
+  <strong>[2026-08-26 신규 정책 · CS가 반드시 알아야 할 한 가지]</strong>
+  한 주문에 <strong>해외직구 상품과 국내 상품이 함께</strong> 담겨 있으면, 해외직구분의 통관 신고가 확정될 때까지 <strong>국내 상품도 함께 출고가 보류</strong>됩니다.
+  물류사(동수) ERP의 최소 처리 단위가 <u>주문</u>이라 해외직구분만 떼어내 삭제·재처리할 수 없고, 신고 실패 시 주문 전체가 삭제 후 재수집되기 때문입니다.
+  <strong>“국내 상품이니까 먼저 보내주세요”는 시스템상 불가능</strong>합니다. 이 문서의 <a href="#mixed">혼재주문 절</a>이 그 응대 스크립트입니다.
+</div>
+
+<div class="board">
+  <div class="kpi red"><div class="n">1순위</div><div class="l">혼재주문 내수 동반 지연</div></div>
+  <div class="kpi amber"><div class="n">2순위</div><div class="l">개인통관고유부호·인증번호</div></div>
+  <div class="kpi blue"><div class="n">11:50</div><div class="l">일일 자동 처리 마감</div></div>
+  <div class="kpi green"><div class="n">7일</div><div class="l">오류 방치 시 강제취소 검토</div></div>
+</div>
+
+<!-- ================= 타임라인 ================= -->
+<h2 id="timeline">1. 하루가 어떻게 흘러가는가 (CS 관점)</h2>
+<div class="box b">
+  고객이 “언제 출고되나요”를 물으면 이 표의 <strong>어느 구간에 걸려 있는지</strong>를 먼저 확인하고 답합니다. 매 영업일 같은 순서로 반복됩니다.
+</div>
+<table>
+  <thead><tr><th style="width:10%">시각(KST)</th><th style="width:24%">무슨 일이 일어나는가</th><th style="width:20%">주문 상태</th><th>고객에게 설명할 수 있는 말</th></tr></thead>
+  <tbody>
+    <tr><td class="d">결제 시점</td><td>개인통관고유부호(PCCC) 확인 + 관세청 일회용 인증번호 발송·입력</td><td><code>p1</code> 결제완료</td><td>“주문 시 입력하신 개인통관고유부호로 관세청 본인확인이 진행됩니다.”</td></tr>
+    <tr><td class="d">~11:10</td><td>물류사가 해외창고에서 포장·운송장(HBL) 채번</td><td><code>p1</code> → <code>g1</code> 상품준비중</td><td>“상품준비중 단계이며 해외창고에서 포장이 진행 중입니다.”</td></tr>
+    <tr><td class="d"><strong>11:10</strong></td><td>자사몰이 물류사에서 운송장·통관 신고정보 <strong>수집 시작</strong></td><td><code>g1</code></td><td>“오늘분 통관 신고 준비가 시작되었습니다.”</td></tr>
+    <tr><td class="d">11:10~11:50</td><td>관세청 사전 거래정보 신고(TRA001) 전송 → 오류 조회(TRA003) → 오류 건 물류사 삭제 요청</td><td><code>g1</code></td><td>“관세청 사전신고를 진행 중입니다.”</td></tr>
+    <tr><td class="d"><strong>11:50</strong></td><td><span class="no">자동 처리 마감.</span> 이 시각까지 정상 근거를 확보하지 못한 건은 <strong>수기 통관</strong>으로 넘어감</td><td><code>g1</code> 유지 또는 <code>p1</code> 원복</td><td>“오늘 자동 처리분에서 확인되지 않아 담당자가 직접 처리 중입니다.”</td></tr>
+    <tr><td class="d">12:00</td><td>물류창고(WMS) 취소 반영 마감</td><td>—</td><td>(내부 기준. 고객에게 시각을 말하지 않습니다)</td></tr>
+    <tr><td class="d">13:00</td><td>정상 승인 건 라벨 부착 · 실물 출고. <strong>이 시점부터 실제 운송장이 살아납니다</strong></td><td><code>g5</code> 항공발송중</td><td>“오늘 출고되었습니다. 운송장 번호로 조회 가능합니다.”</td></tr>
+    <tr><td class="d">이후</td><td>인천공항 통관 → 국내 택배(롯데택배) 인계</td><td><code>g5</code> → 국내배송중 → 배송완료</td><td>“통관 완료 후 국내 택배로 전환됩니다.”</td></tr>
+  </tbody>
+</table>
+<div class="box y">
+  <strong>11:50을 놓친 주문은 다음 날로 자동 이월되지 않습니다.</strong> 담당자가 수기 통관 목록에서 직접 처리합니다.
+  따라서 <span class="no">“내일 자동으로 다시 시도됩니다”라고 안내하면 안 됩니다.</span> “담당 부서에서 개별 처리 중”이 정확한 표현입니다.
+</div>
+
+<!-- ================= 상태 ================= -->
+<h2 id="status">2. 주문 상태 읽는 법</h2>
+<table>
+  <thead><tr><th style="width:13%">상태</th><th style="width:20%">의미</th><th style="width:22%">고객이 할 수 있는 것</th><th>CS 판단</th></tr></thead>
+  <tbody>
+    <tr><td><code>p1</code> 결제완료</td><td>결제는 끝났고 아직 물류사가 수집하지 않음</td><td class="ok">취소·환불·배송지 수정 <strong>가능</strong></td><td>가장 자유로운 구간. 고객 요청을 즉시 처리합니다</td></tr>
+    <tr><td><code>g1</code> 상품준비중</td><td>물류사가 주문을 가져가 해외창고에서 포장 중</td><td class="no">취소·환불·배송지 수정 <strong>불가</strong></td><td>마이페이지 취소 버튼이 사라집니다. 통관 신고와 물류가 이미 움직인 상태입니다</td></tr>
+    <tr><td><code>g5</code> 항공발송중</td><td>관세청 신고 정상 처리 후 실제 출고됨</td><td class="no">취소 불가 · 배송완료 후 반품만 가능</td><td>운송장 조회가 가능해지는 시점입니다</td></tr>
+    <tr><td><code>p1</code>로 되돌아옴</td><td>관세청이 신고를 반려 → 물류사 주문 삭제 후 원복</td><td class="ok">정보 수정 · 취소 가능</td><td><strong>고객 정보에 문제가 있다는 신호</strong>입니다. 오류 사유를 확인해 안내합니다</td></tr>
+    <tr><td>수기 통관 대상<br><code>MANUAL_CLEARANCE_REQUIRED</code></td><td>11:50 마감까지 처리가 끝나지 않아 담당자 직접 처리로 넘어감</td><td>상태 변동 없음</td><td class="no">자동 재시도 대상이 아닙니다. 처리 결과를 담당자에게 확인한 뒤 회신합니다</td></tr>
+  </tbody>
+</table>
+
+<!-- ================= 혼재주문 ================= -->
+<h2 id="mixed">3. 혼재주문 · 국내 상품 동반 지연 <span class="tag t-new">2026-08-26 신규</span></h2>
+
+<div class="qa">
+  <div class="q">국내 배송 상품이랑 해외직구 상품을 같이 주문했는데, 국내 상품이라도 먼저 보내주시면 안 되나요?</div>
+  <div class="script">
+    “같은 주문번호로 담아주신 상품은 <strong>통관 절차가 마무리된 뒤 함께 출고</strong>됩니다. 해외직구 상품이 포함된 주문은 관세청 신고가 완료되어야 주문 전체가 출고 처리되는 구조라, 국내 상품만 분리해서 먼저 보내드리기는 어렵습니다.<br>
+    급하게 필요하신 상품이 있으시면 <strong>지금 주문을 취소하시고 국내 상품만 따로 주문</strong>해 주시면 바로 출고 가능합니다. 취소 도와드릴까요?”
+  </div>
+  <div class="why">
+    물류사 ERP는 <u>주문 단위</u>로만 데이터를 조회·삭제합니다. 해외직구분 신고가 실패하면 그 주문 전체를 삭제하고 다시 가져와야 하는데, 이때 국내 상품까지 함께 삭제·재수집되며 중복 위험이 생깁니다.
+    2026-08-26 물류사 회신으로 <strong>부분 삭제·부분 재생성은 ERP 구조상 구현 불가</strong>임이 확인되어, 당사는 로직 변경 대신 <strong>내수 동반 지연을 정책으로 수용</strong>하기로 결정했습니다.
+    <strong>단, 분리 재주문을 안내할 수 있는 것은 <code>p1</code> 결제완료 구간뿐입니다.</strong> <code>g1</code> 이후에는 취소가 불가하므로 다음 문항으로 넘어갑니다.
+  </div>
+  <div class="warn">
+    “국내 상품이니까 오늘 바로 보내드릴게요” — 시스템상 불가능한 약속입니다. 한 번 하면 반드시 클레임으로 돌아옵니다.<br>
+    “물류사 시스템이 안 돼서요” — 협력사 책임으로 돌리지 않습니다. “주문 단위로 통관이 진행되는 구조”라고 설명합니다.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q">이미 상품준비중(<code>g1</code>)인데 국내 상품만 취소하고 싶어요.</div>
+  <div class="script">
+    “상품준비중 단계에서는 해외창고에서 이미 포장과 통관 준비가 진행되어 부분 취소가 어렵습니다. 통관이 완료되어 배송이 시작되면 <strong>수령 후 반품 접수</strong>로 도와드릴 수 있습니다.<br>
+    혹시 통관 과정에서 확인이 필요한 사항이 생기면 주문이 <strong>결제완료 상태로 되돌아오는 경우</strong>가 있는데, 그때는 취소·수정이 다시 가능해집니다. 그 시점에 안내드리겠습니다.”
+  </div>
+  <div class="why">
+    <code>g1</code>에서는 마이페이지 취소·환불·배송지 수정 버튼이 모두 비활성화됩니다. 부분 취소는 혼재주문의 삭제 단위 문제와 같은 이유로 지원되지 않습니다.
+    관세청 신고 반려로 <code>p1</code>이 되면 취소·수정이 다시 열리므로, 이를 <u>기회 구간</u>으로 안내합니다.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q">통관에서 계속 문제가 생기면 국내 상품도 계속 못 받는 건가요?</div>
+  <div class="script">
+    “네, 같은 주문에 포함되어 있으면 통관 확인이 끝날 때까지 함께 대기하게 됩니다. 다만 저희가 매일 확인하고 있고, 고객님께서 <strong>개인통관고유부호 정보만 정확히 맞춰주시면 다음 영업일에 바로 진행</strong>됩니다.<br>
+    지금 화면 안내대로 정보를 수정해 주시면 제가 바로 확인해 드리겠습니다.”
+  </div>
+  <div class="why">
+    지연이 무한정 누적되지 않도록 <strong>7일 룰</strong>이 있습니다 → <a href="#cancel">취소·환불 절</a> 참조. 고객이 정보를 수정하지 않으면 아웃바운드 콜 후 강제 취소(환불) 검토 대상이 됩니다.
+    고객에게는 “계속 지연됩니다”가 아니라 <strong>“고객님이 하실 수 있는 한 가지 행동”</strong>을 제시하는 것이 이탈을 줄입니다.
+  </div>
+</div>
+
+<div class="box y">
+  <strong>[프론트 고지 필요 · P1]</strong> 이 문의를 근본적으로 줄이려면 장바구니·주문서·주문완료 화면에
+  <strong>“해외직구 상품이 포함된 주문은 통관 완료 후 전체 상품이 함께 출고됩니다”</strong> 고지가 필요합니다.
+  문구 확정과 노출 위치는 <a href="./리스크_질의대장.html#active">리스크 대장 P1</a>에서 관리합니다.
+</div>
+
+<!-- ================= PCCC ================= -->
+<h2 id="pccc">4. 개인통관고유부호 · 일회용 인증번호</h2>
+<div class="box b">
+  2026-08-28부터 해외직구는 <strong>① 개인통관고유부호(PCCC) 유효성 확인 → ② 관세청이 보낸 일회용 인증번호 입력</strong>의 2단계 본인확인을 거칩니다.
+  이 절의 답변은 <strong>관세청 공식 FAQ(2026)</strong>에 근거하며, 고객에게 그대로 읽어드려도 되는 내용입니다.
+</div>
+
+<div class="qa">
+  <div class="q">개인통관고유부호가 왜 갑자기 필요해졌나요? 예전엔 이런 거 없었는데요.</div>
+  <div class="script">
+    “2026년 8월부터 관세청 전자상거래 전용 통관제도가 시행되면서, 다른 사람이 개인통관고유부호를 도용하는 것을 막기 위해 <strong>주문 단계에서 본인확인</strong>을 하도록 바뀌었습니다.
+    저희 쇼핑몰만의 절차가 아니라 <strong>모든 해외직구에 공통 적용</strong>되는 관세청 제도입니다.”
+  </div>
+  <div class="why">관세청 FAQ 6-2 · 6-21. 명의도용·부정수입 예방이 목적입니다. “저희 정책”이 아니라 “관세청 제도”로 설명해야 납득이 빠릅니다.</div>
+</div>
+
+<div class="qa">
+  <div class="q">인증번호가 안 왔어요. <span class="tag t-hot">문의 최다 예상</span></div>
+  <div class="script">
+    “인증번호는 <strong>개인통관고유부호를 발급받으실 때 등록한 이메일</strong>로 발송됩니다. 먼저 <strong>스팸메일함</strong>을 확인해 주시겠어요?<br>
+    이메일을 바꾸셨다면 관세청 전자상거래 통관포털(<code>ecos.customs.go.kr</code>)에서 <strong>개인통관고유부호 발급정보의 이메일을 먼저 수정</strong>하셔야 합니다.
+    포털의 <strong>‘인증번호 발급내역 조회’</strong> 메뉴에서 이미 발송된 인증번호를 직접 확인하실 수도 있습니다.”
+  </div>
+  <div class="why">
+    관세청 FAQ 6-13 · 6-23 · 8-23. 인증번호는 <u>PCCC에 등록된 이메일 기준</u>으로 발송됩니다. 문자(SMS)로 오는 경우도 정상입니다(FAQ 6-32 — 관세청 수탁기관 계약 업체).
+    <strong>주의:</strong> 고객이 통관포털에서 <u>인증번호를 새로 발급받는 것은 불가능</u>합니다(FAQ 8-22). 조회만 됩니다. 재발급은 쇼핑몰에서 요청해야 합니다.
+  </div>
+  <div class="warn">“관세청에서 직접 재발급 받으세요” — 고객이 포털에서 스스로 발급할 수 없습니다. 헛걸음시키는 안내입니다.</div>
+</div>
+
+<div class="qa">
+  <div class="q">인증번호에 유효시간이 있나요? 시간 지나서 못 쓰는 건가요?</div>
+  <div class="script">“일회용 인증번호 자체에는 <strong>유효시간이 없습니다</strong>. 받으신 번호를 그대로 입력해 주시면 됩니다.”</div>
+  <div class="why">관세청 FAQ 6-26 — 유효시간 없음. 다만 주문번호가 즉시 생성되지 않는 쇼핑몰은 발송시점과 주문완료시점 차이를 대조할 수 있습니다. <u>주문번호 없이 인증을 요청한 경우 30분 내 주문완료</u> 규정이 별도로 있으나(PER001 <code>ord_no_icln_tp=01</code>), 자사몰은 주문번호를 함께 보내므로 해당하지 않습니다.</div>
+</div>
+
+<div class="qa">
+  <div class="q">여러 상품을 한 번에 샀는데 인증을 여러 번 해야 하나요?</div>
+  <div class="script">“같은 주문으로 결제하셨다면 <strong>한 번의 인증</strong>으로 처리됩니다. 배송이 여러 건으로 나뉘어도 같은 인증번호가 그대로 적용됩니다.”</div>
+  <div class="why">관세청 FAQ 6-27 · 6-25. <strong>동일 주문번호가 분할 통관되면 같은 일회용 인증번호를 사용할 수 있습니다.</strong> 자사몰은 USD 150 기준으로 한 주문이 여러 운송장으로 나뉘는 경우가 많으므로 이 답변을 자주 쓰게 됩니다.</div>
+</div>
+
+<div class="qa">
+  <div class="q">인증까지 다 했는데 배송지를 바꾸고 싶어요. 다시 인증해야 하나요?</div>
+  <div class="script">
+    “받으시는 분(수하인)이나 개인통관고유부호가 <strong>바뀌면 다시 인증</strong>이 필요합니다. 전화번호나 우편번호만 바뀌는 경우에도 확인 절차가 다시 진행될 수 있습니다.<br>
+    다만 <strong>상품준비중 단계부터는 배송지 수정이 어렵습니다.</strong> 결제완료 상태라면 지금 도와드리겠습니다.”
+  </div>
+  <div class="why">
+    관세청 FAQ 6-28 · 8-21. 수하인·PCCC 변경 → 재인증. 우편번호·전화번호 변경 → 인증번호 재발급 또는 유효성만 재검증(PER002). 상품명·수량 변경은 재인증 대상이 아닙니다.
+    미처리 시 관세청 <code>3180</code>(수하인 정보 불일치)이 발생합니다.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q">가족(아이·부모님) 것을 대신 주문하는데 제 개인통관고유부호를 쓰면 안 되나요?</div>
+  <div class="script">
+    “통관은 <strong>실제로 물품을 받아 사용하시는 분</strong> 기준으로 처리됩니다. 받으시는 분 본인의 개인통관고유부호와 정보로 주문해 주셔야 합니다.
+    다른 분의 부호를 사용하시면 <strong>명의도용에 해당</strong>할 수 있고, 통관 단계에서 반송되거나 처리가 중단될 수 있습니다.<br>
+    미성년자도 개인통관고유부호를 발급받으실 수 있으니, 받으실 분 명의로 발급 후 주문해 주세요.”
+  </div>
+  <div class="why">관세청 FAQ 6-14 · 6-15 · 6-17. 만 14세 미만은 법정대리인 확인 등 추가 절차가 있습니다. 이 안내는 <strong>단호하게</strong> 해야 합니다 — 회사가 감수할 수 있는 리스크가 아닙니다.</div>
+</div>
+
+<div class="qa">
+  <div class="q">개인통관고유부호가 만료됐다는데요?</div>
+  <div class="script">
+    “개인통관고유부호에 <strong>1년 유효기간</strong>이 생겼습니다. 관세청 전자상거래 통관포털(<code>ecos.customs.go.kr</code>)에서 갱신하시거나 새로 발급받으신 뒤, 주문서에 다시 입력해 주시면 바로 진행됩니다.”
+  </div>
+  <div class="why">
+    관세청 FAQ 6-3 · 8-15. 응답코드 <code>3150</code>(만료) · <code>3160</code>(사용정지) · <code>3141</code>(해지)가 여기에 해당합니다.
+    <strong>참고:</strong> 주문 시점에는 유효했는데 통관 시점에 만료된 경우, <u>만료 후 30일까지는 정상 수입신고가 가능</u>합니다(FAQ 6-16). 이 경우 고객을 불안하게 만들 필요가 없습니다.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q">인증을 안 하면 주문 자체가 안 되나요?</div>
+  <div class="script">
+    “주문은 진행하실 수 있지만, 본인확인이 완료되지 않으면 <strong>통관 단계에서 추가 확인이 필요해 배송이 지연</strong>될 수 있습니다. 지금 인증을 완료해 주시는 편이 가장 빠릅니다.”
+  </div>
+  <div class="why">
+    관세청 FAQ 6-16 · 6-24 · 8-10. 인증번호는 <strong>원칙적으로 필수</strong>이며, API 명세에서 선택항목인 것은 장애 상황을 고려한 것입니다.
+    주문 단계에서 못 하면 특송업체·관세사가 통관 단계에서 보완 확인하지만 지연이 발생합니다.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q">제가 주문하지 않은 통관 내역이 있어요. 도용된 것 같아요.</div>
+  <div class="script">
+    “관세청 전자상거래 통관포털(<code>ecos.customs.go.kr</code>)에서 본인 통관내역을 확인하시고 <strong>도용 신고</strong>를 접수하실 수 있습니다. 신고하시면 관세청이 해당 건을 확인해 통관보류·추가 본인확인·부호 재발급 등의 조치를 진행합니다.<br>
+    저희 쇼핑몰 주문과 관련된 건이라면 주문번호를 알려주시면 즉시 확인해 드리겠습니다.”
+  </div>
+  <div class="why">관세청 FAQ 6-12. <strong>도용 신고 접수 자체는 관세청 소관</strong>입니다. 당사 주문이 아닌 건까지 CS가 대신 처리할 수 없습니다. 다만 당사 주문번호가 걸려 있으면 즉시 <a href="#escalation">에스컬레이션</a>합니다.</div>
+</div>
+
+<!-- ================= 지연 ================= -->
+<h2 id="delay">5. 배송 지연 · 통관 문의</h2>
+
+<div class="qa">
+  <div class="q">주문한 지 며칠 됐는데 아직도 상품준비중이에요.</div>
+  <div class="script">
+    “해외 현지 창고에서 포장 후 항공 운송과 통관 절차를 거치기 때문에 국내 배송보다 시간이 더 걸립니다. 현재 <strong>통관 신고 단계</strong>에 있으며, 신고가 확인되면 바로 출고되고 운송장 번호를 안내드립니다.<br>
+    확인해 보니 <em>(오류 있음)</em> 개인통관고유부호 정보 확인이 필요한 상태입니다. 마이페이지에서 정보를 수정해 주시면 다음 영업일에 바로 진행됩니다.”
+  </div>
+  <div class="why">
+    반드시 <strong>거래 실패 리스트 / 오류 사유를 먼저 확인</strong>한 뒤 답변합니다. 사유 확인 없이 “곧 출고됩니다”라고 답하면 같은 고객이 며칠 뒤 다시 문의합니다.
+    오류가 없는데 지연된다면 <code>MANUAL_CLEARANCE_REQUIRED</code>(수기 통관) 대상일 수 있으므로 담당자 확인이 필요합니다.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q">운송장 번호가 조회가 안 돼요.</div>
+  <div class="script">
+    “운송장 번호는 <strong>실제 출고 시점(오후)에 활성화</strong>됩니다. 번호가 먼저 안내되더라도 물류사 시스템에 등록되기 전에는 조회가 되지 않을 수 있으니, 조금 뒤 다시 확인 부탁드립니다.”
+  </div>
+  <div class="why">라벨 부착·현장 출고는 13:00에 이루어지고 그 시점부터 운송장이 실제 할당됩니다. 오전에 조회 안 된다는 문의는 정상입니다.</div>
+</div>
+
+<div class="qa">
+  <div class="q">통관이 보류됐다고 문자가 왔어요.</div>
+  <div class="script">
+    “확인해 보겠습니다. 잠시만 기다려 주시겠어요?” <em>(→ 관리자 통관조회로 사유 코드 확인 후 <a href="#codes">오류코드 대응표</a>에 따라 안내)</em>
+  </div>
+  <div class="why">사유별로 대응이 완전히 다릅니다(세금 납부 / 서류 제출 / 정보 정정 / 환불). <strong>사유 확인 전에는 어떤 약속도 하지 않습니다.</strong></div>
+</div>
+
+<div class="qa">
+  <div class="q">주문한 상품이 여러 개인데 따로따로 왔어요. 왜 나눠서 오나요?</div>
+  <div class="script">
+    “해외직구는 <strong>1건당 미화 150달러 이하</strong> 기준으로 포장이 나뉘어 통관됩니다. 그래서 한 주문이라도 여러 개의 운송장으로 나뉘어 도착할 수 있습니다. 나머지 상품도 순차적으로 배송되니 안심하셔도 됩니다.”
+  </div>
+  <div class="why">1 HBL = USD 150 이하 포장 1건 = 관세청 신고 1건 원칙입니다. 분할되어도 인증번호는 하나로 처리됩니다(FAQ 6-25).</div>
+</div>
+
+<!-- ================= 취소·환불 ================= -->
+<h2 id="cancel">6. 취소 · 환불 · 반품</h2>
+
+<div class="qa">
+  <div class="q">주문 취소하고 싶은데 취소 버튼이 없어요.</div>
+  <div class="script">
+    “<strong>상품준비중</strong> 단계부터는 해외창고에서 포장과 통관 준비가 시작되어 마이페이지 취소가 어렵습니다. 배송 완료 후 <strong>반품 접수</strong>로 도와드리거나, 통관 확인 과정에서 주문이 결제완료 상태로 되돌아오면 그때 취소가 가능합니다.”
+  </div>
+  <div class="why">
+    <code>g1</code>부터 취소·환불·배송지 수정 버튼이 비활성화됩니다. 관세청 반려로 <code>p1</code>이 되면 <strong>고객에게 공정한 수정·취소 기회를 주기 위해</strong> 기능이 다시 열립니다.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q">통관 오류가 계속 나는데 그냥 취소해 주세요.</div>
+  <div class="script">
+    “네, 처리해 드리겠습니다.” <em>(→ 결제완료 상태면 즉시 취소·환불 / 상품준비중이면 담당자 확인 후 물류 취소 요청)</em>
+  </div>
+  <div class="why">
+    고객이 <strong>먼저 취소를 요청</strong>하면 지연 클레임이 커지기 전에 종결하는 것이 낫습니다. 다만 <u>물류창고 작업이 이미 시작된 건은 취소가 실패할 수 있으므로</u> “취소해 드렸습니다”를 확정으로 말하기 전에 처리 결과를 확인합니다.
+  </div>
+  <div class="warn">“바로 취소 처리해 드렸습니다” — 창고 작업 착수 후에는 취소가 거절될 수 있습니다. “취소 요청을 접수했고 결과를 확인해 안내드리겠습니다”가 안전합니다.</div>
+</div>
+
+<div class="qa">
+  <div class="q">(내부) 통관 오류를 며칠째 고객이 수정하지 않습니다. 어떻게 하나요? <span class="tag t-chk">기준 재확인 필요</span></div>
+  <div class="script">
+    <strong>1~6일차</strong> — 미조치 건에 정보 수정 요청 알림톡/SMS를 매일 자동 발송(마이페이지 정보수정 링크 포함).<br>
+    <strong>7일 경과</strong> — CS팀이 최종 아웃바운드 콜. 통화 시 <u>수정하지 않으면 주문이 취소·환불 처리됨</u>을 사전 고지.<br>
+    <strong>고지 후에도 미수정</strong> — 강제 취소(환불) 처리.
+  </div>
+  <div class="why">
+    이 룰은 <code>banner_cs_policy.html</code>에서 정의되었고 현재도 유효한 방향입니다. 다만 그 문서는 09:00 배치 기준으로 작성되어 <strong>시각 기술이 낡았고</strong>, 근거로 든 “관세청 95% 정합성 페널티” 수치는 <u>확보한 관세청 자료에서 확인되지 않습니다</u>(공식 FAQ 4-3의 90%는 협력인정업체 <em>거래정보 제출률</em> 요건으로 별개 항목).
+    <strong>7일 기준·강제취소 문구·근거 수치를 오픈 전 재확인</strong>해야 합니다 → <a href="#open">확정 필요 항목</a>.
+    혼재주문이면 <strong>국내 상품까지 함께 취소되는지</strong>도 아직 정해지지 않았습니다.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q">받아봤는데 마음에 안 들어요. 반품되나요?</div>
+  <div class="script">
+    “배송 완료 후 마이페이지에서 반품 접수가 가능합니다. 상품을 회수해 검수한 뒤 최종 환불이 진행됩니다.”
+  </div>
+  <div class="why">
+    관세청 FAQ 8-9 — <strong>거래정보만 제출하고 통관이 진행되지 않은 상태에서 반품·반송된 경우 관세청에 별도 조치할 사항이 없습니다.</strong> CS가 관세청 신고 취하를 걱정할 필요는 없습니다.<br>
+    <span class="no">미확정:</span> 이미 <u>통관이 완료된 뒤</u> 반품하는 경우의 관세 환급 처리는 아직 절차가 정해지지 않았습니다. 해당 사례 발생 시 에스컬레이션합니다.
+  </div>
+</div>
+
+<!-- ================= 세금 ================= -->
+<h2 id="tax">7. 세금 · 합산과세</h2>
+
+<div class="qa">
+  <div class="q">세금이 나왔다는데 왜인가요? 150달러 안 넘었는데요.</div>
+  <div class="script">
+    “같은 날 국내에 <strong>입항</strong>하는 해외직구 물품은 판매처가 달라도 <strong>합산</strong>해서 과세 여부를 판단합니다. 다른 쇼핑몰에서 구매하신 직구 상품과 같은 날 들어오면 합산될 수 있습니다.<br>
+    중국·기타 국가 기준 <strong>미화 150달러 초과</strong> 시 관세·부가세가 부과됩니다.”
+  </div>
+  <div class="why">
+    주문 화면 합산과세 배너와 동일한 내용입니다. <span class="no">주의:</span> 배너 문구의 “입항일 동일” 기준은 <strong>법무 검토 항목(2022-11-17 폐지 여부)</strong>으로 열려 있습니다.
+    확정 전까지는 <u>“합산될 수 있습니다”</u>까지만 말하고 <u>구체적 판정 기준을 단정하지 않습니다</u>.
+  </div>
+  <div class="warn">“무조건 같은 날 도착한 것만 합산됩니다” — 기준이 법무 확인 중입니다. 단정하지 않습니다.</div>
+</div>
+
+<div class="qa">
+  <div class="q">세금은 누가 내나요? 대신 내주시나요?</div>
+  <div class="script">
+    “관세·부가세는 <strong>물품을 받으시는 분(납세의무자)</strong>께 부과됩니다. 납부 안내를 받으시면 안내된 방법으로 납부해 주셔야 통관이 진행됩니다.”
+  </div>
+  <div class="why">합산과세로 발생하는 비용과 지연은 수하인 책임임이 주문 화면 배너에 고지되어 있습니다. 자이언트 통관 코드 <code>28</code>(세금 발생) 수신 시 이 안내를 발송합니다.</div>
+</div>
+
+<!-- ================= 오류코드 ================= -->
+<h2 id="codes">8. 오류코드 → 고객 안내 대응표</h2>
+<h3>8-1. 관세청 응답코드 (개인통관고유부호 검증)</h3>
+<table>
+  <thead><tr><th style="width:9%">코드</th><th style="width:20%">의미</th><th style="width:36%">고객 안내</th><th>내부 처리</th></tr></thead>
+  <tbody>
+    <tr><td><code>3150</code></td><td>개인통관고유부호 만료</td><td>“개인통관고유부호 유효기간이 만료되었습니다. 관세청 통관포털에서 갱신 후 다시 입력해 주세요.”</td><td>주문 정보 수정 유도 · 익일 재수집</td></tr>
+    <tr><td><code>3160</code></td><td>사용정지</td><td>“개인통관고유부호가 사용정지 상태입니다. 관세청 통관포털에서 상태를 확인해 주세요.”</td><td>동일</td></tr>
+    <tr><td><code>3141</code></td><td>해지</td><td>“개인통관고유부호가 해지된 상태입니다. 새로 발급받아 입력해 주세요.”</td><td>동일</td></tr>
+    <tr><td><code>3180</code></td><td class="no">수하인 정보 불일치</td><td>“개인통관고유부호 발급 시 등록하신 <strong>이름·전화번호·우편번호</strong>와 주문 정보가 다릅니다. 두 정보를 맞춰 주세요.”</td><td class="no">발생 빈도 1위 예상. 등록정보와 주문정보 <strong>양쪽</strong>을 확인하도록 안내</td></tr>
+    <tr><td><code>3120</code></td><td>CI 일치 부호 없음</td><td>“개인통관고유부호 발급 이력이 확인되지 않습니다. 신규 발급 후 입력해 주세요.”</td><td>협력인정업체 경로에서만 발생</td></tr>
+    <tr><td><code>3000</code></td><td>제출번호 중복</td><td>(고객 안내 대상 아님)</td><td>내부 오류. 새 제출번호로 재제출 필요 — 개발 확인</td></tr>
+    <tr><td><code>1001</code></td><td>상품명 규격 위반</td><td>(고객 안내 대상 아님)</td><td>영문·한글 외 특수문자(<code>*</code> 등) 포함. 상품 데이터 수정 필요</td></tr>
+  </tbody>
+</table>
+<div class="box y">
+  <strong><code>3180</code>이 가장 많이 뜰 것입니다.</strong> 원인의 상당수가 <u>우편번호</u>입니다. 관세청은 새 5자리 우편번호 기준이므로,
+  고객이 구 6자리 우편번호로 발급정보를 등록해 두었거나 주소를 오래전에 등록해 둔 경우 불일치가 납니다. 이름·전화번호와 함께 <strong>우편번호를 반드시 짚어</strong> 안내하세요.
+</div>
+
+<h3>8-2. 통관 진행 상태 코드 (자이언트 <code>gngMsgCode</code>)</h3>
+<table>
+  <thead><tr><th style="width:9%">코드</th><th style="width:20%">의미</th><th style="width:36%">고객 안내</th><th>내부 처리</th></tr></thead>
+  <tbody>
+    <tr><td><code>26</code></td><td>개인통관부호 상이</td><td>“통관 과정에서 개인통관고유부호 확인이 필요합니다. 정보를 다시 확인해 주세요.”</td><td>고객 재확인 요청</td></tr>
+    <tr><td><code>28</code></td><td>세금 발생</td><td>“관세·부가세가 발생했습니다. 안내드리는 방법으로 납부해 주시면 통관이 진행됩니다.”</td><td>납부 안내 발송</td></tr>
+    <tr><td><code>24</code></td><td>가격 상이</td><td>“세관에서 구매 금액 확인을 요청했습니다. 결제 내역 증빙 제출이 필요합니다.”</td><td>증빙(결제내역) 요청</td></tr>
+    <tr><td><code>29</code></td><td>서류 보완</td><td>“통관에 필요한 서류 보완이 요청되었습니다. 안내드리는 서류를 준비해 주세요.”</td><td>증빙 요청</td></tr>
+    <tr><td><code>99</code></td><td class="no">통관 불가</td><td>“해당 상품이 통관 진행이 어려운 것으로 확인되었습니다. 환불 처리를 안내드리겠습니다.”</td><td class="no">환불 검토 · 즉시 에스컬레이션</td></tr>
+  </tbody>
+</table>
+<div class="box y"><strong>코드별 자동 안내 문구와 응답 SLA는 아직 확정되지 않았습니다(P1).</strong> 확정 전까지는 위 문구를 기준으로 응대하되, <code>99</code>는 반드시 담당자 확인 후 회신합니다.</div>
+
+<!-- ================= 에스컬레이션 ================= -->
+<h2 id="escalation">9. 에스컬레이션 기준</h2>
+<table>
+  <thead><tr><th style="width:30%">이런 상황이면</th><th style="width:20%">누구에게</th><th>넘길 때 반드시 함께 전달할 것</th></tr></thead>
+  <tbody>
+    <tr><td>통관 불가(<code>99</code>) · 반송 · 폐기 통보</td><td class="no">담당자 즉시</td><td>주문번호 · 운송장번호(HBL) · 코드 · 고객 요구사항</td></tr>
+    <tr><td>명의도용 의심 · 본인이 하지 않은 주문</td><td class="no">담당자 즉시</td><td>주문번호 · 고객 진술 · 접수 시각</td></tr>
+    <tr><td>수기 통관 대상(<code>MANUAL_CLEARANCE_REQUIRED</code>)인데 며칠째 상태 변화 없음</td><td>운영 담당</td><td>주문번호 · 최초 오류 발생일 · 고객 문의 횟수</td></tr>
+    <tr><td>같은 오류가 3일 이상 반복</td><td>운영 담당</td><td>주문번호 · 오류코드 · 고객이 수정한 이력</td></tr>
+    <tr><td>통관 완료 후 반품 요청 (관세 환급 관련)</td><td>운영 담당</td><td>주문번호 · 통관 완료일 · 납부 세액 여부</td></tr>
+    <tr><td>혼재주문 지연으로 고객이 강하게 항의 / 보상 요구</td><td>CS 리더</td><td>주문번호 · 지연 일수 · 국내 상품 포함 여부</td></tr>
+  </tbody>
+</table>
+
+<h3>고객에게 절대 하지 말아야 할 말</h3>
+<div class="box r">
+  <strong>① “국내 상품만 먼저 보내드릴게요”</strong> — 시스템상 불가능합니다.<br>
+  <strong>② “내일 자동으로 다시 처리됩니다”</strong> — 11:50 마감 이탈 건은 자동 재시도되지 않습니다.<br>
+  <strong>③ “취소 처리해 드렸습니다”(확인 전)</strong> — 창고 작업 착수 후에는 취소가 거절될 수 있습니다.<br>
+  <strong>④ “관세청 포털에서 인증번호 새로 받으세요”</strong> — 고객이 직접 발급할 수 없습니다. 조회만 됩니다.<br>
+  <strong>⑤ “물류사/개발사 쪽 문제입니다”</strong> — 협력사를 원인으로 지목하지 않습니다.<br>
+  <strong>⑥ “며칠이면 도착합니다”(근거 없이)</strong> — 통관 소요는 확정할 수 없습니다. 확인 후 회신합니다.
+</div>
+
+<!-- ================= 미확정 ================= -->
+<h2 id="open">10. 오픈 전 확정이 필요한 항목</h2>
+<div class="box r">
+  아래 항목은 <strong>고객 응대 문구가 달라지는 사안</strong>인데 아직 확정되지 않았습니다. 확정되면 이 문서를 먼저 갱신합니다.
+</div>
+<table>
+  <thead><tr><th style="width:26%">항목</th><th style="width:32%">현재 상태</th><th>확정 전 CS 운용</th></tr></thead>
+  <tbody>
+    <tr><td><code>Z99999</code> 계도기간 종료일</td><td class="no"><code>리스크_질의대장</code>은 <strong>2026-09-14 24:00</strong>, <code>planning_v6</code>는 <strong>2026-09-27</strong>로 <strong>문서 간 2주 불일치</strong></td><td>보수적으로 <strong>09-14</strong> 기준으로 인력·알림톡을 준비하고, 고객에게 종료일을 먼저 말하지 않습니다</td></tr>
+    <tr><td>7일 강제취소 룰</td><td>방향은 유효하나 근거 수치(“95% 정합성”)가 관세청 자료에서 확인되지 않음. 정의 문서가 09:00 배치 기준으로 낡음</td><td>7일차 아웃바운드 콜까지는 진행하되, <strong>강제취소 실행은 리더 승인 후</strong></td></tr>
+    <tr><td>혼재주문 강제취소 시 국내분 처리</td><td class="no">미정 — 전체 취소인지, 국내분만 유지 후 재주문 유도인지</td><td>사례 발생 시 <strong>개별 에스컬레이션</strong>. 고객에게 규칙을 단정하지 않습니다</td></tr>
+    <tr><td>합산과세 “입항일 동일” 기준</td><td>법무 검토 중(2022-11-17 폐지 여부)</td><td>“합산될 수 있습니다”까지만 안내</td></tr>
+    <tr><td>통관 완료 후 반품의 관세 환급</td><td class="no">절차 미정의</td><td>사례 발생 시 에스컬레이션</td></tr>
+    <tr><td><code>gngMsgCode</code> 자동 문구·조회주기·SLA</td><td>P1 미확정</td><td>8-2 표 문구를 임시 기준으로 사용</td></tr>
+    <tr><td>프론트 혼재주문 고지 문구</td><td>P1 — 문구·노출 위치 미확정</td><td>고지 전까지 문의량 증가를 전제로 인력 배치</td></tr>
+    <tr><td>오류 건 재시도 횟수 상한</td><td>“무제한 <code>p1</code> 원복” 폐기 후 대체 상한이 명시되지 않음</td><td>7일 룰을 사실상의 상한으로 운용</td></tr>
+  </tbody>
+</table>
+
+<footer>
+  근거 — 관세청 「2026 전자상거래 전용 통관플랫폼 FAQ」(공식) · 관세청 제공 전자상거래 전용 REST API 명세서 v1.4.1 · 자이언트 GGATE API V2 · <a href="./planning_v6.html">통합 기획서 planning_v6</a> · <a href="./리스크_질의대장.html">리스크·질의 대장</a> · 2026-08-26 동수(AN.)·Geek 협의<br>
+  종전 <code>banner_cs_policy.html</code>의 CS 정책은 이 문서로 이관했습니다. 시각·상태 기술이 09:00 배치 기준이라 <strong>이 문서가 우선</strong>합니다.
+</footer>
+
+</div>
+</body>
+</html>

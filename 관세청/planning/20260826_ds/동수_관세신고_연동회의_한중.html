@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>동수 관세신고 연동회의 간단본 / 东秀海关申报对接会议简版</title>
+<style>
+  *{box-sizing:border-box}
+  :root{--ink:#172033;--sub:#5f6b7a;--line:#dce2ea;--bg:#f5f7fa;--blue:#1769d2;--bluebg:#edf5ff;--green:#16794a;--greenbg:#ecf8f1;--red:#b42318;--redbg:#fff0ee;--amber:#8a5700;--amberbg:#fff8e8}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR","Noto Sans SC","Malgun Gothic","Microsoft YaHei",sans-serif;line-height:1.62}
+  main{max-width:1180px;margin:0 auto;padding:32px 22px 72px}
+  h1{font-size:29px;line-height:1.3;margin:0 0 8px}
+  h2{font-size:21px;margin:38px 0 14px;padding-bottom:9px;border-bottom:2px solid var(--ink)}
+  h3{font-size:16px;margin:0 0 8px}
+  p{margin:7px 0}
+  a{color:var(--blue)}
+  code{font-family:Consolas,monospace;background:#eef1f5;padding:1px 5px;border-radius:4px;white-space:normal}
+  .meta{color:var(--sub);font-size:13px;margin-bottom:18px}
+  .hero,.card,.notice{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin:14px 0}
+  .hero{border-left:7px solid var(--red)}
+  .hero strong{color:var(--red);font-size:18px}
+  .notice{border-left:6px solid var(--blue);background:var(--bluebg)}
+  .decision{border-left:6px solid var(--amber);background:var(--amberbg)}
+  .ok{border-left:6px solid var(--green);background:var(--greenbg)}
+  .lang{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .zh{border-left:1px dashed var(--line);padding-left:18px;color:#344054}
+  .label{display:inline-block;font-size:11px;font-weight:800;color:#fff;background:var(--blue);border-radius:99px;padding:2px 8px;margin-bottom:6px}
+  .zh .label{background:#7a3db8}
+  table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:12px 0 22px;font-size:13.5px}
+  th,td{padding:12px 13px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+  th:last-child,td:last-child{border-right:0}
+  tr:last-child td{border-bottom:0}
+  th{background:#eef2f7;font-weight:800}
+  td code{font-size:12px}
+  .ko-line{font-weight:650}
+  .zh-line{color:#667085;margin-top:5px}
+  .status{font-weight:800}
+  .danger{color:var(--red)}
+  .good{color:var(--green)}
+  .pending{color:var(--amber)}
+  .flow{display:grid;grid-template-columns:1fr 42px 1fr 42px 1.15fr 42px 1fr;align-items:stretch;margin:16px 0}
+  .step{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;font-size:13px}
+  .arrow{display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--blue);font-weight:900}
+  details{background:#fff;border:1px solid var(--line);border-radius:11px;margin:12px 0;overflow:hidden}
+  summary{cursor:pointer;padding:16px 18px;font-weight:850;background:#f0f4f8}
+  details[open] summary{border-bottom:1px solid var(--line)}
+  .inside{padding:10px 18px 18px}
+  .field-grid{display:grid;grid-template-columns:190px 1fr;gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:10px}
+  .field-grid>div{padding:10px 12px;border-bottom:1px solid var(--line)}
+  .field-grid>div:nth-last-child(-n+2){border-bottom:0}
+  .field-grid .group{background:#f7f9fb;font-weight:800}
+  ul{margin:8px 0;padding-left:22px}
+  li{margin:6px 0}
+  .sources{font-size:12.5px;color:var(--sub)}
+  @media(max-width:850px){
+    main{padding:20px 12px 50px}.lang{grid-template-columns:1fr}.zh{border-left:0;border-top:1px dashed var(--line);padding:14px 0 0}
+    .flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg);height:34px}
+    table{display:block;overflow-x:auto}.field-grid{grid-template-columns:1fr}.field-grid .group{border-bottom:0}.field-grid>div:nth-last-child(-n+2){border-bottom:1px solid var(--line)}
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>동수 관세신고 연동회의 간단본<br>东秀海关申报对接会议简版</h1>
+  <div class="meta">2026-08-19 · 회의용 정리 / 会议用整理 · 복잡한 29채널·전체 API 상세는 하단 정본 링크 참조</div>
+
+  <section class="hero">
+    <div class="lang">
+      <div>
+        <span class="label">핵심 결론</span>
+        <p><strong>B유형도 거래정보만 보내면 통관되지 않습니다.</strong></p>
+        <p>관세청 TRA001의 개인통관고유부호 <code>cnsi_pers_ecm</code>은 A/B/C 공통 필수입니다. 관세청 인증번호 <code>su_crtf_no</code>는 TRA001 명세상 선택이지만, 자이언트 HWB 계약에서는 <code>pccCode</code>와 <code>tempAuthNo</code>가 모두 필수입니다.</p>
+        <p>따라서 B 주문도 Geek의 고객·PCCC·인증번호와 동수의 물류·상품정보가 자이언트에서 합쳐져야 DKW/DKX 신고가 가능합니다.</p>
+      </div>
+      <div class="zh">
+        <span class="label">核心结论</span>
+        <p><strong>B类仅发送交易信息无法完成清关。</strong></p>
+        <p>海关TRA001中的个人通关识别码 <code>cnsi_pers_ecm</code> 对A/B/C均为必填。认证号 <code>su_crtf_no</code> 在TRA001规范中为选填，但GGATE HWB合同要求 <code>pccCode</code> 与 <code>tempAuthNo</code> 均为必填。</p>
+        <p>因此，B类订单也必须在GGATE合并Geek的客户/PCCC/认证号与东秀的物流/商品信息，之后才能进行DKW/DKX申报。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="notice decision">
+    <div class="lang">
+      <div><b>중요:</b> A/B/C는 API 호출자나 PCCC 인증회사가 아니라 실제 거래 역할로 판정합니다. Geek이 호출하거나 인증한다고 A가 되는 것이 아닙니다.</div>
+      <div class="zh"><b>重要：</b>A/B/C依据实际交易角色判断，不依据API调用方或PCCC认证公司。由Geek调用或认证并不会使订单变成A类。</div>
+    </div>
+  </section>
+
+  <h2>1. 현재 유형 판정 / 当前类型判断</h2>
+  <table data-type-table>
+    <thead>
+      <tr>
+        <th>유형 / 类型</th>
+        <th>실제 역할과 관세청 필드 / 实际角色与海关字段</th>
+        <th>현재 채널 적용 / 当前渠道</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-type-row="A">
+        <td><b>A · 직접판매<br>直接销售</b></td>
+        <td>
+          <div class="ko-line">자기 재고를 자기 책임으로 직접 판매. <code>puch_*</code> 미입력, <code>sale_ents_nm</code> 필수, 등록 판매자부호는 조건부.</div>
+          <div class="zh-line">以自有库存和自担风险直接销售。不填 <code>puch_*</code>；<code>sale_ents_nm</code> 必填；已注册卖方代码按条件填写。</div>
+        </td>
+        <td><span class="status pending">현재 확정 채널 없음</span><br>自营商城若主张A，须证明客户下单前已采购、库存所有权及价格/灭失风险由KRONE承担。</td>
+      </tr>
+      <tr data-type-row="B">
+        <td><b>B · 구매대행<br>购买代理</b></td>
+        <td>
+          <div class="ko-line">고객 주문을 받아 해외구매를 대행. <code>puch_vcex_bsmn_sgn/nm</code> 필수, 해외 판매처명은 알면 제출.</div>
+          <div class="zh-line">根据客户订单代为海外采购。<code>puch_vcex_bsmn_sgn/nm</code> 必填；已知时填写实际海外卖方名称。</div>
+        </td>
+        <td><span class="status good">현재 근거상 전 채널 B</span><br>自营商城：海关书面答复判定B；NAVER及其他平台：B。</td>
+      </tr>
+      <tr data-type-row="C">
+        <td><b>C · 배송대행<br>转运代理</b></td>
+        <td>
+          <div class="ko-line">고객이 해외에서 직접 구매하고 배송만 대행. <code>shpn_vcex_bsmn_sgn/nm</code> 필수.</div>
+          <div class="zh-line">客户自行在海外购买，仅代为转运。<code>shpn_vcex_bsmn_sgn/nm</code> 必填。</div>
+        </td>
+        <td><span class="status">현재 0건</span><br>当前无C类订单。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr><th>채널 / 渠道</th><th>현재 입력안 / 当前填写方案</th><th>아직 확인할 것 / 待确认</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>자사몰 / 自营商城</b></td>
+        <td><code>elcm_pcd=B</code><br>제출자/提交方: KRONE <code>K26000099</code><br>구매대행자/购买代理: KRONE <code>K26000099</code></td>
+        <td>현재 관세청 서면회신 기준. A를 주장하려면 재고소유·선매입·판매계약 사실을 넣어 재질의.<br>若主张A，须基于库存所有权、预先采购及销售合同事实重新书面咨询。</td>
+      </tr>
+      <tr>
+        <td><b>NAVER</b></td>
+        <td><code>elcm_pcd=B</code><br>제출자/提交方: NAVER 등록부호<br>구매대행자/购买代理: AIBE (후보代码 <code>K26014765</code>)</td>
+        <td>NAVER 제출자 부호·상호·OAuth 및 AIBE 발급증빙.<br>NAVER提交方代码/名称/OAuth及AIBE注册证明。</td>
+      </tr>
+      <tr>
+        <td><b>기타 27개 / 其他27个</b></td>
+        <td><code>elcm_pcd=B</code><br>제출자/提交方: 각 플랫폼 등록부호<br>구매대행자/购买代理: KRONE <code>K26000099</code></td>
+        <td>플랫폼별 제출자 부호·상호·OAuth.<br>逐平台确认提交方代码、名称及OAuth。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card">
+    <div class="lang">
+      <div>
+        <b>필드 혼동 금지</b>
+        <p>관세청 제출자 전자상거래업자부호는 Body 루트의 <code>elcm_ents_sgn</code>/<code>elcm_ents_nm</code>입니다. <code>brokerCode</code>/<code>brokerName</code>은 자이언트의 별도 판매중개자 필드입니다.</p>
+      </div>
+      <div class="zh">
+        <b>禁止混淆字段</b>
+        <p>海关提交方电子商务企业代码/名称是Body根节点的 <code>elcm_ents_sgn</code>/<code>elcm_ents_nm</code>。<code>brokerCode</code>/<code>brokerName</code>是GGATE独立的销售中介字段。</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>2. 실제 신고 흐름 / 实际申报流程</h2>
+  <div class="flow">
+    <div class="step"><b>Geek</b><br>PCCC/PER 검증<br><code>pccCode</code>·<code>tempAuthNo</code><br><span class="zh-line">客户、PCCC及认证号</span></div>
+    <div class="arrow">＋</div>
+    <div class="step"><b>동수 / 东秀</b><br>HWB·중량·포장·송하인·상품·금액·채널유형<br><span class="zh-line">物流、商品、金额及渠道类型</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><b>자이언트 / GGATE</b><br>동일 <code>hwbNo/orderNo</code>로 병합<br>필수값 검증 → DKW/DKX<br><span class="zh-line">按相同键合并并申报</span></div>
+    <div class="arrow">＋</div>
+    <div class="step"><b>Geek → 관세청</b><br>TRA001 거래정보 제출<br><span class="zh-line">向海关提交TRA001</span></div>
+  </div>
+  <section class="notice ok">
+    <div class="lang">
+      <div><b>출고 조건:</b> Geek TRA001 성공과 자이언트 DKW/DKX 성공을 별도 확인·대사해야 합니다. 한쪽 성공이 다른 쪽을 대신하지 않습니다.</div>
+      <div class="zh"><b>放行条件：</b>必须分别确认并核对Geek TRA001与GGATE DKW/DKX成功。任一成功均不能替代另一方。</div>
+    </div>
+  </section>
+
+  <h2>3. 엑셀 질문 답변 / Excel问题答复</h2>
+  <table data-xlsx-table>
+    <thead>
+      <tr><th>필드 / 字段</th><th>답변 / 答复</th><th>동수 조치 / 东秀动作</th></tr>
+    </thead>
+    <tbody>
+      <tr data-xlsx-query-row>
+        <td><code>shipperName</code></td>
+        <td>동수 물류센터 고정값 방향은 맞음. / 可使用东秀物流中心固定值。</td>
+        <td>실제 신고용 중·영문 명칭과 적용 시작일 승인. / 确认申报用中英文名称及生效日。</td>
+      </tr>
+      <tr data-xlsx-query-row>
+        <td><code>shipperAddr</code></td>
+        <td>동수 실제 출고지 고정주소 사용. / 使用东秀实际发货仓固定地址。</td>
+        <td>영문 주소, 최대 150자, 변경 이력 관리. / 确认英文地址、150字符限制及版本。</td>
+      </tr>
+      <tr data-xlsx-query-row>
+        <td><code>brokerCode</code><br><code>brokerName</code></td>
+        <td><b>엑셀의 “A만 필수”는 수정 필요.</b> 자이언트 회신상 A/B 필수, C 선택. 관세청 제출자·구매대행자 부호와 별개. / <b>“仅A必填”需修正：</b>GGATE答复为A/B必填、C选填，且不等同海关提交方或购买代理代码。</td>
+        <td><span class="danger">실등록 부호·상호 증빙 전 BLOCK.</span> KRONE/AIBE 값을 자동 복사하지 않음. / 取得实际注册证明前阻断，禁止自动复制KRONE/AIBE代码。</td>
+      </tr>
+      <tr data-xlsx-query-row>
+        <td><code>tempAuthNo</code></td>
+        <td>Geek 수집값이지만 “동수와 무관”으로 끝낼 수 없음. 자이언트 최초 HWB 등록에는 필수. / 由Geek取得，但GGATE首次HWB登记仍为必填。</td>
+        <td>① 개인정보 승인 후 Geek→동수 암호화 전달·동수 1회 bulk, 또는 ② Geek→자이언트 별도 쓰기 후 병합 중 하나 확정. / 二选一：经审批传给东秀一次bulk，或Geek单独写入GGATE后合并。</td>
+      </tr>
+      <tr data-xlsx-query-row>
+        <td><code>categoryName1</code><br><code>categoryName2</code></td>
+        <td>동수 SKU 매핑값이며 자이언트 필수. “관세청 표준 카테고리”라는 표현은 공식 분류표 확인 전 사용 금지. / 由东秀按SKU映射，GGATE必填；无官方分类表前不得称为“海关标准分类”。</td>
+        <td>분류표 버전, 미매핑 차단, 대표 SKU 샘플 제공. / 提供分类版本、未映射阻断规则及SKU样例。</td>
+      </tr>
+      <tr data-xlsx-query-row>
+        <td><code>productPageUrl</code></td>
+        <td>스토어 홈 URL이 아니라 해당 품목의 실제 상세페이지 URL. <code>orderSiteUrl</code>과 다른 필드. / 必须是实际商品详情页URL，不是商城首页；与 <code>orderSiteUrl</code> 不同。</td>
+        <td>SKU·채널·스토어 계정별 URL 저장. 공홈 대표주소 하드코딩 금지. / 按SKU、渠道、店铺账号保存URL，禁止硬编码首页。</td>
+      </tr>
+      <tr data-xlsx-query-row>
+        <td><code>sellerCode</code></td>
+        <td><b>전건 Y가 아님.</b> 관세청 기준 A는 등록 판매자일 때 조건부, B/C는 미입력. 자이언트 서버 조건은 재검증 필요하며 <code>sellerName</code>은 별도 필수. / <b>并非全部必填。</b>海关规则：A按注册情况填写，B/C不填；GGATE服务器条件需复验，<code>sellerName</code>另行必填。</td>
+        <td>SELF A/B 최종판정과 자이언트 실서버 검증 전 조건부 처리. / 在SELF A/B最终判定及GGATE实测前按条件处理。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>4. 회사별 전송 필드 / 各公司传输字段</h2>
+
+  <details>
+    <summary>동수 → 자이언트: HWB·상품·채널·MAWB / 东秀 → GGATE：HWB、商品、渠道及MAWB</summary>
+    <div class="inside">
+      <p><b>모든 SELF 및 플랫폼 B 주문 공통.</b> 아래 값은 동수가 생성·검증해 자이언트 규격으로 전송합니다. / <b>适用于全部自营及平台B订单。</b>以下数据由东秀生成、校验并按GGATE格式发送。</p>
+      <div class="field-grid">
+        <div class="group">공통키·물류<br>公共键与物流</div>
+        <div><code>hwbNo</code>, <code>orderNo</code>, <code>transportType</code>, <code>dispatchCountry</code>, <code>weight</code>, <code>packageCount</code>, <code>innerPackageCount</code>, <code>domesticCarrierName</code></div>
+        <div class="group">송하인·금액<br>发货人与金额</div>
+        <div><code>shipperName</code>, <code>shipperNameEng</code>(선택), <code>shipperAddr</code>, <code>shipperAddressEng</code>(선택), <code>shipperTel</code>(선택), <code>totalValueUsd</code>, <code>orderSiteUrl</code>(선택)</div>
+        <div class="group">유형·업체<br>类型与企业</div>
+        <div><code>ecTypeCode</code>, <code>brokerCode</code>, <code>brokerName</code>, B일 때 <code>buyingAgentCode</code>/<code>buyingAgentName</code></div>
+        <div class="group">품목 1~50개<br>商品1~50项</div>
+        <div><code>itemGroupOrderNo</code>, <code>itemSeq</code>, <code>categoryName1</code>, <code>categoryName2</code>, <code>productName</code>, <code>productPageUrl</code>, <code>hsCode</code>, <code>qty</code>, <code>qtyUnit</code>, <code>unitPrice</code>, <code>itemAmount</code>, <code>sellerName</code>, <code>sellerCode</code>(조건부), <code>brandName</code>(선택)</div>
+        <div class="group">MAWB</div>
+        <div><code>mwbNo</code>, <code>carrierCode</code>, <code>conveyanceName</code>, <code>voyageNo</code>, <code>departurePort</code>, <code>arrivalPort</code>, <code>departureDate</code>, <code>arrivalDate</code> — endpoint·필수조건 재확인</div>
+        <div class="group">단일 bulk 선택 시<br>选择一次bulk时</div>
+        <div>Geek 원천의 주문자·수하인·<code>pccCode</code>·<code>tempAuthNo</code>·<code>orderCompletionDate</code>를 승인된 보안경로로 받아 함께 전송. / 经批准的安全链路接收Geek客户、收货人、PCCC、认证号及支付完成时间后一并发送。</div>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>동수 → Geek: 관세청 TRA001 조립용 / 东秀 → Geek：用于组装海关TRA001</summary>
+    <div class="inside">
+      <div class="field-grid">
+        <div class="group">주문·HBL 키<br>订单与HBL键</div>
+        <div><code>customerOrderNo</code>, <code>packageList[].customerOrderNo</code>, <code>hblNo</code>, <code>sourceVersion</code>, <code>packageCount</code>, <code>innerPackageCount</code>, <code>totWt</code></div>
+        <div class="group">제출 프로필<br>提交资料</div>
+        <div><code>elcmPcd</code>, <code>kcsSubmitterCode</code>, <code>kcsSubmitterName</code>, <code>submissionProfileKey</code>, <code>puchVcexBsmnSgn</code>/<code>puchVcexBsmnNm</code>, <code>shpnVcexBsmnSgn</code>/<code>shpnVcexBsmnNm</code>, <code>orderSiteUrl</code></div>
+        <div class="group">금액·상품<br>金额与商品</div>
+        <div><code>totStlmAmt</code>, <code>ordAmt</code>, <code>totOrdProdQty</code>, <code>prodSrno</code>, <code>prodId</code>, <code>ordProdName</code>, <code>prodSalePgeUrl</code>, <code>prodOrdQty</code>, <code>prodUnprc</code>, <code>currencyCode</code>, <code>saleEntsSgn</code>/<code>saleEntsNm</code></div>
+      </div>
+      <p class="pending"><b>플랫폼 B:</b> Geek이 각 플랫폼 명의로 TRA001을 호출하려면 플랫폼별 제출자 부호와 OAuth 권한이 필요합니다. / Geek代表各平台调用TRA001时，必须具备对应平台提交方代码及OAuth授权。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Geek → 자이언트: 고객·PCCC·인증정보 / Geek → GGATE：客户、PCCC及认证信息</summary>
+    <div class="inside">
+      <p>개인정보를 동수에 넘기지 않는 분리쓰기 방식일 때 Geek이 같은 <code>hwbNo</code>/<code>orderNo</code>로 아래 값을 자이언트에 직접 저장합니다. / 若不向东秀传递个人信息，Geek须以相同 <code>hwbNo</code>/<code>orderNo</code> 将以下字段直接写入GGATE。</p>
+      <div class="field-grid">
+        <div class="group">주문자<br>订购人</div>
+        <div><code>ordererName</code>, <code>ordererTel</code>, <code>ordererId</code></div>
+        <div class="group">수하인<br>收货人</div>
+        <div><code>consigneeName</code>, <code>consigneeNameEng</code>, <code>consigneeAddr</code>, <code>consigneeAddrDet</code>, <code>consigneeAddressEng</code>, <code>consigneeZip</code>, <code>consigneeTel</code></div>
+        <div class="group">통관·결제<br>通关与支付</div>
+        <div><code>pccCode</code>, <code>tempAuthNo</code>, <code>orderCompletionDate</code></div>
+      </div>
+      <p class="danger"><b>P0:</b> 자이언트의 Geek 분리쓰기 endpoint·인증·병합·상대필드 보존·최종 READY 상태가 아직 확정되지 않았습니다. 이것이 없으면 Geek 값을 동수에 전달해 1회 bulk하는 방식을 승인해야 합니다.</p>
+      <p class="zh-line"><b>P0：</b>GGATE面向Geek的分步写入接口、认证、合并、字段保护及最终READY状态尚未确定；否则须批准将Geek数据交给东秀后一次bulk。</p>
+    </div>
+  </details>
+
+  <h2>5. 이번 회의에서 반드시 확정 / 本次会议必须确认</h2>
+  <section class="card">
+    <ol>
+      <li><b>자사몰 유형:</b> 현재 KCS 회신대로 B 적용. A를 주장하면 재고·선매입·판매계약 증빙을 넣어 서면 재질의.<br><span class="zh-line">自营商城目前按KCS书面答复采用B；若主张A，须凭库存、预购及销售合同事实重新书面确认。</span></li>
+      <li><b>개인정보 경로:</b> Geek→동수→자이언트 1회 bulk 또는 Geek·동수 분리쓰기 중 하나.<br><span class="zh-line">确定Geek经东秀一次bulk，或Geek/东秀分别写入GGATE。</span></li>
+      <li><b>업체 증빙:</b> NAVER=AIBE, 기타27=KRONE 구매대행 매핑과 <code>brokerCode/Name</code> 실제 등록증.<br><span class="zh-line">确认NAVER=AIBE、其他27=KRONE的购买代理映射及broker注册证明。</span></li>
+      <li><b>자이언트 계약:</b> bulk/부분쓰기 endpoint, 인증, upsert, 누락필드, READY, DKW/DKX 결과, MAWB 연결.<br><span class="zh-line">确认GGATE接口、认证、upsert、缺失字段、READY、DKW/DKX结果及MAWB关联。</span></li>
+      <li><b>필드 규칙:</b> 금액 반올림, <code>sellerCode</code>, category 분류표, 실제 <code>productPageUrl</code>을 실서버에서 검증.<br><span class="zh-line">实测金额舍入、sellerCode、分类表及真实productPageUrl规则。</span></li>
+    </ol>
+  </section>
+
+  <section class="notice">
+    <div class="lang">
+      <div>
+        <b>[2026-08-19 회의자료 축약]</b>
+        <p>종전 29채널 상세표·중복 흐름도·전체 인수시험은 회의 화면에서 제거했습니다. 사실 원문과 상세 필드 계약은 아래 정본에 유지합니다.</p>
+      </div>
+      <div class="zh">
+        <b>[2026-08-19 会议资料精简]</b>
+        <p>已从会议页面移除29渠道明细、重复流程图及完整验收测试；原始事实与详细字段合同仍保留在以下正式文档。</p>
+      </div>
+    </div>
+    <p class="sources">
+      <a href="./planning_v6.html">통합기획서 / 综合规划</a> ·
+      <a href="./api_field_mapping.html">API 필드 매핑 / API字段映射</a> ·
+      <a href="./리스크_질의대장.html">리스크·질의대장 / 风险问题台账</a> ·
+      <a href="../documents/관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1.pdf">관세청 REST API v1.4.1</a>
+    </p>
+  </section>
+</main>
+</body>
+</html>
