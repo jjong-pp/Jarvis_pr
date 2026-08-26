@@ -66,7 +66,7 @@
 </nav>
 
 <h1>CS 통관 Q&amp;A 대응집</h1>
-<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-08-26</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 (D-2) · 자동 처리창 11:10~11:50 · <code>Z99999</code> 계도기간 종료 <span style="color:#f28b82;">확정 필요</span></span></div>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-08-26</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 (D-2) · 자동 처리창 11:10~11:50 · 계도기간 종료 <b style="color:#8ab4f8;">2026-09-27</b></span></div>
 <div class="sub">2026-08-28 자사몰 오픈 이후 해외직구 주문 상담에 쓰는 <strong>응대 스크립트 + 판단 기준</strong> 모음 · 이 문서가 CS 응대의 정본입니다</div>
 
 <div class="nav" aria-label="문서 내 이동">
@@ -93,7 +93,7 @@
   <div class="kpi red"><div class="n">1순위</div><div class="l">혼재주문 내수 동반 지연</div></div>
   <div class="kpi amber"><div class="n">2순위</div><div class="l">개인통관고유부호·인증번호</div></div>
   <div class="kpi blue"><div class="n">11:50</div><div class="l">일일 자동 처리 마감</div></div>
-  <div class="kpi green"><div class="n">7일</div><div class="l">오류 방치 시 강제취소 검토</div></div>
+  <div class="kpi green"><div class="n">09-27</div><div class="l">계도기간 종료 (임시 인증번호 만료)</div></div>
 </div>
 
 <!-- ================= 타임라인 ================= -->
@@ -269,6 +269,43 @@
 </div>
 
 <div class="qa">
+  <div class="q">8월 28일 이전에 주문했는데 저도 개인통관고유부호 인증을 해야 하나요? <span class="tag t-new">2026-08-26 확인</span></div>
+  <div class="script">
+    “<strong>8월 28일 이전에 주문하신 건</strong>은 기존 통관 절차로 처리되어 별도의 인증번호 입력 없이 배송이 진행됩니다. 그대로 기다려 주시면 됩니다.”
+  </div>
+  <div class="why">
+    관세청 담당자 회신(2026-08-25) — PER 인증값이 없는 주문은 <strong>기존 수입신고서</strong>로 처리할 수 있고, 이 경우 <u>거래정보 제출과 일회용 인증번호가 불필요</u>합니다. 전자상거래 물품의 기존 수입신고는 <strong>2026년까지</strong> 가능하며, 기존 통관목록 거래유형 <code>A</code> 제출도 2026년 12월 말까지 한시 유지됩니다.<br>
+    따라서 <strong>8/27 밤 주문 → 8/31 통관</strong> 같은 경계 건도 통관이 막히지 않습니다. 고객을 불안하게 만들 필요가 없습니다.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q">인증번호를 못 받았는데 그냥 배송해 주시면 안 되나요?</div>
+  <div class="script">
+    “인증이 안 되어도 통관 자체가 막히는 것은 아닙니다. 다만 <strong>세관 확인 절차가 추가되어 배송이 늦어질 수 있어</strong> 인증을 완료해 주시는 편이 가장 빠릅니다. 지금 함께 확인해 드릴까요?”
+  </div>
+  <div class="why">
+    관세청 담당자 회신(2026-08-25) — <strong>“거래정보 미제출해도 통관은 됩니다. 다만 검사율이 상향되고 거래정보 제출율이 감소됩니다.”</strong><br>
+    <span class="no">내부 주의</span> 고객에게는 “늦어질 수 있다”까지만 말합니다. <u>“안 해도 됩니다”라고 안내하면 안 됩니다</u> — 제출율은 <strong>협력인정업체 4분기 평가</strong>에 직접 반영되고, 검사율 상향은 결국 전체 고객의 배송 지연으로 돌아옵니다.
+  </div>
+  <div class="warn">
+    “인증 안 하셔도 괜찮습니다” — 통관은 되지만 회사 평가와 검사율에 손해입니다. 반드시 <strong>인증을 유도</strong>하는 방향으로 안내합니다.
+  </div>
+</div>
+
+<div class="qa">
+  <div class="q">(내부) 계도기간이 언제 끝나나요? 그 뒤엔 뭐가 달라지나요? <span class="tag t-chk">09-27</span></div>
+  <div class="script">
+    <strong>2026-09-27</strong>까지는 인증번호 발급이 안 된 건에 임시코드(<code>Z99999</code>)를 써서 검증을 통과시킬 수 있습니다.<br>
+    <strong>9월 28일부터</strong>는 임시코드가 통하지 않으므로, 인증번호를 받지 못한 주문은 <strong>통관 단계에서 개별 확인</strong>이 필요해집니다.
+  </div>
+  <div class="why">
+    관세청 공지 「(재수정)전자상거래 전용 신고서 등 신규 서식 변경 안내」(2026-08-21) — “임시 일회용인증번호(<code>Z99999</code>)를 사용하면 일회용인증번호 검증을 통과할 수 있습니다. <strong>단, 시행일로부터 1개월만 사용이 가능합니다.(’26.8.28.~’26.9.27.)</strong>”<br>
+    <span class="no">준비</span> 9월 말로 갈수록 인증 미완료 건의 지연이 늘어납니다. <strong>9월 셋째 주부터 인증 미완료 주문에 선제 안내</strong>를 돌려 계도기간 종료 전에 정리하는 편이 낫습니다.
+  </div>
+</div>
+
+<div class="qa">
   <div class="q">제가 주문하지 않은 통관 내역이 있어요. 도용된 것 같아요.</div>
   <div class="script">
     “관세청 전자상거래 통관포털(<code>ecos.customs.go.kr</code>)에서 본인 통관내역을 확인하시고 <strong>도용 신고</strong>를 접수하실 수 있습니다. 신고하시면 관세청이 해당 건을 확인해 통관보류·추가 본인확인·부호 재발급 등의 조치를 진행합니다.<br>
@@ -413,14 +450,22 @@
 <table>
   <thead><tr><th style="width:9%">코드</th><th style="width:20%">의미</th><th style="width:36%">고객 안내</th><th>내부 처리</th></tr></thead>
   <tbody>
-    <tr><td><code>26</code></td><td>개인통관부호 상이</td><td>“통관 과정에서 개인통관고유부호 확인이 필요합니다. 정보를 다시 확인해 주세요.”</td><td>고객 재확인 요청</td></tr>
+    <tr><td><code>00</code></td><td class="no">미지정 — <strong>초기값</strong></td><td>(안내 대상 아님)</td><td class="no"><strong>“정상 통관”이 아니라 “아직 아무 일도 없음”</strong>입니다. <code>00</code>을 승인으로 해석하지 않습니다</td></tr>
+    <tr><td><code>01</code></td><td>검사</td><td>“세관 검사가 진행 중입니다. 검사가 완료되면 배송이 이어집니다.”</td><td>정상 절차 · 대기</td></tr>
+    <tr><td><code>02</code></td><td>검역</td><td>“검역 절차가 진행 중입니다. 완료 후 배송이 이어집니다.”</td><td>정상 절차 · 대기</td></tr>
+    <tr><td><code>11</code></td><td>검사 (X-RAY)</td><td>“세관 X-RAY 검사가 진행 중입니다. 이상이 없으면 그대로 통관됩니다.”</td><td>정상 절차 · 대기</td></tr>
+    <tr><td><code>22</code></td><td>취하 (지재권)</td><td>“세관에서 상표·지식재산권 관련 확인을 요청했습니다. 안내드리는 서류가 필요합니다.”</td><td>서류 제출 · 담당자 확인</td></tr>
+    <tr><td><code>23</code></td><td>취하 (수량과다)</td><td>“구매 수량이 자가사용 기준을 넘어 세관에서 확인을 요청했습니다. 서류 제출이 필요합니다.”</td><td>서류 제출 · 담당자 확인</td></tr>
+    <tr><td><code>27</code></td><td>취하 (기타)</td><td>“세관에서 추가 확인을 요청했습니다. 안내드리는 서류를 준비해 주세요.”</td><td>서류 제출 · 담당자 확인</td></tr>
     <tr><td><code>28</code></td><td>세금 발생</td><td>“관세·부가세가 발생했습니다. 안내드리는 방법으로 납부해 주시면 통관이 진행됩니다.”</td><td>납부 안내 발송</td></tr>
-    <tr><td><code>24</code></td><td>가격 상이</td><td>“세관에서 구매 금액 확인을 요청했습니다. 결제 내역 증빙 제출이 필요합니다.”</td><td>증빙(결제내역) 요청</td></tr>
     <tr><td><code>29</code></td><td>서류 보완</td><td>“통관에 필요한 서류 보완이 요청되었습니다. 안내드리는 서류를 준비해 주세요.”</td><td>증빙 요청</td></tr>
+    <tr><td><code>44</code></td><td>기타 (통관오류)</td><td>“확인해 보겠습니다. 잠시만 기다려 주시겠어요?”</td><td class="no">사유 불명 · 담당자 확인 후 회신</td></tr>
+    <tr><td><code>45</code></td><td>무적화물</td><td>“확인해 보겠습니다. 잠시만 기다려 주시겠어요?”</td><td class="no">화물 정보 불일치 · 즉시 에스컬레이션</td></tr>
     <tr><td><code>99</code></td><td class="no">통관 불가</td><td>“해당 상품이 통관 진행이 어려운 것으로 확인되었습니다. 환불 처리를 안내드리겠습니다.”</td><td class="no">환불 검토 · 즉시 에스컬레이션</td></tr>
   </tbody>
 </table>
-<div class="box y"><strong>코드별 자동 안내 문구와 응답 SLA는 아직 확정되지 않았습니다(P1).</strong> 확정 전까지는 위 문구를 기준으로 응대하되, <code>99</code>는 반드시 담당자 확인 후 회신합니다.</div>
+<div class="box y"><strong>[2026-08-26 정정]</strong> 위 12종은 자이언트 GGATE v2.0.0 컬렉션 원본에서 확인한 실제 코드입니다. 종전 문서가 쓰던 <code>24</code> 가격상이·<code>26</code> 개인통관부호 상이는 <strong>확인된 목록에 없어</strong> 제거했습니다 — 전체 코드표는 자이언트에 요청 중입니다.<br>
+  응답에는 <code>gngMsgName</code>과 <strong><code>messageKo</code>(한글 안내 메시지)</strong>가 함께 오므로, 표에 없는 코드가 오면 <code>messageKo</code>를 읽고 담당자에게 확인합니다. 코드별 자동 안내 문구와 응답 SLA는 아직 미확정(P1)이며, <code>99</code>·<code>45</code>·<code>44</code>는 반드시 담당자 확인 후 회신합니다.</div>
 
 <!-- ================= 에스컬레이션 ================= -->
 <h2 id="escalation">9. 에스컬레이션 기준</h2>
@@ -454,7 +499,7 @@
 <table>
   <thead><tr><th style="width:26%">항목</th><th style="width:32%">현재 상태</th><th>확정 전 CS 운용</th></tr></thead>
   <tbody>
-    <tr><td><code>Z99999</code> 계도기간 종료일</td><td class="no"><code>리스크_질의대장</code>은 <strong>2026-09-14 24:00</strong>, <code>planning_v6</code>는 <strong>2026-09-27</strong>로 <strong>문서 간 2주 불일치</strong></td><td>보수적으로 <strong>09-14</strong> 기준으로 인력·알림톡을 준비하고, 고객에게 종료일을 먼저 말하지 않습니다</td></tr>
+    <tr><td><s><code>Z99999</code> 계도기간 종료일</s> <span class="chip c-fix">해결</span></td><td class="ok"><strong>2026-09-27 확정</strong> — 관세청 공지(2026-08-21) “시행일로부터 1개월만 사용 가능(’26.8.28.~’26.9.27.)”</td><td>09-27 기준으로 인력·알림톡을 준비합니다. 고객에게 종료일을 먼저 말할 필요는 없습니다</td></tr>
     <tr><td>7일 강제취소 룰</td><td>방향은 유효하나 근거 수치(“95% 정합성”)가 관세청 자료에서 확인되지 않음. 정의 문서가 09:00 배치 기준으로 낡음</td><td>7일차 아웃바운드 콜까지는 진행하되, <strong>강제취소 실행은 리더 승인 후</strong></td></tr>
     <tr><td>혼재주문 강제취소 시 국내분 처리</td><td class="no">미정 — 전체 취소인지, 국내분만 유지 후 재주문 유도인지</td><td>사례 발생 시 <strong>개별 에스컬레이션</strong>. 고객에게 규칙을 단정하지 않습니다</td></tr>
     <tr><td>합산과세 “입항일 동일” 기준</td><td>법무 검토 중(2022-11-17 폐지 여부)</td><td>“합산될 수 있습니다”까지만 안내</td></tr>

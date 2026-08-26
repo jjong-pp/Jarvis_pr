@@ -280,7 +280,10 @@
   <h2>5. 이번 회의에서 반드시 확정 / 本次会议必须确认</h2>
   <section class="card">
     <ol>
-      <li><b>자사몰 유형:</b> 현재 KCS 회신대로 B 적용. A를 주장하면 재고·선매입·판매계약 증빙을 넣어 서면 재질의.<br><span class="zh-line">自营商城目前按KCS书面答复采用B；若主张A，须凭库存、预购及销售合同事实重新书面确认。</span></li>
+      <li><b>자사몰 유형 <span style="color:#137333;">[2026-08-21 서면 확정 — 재질의 종결]</span>:</b> 관세청 담당자 회신 — <b>“재고가 해외에 있으면 A가 맞습니다. [국내에 재고가 있다면 해외직구가 아님]”</b>. 자사몰은 <b>A</b>, 외부 플랫폼은 <b>B</b>로 확정. 당사가 제출하는 B형 구조도 “맞습니다”로 확인됨. 종전 “현재 KCS 회신대로 B 적용” 지침은 <b>폐기</b>.<br><span class="zh-line">自营商城类型已于2026-08-21书面确定为<b>A</b>——关税厅答复“<b>库存在海外即为A</b>[若库存在国内则不属于海外直购]”。外部平台为B。由我司提交的B类结构亦获确认。原“暂按B适用”指示<b>废止</b>。</span></li>
+      <li><b>주문번호 기준 <span style="color:#c5221f;">[2026-08-26 신규 확인 요청]</span>:</b> 당사는 <b>전 구간을 플랫폼 원주문번호 단일 기준</b>으로 확정했습니다 — 관세청 <code>ord_no</code>, 자이언트 <code>orderNo</code>/<code>itemGroupOrderNo</code>, 동수 <code>orderDelete</code> 모두 원주문번호를 씁니다. 동수의 <code>-1</code>/<code>-2</code> 분할번호는 <b>ERP 내부 포장 식별자로만</b> 두고 외부로 전송하지 않습니다.<br>
+      확인 요청 — ① <code>getTRA001OrderInfo</code> 응답이 <b>원주문번호와 분할번호를 별도 필드로</b> 주는지 ② 원주문번호 자체가 <code>…-1</code>로 끝나는 주문에서도 이 구분이 유지되는지 ③ 1주문 다중 HBL·삭제 후 재수집에서 기준이 깨지지 않는지.<br><span class="zh-line">我司已确定<b>全流程统一使用平台原始订单号</b>：海关<code>ord_no</code>、Giant <code>orderNo</code>/<code>itemGroupOrderNo</code>、东秀<code>orderDelete</code>均使用原始订单号；东秀的<code>-1</code>/<code>-2</code>拆分号仅作为ERP内部包装标识，不对外发送。请确认：①<code>getTRA001OrderInfo</code>响应是否<b>以独立字段</b>分别返回原始订单号与拆分号；②当原始订单号本身以<code>…-1</code>结尾时该区分是否仍成立；③单订单多HBL及删除后重新采集场景下该基准是否保持一致。</span></li>
+      <li><b><code>prod_srno</code> 요청 철회 <span style="color:#137333;">[2026-08-26]</span>:</b> 상품일련번호는 <b>Geek이 HBL 내에서 1부터 자체 채번</b>합니다. 동수에 요청하지 않습니다.<br><span class="zh-line">商品序号改由<b>Geek在每个HBL内自行从1开始编号</b>，<b>不再向东秀索取</b>。</span></li>
       <li><b>개인정보 경로:</b> Geek→동수→자이언트 1회 bulk 또는 Geek·동수 분리쓰기 중 하나.<br><span class="zh-line">确定Geek经东秀一次bulk，或Geek/东秀分别写入GGATE。</span></li>
       <li><b>업체 증빙:</b> NAVER=AIBE, 기타27=KRONE 구매대행 매핑과 <code>brokerCode/Name</code> 실제 등록증.<br><span class="zh-line">确认NAVER=AIBE、其他27=KRONE的购买代理映射及broker注册证明。</span></li>
       <li><b>자이언트 계약:</b> bulk/부분쓰기 endpoint, 인증, upsert, 누락필드, READY, DKW/DKX 결과, MAWB 연결.<br><span class="zh-line">确认GGATE接口、认证、upsert、缺失字段、READY、DKW/DKX结果及MAWB关联。</span></li>
