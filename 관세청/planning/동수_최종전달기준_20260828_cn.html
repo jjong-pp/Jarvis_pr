@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>东数最终传达标准 — 分开判断A/B与进口申报路径</title>
+<style>
+  *{box-sizing:border-box}body{margin:0;background:#f6f7f9;color:#202124;font-family:"Microsoft YaHei","Noto Sans SC",Arial,sans-serif;line-height:1.68}
+  main{max-width:1180px;margin:0 auto;padding:32px 22px 70px}h1{font-size:27px;margin:0 0 6px}h2{font-size:19px;margin:34px 0 12px;border-bottom:2px solid #202124;padding-bottom:7px}
+  .meta{font-size:13px;color:#5f6368;margin-bottom:18px}.box{background:#fff;border:1px solid #dadce0;border-radius:9px;padding:15px 17px;margin:12px 0}.ok{border-left:6px solid #137333;background:#e6f4ea}.warn{border-left:6px solid #c5221f;background:#fce8e6}.info{border-left:6px solid #1a73e8;background:#e8f0fe}
+  table{width:100%;border-collapse:collapse;background:#fff;font-size:13px;margin:12px 0 22px}th,td{border:1px solid #dadce0;padding:9px 10px;text-align:left;vertical-align:top}th{background:#f1f3f4}
+  code{background:#edf0f3;padding:1px 4px;border-radius:3px;font-family:Consolas,monospace;font-size:12px}li{margin:5px 0}.p0{color:#c5221f;font-weight:700}.yes{color:#137333;font-weight:700}.no{color:#c5221f;font-weight:700}
+  nav{margin-bottom:18px}nav a{display:inline-block;margin:0 8px 6px 0;padding:7px 10px;background:#1a73e8;color:#fff;text-decoration:none;border-radius:4px;font-size:13px}
+</style>
+</head>
+<body>
+<main>
+  <nav><a href="./api_field_mapping_cn.html">API字段映射</a><a href="./유형코드_부호체계_정리_cn.html">类型代码与符号体系</a></nav>
+  <h1>东数最终传达标准</h1>
+  <div class="meta">2026-08-28最终协商基准 · 渠道主数据11个 · 分开判断A/B与进口申报路径</div>
+
+  <div class="box ok">
+    <strong>最终结论</strong><br>
+    <code>ecTypeCode=A/B</code>表示交易角色，<code>declarationMode</code>表示进口申报路径。两个字段必须分别判断，禁止相互转换或自动推导。<strong>不能仅因订单为B类，就强制发送全部交易信息、个人信息及一次性认证号。</strong>
+  </div>
+
+  <h2>1. 渠道主数据 — 仅使用当前11个渠道</h2>
+  <table>
+    <thead><tr><th>渠道组</th><th>数量</th><th>ecTypeCode</th><th>broker</th><th>buyingAgent</th></tr></thead>
+    <tbody>
+      <tr><td>自营商城</td><td>1</td><td><strong>A</strong></td><td><code>K26000099 / (株)KRONE((주)크로네)</code></td><td>不发送</td></tr>
+      <tr><td>Naver</td><td>1</td><td><strong>B</strong></td><td><code>K26014765 / (株)iBae((주)아이베)</code></td><td><code>K26014765 / (株)iBae((주)아이베)</code></td></tr>
+      <tr><td>其他外部平台</td><td>9</td><td><strong>B</strong></td><td><code>K26000099 / (株)KRONE((주)크로네)</code></td><td><code>K26000099 / (株)KRONE((주)크로네)</code></td></tr>
+    </tbody>
+  </table>
+  <div class="box info"><code>도메인모음_20260828.xlsx</code>仅管理上述11个渠道的A/B及企业代码。订购人、收件人、PCCC、OTP和订单完成时间属于逐订单数据，不得保存为渠道固定值。Sheet1中不存在的渠道不得套用默认值，完成主数据登记前必须阻断。</div>
+
+  <h2>2. 逐订单申报路径 — 与A/B分开判断</h2>
+  <table>
+    <thead><tr><th>declarationMode</th><th>含义</th><th>TRA001交易信息</th><th>一次性认证号</th><th>当前GGATE状态</th></tr></thead>
+    <tbody>
+      <tr><td><code>LEGACY_IMPORT</code></td><td>传统进口申报</td><td class="no">不需要</td><td class="no">不需要</td><td><span class="p0">P0未确认</span> — V2-1公开规格强制<code>tempAuthNo</code>和<code>orderCompletionDate</code>，因此GGATE必须确认正式endpoint、标志及条件校验</td></tr>
+      <tr><td><code>ECOMMERCE_DEDICATED</code></td><td>跨境电商专用进口申报</td><td class="yes">需要</td><td class="yes">需要</td><td>仅在取得韩国海关及所选GGATE endpoint的全部必填数据后发送</td></tr>
+    </tbody>
+  </table>
+  <div class="box info"><strong>韩国海关负责人回复（2026-08-28）：</strong>电子商务货物使用传统进口申报的安排预计持续至2026年末。使用传统进口申报时，不需要提交交易信息和一次性认证号；如申请合作认可企业，将参考2026年第四季度记录。</div>
+  <div class="box warn"><strong>注意：</strong>该回复并不表示收件人姓名、地址、电话、PCCC、货物及商品信息全部免除。传统进口申报仍需哪些HWB字段，必须以报关方及GGATE正式的legacy contract为准。已明确免除的是<strong>TRA001交易信息和一次性认证号</strong>。</div>
+
+  <h2>3. A/B企业字段规则</h2>
+  <table>
+    <thead><tr><th>区分</th><th>A 直接销售</th><th>B 购买代理</th></tr></thead>
+    <tbody>
+      <tr><td>交易实质</td><td>我司在客户下单前采购并持有海外库存，通过自营商城直接销售</td><td>客户下单后，我司代客户向境外卖家购买</td></tr>
+      <tr><td><code>elcm_pcd</code></td><td><code>A</code></td><td><code>B</code></td></tr>
+      <tr><td><code>elcm_ents_sgn/nm</code></td><td><code>K26000099 / (株)KRONE((주)크로네)</code></td><td>如由我司提交交易信息，则使用<code>K26000099 / (株)KRONE</code>；如由平台提交，则适用该平台的提交方合同</td></tr>
+      <tr><td><code>puch_vcex_bsmn_sgn/nm</code></td><td>不填写</td><td>使用渠道主数据中的购买代理企业代码和名称</td></tr>
+      <tr><td><code>sale_ents_sgn/nm</code></td><td><code>K26000099 / (株)KRONE</code></td><td><code>sale_ents_sgn/id</code>不填写；如可取得，填写实际境外卖家名称</td></tr>
+      <tr><td>GGATE <code>buyingAgent*</code></td><td>不发送</td><td>所选endpoint要求时使用渠道主数据值</td></tr>
+    </tbody>
+  </table>
+
+  <h2>4. 东数实现顺序</h2>
+  <ol>
+    <li>使用ERP店铺名称精确匹配11个渠道主数据。</li>
+    <li>逐订单接收独立字段<code>declarationMode</code>；缺少该值时不得根据A/B推测。</li>
+    <li>从渠道主数据注入<code>ecTypeCode</code>、<code>broker*</code>及条件性<code>buyingAgent*</code>。</li>
+    <li><code>LEGACY_IMPORT</code>在GGATE确认正式legacy endpoint/flag前不得自动发送，必须进入运营例外队列。</li>
+    <li><code>ECOMMERCE_DEDICATED</code>仅在PCCC、OTP、订单完成时间及所选endpoint全部必填数据齐全时发送。</li>
+    <li>企业代码发送前清除普通空格、NBSP等Unicode空白，并验证为准确9位。</li>
+    <li>禁止将相同<code>hwbNo + orderNo</code>重复发送到不同API版本。</li>
+  </ol>
+
+  <h2>5. 数据收集、调用时间与发送模式</h2>
+  <table>
+    <thead><tr><th>阶段/时间（KST）</th><th>对象</th><th>处理标准</th></tr></thead>
+    <tbody>
+      <tr><td>订单生成时</td><td>全部11个渠道</td><td>精确匹配渠道主数据并固定<code>ecTypeCode</code>及企业代码；<code>declarationMode</code>必须作为独立订单值接收。渠道或申报路径缺失时立即阻断。</td></tr>
+      <tr><td>约10:00</td><td>需要东数订单/WMS数据的订单</td><td>按原始订单号批量查询HBL、商品、数量、金额、分类及URL。<code>customerOrderNos</code>使用逗号连接的多订单字符串；调用上限未确认，chunk大小必须配置化。</td></tr>
+      <tr><td>11:10开始<br>11:50截止</td><td>仅<code>ECOMMERCE_DEDICATED</code>且本链路负责TRA001</td><td>确认全部HBL后生成TRA001、检查结果并处理必要错误。任一HBL未分配、OTP缺失、结果未确定或删除失败时转<code>MANUAL_CLEARANCE_REQUIRED</code>，不得推定成功或自动出库。<code>LEGACY_IMPORT</code>不进入本TRA批次。</td></tr>
+      <tr><td>约17:00</td><td>MAWB已确定的出库批次</td><td>通过<code>POST /api/hwb/bulk-sync/master</code>按Master单独发送<code>mwbNo</code>及航班/港口/日期字段。不得混入HWB payload。</td></tr>
+      <tr><td>约18:00</td><td>已发送HWB/MAWB</td><td>通过HWB查询进行对账，单次最多500件。请求N件与响应M件必须逐键比较；响应缺失不得视为成功。</td></tr>
+    </tbody>
+  </table>
+  <div class="box info"><strong>发送粒度：</strong>1 HBL = 1包装 = 1 GGATE HWB。一个订单分成多个HBL时，各HBL独立使用对应的分单订单号；所有HBL分配完成前保持<code>HBL_WAITING</code>。同一来源在合并前采用幂等upsert，合并完成后不得自动重发。删除API只发送平台原始母订单号，子订单号会返回<code>state:300</code>；删除失败不自动重试。</div>
+  <div class="box info"><strong>字段分组：</strong>渠道固定值仅为<code>ecTypeCode</code>、<code>broker*</code>及条件性<code>buyingAgent*</code>；订单/收件人/PCCC/OTP/完成时间必须逐订单采集；HBL、商品、数量、金额、实际商品页URL必须逐包装/商品采集；MAWB及航班信息必须按Master采集。完整字段名、长度、来源及条件见<code>api_field_mapping_cn.html</code>。</div>
+
+  <h2>6. 需要GGATE立即书面确认的P0</h2>
+  <div class="box warn">
+    根据韩国海关回复，传统进口申报的B类订单不需要TRA001交易信息和一次性认证号。但V2-1 <code>POST /api/hwb/bulk-sync</code>公开规格仍强制校验<code>pccCode</code>、<code>tempAuthNo</code>和<code>orderCompletionDate</code>。<br><br>
+    <strong>确认请求：</strong>传统进口申报A/B订单应使用哪个endpoint或区分值；是否允许不发送<code>tempAuthNo</code>及<code>orderCompletionDate</code>；收件人、PCCC、物流及商品字段的正式必填范围是什么。确认前禁止使用伪造OTP、<code>Z99999</code>或虚假订单完成时间。
+  </div>
+
+  <h2>7. 错误处理</h2>
+  <table>
+    <thead><tr><th>情况</th><th>处理</th></tr></thead>
+    <tbody>
+      <tr><td>渠道主数据未匹配</td><td>禁止使用默认代码；返回<code>CHANNEL_PROFILE_NOT_FOUND</code>并阻断</td></tr>
+      <tr><td><code>declarationMode</code>缺失</td><td>禁止根据A/B推测；返回<code>DECLARATION_MODE_REQUIRED</code>并阻断</td></tr>
+      <tr><td>传统进口申报遇到OTP必填校验</td><td>禁止补造值；以<code>GIANT_LEGACY_ROUTE_UNCONFIRMED</code>隔离并等待GGATE回复</td></tr>
+      <tr><td>专用进口申报缺少OTP</td><td>阻断发送及出库，并向原始渠道或认证系统请求重新取得</td></tr>
+      <tr><td>企业代码长度错误</td><td>清除Unicode空白后重新验证9位；值本身错误时修改渠道主数据</td></tr>
+      <tr><td>个人信息日志</td><td>禁止记录姓名、电话、地址、PCCC及OTP明文；必须脱敏并限制访问权限</td></tr>
+    </tbody>
+  </table>
+</main>
+</body>
+</html>

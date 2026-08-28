@@ -19,14 +19,15 @@
 </head>
 <body>
 <div class="container">
-    <a href="./api_field_mapping_cn.html" class="nav-btn">[ -> api_field_mapping_cn.html 查看API字段映射文档 ]</a>
-    <a href="./동수_관세신고_연동회의_한중.html" class="nav-btn">[ 查看DONGSHU韩中会议资料 ]</a>
+    <a href="./동수_최종전달기준_20260828_cn.html" class="nav-btn">[ → 东数最终传达标准 ]</a>
+    <a href="./api_field_mapping_cn.html" class="nav-btn">[ → API字段映射文档 ]</a>
     <h1>类型代码及符号体系整理</h1>
-<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">最后更新 <span style="color:#8ab4f8;font-size:16px;">2026-08-26</span><span style="font-weight:400;color:#bdc1c6;"> · 开放 2026-08-28 09:00 (D-2) · 韩国关税厅测试服务器关闭 2026-08-21</span></div>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">最后更新 <span style="color:#8ab4f8;font-size:16px;">2026-08-28</span><span style="font-weight:400;color:#bdc1c6;"> · 适用于东数开发交付</span></div>
+<div style="background:#e6f4ea;border-left:5px solid #137333;padding:12px 15px;margin:14px 0;line-height:1.75;"><strong>[2026-08-28 最终更正]</strong> A/B为交易角色；传统进口申报与跨境电商专用进口申报为逐订单申报路径。韩国海关回复：传统进口申报无需TRA001交易信息和一次性认证号，因此不能仅因B类就发送全部个人信息与OTP。当前渠道共11个（自营商城1个+外部平台10个）。</div>
 
-    <h2>1. 销售类型代码 (elcm_pcd) 详细说明 <span style="background:#e6f4ea;color:#137333;padding:2px 6px;border-radius:3px;font-size:13px;font-weight:bold;">[2026-08-24 确定] 自营商城仅运营A，外部平台28个渠道均运营B</span></h2>
-    <p style="background:#e6f4ea;border-left:4px solid #137333;padding:10px 12px;"><strong>韩国关税厅2026-08-24确认：</strong>由(株)KRONE在客户下单前采购并持有、存放于海外的库存，通过自营商城直接销售，属于<code>A</code>（直接销售）。韩国国内库存销售不属于海外直购。客户下单后再从海外卖家购买的外部平台入驻订单属于<code>B</code>（代购），TRA001由对应平台提交。<strong>自营商城不存在B类型。</strong></p>
-    <p style="background:#e8f0fe;border-left:4px solid #1a73e8;padding:10px 12px;"><strong>[2026-08-26 运营批处理]</strong> 自营商城A由Geek每天<strong>11:10 KST</strong>开始从东数采集HBL及TRA数据，并在<strong>11:50 KST之前</strong>完成TRA提交、错误确认及必要的删除API请求。截止时仍存在HBL缺失、TRA延迟、结果未确定或删除失败的订单转为<code>MANUAL_CLEARANCE_REQUIRED</code>，在实际通关中人工申报，不得重新进入自动TRA或自动出库。此规则与外部平台B自行提交TRA的责任分开管理。</p>
+    <h2>1. 销售类型代码 (elcm_pcd) 详细说明 <span style="background:#e6f4ea;color:#137333;padding:2px 6px;border-radius:3px;font-size:13px;font-weight:bold;">[2026-08-28 确定] 自营商城1个A，外部平台10个B</span></h2>
+    <p style="background:#e6f4ea;border-left:4px solid #137333;padding:10px 12px;"><strong>韩国关税厅2026-08-24确认：</strong>由(株)KRONE在客户下单前采购并持有、存放于海外的库存，通过自营商城直接销售，属于<code>A</code>（直接销售）。韩国国内库存销售不属于海外直购。客户下单后再从海外卖家购买的外部平台入驻订单属于<code>B</code>（代购）。<strong>自营商城不存在B类型；但TRA001是否提交及提交主体必须再按逐订单申报路径和平台合同判断。</strong></p>
+    <p style="background:#e8f0fe;border-left:4px solid #1a73e8;padding:10px 12px;"><strong>[2026-08-28 运营批处理]</strong> 仅对<code>declarationMode=ECOMMERCE_DEDICATED</code>且本链路负责TRA001的订单，按已确认的批处理窗口采集HBL、提交TRA并处理错误。<code>LEGACY_IMPORT</code>不提交TRA001或OTP；HBL缺失、路由未确认、TRA延迟或接口错误的订单须阻断并转人工，不得伪造值后继续出库。</p>
     <table>
         <thead>
             <tr>
@@ -47,7 +48,7 @@
                 <td><strong>B</strong></td>
                 <td>代购(购买代行)</td>
                 <td>客户下单后，由代购企业代替消费者向海外卖家购买商品并进口至韩国</td>
-                <td><strong>外部平台28个渠道的入驻海外直购订单</strong><br>由各平台提交TRA001，自营商城不适用</td>
+                <td><strong>外部平台10个渠道的入驻海外直购订单</strong><br>TRA001是否提交及提交方按申报路径与平台合同判断</td>
             </tr>
             <tr>
                 <td><strong>C</strong></td>
@@ -79,14 +80,14 @@
                 <td>提交者(电子商务企业)符号</td>
                 <td><code>elcm_ents_sgn</code></td>
                 <td>识别向韩国关税厅提交TRA001交易信息的主体</td>
-                <td>全部必填</td>
-                <td>自营商城A：<code>K26000099 / (株)KRONE((주)크로네)</code><br>外部平台B：各平台以自身登记代码及商号提交；我司无法直接查询平台提交结果</td>
+                <td>提交TRA001时必填</td>
+                <td>自营商城A：本链路提交专用申报时使用<code>K26000099 / (株)KRONE((주)크로네)</code><br>外部平台B：按平台合同及实际提交主体确定；传统进口申报不填写</td>
             </tr>
             <tr>
                 <td>代购企业符号</td>
                 <td><code>puch_vcex_bsmn_sgn</code></td>
                 <td>识别实施代购的经营者。与外汇交易监控联动</td>
-                <td>仅B类型(代购)时必填</td>
+                <td>B类型且提交TRA001时必填</td>
                 <td>自营商城A：不填<br>Naver B：<code>K26014765 / (株)iBae((주)아이베)</code><br>其他外部平台B：<code>K26000099 / (株)KRONE((주)크로네)</code></td>
             </tr>
             <tr>
@@ -100,14 +101,14 @@
                 <td>Giant销售中介代码·名称</td>
                 <td><code>brokerCode</code> / <code>brokerName</code></td>
                 <td>Giant API中的网络销售中介登记代码及商号；TRA001中没有直接对应字段</td>
-                <td><strong>A·B必填</strong>，C选填</td>
-                <td>自营商城A：<code>K26000099 / (株)KRONE</code><br>Naver B：<code>K26014765 / (株)iBae</code><br>其他外部平台B：<code>K26000099 / (株)KRONE</code><br><small>GGATE v2.0.0不对渠道代码本身进行固定值校验，应从已批准的渠道主数据注入</small></td>
+                <td>按最终选择的GGATE endpoint条件</td>
+                <td>自营商城A：<code>K26000099 / (株)KRONE</code><br>Naver B：<code>K26014765 / (株)iBae</code><br>其他外部平台B：<code>K26000099 / (株)KRONE</code><br><small>从已批准的渠道主数据注入；是否发送按最终选择的endpoint条件判断</small></td>
             </tr>
         </tbody>
     </table>
 
     <div style="background:#fce8e6; border-left:4px solid #c5221f; padding:12px 15px; margin:15px 0;">
-        <strong>[提交主体与关联门禁]</strong> 自营商城A由Geek使用(株)KRONE的OAuth直接提交TRA001，并验证<strong>OAuth令牌企业代码 = <code>elcm_ents_sgn=K26000099</code> = <code>txif_sbmt_no</code>前9位</strong>。外部平台B由各平台使用自身权限提交TRA001，因此Geek不持有平台OAuth或<code>submissionProfileKey</code>。东数确定HBL后，将其作为平台订单运单号上传，并在Giant <code>hwbNo</code>中使用相同值。我司无法直接查询平台TRA001提交结果。B类型代购企业仅Naver使用<code>K26014765/(株)iBae</code>，其他外部平台使用<code>K26000099/(株)KRONE</code>。
+        <strong>[提交主体与关联门禁]</strong> A/B只决定交易角色及渠道主数据，不能决定TRA001提交主体。订单为<code>ECOMMERCE_DEDICATED</code>时，按照已确认的平台合同和提交权限确定TRA001提交主体，并验证<strong>OAuth令牌企业代码 = <code>elcm_ents_sgn</code> = <code>txif_sbmt_no</code>前9位</strong>；平台自行提交时，本链路不得伪造平台OAuth或<code>submissionProfileKey</code>。订单为<code>LEGACY_IMPORT</code>时不提交TRA001或OTP。东数确定的HBL须与Giant <code>hwbNo</code>使用相同值。B类型代购企业仅Naver使用<code>K26014765/(株)iBae</code>，其他外部平台使用<code>K26000099/(株)KRONE</code>。
     </div>
 
     <h2>3. 各渠道符号填写矩阵</h2>
@@ -128,41 +129,41 @@
             <tr>
                 <td>(株)KRONE((주)크로네) 自营商城跨境直购</td>
                 <td><strong>A（直接销售）</strong></td>
-                <td>K26000099</td>
+                <td>专用申报且本链路提交时：K26000099<br>传统进口：不填</td>
                 <td>Null</td>
                 <td>Null</td>
                 <td>K26000099</td>
                 <td>(株)KRONE((주)크로네)<br><span style="color:#137333;">关税厅必填</span></td>
-                <td><strong>K26000099 / (株)KRONE</strong><br>GGATE v2.0.0 A类型必填值</td>
+                <td><strong>K26000099 / (株)KRONE</strong><br>最终选择的GGATE endpoint要求时发送</td>
             </tr>
             <tr>
                 <td>Naver入驻海外直购</td>
                 <td><strong>B（代购）</strong></td>
-                <td>Naver自身登记值<br><strong>由Naver提交TRA001</strong></td>
+                <td>专用申报：按平台合同确定提交主体<br>传统进口：不填</td>
                 <td><strong>K26014765</strong></td>
                 <td><strong>(株)iBae((주)아이베)</strong></td>
                 <td>Null</td>
                 <td>如可取得，填写实际海外卖家名称<br><span style="color:#856404;">关税厅选填</span></td>
-                <td><strong>K26014765 / (株)iBae</strong><br>已批准的Naver B渠道配置</td>
+                <td><strong>K26014765 / (株)iBae</strong><br>已批准的Naver B渠道值；endpoint要求时发送</td>
             </tr>
             <tr>
-                <td>其他外部平台入驻海外直购<br><small>Coupang、Gmarket、Auction、11st、SSG等27个渠道</small></td>
+                <td>其他外部平台入驻海外直购<br><small>Coupang、Gmarket、Auction、11st、SSG等9个渠道</small></td>
                 <td><strong>B（代购）</strong></td>
-                <td>各平台自身登记值<br><strong>由各平台提交TRA001</strong></td>
+                <td>专用申报：按各平台合同确定提交主体<br>传统进口：不填</td>
                 <td>K26000099</td>
                 <td>(株)KRONE((주)크로네)</td>
                 <td>Null</td>
                 <td>如可取得，填写实际海外卖家名称<br><span style="color:#856404;">关税厅选填</span></td>
-                <td><strong>K26000099 / (株)KRONE</strong><br>已批准的其他外部B渠道配置</td>
+                <td><strong>K26000099 / (株)KRONE</strong><br>已批准的其他外部B渠道值；endpoint要求时发送</td>
             </tr>
         </tbody>
     </table>
-<p style="font-size:13px;color:#856404;background:#fff3cd;padding:10px 14px;border-radius:4px;"><strong>[2026-08-24 更正]</strong> 废止原“自营商城与平台全部为B”。当前确认值为<strong>自营商城A、外部平台28个渠道全部为B</strong>。</p>
-<p style="font-size:13px;background:#e6f4ea;border-left:4px solid #137333;padding:10px 14px;"><strong>[2026-08-25 反映GGATE v2.0.0]</strong> <code>도메인모음.xlsx</code>中的1个自营商城及28个外部平台全部纳入运营矩阵：自营商城为<code>A/KRONE</code>，Naver为<code>B/iBae</code>，其他27个外部平台为<code>B/KRONE</code>。东数通过<code>POST /api/hwb/bulk-sync/logistics</code>发送渠道主数据中已批准的<code>ecTypeCode</code>、<code>broker*</code>、条件性<code>buyingAgent*</code>及<code>sellerCode</code>。</p>
+<p style="font-size:13px;color:#856404;background:#fff3cd;padding:10px 14px;border-radius:4px;"><strong>[2026-08-24 更正]</strong> 废止原“自营商城与平台全部为B”。当前确认值为<strong>自营商城1个A、外部平台10个B</strong>。</p>
+<p style="font-size:13px;background:#e6f4ea;border-left:4px solid #137333;padding:10px 14px;"><strong>[2026-08-28 最终更正]</strong> 渠道主数据仅保存11个渠道的A/B及企业代码。订单个人信息、PCCC、OTP及完成时间不属于渠道主数据；是否发送按申报路径和已确认的GGATE接口判断。</p>
 
     <h2>4. 商品销售页面URL (prod_sale_pge_url / productPageUrl / orderSiteUrl)</h2>
     <p>说明：韩国关税厅TRA001的<code>prod_sale_pge_url</code>与Giant <code>items[].productPageUrl</code>使用实际订单商品详情页URL。Giant <code>orderSiteUrl</code>使用发生订单的自营商城或平台代表URL。不得把三个字段统一为一个代表域名。</p>
-    <p>来源：自营商城由Geek商品DB提供；外部28个平台由各平台订单/商品原始数据或东数渠道DB提供。无法取得实际商品详情URL的订单须在TRA001及Giant发送前补齐。</p>
+    <p>来源：自营商城由Geek商品DB提供；外部10个平台由各平台订单/商品原始数据或东数渠道DB提供。无法取得实际商品详情URL的订单须在适用申报及Giant发送前补齐。</p>
     <table>
         <thead>
             <tr>
@@ -178,23 +179,23 @@
                 <td>自营商城A订单</td>
             </tr>
             <tr>
-                <td>外部平台28个渠道</td>
+                <td>外部平台10个渠道</td>
                 <td><code>prod_sale_pge_url/productPageUrl</code>：平台实际商品详情URL<br><code>orderSiteUrl</code>：各平台订单网站URL</td>
                 <td>平台B订单。平台上传运单号中的HBL须与Giant <code>hwbNo</code>保持一致</td>
             </tr>
         </tbody>
     </table>
-    <p>URL及企业代码映射以<code>도메인모음.xlsx</code>的29个渠道为基础管理。外部平台28个渠道均为B，使用各渠道的实际商品详情URL及订单网站URL。</p>
+    <p>URL及企业代码映射以<code>도메인모음_20260828.xlsx</code>的11个渠道为基础管理。外部平台10个渠道均为B，使用各渠道的实际商品详情URL及订单网站URL。</p>
 
     <h2>5. 销售企业名称填写规则 (sale_ents_nm / sellerName) <span style="background:#e6f4ea;color:#137333;padding:2px 6px;border-radius:3px;font-size:13px;font-weight:bold;">[2026-08-24 更正]</span></h2>
-    <p><strong>背景：</strong>自营商城销售预先采购并存放于海外的库存，属于A；外部平台28个渠道在客户下单后购买，属于B。B类型代购企业仅Naver为(株)iBae，其他27个平台为(株)KRONE。A的销售企业为(株)KRONE，B的销售企业名称为实际海外卖家。</p>
-    <p><strong>规格差异：</strong>韩国关税厅A类型的<code>sale_ents_nm</code>必填，卖家已登记时提交<code>sale_ents_sgn</code>。B类型的<code>sale_ents_sgn</code>不填，<code>sale_ents_nm</code>选填。Giant <code>items[].sellerName</code>在A·B均为必填。</p>
+    <p><strong>背景：</strong>自营商城1个销售预先采购并存放于海外的库存，属于A；外部平台10个渠道在客户下单后购买，属于B。B类型代购企业仅Naver 1个为(株)iBae，其他9个平台为(株)KRONE。</p>
+    <p><strong>规格差异：</strong>提交TRA001时，韩国关税厅A类型的<code>sale_ents_nm</code>必填，卖家已登记时提交<code>sale_ents_sgn</code>；B类型的<code>sale_ents_sgn</code>不填，<code>sale_ents_nm</code>选填。Giant <code>items[].sellerName</code>是否必填按最终选择的endpoint规格判断，不能仅凭A/B推定。</p>
     <table>
         <thead>
             <tr><th>区分</th><th>关税厅 <code>sale_ents_nm</code></th><th>捷安特 <code>items[].sellerName</code></th></tr>
         </thead>
         <tbody>
-            <tr><td>是否必填</td><td>A直接销售时必填，B·C选填<br><strong>自营商城A / 外部平台28个渠道B</strong></td><td><strong>A·B·C 一律必填 (Y)</strong></td></tr>
+            <tr><td>是否必填</td><td>A直接销售时必填，B·C选填<br><strong>自营商城1个A / 外部平台10个B</strong></td><td>按所选GGATE接口条件</td></tr>
             <tr><td>取值定义</td><td>A：商品销售页面显示的销售企业名称<br>B：代购业者实际购买的销售企业名称<br>C：客户输入的销售企业名称</td><td>销售渠道商号（指南示例值 <code>TAOBAO SHOP</code>）</td></tr>
             <tr><td>规格</td><td>String(250)</td><td>String(300)</td></tr>
         </tbody>
@@ -203,26 +204,26 @@
     <table>
         <thead><tr><th>渠道</th><th>elcm_pcd</th><th>sale_ents_nm / sellerName 取值</th><th>提供主体</th><th>备注</th></tr></thead>
         <tbody>
-            <tr><td>KRONE自营商城跨境直购</td><td><strong>A（直接销售）</strong></td><td><strong>(株)KRONE((주)크로네)</strong>，必填</td><td>已批准的自营商城卖家配置</td><td>Giant <code>sellerName=(株)KRONE</code>、<code>sellerCode=K26000099</code>、<code>broker*=K26000099/(株)KRONE</code></td></tr>
-            <tr><td>外部平台入驻海外直购28个渠道<br><small>Naver=iBae，其他27个=KRONE</small></td><td><strong>B（代购）</strong></td><td>如可取得，填写实际购买的<strong>海外卖家名称</strong></td><td><strong>DONGSHU EIBE ERP</strong>（渠道DB）</td><td>韩国关税厅选填；Giant <code>sellerName</code>必填。Naver <code>broker*=K26014765/(株)iBae</code>，其他27个<code>broker*=K26000099/(株)KRONE</code></td></tr>
+            <tr><td>KRONE自营商城跨境直购</td><td><strong>A（直接销售）</strong></td><td>提交TRA001时：<strong>(株)KRONE((주)크로네)</strong></td><td>已批准的自营商城卖家配置</td><td>所选endpoint要求时使用<code>sellerName=(株)KRONE</code>、<code>sellerCode=K26000099</code>、<code>broker*=K26000099/(株)KRONE</code></td></tr>
+            <tr><td>外部平台入驻海外直购10个渠道<br><small>Naver 1个=iBae，其他9个=KRONE</small></td><td><strong>B（代购）</strong></td><td>如可取得，填写实际购买的<strong>海外卖家名称</strong></td><td><strong>DONGSHU EIBE ERP</strong>（渠道DB）</td><td>韩国关税厅选填；Giant字段按所选接口条件</td></tr>
         </tbody>
     </table>
     <h3>5.2 运营原则</h3>
     <ul>
-        <li>自营商城A使用<code>sale_ents_nm=(株)KRONE</code>、<code>sale_ents_sgn=K26000099</code>，由Geek提交TRA001。</li>
-        <li>外部平台B不填写<code>sale_ents_sgn</code>；仅在可确认实际海外卖家时选择提交<code>sale_ents_nm</code>。TRA001由各平台提交。</li>
-        <li>GGATE <code>items[].sellerName</code>在A·B·C均为必填。自营商城A填写<code>(株)KRONE</code>，外部平台B填写实际海外卖家名称。</li>
+        <li>自营商城A在<code>ECOMMERCE_DEDICATED</code>且本链路提交TRA001时使用<code>sale_ents_nm=(株)KRONE</code>、<code>sale_ents_sgn=K26000099</code>；<code>LEGACY_IMPORT</code>不提交TRA001。</li>
+        <li>外部平台B不填写<code>sale_ents_sgn</code>；仅在专用申报、实际提交TRA001且可确认海外卖家时选择填写<code>sale_ents_nm</code>。提交主体按平台合同确定，传统进口申报不提交TRA001。</li>
+        <li>GGATE <code>items[].sellerName</code>的发送及必填条件按最终选择的endpoint规格判断；需要时，自营商城A填写<code>(株)KRONE</code>，外部平台B填写实际海外卖家名称。</li>
         <li><code>sale_ents_sgn</code>、<code>sellerCode</code>、<code>brokerCode</code>是含义不同的独立字段。仅当已批准的渠道主数据明确把同一K代码映射到各角色时才可使用相同值，禁止字段间自动复制。</li>
-        <li>GGATE类型条件：A必须发送<code>broker*</code>与<code>sellerCode</code>，禁止发送<code>buyingAgent*</code>；B必须发送<code>broker*</code>与<code>buyingAgent*</code>，<code>sellerCode</code>选填；C均为选填。违反类型条件返回<code>H005</code>，普通字段校验失败返回<code>C001</code>。</li>
-        <li>外部平台B的HBL由东数确定后作为平台运单号上传，并以相同值发送至Giant <code>hwbNo</code>。我司无法直接查询平台TRA001提交结果。</li>
+        <li>GGATE企业字段按最终选择的endpoint条件发送：A不发送<code>buyingAgent*</code>；B在endpoint要求时从渠道主数据发送<code>buyingAgent*</code>。<code>broker*</code>、<code>sellerCode</code>及<code>sellerName</code>也以该endpoint规格为准，禁止仅按A/B固定整套字段。</li>
+        <li>外部平台B的HBL由东数确定后作为平台运单号上传，并以相同值发送至Giant <code>hwbNo</code>。只有平台负责TRA001的订单，我司才无法直接查询平台提交结果。</li>
         <li>自营商城A的自动处理窗口为11:10~11:50。11:50前没有明确正常依据的订单不得推定为批准，须转入人工通关清单。</li>
         <li><strong>[2026-08-26 删除范围已确定]</strong> 东数删除API<strong>只发送平台母订单号（原订单号）</strong>。子订单号（<code>…-1</code>）会返回 <code>state:300 订单状态不可删除</code> 而失败（08-26 实测），因此不得发送。以母订单号调用时，<code>原订单·-1·-2·-N</code> 母子订单<strong>全部被删除</strong>；由于ERP最小查询单位为订单，<strong>含国内(KR)商品的混合订单其国内部分也会一并删除并重新采集</strong>，无法实现部分删除或部分重建。我司决定<strong>以政策方式接受国内商品的同步延迟</strong>，不将国内部分拆分先行出库。但 <strong style="color:#c5221f;">[仓库处理中]</strong> 状态的订单需调用仓库API，删除可否取决于WMS返回结果；删除失败时不自动重试，转入人工通关·运营暂缓清单。<br><span style="color:#5f6368;">原“范围未确认时禁止自动删除”指示因删除范围已确定而<strong>废止</strong>，仅作为变更履历保留。</span></li>
     </ul>
     <h3>5.3 待确认事项</h3>
     <ul>
-        <li>需向Naver确认其是否签发、验证个人通关固有符号(<code>pccCode</code>)与一次性认证号码(<code>tempAuthNo</code>)，是否向卖家提供，以及通过何种路径传给Giant。</li>
-        <li>由于我司无法查询平台TRA001结果，须与外部28个平台逐一明确运单号上传失败、TRA提交失败或遗漏时的通知及重处理责任。</li>
-        <li>须以自营商城A及外部平台B的代表订单，在GGATE测试环境验证渠道主数据值是否被接受并保存结果。GGATE v2.0.0中B类型<code>sellerCode</code>为选填。</li>
+        <li>需按Naver订单的实际申报路径确认：专用申报时由谁签发、验证并提供<code>pccCode</code>与<code>tempAuthNo</code>，以及通过何种路径传给Giant；传统进口申报不得要求或伪造OTP。</li>
+        <li>须与外部10个平台逐一明确运单号上传、适用申报路径、TRA提交失败或遗漏时的通知及重处理责任。</li>
+        <li>须分别以A/B × <code>LEGACY_IMPORT/ECOMMERCE_DEDICATED</code>代表订单，在GGATE测试环境验证endpoint、条件必填、渠道主数据值及错误响应并保存结果。</li>
         <li>B 类型海外销售企业名称的标示语言（原文／英文／韩文）及特殊字符处理基准需与东数协商。商品名称已出现过 <code>*</code> 等特殊字符问题。</li>
     </ul>
 
@@ -230,12 +231,12 @@
     <table>
         <thead><tr><th>日期</th><th>变更内容</th></tr></thead>
         <tbody>
-            <tr><td><strong>2026-08-26</strong></td><td><strong>反映11:10~11:50自动处理窗口及人工通关例外路径。</strong> Geek于11:10开始采集东数HBL·TRA数据，并在11:50前完成TRA提交、错误确认及必要的删除请求。HBL缺失、TRA延迟、结果未确定或删除失败的订单转为<code>MANUAL_CLEARANCE_REQUIRED</code>，禁止自动重提及自动出库。<strong>同日确定了删除范围</strong>——删除API只发送平台母订单号，子订单号会以 <code>state:300</code> 失败；以母订单号调用时母子订单全部删除，含国内商品的混合订单其国内部分亦一并删除并重新采集。因ERP最小查询单位为订单、无法部分删除，<strong>以政策方式接受国内商品同步延迟</strong>，并<strong>废止</strong>原“混合订单禁止自动删除”条件。另据TRA003实际错误确认A类型的 <code>sale_ents_nm=(株)KRONE</code>·<code>sale_ents_sgn=K26000099</code> 为必填（运营后同样适用，测试用 <code>K26000127</code>·<code>K26000128</code> 不再使用）。</td></tr>
-            <tr><td><strong>2026-08-25</strong></td><td><strong>反映GGATE API V2 v2.0.0。</strong>确认Geek通关部分保存<code>POST /api/hwb/bulk-sync/clearance</code>及东数物流·商品部分保存<code>POST /api/hwb/bulk-sync/logistics</code>。整理东数发送规则：A必须发送<code>broker*</code>与<code>sellerCode</code>且禁止发送<code>buyingAgent*</code>；B必须发送<code>broker*</code>与<code>buyingAgent*</code>，<code>sellerCode</code>选填。渠道主数据中的broker值为自营商城及其他27个平台<code>K26000099/(株)KRONE</code>，Naver为<code>K26014765/(株)iBae</code>。字段语义仍分开管理，仅在已批准的渠道主数据明确映射时使用相同K代码。</td></tr>
-            <tr><td><strong>2026-08-24</strong></td><td><strong>反映韩国关税厅追加确认及全部渠道运营事实。</strong>废止原“自营商城与平台全部为B”，更正为<strong>自营商城仅运营A，外部平台28个渠道全部运营B</strong>。B类型代购企业仅Naver为<code>K26014765/(株)iBae</code>，其他27个平台为<code>K26000099/(株)KRONE</code>。自营商城A由(株)KRONE直接提交TRA001；平台B由各平台提交。HBL通过平台运单号上传，并在Giant <code>hwbNo</code>使用相同值。</td></tr>
+            <tr><td><strong>2026-08-26</strong></td><td><strong>历史运行记录，2026-08-28补充适用条件。</strong> 11:10~11:50窗口只适用于<code>ECOMMERCE_DEDICATED</code>且本链路负责TRA001的订单；传统进口申报不进入TRA批次。HBL缺失、TRA延迟、结果未确定或删除失败时转<code>MANUAL_CLEARANCE_REQUIRED</code>并禁止自动出库。删除API只发送平台母订单号，子订单号会以<code>state:300</code>失败；删除失败不自动重试。TRA001中A类型使用<code>sale_ents_nm=(株)KRONE</code>、<code>sale_ents_sgn=K26000099</code>，测试代码不再使用。</td></tr>
+            <tr><td><strong>2026-08-25</strong></td><td><strong>GGATE API V2 v2.0.0中间记录。</strong>当时按A/B固定接口记录；2026-08-28改为同时判断申报路径。</td></tr>
+            <tr><td><strong>2026-08-24</strong></td><td><strong>渠道角色确认。</strong>自营商城1个A，外部平台10个B；Naver 1个使用<code>K26014765/(株)iBae</code>，其他9个使用<code>K26000099/(株)KRONE</code>。</td></tr>
             <tr><td>2026-08-19</td><td><strong>[历史记录·已被2026-08-24更正废止]</strong>当时将自营商城及平台入驻海外直购全部整理为B，并把自营商城B的提交方与代购企业记为<code>K26000099/(株)KRONE</code>。之后根据海外库存为预先采购并由KRONE持有的事实及韩国关税厅追加答复，更正为自营商城仅运营A。韩国关税厅企业代码与Giant <code>broker*</code>分开管理的原则继续有效。</td></tr>
             <tr><td>2026-08-10</td><td><strong>更正第1节 A/B 定义颠倒。</strong>旧版记载为 A=代购、B=直接销售，与同一文件第3节矩阵及关税厅 v1.4.1 规格矛盾。已按关税厅标准更正为 <strong>A=直接销售、B=代购、C=配送代行</strong>。</td></tr>
-            <tr><td>2026-08-10</td><td><strong>新增第5节 销售企业名称填写规则。</strong>反映关税厅仅 A 类型必填而捷安特全量必填的规格差异；因东数是同时应对 A·B 的主体，B 类型取值由东数渠道DB提供。废止旧版"全部填 Null"方针。</td></tr>
+            <tr><td>2026-08-10</td><td><strong>历史记录，已由2026-08-28更正。</strong>当时按单一Giant规格记录为全量必填；当前改为以最终选择的endpoint条件判断。渠道主数据仍不得把销售企业名称全量固定为Null。</td></tr>
         </tbody>
     </table>
 

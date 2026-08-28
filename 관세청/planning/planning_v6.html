@@ -108,22 +108,24 @@
     </nav>
 
     <h1>KCS 사전 거래정보 신고(TRA) E2E 통합 기획서 (planning_v6 Full Spec)</h1>
-<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-08-26</span> · 문서 버전 <span style="color:#8ab4f8;">v6</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 (D-2) · 관세청 테스트서버 종료 2026-08-21</span></div>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-08-28</span> · 문서 버전 <span style="color:#8ab4f8;">v6</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 · 관세청 테스트서버 종료 2026-08-21</span></div>
 
     <div style="background:#e6f4ea;border-left:5px solid #137333;padding:14px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#174d2a;line-height:1.8;">
-        <strong>[2026-08-25 현재 정본 · 관세청 추가 확인 및 GGATE API V2 v2.0.0 반영]</strong><br>
-        ① 채널 유형은 <strong>자사몰 1개=<code>A/KRONE</code>, 외부 플랫폼 28개=<code>B</code></strong>로 확정합니다. B형 구매대행업체는 네이버스토어만 <code>K26014765/(주)아이베</code>, 기타 외부 27개 채널은 <code>K26000099/(주)크로네</code>입니다. 외부 플랫폼 TRA001은 각 플랫폼이 제출합니다.<br>
-        ② Geek은 <code>POST /api/hwb/bulk-sync/clearance</code>로 주문자·수하인·<code>pccCode</code>·<code>tempAuthNo</code>·결제완료일시를 전송하고, 동수는 <code>POST /api/hwb/bulk-sync/logistics</code>로 HBL 물류·포장·송하인·금액·유형·중개자·구매대행업체·상품을 전송합니다. 공통키는 <code>hwbNo + orderNo</code>이며 MAWB는 별도 <code>POST /api/hwb/bulk-sync/master</code>로 전송합니다.<br>
-        ③ 먼저 도착한 스냅샷은 대기 저장되고 두 스냅샷이 모이면 병합됩니다. 병합 전 동일 소스 재전송은 멱등 upsert, 병합 완료 후 재전송은 <code>H019</code>입니다. 요청 내 동일키 중복·유형 조건 위반은 <code>H005</code>, 일반 필드 검증 실패는 <code>C001</code>입니다.<br>
-        ④ GGATE 유형 조건은 A: <code>broker*</code>·<code>items[].sellerCode</code> 필수, <code>buyingAgent*</code> 전송 금지 / B: <code>broker*</code>·<code>buyingAgent*</code> 필수, <code>sellerCode</code> 선택 / C: 모두 선택입니다. <code>items[].sellerName</code>은 모든 유형에서 필수입니다.<br>
-        ⑤ 종전 “전 채널 A 후보”, “자사몰·플랫폼 모두 B”, “물리 API 미확정”, “broker 전 채널 미확인” 문구는 현재 기준으로 사용하지 않고 개정 이력으로만 보존합니다.<br>
-        ⑥ <strong>[2026-08-26 마케팅·MD 회의 확정]</strong> Geek은 매일 <strong>11:10 KST</strong> 동수 <code>getTRA001OrderInfo</code>에서 HBL·TRA 데이터를 수집하기 시작하고, <strong>11:50 KST 이전</strong>에 TRA 제출·오류 확인 및 필요한 동수 삭제 API 요청을 완료합니다. 11:50까지 HBL 미수신, TRA 제출 지연·결과 미확정, 삭제 실패가 남은 건은 <code>MANUAL_CLEARANCE_REQUIRED</code>로 격리하여 실제 통관에서 수기 제출하고 자동 TRA 재제출·자동 출고 대상으로 다시 편입하지 않습니다.
+        <strong>[2026-08-28 현재 정본 · A/B와 신고서식 2축 분리]</strong><br>
+        ① 채널 마스터는 <strong>총 11개: 자사몰 1개=<code>A/KRONE</code>, 외부 플랫폼 10개=<code>B</code></strong>입니다. B형 구매대행업체는 네이버 1개 <code>K26014765/(주)아이베</code>, 기타 외부 9개 <code>K26000099/(주)크로네</code>입니다.<br>
+        ② <code>ecTypeCode=A/B</code>는 거래 역할이고, <code>LEGACY_IMPORT/ECOMMERCE_DEDICATED</code>는 주문별 수입신고 경로입니다. A/B만으로 자이언트 API·TRA001·OTP 전송 여부를 결정하지 않습니다.<br>
+        ③ 관세청 담당자 회신상 기존 수입신고는 TRA001 거래정보 제출과 일회용 인증번호가 불필요합니다. 전자상거래 전용 수입신고에서만 필요한 거래정보·OTP를 제출합니다.<br>
+        ④ 수하인·주소·전화·PCCC·화물·상품 기본정보까지 면제되는 것은 아닙니다. 기존 수입신고의 자이언트 endpoint·필수 HWB 범위는 별도 확정합니다.<br>
+        ⑤ 공개 V2-1은 <code>pccCode</code>·<code>tempAuthNo</code>·<code>orderCompletionDate</code>를 필수로 검증하므로 기존 수입신고 A/B 경로는 자이언트 P0입니다. 확정 전 임의 OTP·<code>Z99999</code>·가짜 일시를 만들지 않습니다.<br>
+        ⑥ <code>buyingAgent*</code>는 네이버 B와 기타 외부 9개 B의 승인값을 채널 마스터에서 각각 주입하며 다른 필드에서 변환하지 않습니다.<br>
+        ⑦ 상세 동수 구현 기준은 <a href="./동수_최종전달기준_20260828.html">동수 최종 전달 기준</a>, 채널 값은 <code>도메인모음_20260828.xlsx</code>를 정본으로 사용합니다.<br>
+        ⑧ <strong>[2026-08-26 마케팅·MD 회의 확정]</strong> Geek의 자사몰 TRA 처리창은 11:10~11:50 KST입니다. 이 배치는 외부 B 또는 기존 수입신고 전건에 자동 적용하지 않습니다.
     </div>
 
     <div style="background:#e8f0fe; padding:18px 22px; border-left:5px solid #1a73e8; margin-bottom:20px; border-radius:4px; font-size:13.5px; line-height:1.7;">
-        <strong>[메인 E2E 및 동수 시스템 이원화 정의]</strong> 본 기획서는 <strong>Geek Studio - 동수(EIBE ERP / DS Logistics) - 자이언트 특송사 - 관세청 REST API 간의 자사몰 A 및 외부 플랫폼 B 실무 데이터·로직</strong>을 기준으로 집행합니다.<br>
+        <strong>[메인 E2E 및 동수 시스템 이원화 정의]</strong> 본 기획서는 <strong>Geek Studio - 동수(EIBE ERP / DS Logistics) - 자이언트 특송사 - 관세청 간의 A/B 및 신고서식별 실무 데이터·로직</strong>을 기준으로 집행합니다.<br>
         - <strong>EIBE ERP:</strong> 매일 11:10 KST Geek 조회 시 발송 전 사전 예정 데이터(14개 속성)를 반환 (관세청 TRA001 신고용)<br>
-        - <strong>DS Logistics:</strong> 매일 17:00 KST 실물 출고 후 HBL 물류·상품은 <code>POST /api/hwb/bulk-sync/logistics</code>, MAWB 마스터는 별도 <code>POST /api/hwb/bulk-sync/master</code>로 자이언트에 직송
+        - <strong>DS Logistics:</strong> 매일 17:00 KST 실물 출고 후 채널 마스터와 주문별 <code>declarationMode</code>를 함께 판정합니다. 기존 수입신고 route는 자이언트 확정 전 자동 전송하지 않고, 전자상거래 전용은 필수값을 확보한 건만 확정 endpoint로 전송합니다.
     </div>
 
     <div style="background:#fff3cd; padding:15px 20px; border-left:5px solid #856404; margin-bottom:25px; border-radius:4px; font-size:13px; color:#6b5200;">
@@ -205,7 +207,11 @@ sequenceDiagram
     alt 관세청 정상 승인 (성공건)
         KCS-->>Mall: 오류 미발생 정상 승인 (g5 항공발송 변경 및 송장 업데이트)
         Mall->>Mall: PCCC는 addField 유지 · OTP는 Geek DB에만 보관
-        Mall->>Giant: Geek 전용 API로 PCCC·OTP·주문자·수하인 정보 전송
+        alt 자사몰 A
+            Mall->>Giant: V2-2 /api/hwb/bulk-sync/clearance로 PCCC·OTP·주문자·수하인 정보 전송
+        else 외부 플랫폼 B
+            Mall->>Mall: Geek 추가 전송 없음 · 동수 V2-1 전체등록 대상 표시
+        end
     else 관세청 오류 발생 (실패건)
         KCS-->>Mall: 오류 수신 (수기 통관 대상 격리 & 실패 전용 리스트 적재)
         Mall->>ERP: 11:50 전 EIBE ERP 주문 삭제 API 요청 (삭제 범위 확인 후 출고 차단)
@@ -215,11 +221,15 @@ sequenceDiagram
         Mall->>Mall: 수기 신고번호·승인자 기록 후에만 수동 출고 해제
     end
 
-    Note over WMS, Giant: Stage 6: 13:00 현장 포장 출고 & 17:00~18:00 HBL logistics + 별도 MAWB master 전송
+    Note over WMS, Giant: Stage 6: 13:00 현장 포장 출고 & 17:00~18:00 유형별 HWB + 별도 MAWB master 전송
     WMS->>WMS: 13:00 KST 삭제건 제외 정상 승인건 실물 포장 출고
-    WMS->>Giant: POST /api/hwb/bulk-sync/logistics — weight·포장·송하인·업체부호·상품 (PCCC·OTP 제외)
+    alt 자사몰 A
+        WMS->>Giant: V2-2 POST /api/hwb/bulk-sync/logistics — 물류·상품 (PCCC·OTP 제외)
+    else 외부 플랫폼 B
+        WMS->>Giant: V2-1 POST /api/hwb/bulk-sync — 통관·개인정보·물류·상품 전체
+    end
     WMS->>Giant: POST /api/hwb/bulk-sync/master — MAWB 마스터 별도 전송
-    Giant->>KCS: Geek PER 정보 + 동수 물류정보 병합 후 세관 수입신고(DKW/DKX) 제출
+    Giant->>KCS: 신고서식과 확정 route에 따라 기존 수입신고 또는 DKW/DKX 제출
 
     Note over Giant, Customer: Stage 7: 통관 이상 CS · 국내 배송 · 반품 및 세관 정정
     Giant->>Courier: 인천공항 수입 통관 완료 후 롯데택배로 화물 인계
@@ -275,16 +285,16 @@ sequenceDiagram
 
     <h2 id="giant-split-api">
         <span>[자이언트 요구 동작] Geek·동수 분리 쓰기 필드 소유권 계약</span>
-        <span class="time-tag" style="background:#137333;">2026-08-25 GGATE v2.0.0 확정</span>
+        <span class="time-tag" style="background:#137333;">2026-08-28 B유형 조건부 정정</span>
     </h2>
     <div class="stage-box" style="border-left-color:#137333;">
-        <p style="background:#e6f4ea;border-left:3px solid #137333;padding:10px 12px;"><strong>GGATE v2.0.0 확정 계약</strong> — Geek은 통관·수하인 정보를 <code>POST /api/hwb/bulk-sync/clearance</code>로, 동수는 물류·상품 정보를 <code>POST /api/hwb/bulk-sync/logistics</code>로 각각 쓰고 자이언트가 <code>hwbNo + orderNo</code>로 병합한다. 선도착은 <code>pending</code>, 양쪽 도착은 <code>merged</code>, 병합 전 동일 소스 재전송은 멱등 upsert, 병합 완료 후 재전송은 <code>H019</code>다. 아래 표는 실제 구현·E2E 검증 기준이다.</p>
+        <p style="background:#e6f4ea;border-left:3px solid #137333;padding:10px 12px;"><strong>[2026-08-28 최종 정정]</strong> — A/B와 신고서식을 별도로 판정합니다. 기존 수입신고는 TRA001·OTP가 불필요하고, 전자상거래 전용만 필요한 값을 확정 endpoint로 전송합니다.</p>
         <table>
             <thead><tr><th style="width:15%">API 구분</th><th style="width:12%">호출사</th><th style="width:15%">공통 필수키</th><th>해당 API 단일 소유 필드</th><th style="width:22%">필수값 검증 범위</th></tr></thead>
             <tbody>
-                <tr><td><strong>Geek 통관·수하인 쓰기</strong><br><span class="rule-highlight"><code>POST /api/hwb/bulk-sync/clearance</code></span></td><td class="src-geek">Geek</td><td rowspan="2"><code>hwbNo</code><br><code>orderNo</code><br><span style="font-size:11.5px;color:#5f6368;">양사 중복 허용은 이 2개뿐</span></td><td><code>ordererName/Tel/Id</code> · <code>consigneeName/NameEng/Addr/AddrDet/AddressEng/Zip/Tel</code> · <code>pccCode</code> · <code>tempAuthNo</code> · <code>orderCompletionDate</code></td><td>공통키와 Geek 소유 필드만 검증하며 물류·상품 미도착은 <code>pending</code>으로 저장</td></tr>
-                <tr><td><strong>동수 물류·상품 쓰기</strong><br><span class="rule-highlight"><code>POST /api/hwb/bulk-sync/logistics</code></span></td><td class="src-dongsu">동수 DS Logistics</td><td><code>transportType</code> · <code>dispatchCountry</code> · <code>weight</code> · <code>packageCount</code> · <code>innerPackageCount</code> · <code>domesticCarrierName</code> · <code>shipperName</code> · <code>shipperAddr</code> · <code>shipperTel</code> · <code>totalValueUsd</code> · <code>ecTypeCode</code> · <code>broker*</code> · 조건부 <code>buyingAgent*</code> · <code>orderSiteUrl</code> · <code>items[]</code></td><td>Geek 필드는 무시하고 동수 소유 필드만 검증. PCCC·OTP·수하인은 전송하지 않음</td></tr>
-                <tr><td><strong>자이언트 병합</strong></td><td class="src-gen">자이언트 내부</td><td><code>hwbNo + orderNo</code></td><td>두 소스 저장 스냅샷 병합</td><td>선도착 <code>pending</code>, 병합 완료 <code>merged</code>; 병합 전 재전송은 멱등 upsert, 완료 후 재전송은 <code>H019</code></td></tr>
+                <tr><td><strong>자사몰 A · Geek 통관 쓰기</strong><br><span class="rule-highlight"><code>POST /api/hwb/bulk-sync/clearance</code></span></td><td class="src-geek">Geek</td><td rowspan="2"><code>hwbNo</code><br><code>orderNo</code></td><td><code>ordererName/Tel/Id</code> · <code>consigneeName/NameEng/Addr/AddrDet/AddressEng/Zip/Tel</code> · <code>pccCode</code> · <code>tempAuthNo</code> · <code>orderCompletionDate</code></td><td>A형 통관·수하인 필드. 동수 <code>logistics</code>에는 같은 개인정보 9개 필드를 보내지 않음</td></tr>
+                <tr><td><strong>동수 주문별 쓰기</strong></td><td class="src-dongsu">동수 DS Logistics</td><td>채널 프로필 + <code>declarationMode</code> + 확정 endpoint 필수값</td><td>기존 수입신고 route 미확정 건은 자동 전송하지 않음</td></tr>
+                <tr><td><strong>자이언트 최종 처리</strong></td><td class="src-gen">자이언트 내부</td><td><code>hwbNo + orderNo</code></td><td>기존 수입신고 또는 전자상거래 전용을 신고서식에 맞게 처리</td><td>동일 키 중복 전송 금지</td></tr>
             </tbody>
         </table>
         <h3>확정 판매자·구매대행업체 프로필 — 채널 기반 제공</h3>
@@ -296,7 +306,7 @@ sequenceDiagram
                 <tr><td>기타 외부 27채널</td><td><strong>B</strong></td><td><code>K26000099 / (주)크로네</code></td><td><code>K26000099 / (주)크로네</code> 필수</td><td>실제 해외 판매업체명</td><td>선택</td></tr>
             </tbody>
         </table>
-        <p><strong>GGATE v2.0.0 처리 계약</strong> — ① 어느 쓰기가 먼저 와도 <code>pending</code> 저장 ② 각 endpoint는 타사 소유 필드를 무시하여 덮어쓰지 않음 ③ 동일 <code>hwbNo + orderNo</code> 재전송은 병합 전 해당 소스의 멱등 upsert ④ 병합 완료 후 재전송은 <code>H019</code> ⑤ 요청 내 동일키 중복 및 유형 조건 위반은 <code>H005</code>. 전체 행별 타입·길이·필수 여부는 <a href="./api_field_mapping.html"><strong>api_field_mapping.html</strong></a>을 기준으로 한다.</p>
+        <p><strong>처리 계약</strong> — V2-1·V2-2의 공개 필드표는 endpoint별 참고 계약입니다. A/B 공통 라우팅 규칙이 아니며, 기존 수입신고 route는 자이언트 서면 확정이 필요합니다. 상세는 <a href="./api_field_mapping.html"><strong>api_field_mapping.html</strong></a>과 <a href="./동수_최종전달기준_20260828.html">동수 최종 전달 기준</a>을 사용합니다.</p>
         <p style="font-size:12px;color:#5f6368;"><strong>제외</strong> — 자이언트 <code>productId</code>는 회신 기준 비필수이며 연동사 별도 관리가 필요 없어 두 등록 API에서 제외한다. 금액 소수점 공식과 신고 후 정정 절차는 API 개발 후 별도 검증한다.</p>
     </div>
     <h2 id="order-batch-contract">
@@ -328,8 +338,8 @@ flowchart TD
                 <tr><td><strong>3-C</strong><br>TRA 제출</td><td>Geek → 관세청</td><td><code>POST /v1/transactions/submission</code></td><td>공식 요청 범위는 <strong>1~300개 <code>order_info</code></strong>, Body 3MB 이하. 운영 청크는 100부터 설정화.<br><code>hbl_no</code>=해당 포장 HBL. <span class="rule-highlight">[2026-08-26 확정]</span> <code>ord_no</code>는 <strong>플랫폼 원주문번호</strong>를 쓴다</td><td><strong>1 HBL = 1 포장별 order_info</strong>. <strong>주문번호는 전 구간 원주문번호 단일 기준</strong>이며 동수 <code>-1/-2</code> 분할번호는 ERP 내부 포장 식별자로만 보존하고 외부로 전송하지 않는다. HBL 구분은 <code>hbl_no</code>가 담당한다. 성공 적재 후에만 HBL 대기 큐에서 제거</td></tr>
                 <tr><td><strong>4</strong><br>오류 조회</td><td>Geek → 관세청</td><td><code>GET /v1/transactions/errors/unread</code></td><td>주문번호 배열을 보내지 않음.<br>Geek DB의 <code>txif_sbmt_no ↔ 분할 주문번호 ↔ hbl_no</code> 매핑으로 역추적</td><td>미조회 오류를 수신하여 TRA 제출 작업과 연결. 정상/오류 판정은 제출번호 매핑 테이블 기준</td></tr>
                 <tr><td><strong>5</strong><br>오류·마감 이탈 회수</td><td>Geek → 동수 ERP</td><td><code>POST /api/openAPI/erp/orderInfo/orderDelete</code></td><td><code>{"customerOrderNo":"승인된 삭제 대상 번호"}</code><br><strong>11:50 이전 1건씩 요청</strong></td><td><strong>[2026-08-26 확정]</strong> 전송값은 <strong>플랫폼 원주문번호(모 주문번호)</strong>다. 서브 주문번호(<code>…-1</code>)는 <code>state:300 订单状态不可删除</code>로 실패하므로 전송하지 않는다. 원주문번호 호출 시 <code>원주문·-1·-2·-N</code>이 전부 삭제되고 <strong>내수(KR) 상품이 섞여 있으면 내수분도 함께 삭제·재수집</strong>된다 — 이는 ERP 구조상 불가피하며 <strong>내수 동반 지연을 정책으로 수용</strong>한다. 삭제 실패(<code>state:300</code>, <span class="no">[창고 처리 중]</span>)와 오류·누락·지연·결과 미확정 건은 <code>MANUAL_CLEARANCE_REQUIRED</code>로 격리하고 수기 통관으로 이관한다</td></tr>
-                <tr><td><strong>5-2</strong><br>Geek 등록</td><td>Geek → 자이언트</td><td><strong><code>POST /api/hwb/bulk-sync/clearance</code></strong></td><td><code>orderNo + hwbNo</code> 공통키<br>Geek 소유 필드만 전송</td><td>동수 필드 미도착 시 <code>pending</code>으로 저장하고 병합 전 동일 소스 재전송은 멱등 upsert한다. PCCC·OTP·주문자·수하인 필드는 Geek 단일 소유이며 병합 완료 후 재전송은 <code>H019</code></td></tr>
-                <tr><td><strong>6-A</strong><br>동수 등록</td><td>동수 DS Logistics → 자이언트</td><td><strong><code>POST /api/hwb/bulk-sync/logistics</code></strong></td><td>HWB 배열 각 건에 <code>orderNo + hwbNo</code><br>동수 소유 필드만 전송</td><td>WMS 실출고 포장별 물류·상품을 부분 저장한다. Geek의 PCCC·OTP·수하인은 전송하지 않으며 선도착은 <code>pending</code>, 양쪽 도착은 <code>merged</code>로 처리한다. MAWB는 별도 <code>/bulk-sync/master</code>로 전송</td></tr>
+                <tr><td><strong>5-2</strong><br>Geek 등록</td><td>Geek → 자이언트</td><td><strong><code>POST /api/hwb/bulk-sync/clearance</code></strong></td><td><code>orderNo + hwbNo</code> 공통키<br>자사몰 A 통관·수하인 필드 전송</td><td>A형만 PCCC·OTP·주문자·수하인·주문완료일을 Geek이 전송. 외부 플랫폼 B에는 Geek 추가 전송 없음</td></tr>
+                <tr><td><strong>6-A</strong><br>동수 등록</td><td>동수 DS Logistics → 자이언트</td><td><strong>채널 프로필 + 주문별 신고서식 + 확정 endpoint</strong></td><td>기존 수입신고는 OTP 제외, 전자상거래 전용은 해당 필수값 전송</td><td>미확정 조합은 예외 큐. MAWB는 별도 계약</td></tr>
                 <tr><td><strong>6-B</strong><br>자이언트 대사</td><td>Geek → 자이언트</td><td><code>POST /api/hwb/search</code></td><td><strong>주문번호가 아니라 <code>hwbNo</code> 목록</strong><br>최대 500건</td><td>500개 이하로 조회하여 <code>mwbNo</code>·통관상태를 확인하고 내부 <code>hwbNo ↔ originalOrderNo ↔ erpPackageOrderNo</code> 매핑으로 주문에 반영</td></tr>
                 <tr><td><strong>6-C</strong><br>국내 송장</td><td>Geek → 동수 ERP</td><td>기존 <code>serachOrderInfo</code></td><td>기존 API의 주문조회 형식 사용<br><span class="rule-highlight">정확한 다건 파라미터·상한은 명세 확인 필요</span></td><td>국내·해외 송장번호와 <code>isCrossBorder</code>(Y=해외, N=KR 국내)를 반환. <code>getTRA001OrderInfo</code>에는 국내 주문이 포함되지 않음. KR WMS 가동 후 자동 연동</td></tr>
             </tbody>
@@ -463,7 +473,7 @@ flowchart TD
                     <td>자이언트</td>
                     <td><strong>Geek 통관·수하인 쓰기</strong><br><span class="rule-highlight"><code>POST /api/hwb/bulk-sync/clearance</code></span></td>
                     <td><code>hwbNo</code> · <code>orderNo</code> · <strong><code>pccCode</code></strong> · <strong><code>tempAuthNo</code></strong> · <code>ordererName</code> · <code>consigneeName/NameEng/Addr/AddrDet/AddressEng/Zip/Tel</code><br><span style="font-size:11.5px;color:#5f6368;">전수 → Stage 5-2 표</span></td>
-                    <td><strong>[GGATE v2.0.0 확정]</strong> TRA 정상 승인 건(<code>g5</code>)만 Geek 소유 필드를 쓰고, <code>pccCode</code>·<code>tempAuthNo</code>·주문자·수하인은 Geek만 전송한다. 동수 스냅샷 미도착 시 <code>pending</code>, 양쪽 도착 시 <code>merged</code>로 처리한다.</td>
+                    <td><strong>[자사몰 A 경로]</strong> TRA 정상 승인 건(<code>g5</code>)만 Geek이 <code>pccCode</code>·<code>tempAuthNo</code>·주문자·수하인을 전송한다. 동수 스냅샷 미도착 시 <code>pending</code>, 양쪽 도착 시 <code>merged</code>. 외부 플랫폼 B에는 적용하지 않는다.</td>
                 </tr>
                 <tr>
                     <td><strong>12:00</strong></td>
@@ -485,9 +495,9 @@ flowchart TD
                     <td><strong>17:00~18:00</strong></td>
                     <td class="src-dongsu">동수<br>DS Logistics</td>
                     <td>자이언트</td>
-                    <td><strong><code>POST /api/hwb/bulk-sync/logistics</code></strong></td>
-                    <td><strong>동수 소유 필드</strong> <code>hwbNo</code> · <code>orderNo</code> · <code>transportType=AI</code> · <code>dispatchCountry=CN</code> · <code>weight</code> · <code>packageCount</code> · <code>innerPackageCount</code> · <code>domesticCarrierName</code> · <code>shipperName</code> · <code>shipperAddr</code> · <code>shipperTel</code> · <code>totalValueUsd</code> · 채널별 <code>ecTypeCode</code> · <code>broker*</code> · 조건부 <code>buyingAgent*</code><br><strong><code>items[]</code> 1~50개</strong> <code>itemGroupOrderNo</code> · <code>itemSeq</code> · <code>categoryName1/2</code> · <code>productName</code>(200) · <code>productPageUrl</code> · <code>hsCode</code>(6) · <code>qty</code> · <code>qtyUnit=EA</code> · <code>unitPrice</code> · <code>itemAmount</code> · 필수 <code>sellerName</code> · 유형별 <code>sellerCode</code> · <code>brandName</code>(선택)<br><span style="font-size:11.5px;color:#5f6368;"><code>consignee*</code>·<code>pccCode</code>·<code>tempAuthNo</code>는 Geek 소유이며 동수 payload에서 제외</span></td>
-                    <td>자사몰 A는 <code>broker*=K26000099/(주)크로네</code>, <code>sellerCode=K26000099</code>, <code>sellerName=(주)크로네</code>, <code>buyingAgent*</code> 미전송. 네이버 B는 <code>broker*</code>·<code>buyingAgent*=K26014765/(주)아이베</code>, 기타 외부 B는 <code>K26000099/(주)크로네</code>; B의 <code>sellerName</code>은 실제 해외 판매업체명이며 <code>sellerCode</code>는 선택</td>
+                    <td><strong>주문별 <code>declarationMode</code>와 자이언트 확정 endpoint</strong></td>
+                    <td>채널 마스터의 A/B·업체부호와 선택 endpoint의 필수 주문자·수하인·PCCC·물류·상품 필드. OTP·주문완료일시는 전자상거래 전용일 때만</td>
+                    <td>자사몰 A는 <code>buyingAgent*</code> 미전송. 네이버 B의 <code>buyingAgent*=K26014765/(주)아이베</code>, 기타 외부 9개 B의 <code>buyingAgent*=K26000099/(주)크로네</code>. 필수 여부는 endpoint 계약을 적용</td>
                 </tr>
                 <tr>
                     <td><strong>18:00 이후</strong></td>
@@ -542,15 +552,15 @@ flowchart TD
                 </tr>
                 <tr>
                     <td class="src-dongsu"><strong>동수</strong><br>DS Logistics</td>
-                    <td>자이언트 <strong><code>POST /api/hwb/bulk-sync/logistics</code></strong> (실측중량 · 포장 · 송하인 · 채널별 A/B 유형 · broker · 조건부 buyingAgent · 상품 · <code>qtyUnit=EA</code>, <strong>PCCC·OTP·수하인 제외</strong>)</td>
+                    <td>자이언트 확정 endpoint. A/B만으로 버전을 선택하지 않으며 기존 수입신고에는 OTP를 강제하지 않음</td>
                     <td>EIBE ERP 데이터 · 현장 실측값</td>
                     <td>GGATE v2.0.0 물류·상품 부분저장 연동 · 11:10 예정 데이터와 17:00 실제 데이터의 스냅샷 일치 유지 · <code>C001/H005/H019</code> 분기 처리</td>
                 </tr>
                 <tr>
                     <td class="src-gen"><strong>자이언트</strong><br>(GGATE)</td>
                     <td>HWB 조회·검색·통관 상태 API · 세관 DKW/DKX 제출</td>
-                    <td>Geek 통관·수하인 API + 동수 물류·상품 API</td>
-                    <td><strong>GGATE v2.0.0 분리 API 확정.</strong> Geek <code>/bulk-sync/clearance</code>와 동수 <code>/bulk-sync/logistics</code>를 <code>hwbNo + orderNo</code>로 병합하고, 선도착 대기·소스별 멱등 upsert·병합 후 <code>H019</code> 거부를 적용한다. <code>productId</code>는 연동사 관리 제외, <code>broker*</code>는 A·B 필수(C 선택)이며 승인된 채널 마스터에서 주입</td>
+                    <td>기존 수입신고 또는 전자상거래 전용의 확정 route</td>
+                    <td><strong>[2026-08-28 최종 정정]</strong> A는 V2-2 분리·병합 계약을 유지하고, B는 동수 <code>/api/hwb/bulk-sync</code> 단일 요청에 OTP·주문완료일을 포함한 전체 필드를 전송한다</td>
                 </tr>
                 <tr>
                     <td class="src-kcs"><strong>관세청</strong></td>
@@ -876,7 +886,7 @@ flowchart TD
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_amt_curr_cd</code></td><td>주문금액 통화코드</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek 고정 주입</td><td>USD</td><td>USD 고정 주입</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_nm</code></td><td>판매업체명</td><td>String(250)</td><td><span class="badge req-y">A 필수</span></td><td class="src-dongsu">승인된 채널 판매주체 프로필</td><td>(주)크로네</td><td>A 직접판매에서 상품페이지·판매계약상 실제 판매주체를 기재. 해외 공급업체명이나 단순 창고명을 넣지 않음</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_id</code></td><td>판매업체 아이디</td><td>String(30)</td><td><span class="badge req-n">N</span></td><td class="src-gen">자사몰 해당 없음</td><td>Null</td><td>자사몰 A에서는 미입력. 외부 플랫폼 B의 TRA001은 각 플랫폼이 자체 규칙으로 제출</td></tr>
-            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_bsns_no</code></td><td>판매업체 사업자번호</td><td>String(30)</td><td><span class="badge req-n">N</span></td><td class="src-gen">승인된 법인 프로필</td><td>전송조건 P0</td><td>실제 판매주체 사업자번호. 공식 제출조건과 29개 채널 원천값을 확인한 뒤 승인 프로필에서만 전송</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_bsns_no</code></td><td>판매업체 사업자번호</td><td>String(30)</td><td><span class="badge req-n">N</span></td><td class="src-gen">승인된 법인 프로필</td><td>전송조건 P0</td><td>실제 판매주체 사업자번호. 공식 제출조건과 11개 채널 원천값을 확인한 뒤 승인 프로필에서만 전송</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>sale_ents_sgn</code></td><td>판매업체부호</td><td>String(9)</td><td><span class="badge req-n">N·조건부</span></td><td class="src-gen">승인된 판매주체 프로필</td><td>자사몰 A: K26000099<br>외부 플랫폼 B: Null</td><td>자사몰 A의 등록 판매업체부호를 사용한다. 외부 플랫폼 B는 미입력하며, 자이언트 <code>sellerCode</code>와는 필드 의미·조건을 분리하여 관리</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_mkr_nm</code></td><td>상품 제조사명</td><td>String(100)</td><td><span class="badge req-n">N</span></td><td class="src-dongsu">동수 EIBE ERP 수집</td><td>Danone 등 또는 Null</td><td>선택 항목 <span class="rule-highlight">태그명 정정: 공식은 prod_mkr_nm</span></td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_mkr_mdl_no</code></td><td>제조사 모델번호</td><td>String(100)</td><td><span class="badge req-n">N</span></td><td class="src-gen">해당 없음 (Null)</td><td>Null</td><td>선택 항목 <span class="rule-highlight">태그명 정정: 공식은 prod_mkr_mdl_no</span></td></tr>
@@ -940,7 +950,7 @@ flowchart TD
         <span class="time-tag" style="background:#137333;">2026-08-25 GGATE v2.0.0 확정</span>
     </h2>
     <div class="stage-box" style="border-left-color:#7b1fa2;">
-        <p style="background:#e6f4ea; border-left:3px solid #137333; padding:8px 12px;"><strong>[GGATE v2.0.0 확정] Geek은 <code>/bulk-sync/clearance</code>로 통관·수하인 필드만 쓰고 OTP를 동수에 전달하지 않는다.</strong> 동수 DS Logistics는 <code>/bulk-sync/logistics</code>로 물류·상품 필드만 쓰며 자이언트가 <code>hwbNo + orderNo</code>로 병합한다.</p>
+        <p style="background:#e6f4ea; border-left:3px solid #137333; padding:8px 12px;"><strong>[주문별 경로]</strong> A/B와 <code>declarationMode</code>를 함께 판정합니다. 기존 수입신고는 TRA001·OTP 없이 처리하며 자이언트 레거시 route 확정 전 자동 전송하지 않습니다. 전자상거래 전용은 필수값이 모두 있는 건만 확정 endpoint로 전송합니다.</p>
         <ul>
             <li><strong>대상:</strong> 관세청 TRA 제출이 <u>정상 승인된 건만</u>(<code>g5</code> 전환 건). 오류 건은 전송하지 않음.</li>
             <li><strong>시점:</strong> 11:50 이전 명시적 정상 확인 건만 전송한다. 누락·지연·결과 미확정·삭제 실패로 수기 통관 전환된 건은 자동 clearance 전송에서 제외한다.</li>
@@ -970,15 +980,15 @@ flowchart TD
     </table>
 
 <h2>
-        <span>Stage 6. 13:00 현장 출고 & 17:00~18:00 동수 HBL logistics·MAWB master 분리 전송</span>
+        <span>Stage 6. 13:00 현장 출고 & 17:00~18:00 동수 유형별 HWB·MAWB master 전송</span>
         <span class="time-tag">13:00 출고 / 17:00 분리 전송</span>
     </h2>
     <div class="stage-box">
         <p><strong>상세 전송 및 처리 로직 (DS Logistics 물류 연동):</strong></p>
         <ul>
-            <li>WMS는 ERP가 선확정한 USD 150 이하의 <strong>포장/HBL 단위로 여러 날에 걸쳐 순차 출고</strong>한다. 각 포장 출고 시 DS Logistics가 같은 가HBL을 실제 송장 및 자이언트 <code>hwbNo</code>로 사용하여 <code>POST /api/hwb/bulk-sync/logistics</code>로 실측중량·포장·송하인·채널별 A/B 프로필·금액·상품을 전송한다. <strong>PCCC·OTP·주문자·수하인은 동수 쓰기에서 제외</strong>한다. 주문별 HBL 일괄 할당·반환은 2026-08-13 확정 기준이다.</li>
+            <li>WMS는 ERP가 선확정한 USD 150 이하의 <strong>포장/HBL 단위로 여러 날에 걸쳐 순차 출고</strong>한다. 각 포장 출고 시 A/B와 신고서식을 함께 판정하고, 선택 endpoint의 확정 필드만 전송한다. 주문별 HBL 일괄 할당·반환은 2026-08-13 확정 기준이다.</li>
         
-            <li style="background:#e6f4ea; border-left:3px solid #137333; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[GGATE v2.0.0 전송 경계]</strong> ① <code>/bulk-sync/logistics</code>는 HBL 물류·상품만 수신하고 MAWB를 받지 않음 ② MAWB는 하우스 단위가 아닌 마스터 단위이므로 <code>/bulk-sync/master</code>로 별도 전송 ③ <code>weight</code>는 logistics의 17:00 실측값 ④ <code>shipperName</code>·<code>shipperAddr</code>는 동수 고정 필수값.</li>
+            <li style="background:#e6f4ea; border-left:3px solid #137333; padding:8px 12px; list-style:none; margin-left:-20px;"><strong>[2026-08-28 GGATE 전송 경계 최종 정정]</strong> ① A/B와 신고서식 별도 판정 ② 기존 수입신고는 TRA001·OTP 불필요 ③ 전자상거래 전용만 거래정보·OTP 전송 ④ 자이언트 레거시 route P0 ⑤ 동일 <code>hwbNo + orderNo</code> 중복 금지.</li>
         </ul>
     </div>
     <p style="background:#e8f0fe;border-left:3px solid #1a73e8;padding:8px 12px;font-size:12.5px;"><strong>표의 역할</strong> — 아래 표는 Stage 6 이해를 위한 핵심 필드 발췌입니다. 개발 필수값·선택값·타입·길이의 정본은 <a href="./api_field_mapping.html"><strong>api_field_mapping.html 자이언트 63~118번</strong></a>이며, 해당 표의 <code>동수 API</code>·<code>동수 API Item</code> 행 전체를 적용합니다.</p>
@@ -1008,7 +1018,7 @@ flowchart TD
             <tr><td><span class="api-tag api-item">동수 API Item</span></td><td><code>qtyUnit</code></td><td>수량 단위</td><td>String(3)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>EA</td><td>동수가 EA 고정 주입. 관세청 규격 외 <code>ord_qty_ut</code>와 직접 매핑하지 않음</td></tr>
             <tr><td><span class="api-tag api-item">동수 API Item</span></td><td><code>unitPrice</code></td><td>단가</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>매입 단가 USD</td><td>17시 DS Logistics 직송</td></tr>
             <tr><td><span class="api-tag api-item">동수 API Item</span></td><td><code>itemAmount</code></td><td>주문 금액</td><td>Number</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">동수 DS Logistics 직송</td><td>qty * unitPrice USD</td><td>17시 DS Logistics 직송</td></tr>
-            <tr><td><span class="api-tag api-etc">DKW/DKX</span></td><td><code>DKW / DKX</code></td><td>전자상거래 수입신고</td><td>-</td><td><span class="badge req-y">Y</span></td><td class="src-giant">자이언트 특송사</td><td>Geek 통관·수하인 + 동수 HBL 물류·상품 + 별도 MAWB master</td><td>자이언트는 Geek clearance와 동수 logistics를 <code>hwbNo + orderNo</code>로 병합하고, 별도 <code>/bulk-sync/master</code>로 수신한 MAWB를 마스터 단위로 연결하여 세관 제출한다.</td></tr>
+            <tr><td><span class="api-tag api-etc">DKW/DKX</span></td><td><code>DKW / DKX</code></td><td>전자상거래 전용 수입신고</td><td>-</td><td><span class="badge req-c">신고서식 조건부</span></td><td class="src-giant">자이언트 특송사</td><td><code>declarationMode=ECOMMERCE_DEDICATED</code>인 주문만</td><td>기존 수입신고와 별도이며 A/B만으로 선택하지 않는다.</td></tr>
         </tbody>
     </table>
 
@@ -1041,13 +1051,13 @@ flowchart TD
     <!-- [참고] 자사몰 A·외부 플랫폼 B의 판매주체·제출자 프로필 자동 분기 로직 -->
     <!-- ================================================================= -->
     <h2 style="border-bottom: 2px solid #137333; margin-top:50px;">
-        <span style="color:#137333;">[구현 기준] 29개 채널 A/B 유형·구매대행업체·GGATE 부호 분기</span>
+        <span style="color:#137333;">[구현 기준] 11개 채널 A/B 유형·구매대행업체·신고서식 분기</span>
     </h2>
     <div style="background:#fff8e1; border:1px solid #ffe082; border-left:5px solid #ffb300; padding:20px; border-radius:4px; margin-bottom:25px;">
         <p style="margin-top:0; font-weight:bold; font-size:15px; color:#856404;">동수 EIBE ERP - Geek 간 다채널 부호 컨트롤 및 11:10 HBL·TRA 데이터 수집(<code>getTRA001OrderInfo</code>) 주입 규칙:</p>
         <p style="font-size:13.5px; line-height:1.7;">
-            총 채널은 <strong>29개 = 자사몰 1개 + 외부 쇼핑몰 28개</strong>이며, 외부 28개에는 네이버 브랜드스토어, 지마켓, 옥션, 11번가, 쿠팡, SSG닷컴 등이 포함됩니다.<br>
-            동수 EIBE ERP는 주문 수집 시 <strong>채널코드 + 스토어계정 + 적용기간</strong>으로 승인 프로필을 선택해야 합니다. 확정 분기는 자사몰 <code>A/KRONE</code>, 네이버 <code>B/AIBE</code>, 기타 외부 27개 <code>B/KRONE</code>입니다. 자사몰 A는 Geek이 TRA001을 제출하고 <code>puch_vcex_bsmn_*</code>를 보내지 않으며, 외부 플랫폼 B는 각 플랫폼이 TRA001을 제출합니다. <strong>승인되지 않은 프로필은 TRA·GGATE·WMS 출고를 모두 차단</strong>합니다.
+            총 채널은 <strong>11개 = 자사몰 1개 + 외부 쇼핑몰 10개</strong>이며, 외부 10개는 네이버 1개와 기타 9개입니다.<br>
+            동수 EIBE ERP는 주문 수집 시 승인된 채널 프로필과 주문별 <code>declarationMode</code>를 각각 선택해야 합니다. 확정 채널 분기는 자사몰 <code>A/KRONE</code>, 네이버 <code>B/AIBE</code>, 기타 외부 9개 <code>B/KRONE</code>입니다. TRA001 제출 여부와 주체는 신고서식·플랫폼 계약으로 별도 판정합니다. <strong>미등록 채널·신고방식 미확정 주문은 자동 출고를 차단</strong>합니다.
         </p>
     </div>
 
@@ -1086,7 +1096,7 @@ flowchart TD
                 <td><code>https://brand.naver.com/nutricia/...</code></td>
             </tr>
             <tr>
-                <td><strong>기타 외부 쇼핑몰 27개</strong><br><small>지마켓·옥션·11번가·쿠팡·SSG 등 / 구매대행업체: (주)크로네</small></td>
+                <td><strong>기타 외부 쇼핑몰 9개</strong><br><small>지마켓·옥션·11번가·쿠팡·SSG 등 / 구매대행업체: (주)크로네</small></td>
                 <td><span class="badge req-y">B 확정</span></td>
                 <td><strong>각 플랫폼이 자체 권한으로 TRA001 제출</strong><br>Geek 대리 제출 없음</td>
                 <td><code>K26000099 / (주)크로네</code></td>
@@ -1100,12 +1110,12 @@ flowchart TD
     <div class="stage-box">
         <p><strong>[2026-08-25 현재 기준] 유형·부호의 채널별 기재 규칙</strong></p>
         <ul>
-            <li><strong>유형 판정:</strong> 자사몰은 주문 전 선매입 해외보관 재고를 직접 판매하므로 A, 외부 플랫폼 28개는 고객 주문 후 해외구매를 대행하므로 B입니다.</li>
+            <li><strong>유형 판정:</strong> 자사몰 1개는 주문 전 선매입 해외보관 재고를 직접 판매하므로 A, 외부 플랫폼 10개는 고객 주문 후 해외구매를 대행하므로 B입니다.</li>
             <li><strong>동수 책임:</strong> <code>channelCode + storeAccountId + 적용기간</code>으로 승인 프로필을 선택하고 GGATE <code>ecTypeCode</code>, <code>broker*</code>, 조건부 <code>buyingAgent*</code>, <code>sellerName/Code</code>, 상품 상세 URL을 제공합니다.</li>
-            <li><strong>관세청 규격:</strong> 자사몰 A는 <code>sale_ents_nm=(주)크로네</code>, <code>sale_ents_sgn=K26000099</code>, <code>puch_*=Null</code>. 외부 플랫폼 B는 각 플랫폼이 TRA001을 제출하고 <code>puch_*</code>는 네이버 AIBE, 기타 27개 KRONE입니다.</li>
-            <li><strong>GGATE 규격:</strong> A는 <code>broker*</code>·<code>sellerCode</code> 필수, <code>buyingAgent*</code> 전송 금지. B는 <code>broker*</code>·<code>buyingAgent*</code> 필수, <code>sellerCode</code> 선택. <code>sellerName</code>은 모든 유형에서 필수입니다.</li>
+            <li><strong>관세청 규격:</strong> 거래정보를 제출하는 A는 <code>sale_ents_nm=(주)크로네</code>, <code>sale_ents_sgn=K26000099</code>, <code>puch_*=Null</code>. B는 네이버 AIBE, 기타 9개 KRONE의 구매대행업체 값을 사용합니다.</li>
+            <li><strong>GGATE 규격:</strong> A/B만으로 endpoint를 고정하지 않습니다. 선택 endpoint가 요구할 때 A는 <code>buyingAgent*</code> 미전송, B는 채널 마스터의 <code>buyingAgent*</code>를 전송합니다.</li>
             <li><strong>제출자·권한 규칙:</strong> 자사몰 A는 Geek이 KRONE OAuth로 제출합니다. 외부 플랫폼 B는 각 플랫폼이 자체 권한으로 제출하며 Geek이 대리 제출하지 않습니다.</li>
-            <li><strong>PCCC·인증번호:</strong> A/B/C와 별도 축입니다. KCS는 <code>cnsi_pers_ecm</code> 필수·<code>su_crtf_no</code> 선택이지만 GIANT는 <code>pccCode/tempAuthNo</code> 모두 필수이므로 플랫폼별 취득·전달 경로가 없으면 오픈할 수 없습니다.</li>
+            <li><strong>PCCC·인증번호:</strong> A/B/C와 별도 축입니다. 기존 수입신고는 OTP가 불필요하고, 전자상거래 전용은 필요합니다. PCCC 등 기본 통관 필수범위는 자이언트 레거시 계약을 별도 확인합니다.</li>
             <li><strong>부호 분리:</strong> 각 부호 필드의 의미는 분리하되 승인된 채널 마스터가 같은 K코드를 여러 역할에 명시한 경우에만 동일값을 사용합니다. 필드 간 자동 복사는 금지합니다.</li>
             <li>부호 체계 전반은 <a href="./유형코드_부호체계_정리.html">유형코드_부호체계_정리.html</a> 참조.</li>
         </ul>
@@ -1114,7 +1124,7 @@ flowchart TD
 
     <div style="background:#f8f9fa; padding:15px; border:1px solid #ddd; border-radius:4px; font-size:13px;">
         <strong>[공통 적용 원칙]</strong><br>
-        1. 현재 운영값은 자사몰 <code>A/KRONE</code>, 네이버 <code>B/AIBE</code>, 기타 외부 27개 <code>B/KRONE</code>입니다. <code>sale_ents_nm</code>과 GIANT <code>sellerName</code>에는 계약상 실제 판매주체를 넣고, 플랫폼 입점 직접판매에 해당하면 <code>sale_ents_id</code>도 필수로 제공합니다. 관세청 <code>sale_ents_sgn</code>과 GGATE <code>sellerCode</code>는 별도 조건으로 관리합니다.<br>
+        1. 현재 운영값은 자사몰 <code>A/KRONE</code>, 네이버 <code>B/AIBE</code>, 기타 외부 9개 <code>B/KRONE</code>입니다. <code>sale_ents_nm</code>과 GIANT <code>sellerName</code>은 각 규격의 조건에 따라 실제 판매주체를 사용하며, 관세청 <code>sale_ents_sgn</code>과 GGATE <code>sellerCode</code>는 별도 조건으로 관리합니다.<br>
         2. <span class="rule-highlight">[2026-08-26 정정]</span> <code>prod_srno</code>(상품일련번호)는 <strong>Geek이 HBL 단위로 1부터 연속 채번</strong>합니다. 종전 “동수가 반환해야 하는 요구값·P0”는 폐기합니다 — HBL 내 순번이라 발신측이 만들 수 있고 관세청·자이언트 모두 값 자체에 큰 의미를 두지 않습니다. 다만 <strong>필드는 필수</strong>이므로 비워 보낼 수 없습니다.
     </div>
 
@@ -1129,7 +1139,7 @@ flowchart TD
         <table>
             <thead><tr><th style="width:18%">필요 데이터</th><th style="width:26%">고도몰 조달 경로</th><th>비고</th></tr></thead>
             <tbody>
-                <tr><td><strong>개인통관고유부호 (PCCC)</strong><br>관세청 <code>cnsi_pers_ecm</code> / 자이언트 <code>pccCode</code></td><td><code>4.1 주문조회 API</code> → <code>order_data &gt; addField</code> (주문추가정보)</td><td><span class="rule-highlight">표준 경로</span> 2018-04-10 개정으로 추가된 고도몰5 표준 커스텀 필드. 결제 단계에서 수집한 PCCC를 주문추가정보로 저장하면 주문조회 API 응답에 그대로 실림. <u>동수에는 관세청 TRA 구성용으로 안내하고, 자이언트에는 Geek 전용 API로 직접 전송함.</u> GeekStudio 자체 컬럼 추가 방식은 협력사가 참조할 표준 문서가 없어지므로 권하지 않음</td></tr>
+                <tr><td><strong>개인통관고유부호 (PCCC)</strong><br>관세청 <code>cnsi_pers_ecm</code> / 자이언트 <code>pccCode</code></td><td><code>4.1 주문조회 API</code> → <code>order_data &gt; addField</code> (주문추가정보)</td><td>A/B가 아니라 신고서식과 선택 endpoint의 필수조건에 따라 전송합니다. 기존 수입신고에서도 PCCC가 필요한지는 자이언트·관세사 계약을 확인합니다.</td></tr>
                 <tr><td><strong>일회용 인증번호</strong><br>관세청 <code>su_crtf_no</code> / 자이언트 <code>tempAuthNo</code></td><td><strong>Geek 자사몰 내부 DB</strong></td><td><span class="rule-highlight"><code>addField</code> 신설 불필요</span>. NICE <code>SMARTPCC_11 otp</code> 6자리를 Geek DB에 저장하고 자이언트에 직접 전송. 동수 ERP/WMS에는 전달하지 않음</td></tr>
                 <tr><td><strong>수하인 우편번호</strong><br>관세청 <code>cnsi_psno</code> / 자이언트 <code>consigneeZip</code></td><td><code>orderInfoData &gt; receiverZonecode</code></td><td><span class="rule-highlight">주의 — 우편번호 필드가 2개임</span> <code>receiverZipcode</code>는 <u>구 우편번호(6자리)</u>, <code>receiverZonecode</code>가 <u>새 우편번호(5자리)</u>. 관세청 <code>cnsi_psno</code>는 String(5) 도로명 기준, 자이언트 <code>consigneeZip</code>은 <strong>5자 고정</strong>이므로 반드시 <code>receiverZonecode</code>를 사용. 잘못 쓰면 관세청 응답코드 <code>3180</code>(수하인 정보 불일치)</td></tr>
                 <tr><td><strong>수하인 전화번호</strong><br>관세청 <code>cnsi_telno</code> / 자이언트 <code>consigneeTel</code></td><td><code>orderInfoData &gt; receiverCellPhone</code></td><td><span class="rule-highlight">주의 — 안심번호</span> 응답에 <code>receiverUseSafeNumberFl</code>(n 사용안함 / y 사용 / c 해지 / w 발급대기) · <code>receiverSafeNumber</code>(안심번호)가 존재. 안심번호가 켜져 있으면 <u>050 가상번호</u>가 나갈 수 있음. 관세청 PER001은 "개인통관고유부호에 등록된 전화번호와 동일해야 함"이므로 안심번호 전송 시 검증 실패. <strong>실번호(<code>receiverCellPhone</code>) 확보 필요</strong></td></tr>
@@ -1141,27 +1151,28 @@ flowchart TD
     </div>
 
         <h2>
-        <span>[확정] 자이언트 HWB 등록 — Geek·동수 분리 쓰기 병합</span>
-        <span class="time-tag" style="background:#137333;">GGATE v2.0.0 · 2026-08-20</span>
+        <span>[P0] 자이언트 HWB 등록 — 신고서식별 route 확정</span>
+        <span class="time-tag" style="background:#c5221f;">2026-08-28</span>
     </h2>
     <div class="stage-box" style="border-left-color:#7b1fa2;">
-        <p style="background:#e6f4ea; border-left:3px solid #137333; padding:8px 12px;"><strong>물리 쓰기 2개, 최종 HWB 1개</strong><br>
-            ① <strong>Geek</strong>: <code>POST /api/hwb/bulk-sync/clearance</code>에 <code>hwbNo + orderNo</code>와 주문자·수하인·PCCC·OTP·결제완료일시 전송<br>
-            ② <strong>동수</strong>: <code>POST /api/hwb/bulk-sync/logistics</code>에 같은 키와 물류·포장·송하인·금액·유형·중개자·구매대행업체·상품 전송<br>
-            ③ <strong>자이언트</strong>: 선도착 스냅샷은 <code>pending</code>, 양쪽 도착 시 <code>merged</code>. 병합 전 재전송은 멱등 upsert, 병합 후 재전송은 <code>H019</code></p>
+        <p style="background:#e6f4ea; border-left:3px solid #137333; padding:8px 12px;"><strong>주문별 물리 쓰기</strong><br>
+            ① 채널 마스터에서 A/B·업체부호를 가져옵니다.<br>
+            ② 주문별 <code>declarationMode</code>를 별도로 판정합니다.<br>
+            ③ <code>LEGACY_IMPORT</code>는 TRA001·OTP 없이 처리하며 자이언트 레거시 route 확정 전 자동 전송하지 않습니다.<br>
+            ④ <code>ECOMMERCE_DEDICATED</code>는 필수값이 모두 있는 경우 확정 endpoint로 전송합니다.</p>
         <table>
             <thead><tr><th style="width:18%">구분</th><th style="width:33%">필수값</th><th>자이언트 처리</th></tr></thead>
             <tbody>
-                <tr><td><strong>Geek 쓰기</strong></td><td>공통키 + <code>orderer*</code> + <code>consignee*</code> + <code>pccCode</code> + <code>tempAuthNo</code> + <code>orderCompletionDate</code></td><td>동수 필드는 무시. 동수 미도착 시 <code>pending</code></td></tr>
-                <tr><td><strong>동수 쓰기</strong></td><td>공통키 + 운송·포장·송하인·금액·채널별 <code>ecTypeCode</code>·<code>broker*</code>·조건부 <code>buyingAgent*</code>·<code>items[]</code></td><td>Geek 필드는 무시. OTP는 동수에 전달하지 않음</td></tr>
-                <tr><td><strong>최종 병합</strong></td><td>양쪽 전체 필수값</td><td>두 스냅샷 도착 시 병합. 병합 완료 후 같은 키 재전송은 <code>H019</code></td></tr>
+                <tr><td><strong>채널 마스터</strong></td><td><code>ecTypeCode</code>, <code>broker*</code>, 조건부 <code>buyingAgent*</code></td><td>총 11개 정적 값. 개인정보·OTP 미포함</td></tr>
+                <tr><td><strong>기존 수입신고</strong></td><td>TRA001·OTP 미전송. 수하인·PCCC·물류·상품 필수범위 P0</td><td>자이언트 endpoint·flag 확정 전 예외 큐</td></tr>
+                <tr><td><strong>전자상거래 전용</strong></td><td>거래정보·PCCC·OTP·주문완료일시와 선택 endpoint 전체 필수값</td><td>누락 시 신고·출고 차단</td></tr>
             </tbody>
         </table>
-        <p><strong>유형·판매업체</strong> — 자사몰은 A/KRONE, 외부 플랫폼 28개는 B입니다. 네이버 B는 <code>broker*</code>·<code>buyingAgent*=K26014765/(주)아이베</code>, 기타 외부 B는 <code>K26000099/(주)크로네</code>를 사용합니다. 자사몰 A는 <code>broker*=K26000099/(주)크로네</code>, <code>sellerCode=K26000099</code>, <code>sellerName=(주)크로네</code>를 사용하고 <code>buyingAgent*</code>를 전송하지 않습니다. B의 <code>sellerName</code>은 실제 해외 판매업체명이며 <code>sellerCode</code>는 선택입니다.</p>
-        <p style="background:#fff3cd; border-left:3px solid #856404; padding:8px 12px;"><strong>잔여 E2E 검증</strong> — A/B 대표 주문의 양성 수용, A에 <code>buyingAgent*</code> 혼입 시 <code>H005</code>, <code>sellerName</code> 누락 시 <code>C001</code>, 병합 완료 후 재전송 시 <code>H019</code>를 테스트합니다.</p>
+        <p><strong>유형·판매업체</strong> — 자사몰 1개는 A/KRONE, 외부 플랫폼 10개는 B입니다. 네이버 B는 <code>buyingAgent*=K26014765/(주)아이베</code>, 기타 외부 9개 B는 <code>K26000099/(주)크로네</code>를 사용합니다. B의 실제 해외 판매업체명은 확보 가능한 경우 사용합니다.</p>
+        <p style="background:#fff3cd; border-left:3px solid #856404; padding:8px 12px;"><strong>잔여 E2E 검증</strong> — A/B와 두 신고서식 조합, 기존 수입신고 OTP 미전송, 전용 신고 필수값 누락, Unicode 공백 코드, 동일 키 중복 방지를 테스트합니다.</p>
         <p style="background:#fce8e6; border-left:3px solid #c5221f; padding:8px 12px;"><strong>[2026-08-26 컬렉션 원본 대조 — 위 회신 전제가 무효]</strong> GGATE <strong>v2.0.0(2026-08-20)</strong> 개요 원문: “HWB 등록, HWB 검색, HWB 정보 일부 수정, MWB 등록, <strong>개인통관고유부호 검증 삭제</strong>. … <strong>HWB 수정 추가되었으나 기능 제공은 하지 않음</strong>.” 실제로 <code>PATCH /api/hwb/bulk-sync/merged</code>의 설명은 <strong>“삭제 예정”</strong> 한 줄뿐이고, 종전 전제였던 <code>PATCH /api/hwb/{hwbNo}</code>(<code>consigneeTel/pccCode/tempAuthNo</code> 3필드 묶음)와 자이언트 PCCC 검증 API는 <strong>v2.0.0에 존재하지 않는다.</strong> <code>DELETE</code> 엔드포인트도 컬렉션에 없다.<br>
         <strong>→ 등록 후 정정·삭제 경로가 없다.</strong> 관세청 FAQ 8-14(운송장 변경 시 새 제출번호로 재제출)와 맞물려, TRA003 오류 → 삭제 → 재수집으로 HBL이 재채번되면 <u>옛 <code>hwbNo</code>로 등록된 HWB가 정정 없이 남는다</u>. 병합 확정 건의 재전송은 <code>H019</code>로 거부되므로 덮어쓰기도 불가하다. 운영 대응은 <strong>등록 시점을 늦춰 HBL 확정 후에만 <code>clearance</code>를 보내는 것</strong>이며, 잘못 등록된 HWB의 처리 절차는 자이언트에 확인해야 한다(P1). <code>productId</code> 비필수, 금액 소수점 공식은 종전대로 후속 확인. 상세는 <code>documents/자이언트_API_메모.md</code>.</p>
-        <p style="background:#fce8e6; border-left:3px solid #c5221f; padding:8px 12px;"><strong>개인정보 경로</strong> — PCCC·OTP·주문자·수하인은 Geek→자이언트 경로를 유지합니다. OTP는 동수·<code>addField</code>·국외이전 대상에서 제외하고 Geek DB에서 자이언트로 직접 제공합니다.</p>
+        <p style="background:#fce8e6; border-left:3px solid #c5221f; padding:8px 12px;"><strong>[2026-08-28 개인정보 경로 최종 정정]</strong> — B 자체는 개인정보·OTP 전송 트리거가 아닙니다. 전자상거래 전용에서 필요한 경우에만 승인된 개인정보 경로로 전송하고, 기존 수입신고에는 임의 OTP를 생성하지 않습니다.</p>
     </div>
     <h2>
         <span>[반영 완료] E2E 누락 단계 재검토 결과</span>
@@ -1201,11 +1212,11 @@ flowchart TD
             <tr><td>QB-3</td><td>자이언트·Geek·동수</td><td>GGATE v2.0.0 분리 쓰기 운영 E2E 미완료</td><td><code>/bulk-sync/clearance</code>·<code>/bulk-sync/logistics</code>의 Geek-first/동수-first, 병합 전 멱등 upsert, 병합 후 <code>H019</code>, <code>C001/H005</code> 분기를 테스트</td><td>2026-08-27</td></tr>
             <tr><td>QB-4</td><td>동수</td><td><code>orderDelete</code>가 창고 작업 착수 후 Fail</td><td>Fail 즉시 운영자 알림·수기 연락·작업 착수 시각 확인</td><td>08-17</td></tr>
             <tr><td>QB-5</td><td>동수</td><td><code>prod_clsf_nm_stp1/2</code>에 상품분류가 아닌 값 수신 가능</td><td>실제 상품분류 1·2단계 데이터로 검증</td><td>08-18</td></tr>
-            <tr><td>QB-6</td><td>내부·동수·자이언트</td><td>확정 채널 유형·부호 마스터 배포 검증</td><td>SELF=A/KRONE, NAVER=B/AIBE, OTHER27=B/KRONE 값이 Geek·동수·GGATE 환경에 동일 배포됐는지 대사하고 대표 주문 양성 E2E 확보</td><td>2026-08-27</td></tr>
-            <tr><td>QB-7</td><td>Geek·플랫폼</td><td><strong>P0</strong> 플랫폼 B TRA001 결과·오류 회수 계약 미확정</td><td>각 플랫폼의 송장 업로드, TRA001 제출·반려 통지, 재처리 책임과 SLA를 확정하고 결과 미회수 채널의 자동 출고를 차단</td><td>2026-08-27</td></tr>
-            <tr><td>QB-8</td><td>Geek·플랫폼·자이언트</td><td><strong>P0</strong> 외부 28채널 PCCC·전체 6자리 인증번호 경로 부재</td><td>플랫폼 제공, Geek 재인증, 자이언트 별도 인증 중 승인 경로를 채널별 확정하고 <code>pccCode/tempAuthNo</code>가 동일 주문·HWB에 병합되는 E2E 증적 확보</td><td>2026-08-21</td></tr>
+            <tr><td>QB-6</td><td>내부·동수·자이언트</td><td>확정 채널 유형·부호 마스터 배포 검증</td><td>SELF=<code>A/KRONE</code>, NAVER=<code>B/AIBE</code>, OTHER9=<code>B/KRONE</code> 총 11개를 배포한다. <code>buyingAgent*</code> 자동 변환을 금지하고 주문별 <code>declarationMode</code>를 별도 적용한다</td><td>2026-08-28</td></tr>
+            <tr><td>QB-7</td><td>당사·플랫폼</td><td><strong>P0</strong> 플랫폼 B TRA001 결과·오류 회수 계약 미확정</td><td>각 플랫폼의 송장 업로드, TRA001 제출·반려 통지, 재처리 책임과 SLA를 확정하고 결과 미회수 채널의 자동 출고를 차단. Geek은 자사몰 개발사이므로 대상이 아님</td><td>2026-08-28</td></tr>
+            <tr><td>QB-8</td><td>동수·자이언트·당사</td><td><strong>P0</strong> 기존 수입신고 A/B 자이언트 경로</td><td>endpoint·구분값·<code>tempAuthNo/orderCompletionDate</code> 조건부 해제·PCCC/수하인/상품 필수범위를 서면 확정하고 실제 요청 E2E를 확보한다</td><td>2026-08-28</td></tr>
             <tr><td>QB-9</td><td>Geek·동수·자이언트</td><td><s><strong>P0</strong> 원주문번호와 ERP 분할번호의 KCS/GIANT 사용 규칙 미확정</s> <strong>08-26 확정</strong></td><td><strong>전 구간 원주문번호 단일 기준.</strong> KCS <code>ord_no</code>·GIANT <code>orderNo/itemGroupOrderNo</code> 모두 원주문번호. ERP 분할번호는 내부 보존만.<br><span class="rule-highlight">동수 확인 요청</span> 응답이 원주문번호와 분할번호를 <strong>별도 필드</strong>로 주는지, 1주문 다중 HBL·원번호 자체가 <code>-1</code>인 경우·삭제 후 재수집에서 이 기준이 깨지지 않는지 확인 필요</td><td>2026-08-27</td></tr>
-            <tr><td>QB-10</td><td>Geek·동수·관세청</td><td><strong>P0</strong> 고객 최종 결제액·통화 및 HBL 신고물품가 분리 미완료</td><td>store/Geek <code>customerFinalPaymentAmount/paymentCurrency</code>와 동수 <code>declaredGoodsValueUsd</code>를 분리한다. 복수 HBL은 공식 v1.4.1 p.13에 따라 각 <code>order_info</code>에 원주문 전체 고객 결제액을 반복하고, 통화 처리·금액 대사를 확정한다</td><td>2026-08-21</td></tr>
+            <tr><td>QB-10</td><td>내부·동수</td><td><s><strong>P0</strong> 고객 결제액·HBL 신고물품가 분리</s> <strong>08-26 정책 확정</strong></td><td>KCS <code>tot_stlm_amt</code>와 GIANT <code>totalValueUsd</code>를 동수 ERP USD 매입금 단일 원천으로 사용한다. 공식 문언과의 차이는 주문 단위 매입금↔고객 실결제액 대사표 보관으로 완화한다</td><td>2026-08-26</td></tr>
             <tr><td>QB-11</td><td>Geek·동수·플랫폼</td><td><strong>P0</strong> 실제 상품판매 페이지 URL 원천 미확정</td><td>대표 도메인이 아닌 주문상품별 접근 가능한 <code>prod_sale_pge_url/productPageUrl</code>을 SELF·NAVER·OTHER 표본에서 수집·길이·접근성 검증</td><td>2026-08-21</td></tr>
         </tbody>
     </table>
@@ -1214,7 +1225,7 @@ flowchart TD
         <thead><tr><th>ID</th><th>시나리오</th><th>기대 결과</th><th>담당</th><th>마감</th><th>상태</th></tr></thead>
         <tbody>
             <tr><td>K-01</td><td>AUT001 토큰 발급·3번째 활성토큰 발급</td><td><code>expires_in=86400</code>, 최초 토큰 FIFO 무효·1분 유예에서도 배치 중단 없음</td><td>Geek</td><td>08-18</td><td>QA 대기</td></tr>
-            <tr><td>K-02</td><td>TRA001 A 정상 3건 — SELF·NAVER·OTHER</td><td>승인된 각 제출자/OAuth로 <code>elcm_pcd=A</code>, <code>puch_*</code> 미전송, 실제 판매주체 <code>sale_ents_nm</code>, 플랫폼 <code>sale_ents_id</code>를 구성해 접수 성공·<code>txif_sbmt_no</code> 수신</td><td>Geek</td><td>08-21</td><td>QA 대기</td></tr>
+            <tr><td>K-02</td><td>TRA001 유형 대표 — SELF A · NAVER/OTHER B</td><td>SELF는 Geek이 <code>elcm_pcd=A</code>·<code>puch_*</code> 미전송으로 제출한다. NAVER/OTHER는 각 플랫폼의 <code>elcm_pcd=B</code> 제출·반려 통지 증적과 동수 송장 업로드 결과를 확보한다</td><td>Geek·당사·플랫폼</td><td>08-28</td><td>QA 대기</td></tr>
             <tr><td>K-03</td><td>TRA001 100/300건·Body 3MB 경계</td><td>공식 1~300 범위 확인, 운영 청크 100 설정, 300건 및 3MB 직전/초과 경계에서 청크 분할·순차 응답 검증</td><td>Geek</td><td>08-21</td><td>QA 대기</td></tr>
             <tr><td>K-04</td><td>동일 제출번호 재전송</td><td><code>3000</code> 중복 응답을 정상 업무 오류로 처리</td><td>Geek</td><td>08-19</td><td>QA 대기</td></tr>
             <tr><td>K-05</td><td>잘못된 PCCC·우편번호</td><td><code>3180</code> 등 오류코드와 실패 목록 적재</td><td>Geek</td><td>08-20</td><td>QA 대기</td></tr>
@@ -1233,14 +1244,14 @@ flowchart TD
             <tr><td>D-03</td><td>동수</td><td>3일 분할출고·HBL 원자성</td><td>하나라도 미할당이면 전부 null·재조회, 전건 할당 후에만 READY</td><td>08-19</td><td>QA 대기</td></tr>
             <tr><td>D-04</td><td>동수</td><td>필드·스냅샷 정합</td><td><code>prod_srno</code>·숫자 타입·분류·포장수 존재, 11:10/17시 값 대사</td><td>08-27</td><td>QA 대기</td></tr>
             <tr><td>D-05</td><td>동수</td><td>분할 주문번호별 삭제</td><td>원주문·<code>-1</code>·<code>-2</code> 단건 삭제와 Fail 알림</td><td>08-19</td><td>QA 대기</td></tr>
-            <tr><td>G-01</td><td>자이언트</td><td>Geek API 단독 선도착</td><td>Geek 소유 필드만 검증하고 <code>WAITING_DONGSU</code> 저장</td><td>08-20</td><td>QA 대기</td></tr>
-            <tr><td>G-02</td><td>자이언트</td><td>동수 API 단독 선도착</td><td>동수 소유 필드만 검증하고 <code>WAITING_GEEK</code> 저장</td><td>08-20</td><td>QA 대기</td></tr>
+            <tr><td>G-01</td><td>자이언트</td><td>자사몰 A · Geek API 단독 선도착</td><td>Geek A 필드만 검증하고 <code>WAITING_DONGSU</code> 저장</td><td>08-20</td><td>QA 대기</td></tr>
+            <tr><td>G-02</td><td>자이언트</td><td>자사몰 A · 동수 API 단독 선도착</td><td>동수 A 물류·상품 필드만 검증하고 <code>WAITING_GEEK</code> 저장</td><td>08-20</td><td>QA 대기</td></tr>
             <tr><td>G-03</td><td>자이언트</td><td>도착 순서 역전·동일키 재전송</td><td>기존 소스 값 null 덮어쓰기 없이 멱등 upsert·최종 READY</td><td>08-20</td><td>QA 대기</td></tr>
             <tr><td>G-04</td><td>자이언트</td><td>HWB 검색 500건</td><td>N/M 대사로 조용한 누락 탐지, 501건 차단</td><td>08-21</td><td>QA 대기</td></tr>
             <tr><td>G-05</td><td>자이언트</td><td>House Master Console 전 항목 수정</td><td>변경 예정 기능을 배포 환경에서 검증하고 신고·적하 마감 이벤트 전후 실제 허용범위를 별도 확인</td><td>재배포 전</td><td>미검증</td></tr>
             <tr><td>G-06</td><td>자이언트</td><td>중량·소수점·이상코드</td><td><code>H014</code> 유효성(v2.0.0 코드표 미등재 — 재확인), 금액 규칙, <code>gngMsgCode</code> <code>00/01/02/11/22/23/27/28/29/44/45/99</code> CS 분기</td><td>08-21</td><td>QA 대기</td></tr>
-            <tr><td>G-07</td><td>동수·자이언트</td><td>채널 A/B 프로필·필수값 검증</td><td>SELF=<code>A/KRONE</code>, NAVER=<code>B/AIBE</code>, OTHER27=<code>B/KRONE</code>을 검증. A는 <code>buyingAgent*</code> 부재와 필수 <code>broker*</code>·<code>sellerCode</code>, B는 필수 <code>broker*</code>·<code>buyingAgent*</code> 및 선택 <code>sellerCode</code>를 확인하고 미승인·누락·유형 혼입은 저장/출고 차단</td><td>08-27</td><td>QA 대기</td></tr>
-            <tr><td>G-08</td><td>Geek·플랫폼·자이언트</td><td>플랫폼 PCCC·인증번호 병합</td><td>검증된 <code>pccCode/tempAuthNo</code>가 플랫폼 주문키→HWB로 정확히 연결되고 로그 마스킹·만료/변경 재인증·동수 미노출을 확인</td><td>08-21</td><td>QA 대기</td></tr>
+            <tr><td>G-07</td><td>동수·자이언트</td><td>A/B + 신고서식 라우팅·필수값 검증</td><td>SELF·NAVER·OTHER9에서 기존/전용 신고 조합을 검증하고 코드 Unicode 공백·다른 필드 자동 변환·중복 전송을 차단</td><td>08-28</td><td>QA 대기</td></tr>
+            <tr><td>G-08</td><td>동수·자이언트·당사</td><td>기존 수입신고 레거시 route</td><td>OTP·주문완료일 미전송 수용, 기본 수하인·PCCC·물류·상품 필수범위, 로그 마스킹·실등록 성공을 검증</td><td>08-28</td><td>자이언트 확인</td></tr>
             <tr><td>E-01</td><td>전사</td><td>11:10~13:00 정상 사이클</td><td>11:10 HBL 수집 → 11:50 전 TRA·오류·삭제 분기 → 정상 승인 건만 출고</td><td>08-27</td><td>QA 대기</td></tr>
             <tr><td>E-02</td><td>전사</td><td>누락·지연·삭제 실패 수기 통관</td><td><code>MANUAL_CLEARANCE_REQUIRED</code> 격리, 자동 재수집·출고 차단, 수기 신고번호·승인자 기록 후 해제</td><td>08-27</td><td>QA 대기</td></tr>
             <tr><td>E-03</td><td>전사</td><td>1주문 3포장</td><td>전 HBL 확보 후 TRA001 3건·자이언트 HWB 3건·첫 송장 고도몰 저장</td><td>08-21</td><td>QA 대기</td></tr>
@@ -1276,10 +1287,11 @@ flowchart TD
     <table>
         <thead><tr><th style="width:12%">일자</th><th style="width:16%">구분</th><th>변경 내용</th></tr></thead>
         <tbody>
-            <tr><td><strong>2026-08-26</strong><br>저녁</td><td>관세청 공지·서면 회신 및 GGATE 원본 대조 반영</td><td><strong>① <code>Z99999</code> 2026-09-27 확정</strong>(공지 2026-08-21). <strong>② 2026-08-21 서식 변경</strong> — 전자상거래물품 통관목록(DKX) <span class="rule-highlight">‘House B/L 번호’ 항목 필수화</span>, 수입신고서(DKW)·결과통보서(5TF) ‘상품명’·‘선택옵션명’ <span class="rule-highlight">SIZE 600 → 300</span>, ‘화물관리번호’ <span class="rule-highlight">19자리 고정(<code>an..</code> → <code>an</code>)</span>, 기존 통관목록 거래유형 <code>A</code>는 2026년 12월 말까지 한시 유지. <strong>③ A·B형 서면 확인</strong>(관세청 담당자 08-21) — A형은 “재고가 해외에 있으면 맞습니다[국내 재고면 해외직구 아님]”, 당사가 제출하는 B형도 “맞습니다”. <strong>④ 오픈 전 주문 처리 경로</strong>(08-25) — PER 인증값이 없으면 <u>기존 수입신고</u>로 처리 가능하고 이 경우 거래정보·일회용 인증번호가 불필요하며, 전자상거래 물품의 기존 수입신고는 2026년까지 예정. <strong>거래정보 미제출해도 통관은 되나 검사율이 상향되고 제출율이 감소</strong>하며 협력인정업체는 4분기 내역으로 평가한다. <strong>⑤ 08-28 01:30~03:00</strong> 관세청과 <code>AUT001</code>/<code>PER001</code>/<code>TRA001</code> 연동 테스트. <strong>⑥ 주문번호 단일 기준 확정</strong> — 전 구간 원주문번호. <strong>⑦ <code>prod_srno</code> 강등</strong> — Geek 자체 채번으로 충족, 동수 요청 철회. <strong>⑧ GGATE v2.0.0 원본 대조</strong> — <code>PATCH</code>·PCCC 검증·레거시 <code>search</code> 삭제 확인, <code>HWB 수정</code>은 “삭제 예정”, <code>tempAuthNo</code>에 “발급 실패 건은 <code>Z99999</code>” 명문, <code>gngMsgCode</code> 실제 12종 확인. 근거는 <code>documents/자이언트_API_메모.md</code>. <strong>⑨ 금액 원천 통일</strong> — 총 결제금액과 신고물품가를 <strong>전부 동수 ERP USD 매입금</strong>으로 확정했다(08-10 결정 복귀). 08-19의 “고객 최종 결제액 별도 조달·자동 복사 금지”는 폐기하고, 규격 문언과의 차이는 <strong>주문 단위 대사표 보관</strong>으로 완화한다. <code>tot_stlm_amt_curr_cd</code>는 <code>USD</code> 고정. <strong>⑩ Geek 범위 정정</strong> — Geek(GeekStudio)은 <u>자사몰(고도몰5) 개발사</u>이며 외부 플랫폼 B 주문과 무관하다. 종전 대장·기획서가 “플랫폼 B TRA 결과 회수”·“플랫폼 PCCC”·“29개 채널 마스터 배포”의 담당에 Geek을 넣은 것은 오기이며 당사 운영팀·플랫폼·동수로 정정했다. <strong>⑪ 플랫폼 B의 <code>clearance</code> 전송 주체가 미정</strong>이며, 확정 전까지 플랫폼 B 주문은 GGATE 등록 대상에서 제외한다.</td></tr>
+            <tr><td><strong>2026-08-28</strong></td><td>신고서식 분리 최종 정정</td><td>종전 “B V2-1 전체등록” 일반 규칙을 폐기했다. A/B는 사업 역할이고 기존/전자상거래 전용은 별도 주문값이다. 기존 수입신고는 TRA001·OTP가 불필요하며 자이언트 route는 P0 미확정이다. 채널 마스터는 총 11개다.</td></tr>
+            <tr><td><strong>2026-08-26</strong><br>저녁</td><td>관세청 공지·서면 회신 및 GGATE 원본 대조 반영</td><td><strong>① <code>Z99999</code> 2026-09-27 확정</strong>(공지 2026-08-21). <strong>② 2026-08-21 서식 변경</strong> — 전자상거래물품 통관목록(DKX) <span class="rule-highlight">‘House B/L 번호’ 항목 필수화</span>, 수입신고서(DKW)·결과통보서(5TF) ‘상품명’·‘선택옵션명’ <span class="rule-highlight">SIZE 600 → 300</span>, ‘화물관리번호’ <span class="rule-highlight">19자리 고정(<code>an..</code> → <code>an</code>)</span>, 기존 통관목록 거래유형 <code>A</code>는 2026년 12월 말까지 한시 유지. <strong>③ A·B형 서면 확인</strong>(관세청 담당자 08-21) — A형은 “재고가 해외에 있으면 맞습니다[국내 재고면 해외직구 아님]”, 당사가 제출하는 B형도 “맞습니다”. <strong>④ 오픈 전 주문 처리 경로</strong>(08-25) — PER 인증값이 없으면 <u>기존 수입신고</u>로 처리 가능하고 이 경우 거래정보·일회용 인증번호가 불필요하며, 전자상거래 물품의 기존 수입신고는 2026년까지 예정. <strong>거래정보 미제출해도 통관은 되나 검사율이 상향되고 제출율이 감소</strong>하며 협력인정업체는 4분기 내역으로 평가한다. <strong>⑤ 08-28 01:30~03:00</strong> 관세청과 <code>AUT001</code>/<code>PER001</code>/<code>TRA001</code> 연동 테스트. <strong>⑥ 주문번호 단일 기준 확정</strong> — 전 구간 원주문번호. <strong>⑦ <code>prod_srno</code> 강등</strong> — Geek 자체 채번으로 충족, 동수 요청 철회. <strong>⑧ GGATE v2.0.0 원본 대조</strong> — <code>PATCH</code>·PCCC 검증·레거시 <code>search</code> 삭제 확인, <code>HWB 수정</code>은 “삭제 예정”, <code>tempAuthNo</code>에 “발급 실패 건은 <code>Z99999</code>” 명문, <code>gngMsgCode</code> 실제 12종 확인. 근거는 <code>documents/자이언트_API_메모.md</code>. <strong>⑨ 금액 원천 통일</strong> — 총 결제금액과 신고물품가를 <strong>전부 동수 ERP USD 매입금</strong>으로 확정했다(08-10 결정 복귀). 08-19의 “고객 최종 결제액 별도 조달·자동 복사 금지”는 폐기하고, 규격 문언과의 차이는 <strong>주문 단위 대사표 보관</strong>으로 완화한다. <code>tot_stlm_amt_curr_cd</code>는 <code>USD</code> 고정. <strong>⑩ Geek 범위 정정</strong> — Geek(GeekStudio)은 <u>자사몰(고도몰5) 개발사</u>이며 외부 플랫폼 B 주문과 무관하다. 종전 대장·기획서가 “플랫폼 B TRA 결과 회수”·“플랫폼 PCCC”·“29개 채널 마스터 배포”의 담당에 Geek을 넣은 것은 오기이며 당사 운영팀·플랫폼·동수로 정정했다. <strong>⑪ [2026-08-28 부분대체]</strong> 당시에는 플랫폼 B의 <code>clearance</code> 송신 주체가 미정이라 GGATE 등록 제외로 관리했다. 2026-08-28 동수가 B의 주문자·수하인·PCCC 9개 필드를 보내는 방향으로 부분해소됐고, OTP·주문완료일·배포·E2E는 계속 미결이다.</td></tr>
             <tr><td><strong>2026-08-26</strong></td><td>배치 마감·수기 통관 예외경로 정정</td><td>마케팅·MD 회의 결과에 따라 Geek의 동수 HBL·TRA 데이터 수집을 <strong>11:10 KST 시작</strong>, TRA 제출·오류 확인·필요한 삭제 요청을 <strong>11:50 KST 이전 완료</strong>로 변경했다. 11:50까지 HBL 누락, TRA 지연·결과 미확정, 삭제 실패가 남은 건은 <code>MANUAL_CLEARANCE_REQUIRED</code>로 격리하여 수기 통관으로 처리하고 자동 재제출·자동 출고를 차단한다. 종전 <code>p1</code> 자동 원복·익일 무제한 재수집을 폐기했다. <strong>[같은 날 저녁 확정]</strong> 동수 회신과 실측으로 <u>삭제 범위를 확정</u>했다 — 삭제 API에는 플랫폼 원주문번호(모 주문번호)만 전송하고, 원주문 호출 시 모·서브 주문 전체가 삭제되며 국내·해외 혼재 주문은 내수분까지 함께 삭제·재수집된다. ERP 최소 조회 단위가 주문이라 부분 삭제는 구현 불가이므로 <strong>내수 동반 지연을 정책으로 수용</strong>하고 종전의 “혼재 시 자동 삭제 금지” 게이트를 해제했다. 또한 TRA003 실오류로 <code>sale_ents_nm=(주)크로네</code>·<code>sale_ents_sgn=K26000099</code>가 A유형 필수임을 확정했다. <strong>[같은 날 저녁 · 공지 원문으로 확정]</strong> <code>Z99999</code> 적용기간은 <strong>2026-08-28 ~ 2026-09-27</strong>로 최종 확정됐다 — 관세청 공지 「(재수정)전자상거래 전용 신고서 등 신규 서식 변경 안내」(2026-08-21, 조미정): “임시 일회용인증번호(<code>Z99999</code>)를 사용하면 일회용인증번호 검증을 통과할 수 있습니다. <strong>단, 시행일로부터 1개월만 사용이 가능합니다.(’26.8.28.~’26.9.27.)</strong>” 종전 09-14 기재는 폐기하고 <code>리스크_질의대장.html</code>·중문판·CS Q&amp;A를 같은 값으로 동기화했다.</td></tr>
-            <tr><td><strong>2026-08-25</strong></td><td>관세청 유형 확정·GGATE v2.0.0 반영</td><td>채널 운영값을 <strong>자사몰 A/KRONE, 네이버 B/AIBE, 기타 외부 27개 B/KRONE</strong>으로 확정했다. Geek <code>/bulk-sync/clearance</code>와 동수 HBL <code>/bulk-sync/logistics</code>, 별도 MAWB <code>/bulk-sync/master</code>, <code>hwbNo + orderNo</code> 병합, 선도착 <code>pending</code>, 병합 전 멱등 upsert, 병합 후 <code>H019</code>를 반영했다. A는 <code>broker*</code>·<code>sellerCode</code> 필수 및 <code>buyingAgent*</code> 전송 금지, B는 <code>broker*</code>·<code>buyingAgent*</code> 필수 및 <code>sellerCode</code> 선택이다.</td></tr>
-            <tr><td><strong>2026-08-19</strong></td><td>사업실질 중간 검토<br><span class="rule-highlight">2026-08-24 폐기</span></td><td>당시 선매입·재고소유 사실을 전체 채널에 적용해 SELF·NAVER·OTHER27을 모두 A 후보로 보았다. 이후 관세청 추가 확인과 실제 채널 운영 구조에 따라 SELF만 A, 외부 플랫폼 28개는 B로 재정정되었으며 이 행은 판단 이력으로만 보존한다.</td></tr>
+            <tr><td><strong>2026-08-25</strong></td><td>관세청 유형 확정·GGATE v2.0.0 반영<br><span class="rule-highlight">2026-08-28 신고서식 분리로 대체</span></td><td>당시 A/B별 고정 API를 전제로 기록했다. 현재는 주문별 신고서식을 함께 판정하며 기존 수입신고 route는 자이언트 확인 전 미확정이다.</td></tr>
+            <tr><td><strong>2026-08-19</strong></td><td>사업실질 중간 검토<br><span class="rule-highlight">2026-08-24 폐기</span></td><td>당시 전체 채널을 A 후보로 보았다. 현재 채널 마스터는 SELF 1개 A, 외부 플랫폼 10개 B이며 이 행은 판단 이력으로만 보존한다.</td></tr>
             <tr><td><strong>2026-08-19</strong></td><td>관세청·자이언트 회신 정정<br><span class="rule-highlight">후속 확인으로 폐기</span></td><td><strong>당시 질의 전제 기준 이력:</strong> 종전 자사몰 A/구매대행업체 Null 지침을 폐기하고 자사몰·플랫폼 해외직구를 모두 B로 정정했다. 이후 사업실질과 관세청 추가 확인으로 자사몰만 A, 외부 플랫폼은 B로 대체되었고, 물리 endpoint도 2026-08-20 GGATE v2.0.0으로 확정되어 당시 미확정 상태는 종료되었다. 관세청 업체부호와 GIANT <code>broker*</code>의 필드 의미 분리 및 OTP Geek→GIANT 직접 원칙만 계속 유효하다.</td></tr>
             <tr><td><strong>2026-08-14</strong></td><td>오픈 안정화 · 실제 주문 테스트<br><span class="rule-highlight">08-19 생산 범위 정정</span></td><td>당시 Geek 준비 즉시 별도 사전 승인 없이 실제 주문 테스트를 시작하도록 정했다. 2026-08-19 A 판정·플랫폼 OAuth·PCCC/OTP·Giant 병합 P0 확인 후 <strong>승인 전에는 실제 주문 데이터 기반 비출고·비신고 조립/sandbox까지만 허용</strong>하고 생산 제출·출고는 승인 채널에 한정하는 것으로 정정했다. 주문번호·HBL·시나리오·경로·결과 즉시 공유, 기존 엑셀 안전망, <code>hwbNo + orderNo</code>별 단일 최종 제출경로 원칙은 유지한다.</td></tr>
             <tr><td><strong>2026-08-13</strong></td><td>보조 문서 통합</td><td><code>테스트검증계획.md</code>의 최신 QA 시나리오와 <code>외부_API_문서_포인터.md</code>의 원문 링크·보안 원칙을 본 문서의 <strong>개발·QA 검증 대장</strong>과 <strong>외부 API·원문 문서 인덱스</strong>로 흡수. 오래된 자이언트 PER/PATCH 대체안은 Geek·동수 분리 API 기준으로 교체.</td></tr>
@@ -1398,7 +1410,7 @@ flowchart TD
             'pccCode':'cnsi_pers_ecm', 'tempAuthNo':'su_crtf_no', 'totalValueUsd':'동수 ERP USD 매입금 (tot_stlm_amt와 동일 원천, 2자리)',
             'ecTypeCode':'elcm_pcd', 'productName':'ord_prod_nm', 'hsCode':'동수 내부 hs_cd 원천 (TRA001 미전송)', 'qty':'prod_ord_qty',
             'unitPrice':'prod_unprc', 'itemAmount':'ord_amt', 'sellerName':'sale_ents_nm',
-            'brokerCode':'판매중개자부호 (A·B 필수, 채널 마스터)', 'brokerName':'판매중개자명 (A·B 필수, 채널 마스터)',
+                    'brokerCode':'판매중개자부호 (선택 endpoint 조건, 채널 마스터)', 'brokerName':'판매중개자명 (선택 endpoint 조건, 채널 마스터)',
             'buyingAgentCode':'puch_vcex_bsmn_sgn', 'buyingAgentName':'puch_vcex_bsmn_nm',
             'response[].isCrossBorder':'내부 분기 전용 (외부 전송 없음)',
             'response[].packageList[].expressNo':'고도몰 국내 송장 갱신',

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>동수 최종 전달 기준 — 채널 A/B와 수입신고 경로 분리</title>
+<style>
+  *{box-sizing:border-box}body{margin:0;background:#f6f7f9;color:#202124;font-family:"Malgun Gothic",sans-serif;line-height:1.62}
+  main{max-width:1180px;margin:0 auto;padding:32px 22px 70px}h1{font-size:27px;margin:0 0 6px}h2{font-size:19px;margin:34px 0 12px;border-bottom:2px solid #202124;padding-bottom:7px}
+  .meta{font-size:13px;color:#5f6368;margin-bottom:18px}.box{background:#fff;border:1px solid #dadce0;border-radius:9px;padding:15px 17px;margin:12px 0}.ok{border-left:6px solid #137333;background:#e6f4ea}.warn{border-left:6px solid #c5221f;background:#fce8e6}.info{border-left:6px solid #1a73e8;background:#e8f0fe}
+  table{width:100%;border-collapse:collapse;background:#fff;font-size:13px;margin:12px 0 22px}th,td{border:1px solid #dadce0;padding:9px 10px;text-align:left;vertical-align:top}th{background:#f1f3f4}
+  code{background:#edf0f3;padding:1px 4px;border-radius:3px;font-family:Consolas,monospace;font-size:12px}li{margin:5px 0}.p0{color:#c5221f;font-weight:700}.yes{color:#137333;font-weight:700}.no{color:#c5221f;font-weight:700}
+</style>
+</head>
+<body>
+<main>
+  <h1>동수 최종 전달 기준</h1>
+  <div class="meta">2026-08-28 최종 협의 반영 · 채널 마스터 11개 · A/B와 수입신고 경로를 별도 판정</div>
+
+  <div class="box ok">
+    <strong>최종 결론</strong><br>
+    <code>ecTypeCode=A/B</code>는 거래 역할이고, <code>declarationMode</code>는 수입신고 경로입니다. 두 값은 서로 대체하거나 자동 추론하지 않습니다. 특히 <strong>B형이라고 해서 거래정보·일회용 인증번호를 무조건 전송하지 않습니다.</strong>
+  </div>
+
+  <h2>1. 채널 마스터 — 실제 11개만 사용</h2>
+  <table>
+    <thead><tr><th>채널 그룹</th><th>수</th><th>ecTypeCode</th><th>broker</th><th>buyingAgent</th></tr></thead>
+    <tbody>
+      <tr><td>자사몰</td><td>1</td><td><strong>A</strong></td><td><code>K26000099 / (주)크로네</code></td><td>미전송</td></tr>
+      <tr><td>네이버</td><td>1</td><td><strong>B</strong></td><td><code>K26014765 / (주)아이베</code></td><td><code>K26014765 / (주)아이베</code></td></tr>
+      <tr><td>기타 외부 플랫폼</td><td>9</td><td><strong>B</strong></td><td><code>K26000099 / (주)크로네</code></td><td><code>K26000099 / (주)크로네</code></td></tr>
+    </tbody>
+  </table>
+  <div class="box info"><code>도메인모음_20260828.xlsx</code>은 위 11개 채널의 정적 마스터입니다. 주문자·수하인·PCCC·OTP·주문완료일시는 주문별 데이터이므로 이 파일에 넣지 않습니다. Sheet1에 없는 채널은 기본값으로 처리하지 않고 마스터 등록 전까지 차단합니다.</div>
+
+  <h2>2. 주문별 신고 경로 — A/B와 별도 판정</h2>
+  <table>
+    <thead><tr><th>declarationMode</th><th>의미</th><th>TRA001 거래정보</th><th>일회용 인증번호</th><th>현재 자이언트 상태</th></tr></thead>
+    <tbody>
+      <tr><td><code>LEGACY_IMPORT</code></td><td>기존 수입신고서</td><td class="no">불필요</td><td class="no">불필요</td><td><span class="p0">P0 미확정</span> — 공개 V2-1은 <code>tempAuthNo</code>·<code>orderCompletionDate</code>를 필수 검증하므로 endpoint/flag/조건부 검증을 자이언트가 정해야 함</td></tr>
+      <tr><td><code>ECOMMERCE_DEDICATED</code></td><td>전자상거래 전용 수입신고서</td><td class="yes">필요</td><td class="yes">필요</td><td>관세청·자이언트 필수값을 확보한 건만 전송</td></tr>
+    </tbody>
+  </table>
+  <div class="box info"><strong>관세청 담당자 회신(2026-08-28):</strong> 전자상거래 물품의 기존 수입신고는 2026년까지 예정이며, 기존 수입신고서를 사용하는 경우 거래정보 제출과 일회용 인증번호가 불필요합니다. 협력인정업체 평가는 2026년 4분기 내역을 참고합니다.</div>
+  <div class="box warn"><strong>주의:</strong> 위 회신이 수하인·주소·전화·PCCC 등 기본 통관/HWB 정보를 전부 면제한다는 뜻은 아닙니다. 기존 수입신고에도 필요한 수하인·화물·상품 필드는 관세사/자이언트의 레거시 계약으로 확정해야 합니다. 면제되는 것으로 확인된 것은 <strong>TRA001 거래정보 제출과 일회용 인증번호</strong>입니다.</div>
+
+  <h2>3. A/B 필드 규칙</h2>
+  <table>
+    <thead><tr><th>구분</th><th>A 직접판매</th><th>B 구매대행</th></tr></thead>
+    <tbody>
+      <tr><td>사업 실질</td><td>주문 전에 당사가 매입·소유한 해외재고를 자사몰에서 직접 판매</td><td>고객 주문 후 당사가 해외 판매처에서 대신 구매</td></tr>
+      <tr><td><code>elcm_pcd</code></td><td><code>A</code></td><td><code>B</code></td></tr>
+      <tr><td><code>elcm_ents_sgn/nm</code></td><td><code>K26000099 / (주)크로네</code></td><td>당사가 거래정보를 제출하는 주문이면 <code>K26000099 / (주)크로네</code>; 플랫폼 제출 건은 플랫폼 제출자 계약 적용</td></tr>
+      <tr><td><code>puch_vcex_bsmn_sgn/nm</code></td><td>미입력</td><td>채널 마스터의 구매대행업체 코드·명</td></tr>
+      <tr><td><code>sale_ents_sgn/nm</code></td><td><code>K26000099 / (주)크로네</code></td><td><code>sale_ents_sgn/id</code> 미입력, 실제 해외 판매처명은 확보 가능한 경우 입력</td></tr>
+      <tr><td>GGATE <code>buyingAgent*</code></td><td>미전송</td><td>채널 마스터 값 사용</td></tr>
+    </tbody>
+  </table>
+
+  <h2>4. 동수 구현 순서</h2>
+  <ol>
+    <li>ERP 스토어명으로 11개 채널 마스터를 정확히 조회합니다.</li>
+    <li>주문별 <code>declarationMode</code>를 별도 필드로 수신합니다. 값이 없으면 A/B만으로 추정하지 않습니다.</li>
+    <li><code>ecTypeCode</code>, <code>broker*</code>, <code>buyingAgent*</code>는 채널 마스터에서 주입합니다.</li>
+    <li><code>LEGACY_IMPORT</code>는 자이언트가 확정한 레거시 endpoint/flag가 나오기 전까지 자동 전송하지 않고 예외 큐로 보냅니다.</li>
+    <li><code>ECOMMERCE_DEDICATED</code>는 PCCC·OTP·주문완료일시와 해당 endpoint의 필수 주문자·수하인·물류·상품값이 모두 있을 때만 전송합니다.</li>
+    <li>업체부호는 일반 공백·NBSP 등 Unicode 공백을 제거한 뒤 9자로 검증합니다.</li>
+    <li>동일 <code>hwbNo + orderNo</code>를 서로 다른 API 버전에 중복 전송하지 않습니다.</li>
+  </ol>
+
+  <h2>5. 자이언트에 즉시 확정할 P0</h2>
+  <div class="box warn">
+    기존 수입신고 B형 주문은 관세청 회신상 TRA001 거래정보와 일회용 인증번호가 불필요합니다. 그러나 V2-1 <code>POST /api/hwb/bulk-sync</code> 공개 명세는 <code>pccCode</code>·<code>tempAuthNo</code>·<code>orderCompletionDate</code>를 필수로 검증합니다.<br><br>
+    <strong>확인 요청:</strong> 기존 수입신고 A/B 주문을 어느 endpoint 또는 어떤 구분값으로 보내야 하는지, <code>tempAuthNo</code>와 <code>orderCompletionDate</code>를 미전송할 수 있는지, 기본 수하인·PCCC·상품 필수범위는 무엇인지 서면 확정이 필요합니다. 확정 전 임의 OTP, <code>Z99999</code>, 가짜 주문완료일시를 만들지 않습니다.
+  </div>
+
+  <h2>6. 오류 대응</h2>
+  <table>
+    <thead><tr><th>상황</th><th>처리</th></tr></thead>
+    <tbody>
+      <tr><td>채널 마스터 미일치</td><td>기본 코드 사용 금지. <code>CHANNEL_PROFILE_NOT_FOUND</code>로 차단</td></tr>
+      <tr><td><code>declarationMode</code> 누락</td><td>A/B 자동추론 금지. <code>DECLARATION_MODE_REQUIRED</code>로 차단</td></tr>
+      <tr><td>기존 수입신고가 OTP 필수검증에 걸림</td><td>임의값 보정 금지. <code>GIANT_LEGACY_ROUTE_UNCONFIRMED</code>로 격리하고 자이언트 회신 대기</td></tr>
+      <tr><td>전자상거래 전용인데 OTP 누락</td><td>전송·출고 차단, 원천 채널 또는 인증 시스템에 재수집 요청</td></tr>
+      <tr><td>업체부호 길이 오류</td><td>Unicode 공백 제거 후 9자 재검증. 값 자체가 틀리면 마스터 수정</td></tr>
+      <tr><td>개인정보 로그</td><td>성명·전화·주소·PCCC·OTP 원문 로그 금지, 마스킹 및 접근권한 적용</td></tr>
+    </tbody>
+  </table>
+</main>
+</body>
+</html>
