@@ -1,0 +1,27 @@
+Test 서버
+https://tecapi.customs.go.kr/ 
+
+client_ID : b9c91ebdb1344db585fbbca53bd54d3f
+
+client_secret : 2b41c9e2dc384b299cbde13a54e2a57b209d2fe2048f4efeba
+
+
+------------------------------------------------------------------------------------
+url : https://ecapi.customs.go.kr
+
+크로네
+93a0f08a9f834f8c8ee56855e819785a
+399e8684e77f4019bca9c5729a83238246c7f83acbf44df184
+
+
+
+아이베
+107f6bcee6e7400aa3e11f3e66b8ff58
+79f9cb9d57054415a0b7285818a22554941c06b627c149c4a1
+
+
+
+
+
+
+QHiOakK-2AkllY74_OSChjHoPWPoeaPU6lGHsbFNmUo

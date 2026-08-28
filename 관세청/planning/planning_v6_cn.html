@@ -66,14 +66,13 @@
     <h1>KCS 预先交易信息申报(TRA) E2E 整合策划书 (planning_v6 Full Spec)</h1>
 <div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">最后更新 <span style="color:#8ab4f8;font-size:16px;">2026-08-26</span> · 文档版本 <span style="color:#8ab4f8;">v6</span><span style="font-weight:400;color:#bdc1c6;"> · 开放 2026-08-28 09:00 (D-2) · 韩国关税厅测试服务器关闭 2026-08-21</span></div>
 <div style="background:#e6f4ea;border-left:5px solid #137333;padding:14px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#174d2a;line-height:1.8;">
-<strong>[2026-08-25 当前基准 · 反映韩国关税厅追加确认及GGATE API V2 v2.0.0]</strong>
-<br>① 渠道类型确定为：<b>自营商城1个=<code>A/KRONE</code>，外部平台28个=<code>B</code></b>。B类型代购企业仅Naver使用<code>K26014765/(株)iBae</code>，其他外部27个平台使用<code>K26000099/(株)KRONE</code>。外部平台TRA001由各平台自行提交。
-<br>② Geek通过<code>POST /api/hwb/bulk-sync/clearance</code>发送订购人、收件人、<code>pccCode</code>、<code>tempAuthNo</code>及结账完成时间；东数通过<code>POST /api/hwb/bulk-sync/logistics</code>发送HBL物流、包装、发货人、金额、类型、中介方、代购企业及商品。共同键为<code>hwbNo + orderNo</code>，MAWB通过独立<code>POST /api/hwb/bulk-sync/master</code>发送。
-<br>③ 先到快照保存为<code>pending</code>，两侧到齐后<code>merged</code>。合并前同源重发为幂等upsert，合并后重发返回<code>H019</code>；请求内重复键或类型条件违规返回<code>H005</code>；一般字段校验失败返回<code>C001</code>。
-<br>④ GGATE类型条件：A必须发送<code>broker*</code>和<code>items[].sellerCode</code>，禁止发送<code>buyingAgent*</code>；B必须发送<code>broker*</code>和<code>buyingAgent*</code>，<code>sellerCode</code>选填；C均为选填。<code>items[].sellerName</code>在所有类型均为必填。
-<br>⑤ 原“全部渠道为A候选”“自营商城与平台均为B”“物理API未确定”“broker全部未确认”仅保留为历史记录，不得作为当前开发规则。
-<br>⑥ <strong>[2026-08-26 市场营销·MD会议确定]</strong> Geek每天于<strong>11:10 KST</strong>开始从东数<code>getTRA001OrderInfo</code>采集HBL及TRA数据，并在<strong>11:50 KST之前</strong>完成TRA提交、错误确认及必要的东数订单删除API请求。11:50前仍存在HBL缺失、TRA提交延迟、结果未确定或删除失败的订单，统一转为<code>MANUAL_CLEARANCE_REQUIRED</code>，在实际通关中人工申报，不得重新进入自动TRA提交或自动出库。
-<br>⑦ <strong>[2026-08-26 删除范围已确定]</strong> 东数删除API<strong>只发送平台母订单号（原订单号）</strong>；子订单号（<code>…-1</code>）返回<code>state:300 订单状态不可删除</code>而失败（08-26实测）。以母订单号调用时<code>原订单·-1·-2·-N</code>母子订单全部被删除，<strong>含国内(KR)商品的混合订单其国内部分也一并删除并重新采集</strong>。ERP最小查询单位为订单，无法部分删除或部分重建，我司<strong>以政策方式接受国内商品的同步延迟</strong>，不将国内部分拆分先行出库。原“混合订单禁止自动删除”条件<strong>废止</strong>；仅<strong style="color:#c5221f;">[仓库处理中]</strong>状态删除失败时不自动重试，转人工通关。<br>⑧ 据TRA003实际错误确认A类型<code>sale_ents_nm=(株)KRONE</code>·<code>sale_ents_sgn=K26000099</code>为必填，运营后同样适用；测试用<code>K26000127</code>·<code>K26000128</code>不再使用。<br>⑨ <code>Z99999</code>官方适用期间更正为<code>2026-08-28~2026-09-27</code>；具体截止时刻及边界判断标准待韩国关税厅进一步确认。<strong style="color:#137333;">（已确定 — 关税厅公告《（再修订）电子商务专用申报单等新表式变更通知》2026-08-21：“使用临时一次性认证号码（<code>Z99999</code>）即可通过一次性认证号码验证。<u>但仅可在施行日起1个月内使用（’26.8.28.～’26.9.27.）</u>”。原 09-14 记载全部废止。）</strong>
+<strong>[2026-08-28 当前基准 · A/B与申报路径分开判断]</strong>
+<br>① 当前渠道主数据共11个：自营商城1个A/KRONE、Naver 1个B/iBae、其他外部9个B/KRONE。
+<br>② A/B为交易角色；传统进口申报与跨境电商专用进口申报为逐订单申报路径，两者不得相互推导。
+<br>③ 韩国海关回复：传统进口申报无需TRA001交易信息与一次性认证号；专用进口申报才需要。
+<br>④ V2-1公开规格仍强制<code>pccCode/tempAuthNo/orderCompletionDate</code>，所以传统进口申报A/B的GGATE接口和条件必填规则为P0待确认。
+<br>⑤ 传统进口申报不得伪造OTP、<code>Z99999</code>或订单完成时间；未确认组合进入人工例外队列。
+<br>⑥ 11:10~11:50 KST的Geek TRA处理窗口只适用于自营商城相关流程，不自动适用于全部外部B订单。
 </div>
     <div style="background:#fff3cd;border-left:5px solid #856404;padding:12px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#856404;"><strong>[2026-08-10 更正]</strong> 依据韩国关税厅 REST API 规格 v1.4.1 修正字段名与类型：dlvr_vcex_bsmn_* → <code>shpn_vcex_bsmn_*</code>、sale_ents_biz_no → <code>sale_ents_bsns_no</code>、prod_mnfcr_nm → <code>prod_mkr_nm</code>、prod_mdl_no → <code>prod_mkr_mdl_no</code>。另新增必填项 <code>ord_site_url</code>（详见 리스크_질의대장.html 综合风险·质询台账）。</div>
 
@@ -248,7 +247,7 @@ sequenceDiagram
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>elcm_ents_cnty_cd</code></td><td>国家代码</td><td>String(2)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">Geek固定注入</td><td>KR</td><td>固定注入 KR</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>hbl_no</code></td><td>运单号 (HBL)</td><td>String(20)</td><td><span class="badge req-y">Y</span></td><td class="src-dongsu">东数EIBE ERP采集</td><td>DS26080400001 等</td><td>11:10采集EIBE ERP的HBL；作为海关处理单位基准键</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_no</code></td><td>订单编号</td><td>String(52)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>ORD20260804001 等</td><td>自营商城唯一订单编号</td></tr>
-            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>elcm_pcd</code></td><td>电子商务销售类型代码</td><td>String(1)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">已批准的渠道主数据</td><td>A (直接销售)</td><td><span class="rule-highlight">[2026-08-24 确定]</span> 自营商城为A；外部平台28个渠道为B并由各平台提交TRA001</td></tr>
+            <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>elcm_pcd</code></td><td>电子商务销售类型代码</td><td>String(1)</td><td><span class="badge req-y">Y</span></td><td class="src-gen">已批准的渠道主数据</td><td>A/B</td><td>自营商城1个A、外部平台10个B；与申报路径分开判断</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>ord_cmpl_dttm</code></td><td>订单完成时间</td><td>String(14)</td><td><span class="badge req-y">Y</span></td><td class="src-geek">Geek自营商城DB</td><td>YYYYMMDDHHMMSS</td><td>支付完成时间</td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>puch_vcex_bsmn_sgn</code></td><td>代购企业符号</td><td>String(9)</td><td><span class="badge req-c">B必填</span></td><td class="src-gen">已批准的渠道主数据</td><td>Null</td><td>自营商城A禁止填写；Naver B=<code>K26014765</code>，其他外部B=<code>K26000099</code></td></tr>
             <tr><td><span class="api-tag api-tra1">TRA001</span></td><td><code>puch_vcex_bsmn_nm</code></td><td>代购企业名</td><td>String(250)</td><td><span class="badge req-c">B必填</span></td><td class="src-gen">已批准的渠道主数据</td><td>Null</td><td>自营商城A禁止填写；Naver B=<code>(株)iBae</code>，其他外部B=<code>(株)KRONE</code></td></tr>
@@ -380,7 +379,7 @@ sequenceDiagram
     </table>
 
     <!-- ================================================================= -->
-    <!-- [参考] 28个外部购物商城渠道符号/类型自动分发逻辑规范 -->
+    <!-- [参考] 10个外部购物商城渠道符号/类型自动分发逻辑规范 -->
     <!-- ================================================================= -->
     <h2 style="border-bottom: 2px solid #ffb300; margin-top:50px;">
         <span style="color:#b78103;">[参考] 外部购物商城渠道(B类型代购)符号及 URL 自动分发逻辑规范</span>
@@ -388,7 +387,7 @@ sequenceDiagram
     <div style="background:#fff8e1; border:1px solid #ffe082; border-left:5px solid #ffb300; padding:20px; border-radius:4px; margin-bottom:25px;">
         <p style="margin-top:0; font-weight:bold; font-size:15px; color:#856404;">东数(EIBE ERP)-Geek之间多渠道符号控制及11:10 HBL·TRA数据采集(<code>getTRA001OrderInfo</code>)注入规则:</p>
         <p style="font-size:13.5px; line-height:1.7;">
-            渠道总数为<strong>29个 = 自营商城1个 + 外部购物商城28个</strong>；外部28个已包含Naver品牌店、Gmarket、Auction、11st、Coupang、SSG等。<br>
+            渠道总数为<strong>11个 = 自营商城1个 + 外部购物商城10个</strong>；外部10个包含Naver 1个和其他9个。<br>
             东数 EIBE ERP 在采集订单时拥有 <strong>'渠道代码 (Channel Code)'</strong>，因此在11:10 KST <code>getTRA001OrderInfo</code>响应中，必须根据渠道代码按照下表矩阵自动分发<code>elcm_pcd</code>、<code>kcsSubmitterCode/Name</code>（映射至TRA001 <code>elcm_ents_sgn/nm</code>）、<code>submissionProfileKey</code>、<code>puch_vcex_bsmn_sgn</code>、<code>puch_vcex_bsmn_nm</code>、<code>prod_sale_pge_url</code>并返回给Geek。现有<code>serachOrderInfo</code>只负责国内/海外运单号及<code>isCrossBorder=Y/N</code>。
         </p>
     </div>
@@ -422,7 +421,7 @@ sequenceDiagram
                 <td>订单商品的实际详情页URL</td>
             </tr>
             <tr>
-                <td><strong>其他外部购物商城 (27个渠道)</strong><br><small>(外部28个中扣除Naver 1个：Gmarket, Auction, 11st, Coupang, SSG等)</small></td>
+                <td><strong>其他外部购物商城 (9个渠道)</strong><br><small>(外部10个中扣除Naver 1个：Gmarket, Auction, 11st, Coupang, SSG等)</small></td>
                 <td><span class="badge req-c">B (代购)</span></td>
                 <td><strong>各平台电子商务经营者代码/名称</strong><br><span class="rule-highlight">逐渠道未确认</span></td>
                 <td><code>K26000099</code></td>
@@ -436,7 +435,7 @@ sequenceDiagram
         <strong>[通用原则]</strong><br>
         1. 自营商城A填写<code>sale_ents_sgn=K26000099</code>及<code>sale_ents_nm=(株)KRONE</code>；外部平台B不填写<code>sale_ents_sgn</code>，如可取得则提交实际境外卖家名称。GIANT <code>sellerName</code>在所有类型均为必填。<br>
         2. 平台提交方为各平台，OAuth 令牌经营者代码必须与 <code>elcm_ents_sgn</code>及<code>txif_sbmt_no</code>前9位一致；Profile 未确认的渠道禁止自动提交。<br>
-        3. GIANT <code>brokerCode/brokerName</code>是独立字段。仅在已批准的渠道主数据明确映射角色时使用相同K代码：自营商城及其他27个平台=<code>K26000099/(株)KRONE</code>，Naver=<code>K26014765/(株)iBae</code>；禁止字段间自动复制。<br>
+        3. GIANT <code>brokerCode/brokerName</code>是独立字段。仅在已批准的渠道主数据明确映射角色时使用相同K代码：自营商城及其他9个平台=<code>K26000099/(株)KRONE</code>，Naver=<code>K26014765/(株)iBae</code>；禁止字段间自动复制。<br>
         4. <span class="rule-highlight">[2026-08-26 更正]</span> <code>prod_srno</code>（商品序号）由 <strong>Geek 在每个 HBL 内从 1 开始连续编号</strong>。原“要求东数 EIBE ERP 生成并返回·P0”<strong>废止</strong> — 该值为 HBL 内序号，发送方可自行生成，无需东数提供。但<strong>字段本身仍为必填</strong>，留空会失败。
     </div>
 
