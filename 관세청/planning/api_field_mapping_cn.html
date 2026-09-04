@@ -35,26 +35,34 @@
 </head>
 <body>
 <div class="container">
-    <a href="./동수_최종전달기준_20260828_cn.html" class="nav-btn">[ → 东数最终传达标准 ]</a>
+    <a href="./동수_협의자료_20260901_cn.html" class="nav-btn">[ → 东数V2-1运营切换标准 ]</a>
     <a href="./유형코드_부호체계_정리_cn.html" class="nav-btn">[ → 类型代码及符号体系 ]</a>
     <h1>API全量数据字段映射文档（海关63项+GIANT全量+PER）</h1>
-<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">最后更新 <span style="color:#8ab4f8;font-size:16px;">2026-08-28</span><span style="font-weight:400;color:#bdc1c6;"> · 适用于东数开发交付</span></div>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">最后更新 <span style="color:#8ab4f8;font-size:16px;">2026-09-01</span><span style="font-weight:400;color:#bdc1c6;"> · 东数V2-1 + Geek V2-2优先合并 · 东数计划自2026-09-02订单起适用</span></div>
+<div style="background:#e8f0fe;border-left:5px solid #1a73e8;padding:14px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#174d5f;line-height:1.8;">
+<strong>[2026-09-01 当前正式基准 · 以下字段表的优先规则]</strong>
+<br>① 东数向GIANT发送的订单统一使用<strong>V2-1</strong>；Geek使用<strong>V2-2 <code>clearance</code></strong>发送自营商城通关及认证数据。
+<br>② 相同<code>hwbNo + orderNo</code>的重叠字段采用Geek V2-2的有效非空值；V2-2未包含的物流和商品字段继续采用东数V2-1。
+<br>③ V2-2的<code>null</code>或空字符串不得删除V2-1正常值。不得生成任意P/O、OTP、<code>Z99999</code>或虚假订单完成时间。
+<br>④ 2026-08-31的90单通过旧API发送，新增申报所需的企业代码、一次性认证号等缺失，部分PCCC因采集错误未取得。是否全部补齐和受理尚未确认。
+<br>详细标准见<a href="./동수_협의자료_20260901_cn.html">东数V2-1运营切换传达标准</a>。
+</div>
 <div style="background:#e6f4ea;border-left:5px solid #137333;padding:14px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#174d2a;line-height:1.8;">
-<strong>[2026-08-28 当前基准 · A/B与申报路径分开判断]</strong>
+<strong>[2026-08-28 仍然有效的原则 · 发送版本已于2026-09-01更正]</strong>
 <br>① 当前渠道主数据共11个：自营商城1个A/KRONE、Naver 1个B/iBae、其他外部9个B/KRONE。
 <br>② <code>ecTypeCode=A/B</code>表示交易角色；<code>LEGACY_IMPORT/ECOMMERCE_DEDICATED</code>表示逐订单进口申报路径。不得仅按A/B选择API或决定OTP。
 <br>③ 韩国海关回复：传统进口申报无需提交TRA001交易信息和一次性认证号；跨境电商专用进口申报才需要。
-<br>④ V2-1公开规格仍把<code>pccCode/tempAuthNo/orderCompletionDate</code>列为必填，因此传统进口申报A/B的endpoint、标志及条件校验属于GGATE P0待确认事项。
-<br>⑤ 禁止为传统进口申报伪造OTP、<code>Z99999</code>或订单完成时间。详细标准见<a href="./동수_최종전달기준_20260828_cn.html">东数最终传达标准</a>。
+<br>④ V2-1公开规格与2026-09-01 GIANT运营例外不同，必须另行记录字段条件、错误代码、例外期限和申报阶段补充责任。
+<br>⑤ A/B与申报路径仍须分开判断，但发送版本固定为东数V2-1、Geek V2-2。
 </div>
 <div style="background:#fdecea;border-left:5px solid #d93025;padding:14px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#5f2120;line-height:1.8;">
 <strong>[2026-08-28 阅读规则 · 请优先适用]</strong>
 <br>① 本表的Y/N/条件值用于说明各源API或字段定义，不代表11个渠道的所有订单都必须发送该字段。
 <br>② <code>LEGACY_IMPORT</code>不提交TRA001及OTP；但收件人、PCCC、物流及商品字段在GGATE传统进口接口中的正式必填范围仍须GGATE确认。
-<br>③ <code>ECOMMERCE_DEDICATED</code>才采集并提交TRA001及一次性认证号。OTP由实际认证及提交链路提供，不能仅凭A/B固定为Geek或东数。
+<br>③ <code>ECOMMERCE_DEDICATED</code>才采集并提交TRA001及一次性认证号。自营商城认证值由Geek V2-2优先，东数V2-1只发送其真实持有值且不得生成缺失OTP。
 <br>④ <code>sellerName</code>、<code>broker*</code>、<code>buyingAgent*</code>的必填或禁止条件以最终选择的GGATE endpoint规格为准；A/B只决定业务角色及渠道主数据值。
 <br>⑤ 单价保留原始3位小数；海关TRA001无重量字段；禁止伪造OTP、<code>Z99999</code>或订单完成时间。
-<br><span style="color:#777;">※ 东数开发交付的当前正本为<code>동수_최종전달기준_20260828_cn.html</code>，本文件用于字段级参考。</span>
+<br><span style="color:#777;">※ 东数开发交付的当前正本为<code>동수_협의자료_20260901_cn.html</code>，本文件用于字段级参考。</span>
 </div>
     <div style="background:#fff3cd;border-left:5px solid #856404;padding:12px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#856404;"><strong>[2026-08-10 更正]</strong> 依据韩国关税厅 REST API 规格 v1.4.1 修正字段名与类型：dlvr_vcex_bsmn_* → <code>shpn_vcex_bsmn_*</code>、sale_ents_biz_no → <code>sale_ents_bsns_no</code>、prod_mnfcr_nm → <code>prod_mkr_nm</code>、prod_mdl_no → <code>prod_mkr_mdl_no</code>。另新增必填项 <code>ord_site_url</code>（详见 리스크_질의대장.html 综合风险·质询台账）。</div>
 
@@ -201,10 +209,10 @@
             <tr><td>95</td><td class="cls-giant">GIANT</td><td><span class="api-tag api-hwb">所选endpoint</span></td><td><code>brokerCode</code></td><td><b>销售中介方</b>代码</td><td>9位固定</td><td><span class="badge req-c">接口条件</span></td><td><span class="mapping-none">渠道主数据</span></td><td class="src-dongsu">渠道合规配置 → 东数</td><td>自营商城·其他9个：K26000099<br>Naver：K26014765</td><td>按所选接口条件发送，并清除Unicode空白后校验9位</td></tr>
             <tr><td>96</td><td class="cls-giant">GIANT</td><td><span class="api-tag api-hwb">所选endpoint</span></td><td><code>brokerName</code></td><td>销售中介方名称</td><td>String(100)</td><td><span class="badge req-c">接口条件</span></td><td><span class="mapping-none">渠道主数据</span></td><td class="src-dongsu">渠道合规配置 → 东数</td><td>自营商城·其他9个：(株)KRONE<br>Naver：(株)iBae</td><td>与<code>brokerCode</code>成对发送</td></tr>
             <tr><td>97</td><td class="cls-giant">GIANT</td><td><span class="api-tag api-hwb">HWB注册</span></td><td><code>orderNo</code></td><td>自营商城订单编号</td><td>String(52)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">ord_no</span></td><td class="src-geek">Geek自营商城DB</td><td>自营商城唯一订单编号</td><td>三方数据映射基准键</td></tr>
-            <tr><td>98</td><td class="cls-giant">GIANT</td><td><span class="api-tag api-hwb">HWB注册</span></td><td><code>orderCompletionDate</code></td><td>结账完成日期时间</td><td>String(14)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">ord_cmpl_dttm</span></td><td class="src-geek">Geek自营商城DB</td><td>YYYYMMDDHHmmss</td><td>结账完成时间</td></tr>
+            <tr><td>98</td><td class="cls-giant">GIANT</td><td><span class="api-tag api-hwb">V2-1/2合并</span></td><td><code>orderCompletionDate</code></td><td>结账完成日期时间</td><td>String(14)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">ord_cmpl_dttm</span></td><td class="src-gen">东数V2-1默认 / Geek V2-2优先</td><td>YYYYMMDDHHmmss</td><td>自营商城字段重叠时采用Geek V2-2的真实结账完成时间。禁止生成虚假时间</td></tr>
             <tr><td>99</td><td class="cls-giant">GIANT</td><td><span class="api-tag api-hwb">HWB注册</span></td><td><code>orderSiteUrl</code></td><td>订单网站代表URL</td><td>Max <b>300</b>字</td><td><span class="badge req-n">N</span></td><td><span class="mapping-code">ord_site_url</span></td><td class="src-dongsu">东数渠道DB</td><td>自营商城 = https://nutriciastore.co.kr/<br>平台 = 各渠道订单网站URL</td><td>东数按渠道代码注入；与商品页面 <code>productPageUrl</code> 区分</td></tr>
-            <tr><td>100</td><td class="cls-giant">GIANT</td><td><span class="api-tag api-hwb">HWB注册</span></td><td><code>pccCode</code></td><td>个人通关固有符号</td><td>String(13)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">cnsi_pers_ecm</span></td><td class="src-geek">Geek DB → GIANT 直送</td><td>P/O开头13位</td><td>对 GIANT 由 Geek 发送并与 OTP/收件人数据同一权限域管理。东数无需为 GIANT 重复发送</td></tr>
-            <tr><td>101</td><td class="cls-giant">GIANT</td><td><span class="api-tag api-hwb">所选endpoint</span></td><td><code>tempAuthNo</code></td><td>一次性认证号码</td><td>String(6)</td><td><span class="badge req-c">专用申报</span></td><td><span class="mapping-code">su_crtf_no</span></td><td class="src-geek">认证API响应或订单源</td><td>正式签发的6位认证号码</td><td><code>ECOMMERCE_DEDICATED</code>时由实际认证及提交链路发送；<code>LEGACY_IMPORT</code>不发送。具体发送主体不得仅按A/B固定</td></tr>
+            <tr><td>100</td><td class="cls-giant">GIANT</td><td><span class="api-tag api-hwb">V2-1/2合并</span></td><td><code>pccCode</code></td><td>个人通关固有符号</td><td>String(13)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">cnsi_pers_ecm</span></td><td class="src-gen">东数V2-1默认 / Geek V2-2优先</td><td>P/O开头13位</td><td>优先采用Geek V2-2的PER来源有效值。不得把仅符合格式的O/P值视为真实，也不得在东数缺失时生成临时值。2026-09-01“排除PCCC校验”仅记录为输入校验例外</td></tr>
+            <tr><td>101</td><td class="cls-giant">GIANT</td><td><span class="api-tag api-hwb">专用申报</span></td><td><code>tempAuthNo</code></td><td>一次性认证号码</td><td>String(6)</td><td><span class="badge req-c">专用申报</span></td><td><span class="mapping-code">su_crtf_no</span></td><td class="src-geek">Geek V2-2认证来源</td><td>正式签发的6位认证号码</td><td>东数V2-1可能没有该值。自营商城专用申报优先采用Geek正式认证值；<code>LEGACY_IMPORT</code>不发送。禁止空值、任意值或无依据的<code>Z99999</code></td></tr>
             <tr><td>102</td><td class="cls-giant">GIANT</td><td><span class="api-tag api-hwb">HWB注册</span></td><td><code>xrayReader1</code></td><td>X-Ray判读员</td><td>String(50)</td><td><span class="badge req-n">N</span></td><td><span class="mapping-none">不适用</span></td><td class="src-kcs">GIANT内部系统输入</td><td>到达仁川机场后的X-Ray判读员姓名</td><td>GIANT内部系统输入。无需发送至自营商城/东数</td></tr>
             <tr><td>103</td><td class="cls-giant">GIANT</td><td><span class="api-tag api-hwb">所选endpoint</span></td><td><code>buyingAgentCode</code></td><td>代购企业代码</td><td>String(9)</td><td><span class="badge req-c">接口条件</span></td><td><span class="mapping-code">puch_vcex_bsmn_sgn</span></td><td class="src-dongsu">渠道合规配置 → 东数</td><td>自营商城A：不发送<br>Naver B：K26014765<br>其他外部B：K26000099</td><td>A不发送；B在最终选择的GGATE endpoint要求时从渠道主数据成对发送。B本身不等于V2-1全字段发送</td></tr>
             <tr><td>104</td><td class="cls-giant">GIANT</td><td><span class="api-tag api-hwb">所选endpoint</span></td><td><code>buyingAgentName</code></td><td>代购企业商号</td><td>String(100)</td><td><span class="badge req-c">接口条件</span></td><td><span class="mapping-code">puch_vcex_bsmn_nm</span></td><td class="src-dongsu">渠道合规配置 → 东数</td><td>自营商城A：不发送<br>Naver B：(株)iBae<br>其他外部B：(株)KRONE</td><td>仅与<code>buyingAgentCode</code>成对发送；是否必填按最终选择的endpoint规格判断</td></tr>

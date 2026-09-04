@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>东数 V2-1 运营切换传达标准 — 2026-09-01</title>
+<style>
+body{font-family:'Microsoft YaHei','Noto Sans SC',Arial,sans-serif;background:#fff;color:#333;line-height:1.68;padding:40px;margin:0}.container{max-width:1500px;margin:0 auto}h1{color:#111;border-bottom:3px solid #1a73e8;padding-bottom:12px;margin-bottom:20px;font-size:26px}h2{color:#202124;border-bottom:2px solid #1a73e8;padding-bottom:8px;margin-top:40px;font-size:20px;display:flex;align-items:center;justify-content:space-between;scroll-margin-top:16px}h3{color:#3c4043;margin-top:25px;font-size:16px}table{width:100%;border-collapse:collapse;margin-bottom:25px;font-size:12px}th,td{border:1px solid #eaeaea;padding:8px 10px;text-align:left;vertical-align:top}th{background:#f8f9fa;font-weight:600;color:#555;position:sticky;top:0;z-index:10}code{background:#f1f3f4;padding:1px 4px;border-radius:3px;font-family:Consolas,monospace;font-size:12px}.badge{display:inline-block;padding:3px 6px;border-radius:4px;font-size:11px;font-weight:bold}.req-y{background:#ffeaea;color:#d93025}.req-n{background:#e8f0fe;color:#1a73e8}.req-c{background:#fff3cd;color:#856404}.src-dongsu{background:#e6f4ea;color:#137333;font-weight:bold}.src-geek{background:#e8f0fe;color:#1a73e8;font-weight:bold}.src-gen{background:#fce8e6;color:#c5221f;font-weight:bold}.stage-box{background:#fcfcfc;border:1px solid #e0e0e0;border-left:5px solid #1a73e8;padding:18px 22px;margin-bottom:20px;border-radius:4px}.stage-box p{margin:0 0 10px;font-size:14px}.stage-box ul{margin:0;padding-left:20px;font-size:13.5px}.stage-box li{margin-bottom:6px}.time-tag{background:#1a73e8;color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:bold;margin-right:8px}.core-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}.core-nav a{display:inline-block;background:#3c4043;color:#fff;padding:8px 13px;border-radius:4px;text-decoration:none;font-size:13px;font-weight:700;margin:0}.core-nav a:hover{background:#202124}.core-nav a.active{background:#1a73e8}#toc{position:fixed;top:0;right:0;width:250px;height:100vh;overflow-y:auto;background:#fff;border-left:1px solid #e0e0e0;padding:18px 14px 40px;z-index:500;font-size:12.5px;box-shadow:-2px 0 8px rgba(0,0,0,.04)}#toc h4{margin:0 0 10px;font-size:12px;color:#5f6368;letter-spacing:.5px;text-transform:uppercase}#toc a{display:block;padding:6px 9px;margin-bottom:2px;color:#3c4043;text-decoration:none;border-radius:4px;border-left:3px solid transparent;line-height:1.35}#toc a:hover{background:#f1f3f4}#toc a.active{background:#e8f0fe;color:#1557b0;font-weight:700;border-left-color:#1a73e8}#tocToggle{position:fixed;top:14px;right:262px;z-index:501;background:#1a73e8;color:#fff;border:0;border-radius:4px;padding:7px 11px;font-size:12px;font-weight:700;cursor:pointer}body{padding-right:268px}body.toc-off{padding-right:40px}body.toc-off #toc{display:none}body.toc-off #tocToggle{right:14px}@media(max-width:1100px){#toc,#tocToggle{display:none}body{padding-right:40px}}@media(max-width:640px){body,body.toc-off{padding:18px}h1{font-size:23px}h2{display:block;font-size:18px}table{display:block;max-width:100%;overflow-x:auto}.stage-box{padding:14px}code{overflow-wrap:anywhere;word-break:break-word}}
+</style>
+</head>
+<body>
+<button id="tocToggle" onclick="document.body.classList.toggle('toc-off')">目录</button>
+<nav id="toc"><h4>目录</h4><div id="tocList"></div></nav>
+<div class="container">
+<nav class="core-nav" aria-label="主要文档"><a href="./planning_v6_cn.html">综合方案</a><a href="./api_field_mapping_cn.html">API字段映射</a><a href="./동수_협의자료_20260901_cn.html" class="active">东数传达标准</a><a href="./동수_협의자료_20260901.html">韩文版</a></nav>
+<h1>东数 V2-1 运营切换传达标准</h1>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">确定日期 <span style="color:#8ab4f8;font-size:16px;">2026-09-01</span> · 计划适用 <span style="color:#8ab4f8;">自 2026-09-02 订单起</span><span style="font-weight:400;color:#bdc1c6;"> · 韩文与中文同步发布 · 原聊天中的 v1 gate 统一标记为 V2-1</span></div>
+
+<div style="background:#e6f4ea;border-left:5px solid #137333;padding:14px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#174d2a;line-height:1.8;"><strong>[最终结论]</strong><br>东数向 GIANT 的发送统一使用 <strong>V2-1</strong>。Geek 另行用 V2-2 发送自营商城的通关及认证数据。相同 <code>hwbNo + orderNo</code>中字段重叠时，GIANT 优先采用 Geek V2-2 的有效值。东数无需等待或合并 Geek 数据后再发送。</div>
+<div style="background:#fce8e6;border-left:5px solid #c5221f;padding:14px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#5f2120;line-height:1.8;"><strong>[禁止]</strong> 不得生成东数并未持有的一次性认证号、PCCC 或虚假订单完成时间。没有一次性认证号的订单应按正式合同使用字段省略或空值方式发送，由 GIANT 按临时校验例外处理。具体缺失表达方式必须以 GIANT 合同和样例响应固定。</div>
+
+<h2 id="contract">1. 各发送方合同</h2>
+<table><thead><tr><th style="width:14%">发送方</th><th style="width:16%">版本</th><th>负责数据</th><th style="width:32%">合并规则</th></tr></thead><tbody>
+<tr><td class="src-dongsu">东数</td><td><strong>V2-1</strong></td><td>东数持有的订单、收件人、渠道、物流、商品及金额信息。</td><td>作为基础快照保存。V2-2 未提供的物流和商品字段继续使用东数 V2-1。</td></tr>
+<tr><td class="src-geek">Geek</td><td><strong>V2-2 <code>clearance</code></strong></td><td>自营商城 PER 认证结果、订购人及收件人、P/O 代码、一次性认证号、订单完成时间。</td><td>相同键的重叠字段采用 Geek 的有效非空值。Geek 的空值不得删除东数的正常值。</td></tr>
+<tr><td class="src-gen">GIANT</td><td>合并与申报</td><td>保存两个快照、字段优先适用、传统/新申报处理。</td><td>记录字段级来源、接收时间、错误和最终申报结果。</td></tr>
+</tbody></table>
+
+<h2 id="schedule">2. 适用日程</h2>
+<table><thead><tr><th style="width:17%">日期</th><th>东数执行</th><th style="width:34%">完成证据</th></tr></thead><tbody>
+<tr><td><span class="time-tag">2026-09-01</span></td><td>完成 V2-1 开发，准备运营配置、缺失字段处理和重试逻辑。</td><td>部署版本、变更记录、测试请求/响应、必填与选填字段表。</td></tr>
+<tr><td><span class="time-tag">2026-09-02</span></td><td>从当日生成的订单开始使用 V2-1 API。</td><td>首单 <code>orderNo/hwbNo</code>、发送时间、HTTP 响应、GIANT 保存及申报结果。</td></tr>
+<tr><td>切换期间</td><td>传统申报和跨境电商专用申报并行，逐单在 WeChat 共享申报方式和发送结果。</td><td>切换结束时间须另行以 YYYY-MM-DD HH:mm 确定，不得仅写“未来三天”。</td></tr>
+</tbody></table>
+
+<h2 id="payload">3. V2-1 数据处理标准</h2>
+<table><thead><tr><th>情况</th><th>东数处理</th><th>GIANT 后续</th><th>禁止事项</th></tr></thead><tbody>
+<tr><td>持有正常 P 开头 PCCC</td><td>将原始值与渠道、收件人、物流、商品一起用 V2-1 发送。</td><td>切换期内作为传统申报候选处理并记录结果。</td><td>不得仅因 P 开头就标记为申报完成。</td></tr>
+<tr><td>没有一次性代码或认证号</td><td>不得生成临时值；按合同约定方式发送真实缺失状态。</td><td>GIANT 应用临时输入校验例外及申报阶段补充标准。</td><td>不得生成 <code>O000…</code>、<code>Z99999</code>或虚假完成时间。</td></tr>
+<tr><td>未取得 PCCC</td><td>记录为缺失订单并共享订单键、来源和重新查询结果。</td><td>记录是否适用 PCCC 校验例外以及后续补充责任。</td><td>不得将空值视为正常，或任意替换为 P/O。</td></tr>
+<tr><td>Geek V2-2 后到</td><td>无需额外操作，不要无故重复发送相同键的 V2-1。</td><td>用 Geek 有效字段更新重叠值并保存来源日志。</td><td>禁止后续 V2-1 将 Geek 优先字段改回。</td></tr>
+</tbody></table>
+
+<h2 id="incident">4. 2026-08-31 的 90 单问题</h2>
+<div class="stage-box"><p><strong>已确认事实</strong></p><ul><li>90 单通过旧 API 发送，新增申报所需的企业代码、一次性认证号等未传至 GIANT。</li><li>部分订单因数据采集错误未取得 PCCC。</li><li>仅确认了须在 2026-09-01 13:00~14:00 前提供全部新增申报必填数据；是否全部补齐和申报完成尚未确认。</li></ul></div>
+<table><thead><tr><th>东数确认项</th><th>所需答复/资料</th><th style="width:24%">当前状态</th></tr></thead><tbody>
+<tr><td>90 单中东数持有的 PCCC、收件人和企业数据</td><td>逐单持有/缺失清单和来源字段，个人信息需脱敏。</td><td><span class="badge req-y">未确认</span></td></tr>
+<tr><td>旧 API 发送原始记录</td><td>请求时间、键、响应、实际字段和新增字段缺失列表。</td><td><span class="badge req-c">需要提供</span></td></tr>
+<tr><td>V2-1 补发范围</td><td>确认 90 单能否用 V2-1 补发，以及已受理订单的重复与更正规则。</td><td><span class="badge req-y">未确认</span></td></tr>
+</tbody></table>
+
+<h2 id="acceptance">5. 验收标准</h2>
+<table><thead><tr><th style="width:8%">No</th><th>测试场景</th><th>通过条件</th></tr></thead><tbody>
+<tr><td>1</td><td>V2-1 先到且无一次性认证号</td><td>请求按合同状态保存，并明确返回错误或等待原因。</td></tr>
+<tr><td>2</td><td>V2-1 后 V2-2</td><td>Geek 有效字段优先，东数物流和商品字段保持不变。</td></tr>
+<tr><td>3</td><td>V2-2 后 V2-1</td><td>后到的 V2-1 不得回写 Geek 优先字段。</td></tr>
+<tr><td>4</td><td>V2-2 含空值</td><td>空值不删除 V2-1 正常值，并记录忽略或错误结果。</td></tr>
+<tr><td>5</td><td>PCCC 缺失</td><td>不得生成临时值；订单隔离并返回补充责任、状态和期限。</td></tr>
+<tr><td>6</td><td>相同键重发</td><td>幂等处理或明确错误，且不得生成重复申报。</td></tr>
+</tbody></table>
+
+<h2 id="reply">6. 请东数回复</h2>
+<table><thead><tr><th style="width:8%">ID</th><th>回复项目</th><th style="width:32%">请求格式</th></tr></thead><tbody>
+<tr><td><span class="badge req-y">D-01</span></td><td>2026-09-01 V2-1 开发、部署完成与运营适用时间</td><td>版本、部署时间、负责人、回滚标准。</td></tr>
+<tr><td><span class="badge req-y">D-02</span></td><td>2026-09-02 首单请求与响应</td><td>脱敏 JSON、<code>orderNo/hwbNo</code>、响应代码。</td></tr>
+<tr><td><span class="badge req-y">D-03</span></td><td>一次性认证号与 PCCC 缺失的表达方式</td><td>字段省略、<code>null</code>、空字符串中正式约定的一种方式及错误代码。</td></tr>
+<tr><td><span class="badge req-c">D-04</span></td><td>90 单数据持有与缺失情况</td><td>逐单字段检查表和旧 API 发送日志。</td></tr>
+<tr><td><span class="badge req-c">D-05</span></td><td>相同键重发与去重</td><td>幂等键、重试次数、最终失败队列和运营告警标准。</td></tr>
+</tbody></table>
+
+<div style="background:#e8f0fe;padding:14px 18px;border-left:5px solid #1a73e8;margin-top:30px;border-radius:4px;font-size:13px;line-height:1.8;"><strong>正式基准</strong> — 综合流程以 <a href="./planning_v6_cn.html">综合方案</a>为准，字段以 <a href="./api_field_mapping_cn.html">API字段映射</a>为准。若中文版与 2026-09-01 韩文运营决定冲突，以本文件与韩文风险台账的最新更正为准并同步修订。</div>
+</div>
+<script>(function(){var list=document.getElementById('tocList');if(!list)return;var heads=Array.prototype.slice.call(document.querySelectorAll('.container h2')),links=[];heads.forEach(function(h,i){var label=h.textContent.trim();if(!h.id)h.id='sec'+i;var a=document.createElement('a');a.href='#'+h.id;a.textContent=label.length>34?label.slice(0,33)+'…':label;a.title=label;list.appendChild(a);links.push({a:a,h:h})});function onScroll(){var y=window.scrollY+90,cur=links[0];links.forEach(function(o){if(o.h.offsetTop<=y)cur=o});links.forEach(function(o){o.a.classList.toggle('active',o===cur)})}window.addEventListener('scroll',onScroll,{passive:true});onScroll()})();</script>
+</body>
+</html>

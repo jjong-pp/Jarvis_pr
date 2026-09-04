@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동수-GNG 기존·신규 통관 경로 설명 — 2026-09-04</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body { font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#fff; color:#333; line-height:1.6; padding:40px; padding-right:268px; margin:0; }
+        body.toc-off { padding-right:40px; }
+        .container { max-width:1500px; margin:0 auto; }
+        h1 { color:#111; border-bottom:3px solid #1a73e8; padding-bottom:12px; margin-bottom:20px; font-size:26px; }
+        h2 { color:#202124; border-bottom:2px solid #1a73e8; padding-bottom:8px; margin-top:40px; font-size:20px; display:flex; align-items:center; justify-content:space-between; scroll-margin-top:16px; }
+        h3 { color:#3c4043; margin-top:25px; font-size:16px; }
+        p, li { font-size:13.5px; }
+        table { width:100%; border-collapse:collapse; margin-bottom:25px; font-size:12px; }
+        th, td { border:1px solid #eaeaea; padding:8px 10px; text-align:left; vertical-align:top; }
+        th { background:#f8f9fa; font-weight:600; color:#555; position:sticky; top:0; z-index:10; }
+        code { background:#f1f3f4; padding:1px 4px; border-radius:3px; font-family:Consolas,'Courier New',monospace; font-size:12px; }
+        .core-nav { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; }
+        .core-nav a { display:inline-block; background:#3c4043; color:#fff; padding:8px 13px; border-radius:4px; text-decoration:none; font-size:13px; font-weight:700; }
+        .core-nav a:hover { background:#202124; }
+        .core-nav a.active { background:#1a73e8; }
+        .stage-box { background:#fcfcfc; border:1px solid #e0e0e0; border-left:5px solid #1a73e8; padding:18px 22px; margin-bottom:20px; border-radius:4px; }
+        .stage-box p { margin:0 0 10px; }
+        .stage-box ul, .stage-box ol { margin:0; padding-left:22px; }
+        .stage-box li { margin-bottom:6px; }
+        .rule-highlight { background:#fff3cd; color:#856404; padding:2px 6px; border-radius:3px; font-weight:bold; }
+        .badge { display:inline-block; padding:3px 6px; border-radius:4px; font-size:11px; font-weight:bold; }
+        .req-y { background:#ffeaea; color:#d93025; }
+        .req-n { background:#e8f0fe; color:#1a73e8; }
+        .req-c { background:#fff3cd; color:#856404; }
+        .src-dongsu { background:#e6f4ea; color:#137333; font-weight:bold; }
+        .src-geek { background:#e8f0fe; color:#1a73e8; font-weight:bold; }
+        .src-gen { background:#fce8e6; color:#c5221f; font-weight:bold; }
+        .src-kcs { background:#fff3cd; color:#856404; font-weight:bold; }
+        .summary { background:#202124; color:#e8eaed; padding:11px 18px; border-radius:5px; margin-bottom:16px; font-size:14px; font-weight:600; line-height:1.6; }
+        .summary strong { color:#8ab4f8; font-size:16px; }
+        .notice-blue { background:#e8f0fe; border-left:5px solid #1a73e8; padding:14px 18px; margin-bottom:18px; border-radius:4px; font-size:13px; color:#174d5f; line-height:1.8; }
+        .notice-red { background:#fce8e6; border-left:5px solid #c5221f; padding:14px 18px; margin-bottom:18px; border-radius:4px; font-size:13px; color:#5f2120; line-height:1.8; }
+        .notice-green { background:#e6f4ea; border-left:5px solid #137333; padding:14px 18px; margin-bottom:18px; border-radius:4px; font-size:13px; color:#174d2a; line-height:1.8; }
+        .copy-toolbar { display:flex; justify-content:flex-end; gap:8px; margin:0 0 8px; }
+        .nav-btn { display:inline-block; background:#1a73e8; color:#fff; padding:8px 14px; text-decoration:none; border-radius:4px; font-weight:bold; cursor:pointer; border:0; font-size:13px; }
+        .nav-btn:hover { background:#1557b0; }
+        .nav-btn.secondary { background:#3c4043; }
+        .nav-btn.secondary:hover { background:#202124; }
+        .copy-status { min-height:22px; color:#137333; text-align:right; font-size:12px; margin-bottom:5px; }
+        .message-box, .code-box { background:#f8f9fa; border:1px solid #dadce0; border-radius:4px; padding:18px; margin-bottom:25px; overflow:auto; }
+        .message-box { white-space:pre-wrap; font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:13.5px; line-height:1.75; }
+        .code-box { white-space:pre; font-family:Consolas,'Courier New',monospace; font-size:12px; line-height:1.55; max-height:580px; }
+        .diagram-card { border:2px dashed #1a73e8; padding:20px; border-radius:8px; background:#f8faff; margin-bottom:28px; position:relative; overflow:auto; }
+        .diagram-card .mermaid { min-width:900px; }
+        .diagram-error { display:none; background:#fce8e6; color:#c5221f; padding:12px; border-radius:4px; margin-bottom:12px; font-size:13px; }
+        #toc { position:fixed; top:0; right:0; width:250px; height:100vh; overflow-y:auto; background:#fff; border-left:1px solid #e0e0e0; padding:18px 14px 40px; z-index:500; font-size:12.5px; box-shadow:-2px 0 8px rgba(0,0,0,.04); }
+        #toc h4 { margin:0 0 10px; font-size:12px; color:#5f6368; letter-spacing:.5px; text-transform:uppercase; }
+        #toc a { display:block; padding:6px 9px; margin-bottom:2px; color:#3c4043; text-decoration:none; border-radius:4px; border-left:3px solid transparent; line-height:1.35; }
+        #toc a:hover { background:#f1f3f4; }
+        #toc a.active { background:#e8f0fe; color:#1557b0; font-weight:700; border-left-color:#1a73e8; }
+        #tocToggle { position:fixed; top:14px; right:262px; z-index:501; background:#1a73e8; color:#fff; border:0; border-radius:4px; padding:7px 11px; font-size:12px; font-weight:700; cursor:pointer; }
+        body.toc-off #toc { display:none; }
+        body.toc-off #tocToggle { right:14px; }
+        .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.88); z-index:9999; justify-content:center; align-items:center; padding:18px; box-sizing:border-box; }
+        .modal-content { background:#fff; width:96vw; height:94vh; border-radius:8px; display:flex; flex-direction:column; padding:15px; box-sizing:border-box; }
+        .modal-header { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px; }
+        .modal-header strong { font-size:15px; }
+        .modal-body { flex:1; overflow:auto; background:#fff; border:1px solid #ddd; border-radius:4px; padding:14px; }
+        .modal-body svg { max-width:none !important; min-width:1250px; height:auto; }
+        @media (max-width:1100px) {
+            #toc, #tocToggle { display:none; }
+            body, body.toc-off { padding:28px; }
+        }
+        @media (max-width:640px) {
+            body, body.toc-off { padding:18px; }
+            h1 { font-size:23px; }
+            h2 { display:block; font-size:18px; }
+            .stage-box { padding:14px; }
+            .copy-toolbar { justify-content:flex-start; flex-wrap:wrap; }
+            table { display:block; overflow-x:auto; }
+        }
+        @media print {
+            body { padding:20px; }
+            #toc, #tocToggle, .copy-toolbar, .copy-status { display:none !important; }
+            .diagram-card { border:1px solid #dadce0; }
+        }
+    </style>
+</head>
+<body>
+<button id="tocToggle" type="button" onclick="document.body.classList.toggle('toc-off')">목차</button>
+<nav id="toc" aria-label="문서 목차"><h4>목차</h4><div id="tocList"></div></nav>
+
+<div class="container">
+    <nav class="core-nav" aria-label="주요 문서">
+        <a href="./planning_v6.html">통합 기획서</a>
+        <a href="./현황브리핑_20260901.html">운영 현황</a>
+        <a href="./api_field_mapping.html">API 필드 매핑</a>
+        <a href="./dongsu-gng-clearance-flow-20260904.html" class="active">동수-GNG 통관 흐름</a>
+    </nav>
+
+    <h1>동수-GNG 기존·신규 통관 경로 설명</h1>
+    <div class="summary">작성일 <strong>2026-09-04</strong> · 전달 대상 <strong>동수 중국 물류 담당자</strong> · 명칭 <strong>GNG</strong> 통일</div>
+
+    <div class="notice-red">
+        <strong>[현재 핵심 문제]</strong><br>
+        하나의 MAWB 안에 자사몰 신통관 HBL과 외부 플랫폼 기존통관 HBL이 함께 포함됩니다.<br>
+        외부 플랫폼은 현재 PER 인증을 처리하지 않으므로 신규 통관에 필요한 정보가 없습니다.<br>
+        따라서 모든 주문을 신규 GNG V2-1로 보내는 것만으로는 문제를 해결할 수 없습니다.
+    </div>
+
+    <div class="notice-green">
+        <strong>[사용자 최신 확정]</strong><br>
+        GNG는 자사몰 주문도 신규 GNG V2-1로 받을 수 있도록 변경했습니다.<br>
+        자사몰은 PER 인증정보가 있으므로 신규 GNG V2-1과 전자상거래 전용 신규 통관 방식을 사용할 수 있습니다.<br>
+        Geek V2-2를 계속 사용하는 경우에는 자사몰 통관·인증정보를 보완하는 경로로만 설명합니다.
+    </div>
+
+    <h2 id="terms">1. 용어 구분</h2>
+    <div class="notice-blue">
+        <strong>판매유형 A/B와 API 방식은 다른 구분입니다.</strong><br>
+        번역과 협의를 위해 API 방식은 A/B라고 부르지 않고 <strong>기존 GNG API</strong>와 <strong>신규 GNG V2-1</strong>로 표기합니다.
+    </div>
+    <table>
+        <thead><tr><th>구분</th><th>명칭</th><th>뜻</th><th>현재 대상</th></tr></thead>
+        <tbody>
+            <tr><td>판매유형</td><td><code>ecTypeCode=A</code></td><td>직접판매</td><td>자사몰 주문</td></tr>
+            <tr><td>판매유형</td><td><code>ecTypeCode=B</code></td><td>구매대행</td><td>외부 플랫폼 주문</td></tr>
+            <tr><td>API 방식</td><td>기존 GNG API</td><td>관세청 제도 변경 전부터 사용한 GNG API</td><td>PER 미적용 외부 플랫폼 주문</td></tr>
+            <tr><td>API 방식</td><td>신규 GNG V2-1</td><td>이번에 새로 적용하는 GNG API</td><td>현재 자사몰, 향후 준비 완료 외부 플랫폼</td></tr>
+            <tr><td>인증</td><td>PER 인증</td><td>개인통관고유부호 검증과 신규 통관 인증정보 확보</td><td>현재 자사몰만 연동</td></tr>
+            <tr><td>운송</td><td>HBL / MAWB</td><td>HBL은 고객별 포장, MAWB는 출고 항공편의 마스터 화물</td><td>하나의 MAWB에 여러 HBL 포함</td></tr>
+        </tbody>
+    </table>
+
+    <h2 id="status">2. 현재 채널별 처리</h2>
+    <table>
+        <thead><tr><th>주문 구분</th><th>판매유형</th><th>주문 수집</th><th>PER</th><th>현재 GNG API</th><th>현재 통관방식</th></tr></thead>
+        <tbody>
+            <tr><td class="src-geek">자사몰</td><td><code>A</code> 직접판매</td><td>API 자동 수집</td><td><span class="badge req-n">적용</span></td><td>신규 GNG V2-1</td><td>신규 통관 가능</td></tr>
+            <tr><td class="src-dongsu">외부 플랫폼</td><td><code>B</code> 구매대행</td><td>엑셀 업로드</td><td><span class="badge req-y">현재 미적용</span></td><td>기존 GNG API 필요</td><td>기존 통관 유지</td></tr>
+            <tr><td>향후 준비 완료 외부 플랫폼</td><td><code>B</code> 유지</td><td>신규 엑셀 양식</td><td><span class="badge req-c">채널별 확인</span></td><td>매핑·E2E 후 신규 V2-1</td><td>검증 후 신규 통관 전환</td></tr>
+        </tbody>
+    </table>
+
+    <h2 id="message">3. 동수 전달 문안</h2>
+    <div class="copy-toolbar">
+        <button class="nav-btn" type="button" onclick="copyText('messageText', this, 'messageStatus')">전달 문안 복사</button>
+    </div>
+    <div id="messageStatus" class="copy-status" aria-live="polite"></div>
+    <div id="messageText" class="message-box">안녕하세요 과장님.
+
+어제 전달해 주신 내용을 확인했습니다.
+
+먼저 용어를 명확하게 구분하겠습니다.
+
+- 판매유형 A는 직접판매입니다. 현재 자사몰 주문이 해당합니다.
+- 판매유형 B는 구매대행입니다. 현재 외부 플랫폼 주문이 해당합니다.
+- 기존 GNG API는 관세청 제도 변경 전부터 사용한 API입니다.
+- 신규 GNG V2-1은 이번에 새로 적용하려는 API입니다.
+
+판매유형 A/B와 기존 GNG API/신규 GNG V2-1은 서로 다른 구분입니다.
+
+현재 자사몰은 주문 API가 연결되어 있습니다. Geek에서 PER 인증도 처리합니다. 따라서 자사몰은 개인통관고유부호, 일회용 개인통관부호, 인증번호 등 신규 통관에 필요한 정보를 확보할 수 있습니다.
+
+또한 GNG가 자사몰 주문도 신규 GNG V2-1로 받을 수 있도록 변경했습니다. 따라서 자사몰 주문은 신규 GNG V2-1과 전자상거래 전용 신규 통관 방식을 사용할 수 있습니다.
+
+Geek V2-2가 계속 운영되는 경우에는 자사몰 통관·인증정보를 보완하는 용도로 사용합니다. 자사몰 주문의 기본 전송은 신규 GNG V2-1로 처리할 수 있습니다.
+
+반면 외부 플랫폼 주문은 현재 엑셀 파일로 동수 ERP에 등록됩니다. 외부 플랫폼 주문에는 현재 PER 인증 절차가 연결되어 있지 않습니다.
+
+따라서 외부 플랫폼 주문에는 신규 통관에 필요한 일회용 개인통관부호와 인증번호가 없습니다. 신규 GNG V2-1로 데이터를 보내더라도 없는 PER 정보가 새로 만들어지는 것은 아닙니다.
+
+그러므로 외부 플랫폼 주문은 현재 전자상거래 전용 신규 통관 방식으로 처리할 수 없습니다. 외부 플랫폼의 PER 연동, 신규 엑셀 컬럼, 동수 ERP 매핑과 GNG 테스트가 완료될 때까지 기존 GNG API와 기존 통관 방식을 사용해야 합니다.
+
+현재 문제는 하나의 MAWB 안에 다음 두 종류의 HBL이 함께 포함된다는 점입니다.
+
+1. 자사몰 HBL: 신규 GNG V2-1 사용, 신규 통관 진행
+2. 외부 플랫폼 HBL: 기존 GNG API 사용, 기존 통관 진행
+
+모든 주문을 신규 GNG V2-1로 보내는 방법으로는 이 문제를 해결할 수 없습니다. 외부 플랫폼 주문에는 신규 통관 필수정보가 없기 때문입니다.
+
+아래 순서로 해결 방법을 확인하고 싶습니다.
+
+1. 하나의 MAWB를 GNG에 등록한 후, 같은 MAWB에 포함된 HBL을 두 그룹으로 나누어 전송할 수 있는지 확인합니다.
+2. 자사몰 HBL은 신규 GNG V2-1로 전송합니다.
+3. 외부 플랫폼 HBL은 기존 GNG API로 전송합니다.
+4. GNG가 같은 MAWB 아래에서 두 종류의 HBL을 함께 관리할 수 있는지 확인합니다.
+
+만약 이 방법이 불가능하다면 신규 GNG V2-1의 추가 개발이 필요합니다.
+
+신규 GNG V2-1이 모든 HBL을 받은 후 HBL별로 통관 방식을 구분해야 합니다.
+
+- PER 정보가 있는 자사몰 HBL은 신규 통관으로 처리합니다.
+- PER 정보가 없는 외부 플랫폼 HBL은 기존 통관으로 처리합니다.
+
+기존 통관 HBL에는 일회용 개인통관부호와 인증번호를 필수로 요구하지 않아야 합니다.
+
+GNG가 위 기능을 지원할 수 없다면 출고 전에 실제 MAWB를 통관 방식에 따라 분리해야 합니다.
+
+- 신규 통관 MAWB: 자사몰 주문
+- 기존 통관 MAWB: 외부 플랫폼 주문
+
+외부 플랫폼은 2026년 11월경까지 신규 엑셀 컬럼을 순서대로 추가할 예정입니다. 새로운 엑셀 양식을 받을 때마다 동수에서 GNG 필드와 매핑할 수 있는지 확인해야 합니다.
+
+PER 정보와 신규 통관 필수정보가 모두 확인되고 GNG 테스트까지 완료된 채널만 신규 GNG V2-1로 변경해야 합니다.
+
+아래 내용을 확인 부탁드립니다.
+
+1. 하나의 MAWB에 기존 GNG API의 HBL과 신규 GNG V2-1의 HBL을 함께 연결할 수 있습니까?
+2. 현재 불가능한 이유가 동수 시스템의 제한입니까, GNG 시스템의 제한입니까?
+3. 동수 시스템에서 API 선택 기준을 MAWB가 아니라 HBL로 변경할 수 있습니까?
+4. 신규 GNG V2-1에서 HBL별로 기존 통관과 신규 통관을 구분할 수 있습니까?
+5. PER 정보가 없는 HBL을 신규 GNG V2-1로 받은 후 기존 통관으로 처리할 수 있습니까?
+6. 위 방법이 모두 불가능하면 실제 MAWB를 두 개로 분리해야 합니까?
+7. 기존 GNG API와 신규 GNG V2-1의 정확한 Method와 전체 URL을 전달해 주실 수 있습니까?
+
+확인 후 개발 방법과 출고 방법을 다시 협의하고 싶습니다.
+
+감사합니다.</div>
+
+    <h2 id="flow">4. 고객 주문부터 배송 완료까지</h2>
+    <div class="copy-toolbar">
+        <button class="nav-btn secondary" type="button" onclick="openModal()">흐름도 크게 보기</button>
+        <button class="nav-btn" type="button" onclick="copyText('mermaidSource', this, 'diagramStatus')">Mermaid 코드 복사</button>
+    </div>
+    <div id="diagramStatus" class="copy-status" aria-live="polite"></div>
+    <div id="diagramError" class="diagram-error" role="alert">Mermaid 라이브러리를 불러오지 못했습니다. 아래 원문 코드는 그대로 복사할 수 있습니다.</div>
+    <div class="diagram-card">
+        <div class="mermaid" id="mainMermaid" aria-label="고객 주문부터 통관 및 국내 배송 완료까지의 흐름도"></div>
+    </div>
+
+    <h2 id="source">5. Mermaid 원문</h2>
+    <div class="copy-toolbar">
+        <button class="nav-btn" type="button" onclick="copyText('mermaidSource', this, 'sourceStatus')">Mermaid 코드 복사</button>
+    </div>
+    <div id="sourceStatus" class="copy-status" aria-live="polite"></div>
+    <pre class="code-box"><code id="mermaidCode"></code></pre>
+    <textarea id="mermaidSource" hidden>flowchart TD
+    START["1. 고객 주문"] --> CHANNEL{"2. 주문 채널"}
+
+    CHANNEL -->|"자사몰"| SELF["판매유형 A&lt;br/&gt;직접판매"]
+    CHANNEL -->|"외부 플랫폼"| EXTERNAL["판매유형 B&lt;br/&gt;구매대행"]
+
+    SELF --> SELF_API["3-A. 자사몰 API로 주문 수집"]
+    SELF_API --> PER_OK["PER 인증 처리&lt;br/&gt;통관부호와 인증정보 확보"]
+    PER_OK --> SELF_READY["신규 통관 가능&lt;br/&gt;자사몰도 V2-1 사용 가능"]
+
+    EXTERNAL --> EXCEL["3-B. 엑셀 파일로 주문 등록"]
+    EXCEL --> PER_CHECK{"PER 연동 완료?"}
+
+    PER_CHECK -->|"현재: 미완료"| EXT_LEGACY["신규 통관 불가&lt;br/&gt;기존 통관 유지"]
+    PER_CHECK -->|"향후: 완료"| FIELD_TEST["신규 컬럼 매핑&lt;br/&gt;GNG 전송 테스트"]
+    FIELD_TEST -->|"테스트 성공"| EXT_READY["외부 채널 신규 통관 가능"]
+    FIELD_TEST -->|"테스트 실패"| EXT_LEGACY
+
+    SELF_READY --> ERP["4. 동수 ERP 주문 등록"]
+    EXT_LEGACY --> ERP
+    EXT_READY --> ERP
+
+    ERP --> WMS["5. 중국 창고 작업&lt;br/&gt;상품 준비 및 포장"]
+    WMS --> HBL["6. 포장별 HBL 생성"]
+    WMS --> MAWB["7. 출고 MAWB 생성"]
+
+    HBL --> API_ROUTE{"8. HBL별 전송 방법"}
+
+    API_ROUTE -->|"자사몰"| NEW_API["동수 → GNG&lt;br/&gt;신규 V2-1"]
+    API_ROUTE -->|"현재 외부 플랫폼"| OLD_API["동수 → GNG&lt;br/&gt;기존 API"]
+    API_ROUTE -->|"향후 준비 완료 외부 플랫폼"| NEW_API
+
+    PER_OK -. "추가 정보가 있는 경우" .-> V22["Geek → GNG V2-2&lt;br/&gt;자사몰 인증정보 보완"]
+    V22 --> GNG_NEW["GNG 신규 데이터 저장"]
+    NEW_API --> GNG_NEW
+    OLD_API --> GNG_OLD["GNG 기존 데이터 저장"]
+
+    MAWB --> MASTER["GNG MAWB 정보 별도 등록"]
+
+    GNG_NEW --> MIX
+    GNG_OLD --> MIX
+    MASTER --> MIX
+
+    MIX{"9. 하나의 MAWB에&lt;br/&gt;기존 API HBL과 신규 V2-1 HBL이 함께 존재"}
+    MIX --> CHECK{"같은 MAWB에&lt;br/&gt;두 전송 방법을 지원하는가?"}
+
+    CHECK -->|"지원함"| HBL_SPLIT["해결 방법 1&lt;br/&gt;MAWB는 하나로 유지&lt;br/&gt;HBL만 두 그룹으로 전송"]
+    CHECK -->|"지원하지 않음"| V21_CHECK{"GNG V2-1에서&lt;br/&gt;HBL별 통관 구분이 가능한가?"}
+
+    V21_CHECK -->|"가능함"| UNIFIED["해결 방법 2&lt;br/&gt;모든 HBL을 V2-1로 수신&lt;br/&gt;GNG가 HBL별 통관 구분"]
+    V21_CHECK -->|"불가능함"| MAWB_SPLIT["해결 방법 3&lt;br/&gt;실제 MAWB를 통관 방식별로 분리"]
+
+    HBL_SPLIT --> CLEARANCE_ROUTE{"10. HBL별 통관 방식"}
+    UNIFIED --> CLEARANCE_ROUTE
+    MAWB_SPLIT --> CLEARANCE_ROUTE
+
+    CLEARANCE_ROUTE -->|"PER 정보 있음"| NEW_CLEARANCE["전자상거래 전용&lt;br/&gt;신규 통관"]
+    CLEARANCE_ROUTE -->|"PER 정보 없음"| OLD_CLEARANCE["기존 수입신고"]
+
+    NEW_CLEARANCE --> CUSTOMS["11. 한국 관세청 심사"]
+    OLD_CLEARANCE --> CUSTOMS
+
+    CUSTOMS -->|"자료 부족 또는 오류"| HOLD["12. 자료 보완 또는 수기 처리"]
+    HOLD --> CUSTOMS
+
+    CUSTOMS -->|"통관 완료"| HANDOVER["13. 국내 택배사 인계"]
+    HANDOVER --> DELIVERY["14. 국내 배송"]
+    DELIVERY --> COMPLETE["15. 고객 배송 완료"]</textarea>
+
+    <h2 id="questions">6. 확인해야 할 사항</h2>
+    <div class="stage-box">
+        <ol>
+            <li>같은 MAWB에 기존 GNG API HBL과 신규 GNG V2-1 HBL을 함께 연결할 수 있는지 확인합니다.</li>
+            <li>제한 주체가 동수인지 GNG인지 확인합니다. 제한이 있다면 오류코드와 정확한 기술 사유를 받습니다.</li>
+            <li>동수의 API 선택 단위를 MAWB에서 HBL로 변경할 수 있는지 확인합니다.</li>
+            <li>신규 GNG V2-1이 PER 정보가 없는 HBL을 기존 통관으로 처리할 수 있는지 확인합니다.</li>
+            <li>위 방법이 불가능하면 실제 MAWB를 통관 방식별로 분리할 수 있는지 확인합니다.</li>
+            <li>기존 GNG API와 신규 GNG V2-1을 번호가 아니라 정확한 Method와 전체 URL로 확정합니다.</li>
+        </ol>
+    </div>
+
+    <div class="notice-red">
+        <strong>[금지]</strong><br>
+        외부 플랫폼 주문에 PER 정보가 없는데 신규 통관 대상으로 전송하지 않습니다.<br>
+        없는 개인통관부호, 일회용 개인통관부호, 인증번호 또는 주문완료일시를 임의로 만들지 않습니다.<br>
+        구매대행업체 부호와 업체명은 예시값을 공통값으로 사용하지 않습니다.
+    </div>
+</div>
+
+<div id="diagramModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="closeModalOnOverlay(event)">
+    <div class="modal-content">
+        <div class="modal-header">
+            <strong id="modalTitle">고객 주문부터 배송 완료까지</strong>
+            <button class="nav-btn secondary" type="button" onclick="closeModal()">닫기</button>
+        </div>
+        <div id="modalBody" class="modal-body"></div>
+    </div>
+</div>
+
+<script>
+    function sourceValue(id) {
+        var element = document.getElementById(id);
+        if (!element) return '';
+        if (element.tagName === 'TEXTAREA' || element.tagName === 'INPUT') return element.value;
+        return element.innerText || element.textContent || '';
+    }
+
+    function fallbackCopy(text) {
+        var area = document.createElement('textarea');
+        area.value = text;
+        area.setAttribute('readonly', '');
+        area.style.position = 'fixed';
+        area.style.opacity = '0';
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        document.body.removeChild(area);
+    }
+
+    function copyText(sourceId, button, statusId) {
+        var text = sourceValue(sourceId).trim();
+        var status = document.getElementById(statusId);
+        var original = button.textContent;
+        var done = function () {
+            button.textContent = '복사 완료';
+            if (status) status.textContent = '클립보드에 복사했습니다.';
+            window.setTimeout(function () { button.textContent = original; }, 1600);
+        };
+        var failed = function () {
+            try {
+                fallbackCopy(text);
+                done();
+            } catch (error) {
+                if (status) status.textContent = '자동 복사가 되지 않았습니다. 아래 원문을 직접 선택하여 복사해 주세요.';
+            }
+        };
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(done).catch(failed);
+        } else {
+            failed();
+        }
+    }
+
+    function openModal() {
+        var svg = document.querySelector('#mainMermaid svg');
+        var body = document.getElementById('modalBody');
+        if (!svg || !body) return;
+        body.innerHTML = '';
+        body.appendChild(svg.cloneNode(true));
+        document.getElementById('diagramModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('diagramModal').style.display = 'none';
+    }
+
+    function closeModalOnOverlay(event) {
+        if (event.target.id === 'diagramModal') closeModal();
+    }
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') closeModal();
+    });
+
+    (function () {
+        var source = document.getElementById('mermaidSource').value.trim();
+        document.getElementById('mermaidCode').textContent = source;
+        document.getElementById('mainMermaid').textContent = source;
+
+        if (typeof mermaid === 'undefined') {
+            document.getElementById('diagramError').style.display = 'block';
+            return;
+        }
+
+        mermaid.initialize({ startOnLoad:false, theme:'default', securityLevel:'loose', flowchart:{ htmlLabels:true, curve:'basis' } });
+        mermaid.run({ nodes:[document.getElementById('mainMermaid')] }).catch(function () {
+            document.getElementById('diagramError').style.display = 'block';
+        });
+    })();
+
+    (function () {
+        var list = document.getElementById('tocList');
+        var heads = Array.prototype.slice.call(document.querySelectorAll('.container h2'));
+        var links = [];
+        heads.forEach(function (heading, index) {
+            if (!heading.id) heading.id = 'section-' + index;
+            var link = document.createElement('a');
+            link.href = '#' + heading.id;
+            link.textContent = heading.textContent.trim();
+            list.appendChild(link);
+            links.push({ link:link, heading:heading });
+        });
+        function updateActive() {
+            var position = window.scrollY + 90;
+            var current = links[0];
+            links.forEach(function (item) {
+                if (item.heading.offsetTop <= position) current = item;
+            });
+            links.forEach(function (item) {
+                item.link.classList.toggle('active', item === current);
+            });
+        }
+        window.addEventListener('scroll', updateActive, { passive:true });
+        updateActive();
+    })();
+</script>
+</body>
+</html>

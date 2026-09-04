@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dongsu-GNG原有/新版通关流程说明 — 2026-09-04</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body { font-family:'Inter','Microsoft YaHei','PingFang SC',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#fff; color:#333; line-height:1.6; padding:40px; padding-right:268px; margin:0; }
+        body.toc-off { padding-right:40px; }
+        .container { max-width:1500px; margin:0 auto; }
+        h1 { color:#111; border-bottom:3px solid #1a73e8; padding-bottom:12px; margin-bottom:20px; font-size:26px; }
+        h2 { color:#202124; border-bottom:2px solid #1a73e8; padding-bottom:8px; margin-top:40px; font-size:20px; display:flex; align-items:center; justify-content:space-between; scroll-margin-top:16px; }
+        h3 { color:#3c4043; margin-top:25px; font-size:16px; }
+        p, li { font-size:13.5px; }
+        table { width:100%; border-collapse:collapse; margin-bottom:25px; font-size:12px; }
+        th, td { border:1px solid #eaeaea; padding:8px 10px; text-align:left; vertical-align:top; }
+        th { background:#f8f9fa; font-weight:600; color:#555; position:sticky; top:0; z-index:10; }
+        code { background:#f1f3f4; padding:1px 4px; border-radius:3px; font-family:Consolas,'Courier New',monospace; font-size:12px; }
+        .core-nav { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; }
+        .core-nav a { display:inline-block; background:#3c4043; color:#fff; padding:8px 13px; border-radius:4px; text-decoration:none; font-size:13px; font-weight:700; }
+        .core-nav a:hover { background:#202124; }
+        .core-nav a.active { background:#1a73e8; }
+        .stage-box { background:#fcfcfc; border:1px solid #e0e0e0; border-left:5px solid #1a73e8; padding:18px 22px; margin-bottom:20px; border-radius:4px; }
+        .stage-box p { margin:0 0 10px; }
+        .stage-box ul, .stage-box ol { margin:0; padding-left:22px; }
+        .stage-box li { margin-bottom:6px; }
+        .rule-highlight { background:#fff3cd; color:#856404; padding:2px 6px; border-radius:3px; font-weight:bold; }
+        .badge { display:inline-block; padding:3px 6px; border-radius:4px; font-size:11px; font-weight:bold; }
+        .req-y { background:#ffeaea; color:#d93025; }
+        .req-n { background:#e8f0fe; color:#1a73e8; }
+        .req-c { background:#fff3cd; color:#856404; }
+        .src-dongsu { background:#e6f4ea; color:#137333; font-weight:bold; }
+        .src-geek { background:#e8f0fe; color:#1a73e8; font-weight:bold; }
+        .src-gen { background:#fce8e6; color:#c5221f; font-weight:bold; }
+        .src-kcs { background:#fff3cd; color:#856404; font-weight:bold; }
+        .summary { background:#202124; color:#e8eaed; padding:11px 18px; border-radius:5px; margin-bottom:16px; font-size:14px; font-weight:600; line-height:1.6; }
+        .summary strong { color:#8ab4f8; font-size:16px; }
+        .notice-blue { background:#e8f0fe; border-left:5px solid #1a73e8; padding:14px 18px; margin-bottom:18px; border-radius:4px; font-size:13px; color:#174d5f; line-height:1.8; }
+        .notice-red { background:#fce8e6; border-left:5px solid #c5221f; padding:14px 18px; margin-bottom:18px; border-radius:4px; font-size:13px; color:#5f2120; line-height:1.8; }
+        .notice-green { background:#e6f4ea; border-left:5px solid #137333; padding:14px 18px; margin-bottom:18px; border-radius:4px; font-size:13px; color:#174d2a; line-height:1.8; }
+        .copy-toolbar { display:flex; justify-content:flex-end; gap:8px; margin:0 0 8px; }
+        .nav-btn { display:inline-block; background:#1a73e8; color:#fff; padding:8px 14px; text-decoration:none; border-radius:4px; font-weight:bold; cursor:pointer; border:0; font-size:13px; }
+        .nav-btn:hover { background:#1557b0; }
+        .nav-btn.secondary { background:#3c4043; }
+        .nav-btn.secondary:hover { background:#202124; }
+        .copy-status { min-height:22px; color:#137333; text-align:right; font-size:12px; margin-bottom:5px; }
+        .message-box, .code-box { background:#f8f9fa; border:1px solid #dadce0; border-radius:4px; padding:18px; margin-bottom:25px; overflow:auto; }
+        .message-box { white-space:pre-wrap; font-family:'Inter','Microsoft YaHei','PingFang SC',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:13.5px; line-height:1.75; }
+        .code-box { white-space:pre; font-family:Consolas,'Courier New',monospace; font-size:12px; line-height:1.55; max-height:580px; }
+        .diagram-card { border:2px dashed #1a73e8; padding:20px; border-radius:8px; background:#f8faff; margin-bottom:28px; position:relative; overflow:auto; }
+        .diagram-card .mermaid { min-width:900px; }
+        .diagram-error { display:none; background:#fce8e6; color:#c5221f; padding:12px; border-radius:4px; margin-bottom:12px; font-size:13px; }
+        #toc { position:fixed; top:0; right:0; width:250px; height:100vh; overflow-y:auto; background:#fff; border-left:1px solid #e0e0e0; padding:18px 14px 40px; z-index:500; font-size:12.5px; box-shadow:-2px 0 8px rgba(0,0,0,.04); }
+        #toc h4 { margin:0 0 10px; font-size:12px; color:#5f6368; letter-spacing:.5px; text-transform:uppercase; }
+        #toc a { display:block; padding:6px 9px; margin-bottom:2px; color:#3c4043; text-decoration:none; border-radius:4px; border-left:3px solid transparent; line-height:1.35; }
+        #toc a:hover { background:#f1f3f4; }
+        #toc a.active { background:#e8f0fe; color:#1557b0; font-weight:700; border-left-color:#1a73e8; }
+        #tocToggle { position:fixed; top:14px; right:262px; z-index:501; background:#1a73e8; color:#fff; border:0; border-radius:4px; padding:7px 11px; font-size:12px; font-weight:700; cursor:pointer; }
+        body.toc-off #toc { display:none; }
+        body.toc-off #tocToggle { right:14px; }
+        .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.88); z-index:9999; justify-content:center; align-items:center; padding:18px; box-sizing:border-box; }
+        .modal-content { background:#fff; width:96vw; height:94vh; border-radius:8px; display:flex; flex-direction:column; padding:15px; box-sizing:border-box; }
+        .modal-header { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px; }
+        .modal-header strong { font-size:15px; }
+        .modal-body { flex:1; overflow:auto; background:#fff; border:1px solid #ddd; border-radius:4px; padding:14px; }
+        .modal-body svg { max-width:none !important; min-width:1250px; height:auto; }
+        @media (max-width:1100px) {
+            #toc, #tocToggle { display:none; }
+            body, body.toc-off { padding:28px; }
+        }
+        @media (max-width:640px) {
+            body, body.toc-off { padding:18px; }
+            h1 { font-size:23px; }
+            h2 { display:block; font-size:18px; }
+            .stage-box { padding:14px; }
+            .copy-toolbar { justify-content:flex-start; flex-wrap:wrap; }
+            table { display:block; overflow-x:auto; }
+        }
+        @media print {
+            body { padding:20px; }
+            #toc, #tocToggle, .copy-toolbar, .copy-status { display:none !important; }
+            .diagram-card { border:1px solid #dadce0; }
+        }
+    </style>
+</head>
+<body>
+<button id="tocToggle" type="button" onclick="document.body.classList.toggle('toc-off')">目录</button>
+<nav id="toc" aria-label="文档目录"><h4>目录</h4><div id="tocList"></div></nav>
+
+<div class="container">
+    <nav class="core-nav" aria-label="主要文档">
+        <a href="./planning_v6.html">综合计划书（韩文）</a>
+        <a href="./현황브리핑_20260901.html">运营现状（韩文）</a>
+        <a href="./api_field_mapping.html">API字段映射（韩文）</a>
+        <a href="./dongsu-gng-clearance-flow-20260904.html">韩文版</a>
+        <a href="./dongsu-gng-clearance-flow-20260904-zh.html" class="active">Dongsu-GNG通关流程（中文）</a>
+    </nav>
+
+    <h1>Dongsu-GNG原有/新版通关流程说明</h1>
+    <div class="summary">编制日期 <strong>2026-09-04</strong> · 发送对象 <strong>Dongsu中国物流负责人</strong> · 名称统一使用 <strong>GNG</strong></div>
+
+    <div class="notice-red">
+        <strong>【当前核心问题】</strong><br>
+        同一个MAWB下，同时包含采用电子商务专用申报的自营商城HBL和采用原有进口申报的外部平台HBL。<br>
+        当前导入Dongsu ERP的外部平台订单数据尚未接入PER认证信息，因此缺少电子商务专用申报所需的信息。<br>
+        所以，仅将全部订单发送到新版GNG V2-1并不能解决此问题。
+    </div>
+
+    <div class="notice-green">
+        <strong>【最新确认事项】</strong><br>
+        GNG已经调整为可以通过新版GNG V2-1接收自营商城订单。<br>
+        自营商城具备PER认证信息，因此可以使用新版GNG V2-1，并采用电子商务专用申报。<br>
+        如果继续使用Geek V2-2，则仅作为补充自营商城通关及认证信息的路径。
+    </div>
+
+    <h2 id="terms">1. 术语区分</h2>
+    <div class="notice-blue">
+        <strong>销售类型A/B与API类型是两个不同的分类。</strong><br>
+        为避免翻译和沟通时混淆，API类型不称为A/B，而统一写为<strong>原有GNG API</strong>和<strong>新版GNG V2-1</strong>。
+    </div>
+    <table>
+        <thead><tr><th>分类</th><th>名称</th><th>含义</th><th>当前对象</th></tr></thead>
+        <tbody>
+            <tr><td>销售类型</td><td><code>ecTypeCode=A</code></td><td>直接销售</td><td>自营商城订单</td></tr>
+            <tr><td>销售类型</td><td><code>ecTypeCode=B</code></td><td>代购</td><td>外部平台订单</td></tr>
+            <tr><td>API类型</td><td>原有GNG API</td><td>韩国关税厅制度调整前一直使用的GNG API</td><td>尚未接入PER认证信息的外部平台订单</td></tr>
+            <tr><td>API类型</td><td>新版GNG V2-1</td><td>本次新接入的GNG API</td><td>当前为自营商城；今后为准备完成的外部平台</td></tr>
+            <tr><td>认证</td><td>PER认证</td><td>核验个人通关识别码并取得新申报方式所需的认证信息</td><td>当前仅自营商城已接入</td></tr>
+            <tr><td>运输单证</td><td>HBL / MAWB</td><td>HBL为分运单；MAWB为主运单</td><td>一个MAWB可包含多个HBL</td></tr>
+        </tbody>
+    </table>
+
+    <h2 id="status">2. 当前各渠道处理方式</h2>
+    <table>
+        <thead><tr><th>订单分类</th><th>销售类型</th><th>订单采集</th><th>PER</th><th>当前GNG API</th><th>当前申报方式</th></tr></thead>
+        <tbody>
+            <tr><td class="src-geek">自营商城</td><td><code>A</code>，直接销售</td><td>通过API自动采集</td><td><span class="badge req-n">已接入</span></td><td>新版GNG V2-1</td><td>可采用电子商务专用申报</td></tr>
+            <tr><td class="src-dongsu">外部平台</td><td><code>B</code>，代购</td><td>通过Excel导入</td><td><span class="badge req-y">当前尚未接入</span></td><td>需要原有GNG API</td><td>继续采用原有进口申报</td></tr>
+            <tr><td>今后准备完成的外部平台</td><td>保持<code>B</code></td><td>新版Excel模板</td><td><span class="badge req-c">按渠道确认</span></td><td>完成字段映射及E2E测试后使用新版V2-1</td><td>验证后切换到电子商务专用申报</td></tr>
+        </tbody>
+    </table>
+
+    <h2 id="message">3. 发送给Dongsu的说明</h2>
+    <div class="copy-toolbar">
+        <button class="nav-btn" type="button" onclick="copyText('messageText', this, 'messageStatus')">复制发送内容</button>
+    </div>
+    <div id="messageStatus" class="copy-status" aria-live="polite"></div>
+    <div id="messageText" class="message-box">经理，您好。
+
+我们已确认您昨天反馈的内容。
+
+首先，为避免混淆，我们先统一以下术语。
+
+- 销售类型 ecTypeCode=A：直接销售，目前对应自营商城订单。
+- 销售类型 ecTypeCode=B：代购，目前对应外部平台订单。
+- 原有 GNG API：韩国关税厅制度调整前一直使用的 GNG API。
+- 新版 GNG V2-1：本次新接入的 GNG API。
+
+销售类型 A/B 与原有 GNG API/新版 GNG V2-1 是两个不同的分类，请不要混用。
+
+目前，自营商城已经接入订单 API，Geek也会处理PER认证。因此，自营商城可以取得电子商务专用申报所需的个人通关识别码、一次性个人通关识别码、认证号码等信息。
+
+另外，GNG已经调整为可以通过新版 GNG V2-1 接收自营商城订单。因此，自营商城订单可以使用新版 GNG V2-1，并采用电子商务专用申报。
+
+如果后续继续使用 Geek V2-2，则仅作为补充自营商城通关及认证信息的路径。自营商城订单的主要传输可以使用新版 GNG V2-1。
+
+另一方面，外部平台订单目前通过 Excel 文件导入 Dongsu ERP。当前导入 Dongsu ERP 的外部平台订单数据尚未接入 PER 认证信息。
+
+因此，这些订单目前没有电子商务专用申报所需的一次性个人通关识别码和认证号码。即使通过新版 GNG V2-1 传输数据，接口也不会自动生成原本不存在的 PER 认证信息。
+
+所以，在各外部平台完成 PER 对接、新版 Excel 字段、Dongsu ERP 字段映射以及 GNG 全流程测试之前，外部平台订单仍需使用原有 GNG API，并采用原有进口申报。
+
+当前的核心问题是：同一个 MAWB（主运单）下，同时包含以下两种 HBL（分运单）。
+
+1. 自营商城 HBL：使用新版 GNG V2-1，采用电子商务专用申报。
+2. 外部平台 HBL：使用原有 GNG API，采用原有进口申报。
+
+仅将所有订单统一发送到新版 GNG V2-1，并不能解决这个问题。原因是外部平台订单目前缺少电子商务专用申报所需的必要信息。
+
+我们希望按以下顺序确认解决方案。
+
+1. 先在 GNG 登记一个 MAWB，再确认同一 MAWB 下的 HBL 是否可以分为两组，分别通过不同 API 传输。
+2. 自营商城 HBL 通过新版 GNG V2-1 传输。
+3. 外部平台 HBL 通过原有 GNG API 传输。
+4. 确认 GNG 是否能够在同一 MAWB 下同时管理这两类 HBL。
+
+如果以上方式无法实现，则需要为新版 GNG V2-1 增加处理逻辑。
+
+新版 GNG V2-1 接收所有 HBL 后，需要根据每个 HBL 所包含的信息选择申报方式。
+
+- 有 PER 认证信息的自营商城 HBL：采用电子商务专用申报。
+- 没有 PER 认证信息的外部平台 HBL：采用原有进口申报。
+
+对于采用原有进口申报的 HBL，不应强制要求一次性个人通关识别码和认证号码。
+
+如果 GNG 无法支持上述功能，则需要在出库前，按照申报方式拆分实际 MAWB。
+
+- 电子商务专用申报 MAWB：自营商城订单。
+- 原有进口申报 MAWB：外部平台订单。
+
+预计截至2026年11月左右，各外部平台的 Excel 模板会陆续增加新字段。每次收到新的 Excel 模板后，Dongsu都需要检查其中是否包含 GNG 要求的字段，并确认这些字段能否映射到 GNG API 后再进行应用。
+
+只有在 PER 认证信息及电子商务专用申报必填信息全部确认，并完成 GNG 全流程测试后，对应渠道才能切换到新版 GNG V2-1。
+
+请协助确认以下事项。
+
+1. 同一个 MAWB 下，能否同时关联通过原有 GNG API 传输的 HBL和通过新版 GNG V2-1 传输的 HBL？
+2. 如果目前无法实现，限制来自 Dongsu系统还是 GNG 系统？请提供具体技术原因和错误代码。
+3. Dongsu系统能否将 API 选择单位从 MAWB 改为 HBL？
+4. 新版 GNG V2-1 能否按 HBL 区分电子商务专用申报和原有进口申报？
+5. 新版 GNG V2-1 接收没有 PER 认证信息的 HBL 后，能否将其按原有进口申报处理？
+6. 如果上述方式均不可行，是否必须将实际 MAWB 拆分为两个？
+7. 请提供原有 GNG API和新版 GNG V2-1 各自准确的 HTTP Method（如 POST）及完整 URL。
+
+确认后，我们希望再协商开发方式和出库方式。
+
+谢谢。</div>
+
+    <h2 id="flow">4. 从客户下单到配送完成</h2>
+    <div class="copy-toolbar">
+        <button class="nav-btn secondary" type="button" onclick="openModal()">放大查看流程图</button>
+        <button class="nav-btn" type="button" onclick="copyText('mermaidSource', this, 'diagramStatus')">复制Mermaid代码</button>
+    </div>
+    <div id="diagramStatus" class="copy-status" aria-live="polite"></div>
+    <div id="diagramError" class="diagram-error" role="alert">无法加载Mermaid库。您仍然可以直接复制下方的原始代码。</div>
+    <div class="diagram-card">
+        <div class="mermaid" id="mainMermaid" aria-label="从客户下单到韩国关税厅放行及韩国国内配送完成的流程图"></div>
+    </div>
+
+    <h2 id="source">5. Mermaid源代码</h2>
+    <div class="copy-toolbar">
+        <button class="nav-btn" type="button" onclick="copyText('mermaidSource', this, 'sourceStatus')">复制Mermaid代码</button>
+    </div>
+    <div id="sourceStatus" class="copy-status" aria-live="polite"></div>
+    <pre class="code-box"><code id="mermaidCode"></code></pre>
+    <textarea id="mermaidSource" hidden>flowchart TD
+    START["1. 客户下单"] --> CHANNEL{"2. 订单渠道"}
+
+    CHANNEL -->|"自营商城"| SELF["销售类型 ecTypeCode=A&lt;br/&gt;直接销售"]
+    CHANNEL -->|"外部平台"| EXTERNAL["销售类型 ecTypeCode=B&lt;br/&gt;代购"]
+
+    SELF --> SELF_API["3-A. 通过自营商城API采集订单"]
+    SELF_API --> PER_OK["处理PER认证&lt;br/&gt;取得通关识别码及认证信息"]
+    PER_OK --> SELF_READY["具备电子商务专用申报条件&lt;br/&gt;自营商城也可使用V2-1"]
+
+    EXTERNAL --> EXCEL["3-B. 通过Excel文件导入订单"]
+    EXCEL --> PER_CHECK{"是否已接入PER认证？"}
+
+    PER_CHECK -->|"目前：未完成"| EXT_LEGACY["无法采用电子商务专用申报&lt;br/&gt;继续使用原有进口申报"]
+    PER_CHECK -->|"今后：已完成"| FIELD_TEST["映射新增字段&lt;br/&gt;进行GNG传输测试"]
+    FIELD_TEST -->|"测试成功"| EXT_READY["外部渠道可采用&lt;br/&gt;电子商务专用申报"]
+    FIELD_TEST -->|"测试失败"| EXT_LEGACY
+
+    SELF_READY --> ERP["4. 将订单导入Dongsu ERP"]
+    EXT_LEGACY --> ERP
+    EXT_READY --> ERP
+
+    ERP --> WMS["5. 中国仓库作业&lt;br/&gt;备货及包装"]
+    WMS --> HBL["6. 按包裹生成HBL（分运单）"]
+    WMS --> MAWB["7. 生成出库MAWB（主运单）"]
+
+    HBL --> API_ROUTE{"8. 按HBL选择传输接口"}
+
+    API_ROUTE -->|"自营商城"| NEW_API["Dongsu → GNG&lt;br/&gt;新版V2-1"]
+    API_ROUTE -->|"目前的外部平台"| OLD_API["Dongsu → GNG&lt;br/&gt;原有API"]
+    API_ROUTE -->|"今后准备完成的外部平台"| NEW_API
+
+    PER_OK -. "有补充信息时" .-> V22["Geek → GNG V2-2&lt;br/&gt;补充自营商城认证信息"]
+    V22 --> GNG_NEW["GNG接收新版数据"]
+    NEW_API --> GNG_NEW
+    OLD_API --> GNG_OLD["GNG接收原有接口数据"]
+
+    MAWB --> MASTER["向GNG单独登记MAWB信息"]
+
+    GNG_NEW --> MIX
+    GNG_OLD --> MIX
+    MASTER --> MIX
+
+    MIX{"9. 同一个MAWB下&lt;br/&gt;同时存在原有API HBL和新版V2-1 HBL"}
+    MIX --> CHECK{"同一个MAWB下&lt;br/&gt;是否支持两种传输接口？"}
+
+    CHECK -->|"支持"| HBL_SPLIT["解决方案1&lt;br/&gt;保留一个MAWB&lt;br/&gt;仅将HBL分为两组传输"]
+    CHECK -->|"不支持"| V21_CHECK{"GNG V2-1能否&lt;br/&gt;按HBL选择申报方式？"}
+
+    V21_CHECK -->|"可以"| UNIFIED["解决方案2&lt;br/&gt;全部HBL由V2-1接收&lt;br/&gt;GNG按HBL选择申报方式"]
+    V21_CHECK -->|"不可以"| MAWB_SPLIT["解决方案3&lt;br/&gt;按申报方式拆分实际MAWB"]
+
+    HBL_SPLIT --> CLEARANCE_ROUTE{"10. 按HBL选择申报方式"}
+    UNIFIED --> CLEARANCE_ROUTE
+    MAWB_SPLIT --> CLEARANCE_ROUTE
+
+    CLEARANCE_ROUTE -->|"有PER认证信息"| NEW_CLEARANCE["电子商务专用申报&lt;br/&gt;新申报方式"]
+    CLEARANCE_ROUTE -->|"无PER认证信息"| OLD_CLEARANCE["原有进口申报&lt;br/&gt;原申报方式"]
+
+    NEW_CLEARANCE --> CUSTOMS["11. 韩国关税厅审核"]
+    OLD_CLEARANCE --> CUSTOMS
+
+    CUSTOMS -->|"资料不足或数据错误"| HOLD["12. 补充资料或人工处理"]
+    HOLD --> CUSTOMS
+
+    CUSTOMS -->|"通关完成"| HANDOVER["13. 移交韩国国内快递公司"]
+    HANDOVER --> DELIVERY["14. 韩国国内配送"]
+    DELIVERY --> COMPLETE["15. 客户签收"]</textarea>
+
+    <h2 id="questions">6. 需要确认的事项</h2>
+    <div class="stage-box">
+        <ol>
+            <li>确认同一个MAWB下能否同时关联通过原有GNG API传输的HBL和通过新版GNG V2-1传输的HBL。</li>
+            <li>确认限制来自Dongsu还是GNG；如有限制，需取得错误代码及具体技术原因。</li>
+            <li>确认Dongsu能否将API选择单位从MAWB改为HBL。</li>
+            <li>确认新版GNG V2-1能否将无PER认证信息的HBL按原有进口申报处理。</li>
+            <li>如上述方式不可行，确认能否按申报方式拆分实际MAWB。</li>
+            <li>不要只用编号区分接口，应以准确的HTTP Method和完整URL确认原有GNG API与新版GNG V2-1。</li>
+        </ol>
+    </div>
+
+    <div class="notice-red">
+        <strong>【禁止事项】</strong><br>
+        不得将缺少PER认证信息的外部平台订单作为电子商务专用申报对象传输。<br>
+        不得擅自编造个人通关识别码、一次性个人通关识别码、认证号码或订单完成时间。<br>
+        不得将示例中的代购企业代码及企业名称作为所有渠道的通用值。
+    </div>
+</div>
+
+<div id="diagramModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="closeModalOnOverlay(event)">
+    <div class="modal-content">
+        <div class="modal-header">
+            <strong id="modalTitle">从客户下单到配送完成</strong>
+            <button class="nav-btn secondary" type="button" onclick="closeModal()">关闭</button>
+        </div>
+        <div id="modalBody" class="modal-body"></div>
+    </div>
+</div>
+
+<script>
+    function sourceValue(id) {
+        var element = document.getElementById(id);
+        if (!element) return '';
+        if (element.tagName === 'TEXTAREA' || element.tagName === 'INPUT') return element.value;
+        return element.innerText || element.textContent || '';
+    }
+
+    function fallbackCopy(text) {
+        var area = document.createElement('textarea');
+        area.value = text;
+        area.setAttribute('readonly', '');
+        area.style.position = 'fixed';
+        area.style.opacity = '0';
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        document.body.removeChild(area);
+    }
+
+    function copyText(sourceId, button, statusId) {
+        var text = sourceValue(sourceId).trim();
+        var status = document.getElementById(statusId);
+        var original = button.textContent;
+        var done = function () {
+            button.textContent = '复制完成';
+            if (status) status.textContent = '已复制到剪贴板。';
+            window.setTimeout(function () { button.textContent = original; }, 1600);
+        };
+        var failed = function () {
+            try {
+                fallbackCopy(text);
+                done();
+            } catch (error) {
+                if (status) status.textContent = '无法自动复制。请直接选择并复制下方原文。';
+            }
+        };
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(done).catch(failed);
+        } else {
+            failed();
+        }
+    }
+
+    function openModal() {
+        var svg = document.querySelector('#mainMermaid svg');
+        var body = document.getElementById('modalBody');
+        if (!svg || !body) return;
+        body.innerHTML = '';
+        body.appendChild(svg.cloneNode(true));
+        document.getElementById('diagramModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('diagramModal').style.display = 'none';
+    }
+
+    function closeModalOnOverlay(event) {
+        if (event.target.id === 'diagramModal') closeModal();
+    }
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') closeModal();
+    });
+
+    (function () {
+        var source = document.getElementById('mermaidSource').value.trim();
+        document.getElementById('mermaidCode').textContent = source;
+        document.getElementById('mainMermaid').textContent = source;
+
+        if (typeof mermaid === 'undefined') {
+            document.getElementById('diagramError').style.display = 'block';
+            return;
+        }
+
+        mermaid.initialize({ startOnLoad:false, theme:'default', securityLevel:'loose', flowchart:{ htmlLabels:true, curve:'basis' } });
+        mermaid.run({ nodes:[document.getElementById('mainMermaid')] }).catch(function () {
+            document.getElementById('diagramError').style.display = 'block';
+        });
+    })();
+
+    (function () {
+        var list = document.getElementById('tocList');
+        var heads = Array.prototype.slice.call(document.querySelectorAll('.container h2'));
+        var links = [];
+        heads.forEach(function (heading, index) {
+            if (!heading.id) heading.id = 'section-' + index;
+            var link = document.createElement('a');
+            link.href = '#' + heading.id;
+            link.textContent = heading.textContent.trim();
+            list.appendChild(link);
+            links.push({ link:link, heading:heading });
+        });
+        function updateActive() {
+            var position = window.scrollY + 90;
+            var current = links[0];
+            links.forEach(function (item) {
+                if (item.heading.offsetTop <= position) current = item;
+            });
+            links.forEach(function (item) {
+                item.link.classList.toggle('active', item === current);
+            });
+        }
+        window.addEventListener('scroll', updateActive, { passive:true });
+        updateActive();
+    })();
+</script>
+</body>
+</html>

@@ -52,16 +52,25 @@
         <a href="./CS_QA_통관.html">CS 통관 Q&amp;A</a>
     </nav>
     <h1>API 전수 데이터 필드 매핑 문서 (관세청 + 자이언트 + 동수/Geek 내부)</h1>
-<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-08-28</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 · 관세청 테스트서버 종료 2026-08-21</span></div>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-09-01</span><span style="font-weight:400;color:#bdc1c6;"> · 동수 V2-1 + Geek V2-2 우선 병합 · 동수 적용 예정 2026-09-02</span></div>
+
+    <div style="background:#e8f0fe;border-left:5px solid #1a73e8;padding:14px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#174d5f;line-height:1.8;">
+        <strong>[2026-09-01 현재 정본 · 아래 필드표에 적용할 우선순위]</strong><br>
+        ① 동수는 자이언트에 <strong>V2-1</strong>로 전 주문을 보내고, Geek은 자사몰 통관·인증 데이터를 <strong>V2-2 <code>clearance</code></strong>로 보냅니다.<br>
+        ② 동일 <code>hwbNo + orderNo</code>의 겹치는 필드는 <strong>Geek V2-2의 유효한 비공백 값을 우선</strong>합니다. V2-2에 없는 물류·상품은 동수 V2-1 값을 유지합니다.<br>
+        ③ V2-2의 <code>null</code>·빈 문자열은 V2-1 정상값을 지우지 않습니다. 임의 P/O·OTP·<code>Z99999</code>·가짜 주문완료일시는 생성하지 않습니다.<br>
+        ④ 2026-08-31 문제 90건은 구 API로 보내 신규 신고용 업체부호·일회용 인증번호 등이 누락됐고 일부 PCCC는 수집 오류로 미확보 상태입니다. 전량 보완·접수 완료는 미확인입니다.<br>
+        상세 동수 전달본: <a href="./동수_협의자료_20260901.html">V2-1 운영 전환 전달 기준</a>
+    </div>
 
     <div style="background:#e6f4ea;border-left:5px solid #137333;padding:14px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#174d2a;line-height:1.8;">
-        <strong>[2026-08-28 현재 정본 · A/B와 신고서식 분리]</strong><br>
+        <strong>[2026-08-28 기준 중 계속 유효한 부분 · 전송 버전은 2026-09-01 정정]</strong><br>
         ① 채널 마스터는 <strong>총 11개: 자사몰 1개 A/KRONE, 네이버 1개 B/AIBE, 기타 외부 9개 B/KRONE</strong>입니다.<br>
         ② <code>ecTypeCode=A/B</code>는 거래 역할이고, <code>LEGACY_IMPORT/ECOMMERCE_DEDICATED</code>는 주문별 수입신고 경로입니다. A/B만으로 API·OTP·거래정보 전송 여부를 결정하지 않습니다.<br>
         ③ 관세청 담당자 회신상 기존 수입신고는 TRA001 거래정보와 일회용 인증번호가 불필요합니다. 전자상거래 전용 수입신고에만 해당 거래정보·인증번호를 제출합니다.<br>
         ④ B의 <code>buyingAgent*</code>는 네이버 <code>K26014765/(주)아이베</code>, 기타 외부 9개 <code>K26000099/(주)크로네</code>입니다. 다른 필드에서 자동 변환하지 않습니다.<br>
-        ⑤ 공개 V2-1은 <code>pccCode</code>·<code>tempAuthNo</code>·<code>orderCompletionDate</code>를 필수로 표시하므로 기존 수입신고 A/B의 endpoint·구분값·조건부 검증은 자이언트 P0 확인사항입니다. 임의 OTP·<code>Z99999</code>·가짜 일시는 금지합니다.<br>
-        동수 최종 전달본: <a href="./동수_최종전달기준_20260828.html">채널·신고경로 분리 기준</a>
+        ⑤ 공개 V2-1 필수조건과 2026-09-01 자이언트 운영 예외가 다르므로 적용 필드·오류코드·예외 종료일·신고단계 보완 책임을 별도로 기록합니다.<br>
+        A/B와 신고방식의 2축 분리는 유지하되 발신사별 버전은 동수 V2-1, Geek V2-2로 고정합니다.
     </div>
 
     <div style="background:#e8f0fe; padding:12px; border-left:4px solid #1a73e8; margin-bottom:20px; border-radius:4px; font-size:12px;">
@@ -75,20 +84,20 @@
         <strong>[필드표 읽는 법]</strong> 아래 표의 Y/N/C는 각 원본 API의 공개 명세입니다. 채널 A/B만으로 모든 필드를 보내라는 뜻이 아닙니다.<br>
         <strong>기존 수입신고:</strong> TRA001·OTP는 미제출. 수하인·PCCC·물류·상품 필드는 자이언트가 확정할 레거시 계약을 따릅니다.<br>
         <strong>전자상거래 전용:</strong> 거래정보·OTP와 선택 endpoint의 필수값을 모두 확보한 건만 전송합니다.<br>
-        <strong>현재 P0:</strong> V2-1·V2-2 공개 계약 모두 OTP 필수 경로를 전제로 하므로 기존 수입신고용 route가 없습니다.
+        <strong>현재 운영 예외:</strong> 자이언트는 동수 V2-1에 일회용 번호가 없을 수 있음을 인지했고 수하인정보 검증에서 개인통관고유부호를 제외하겠다고 회신했습니다. 이는 입력 검증 예외이며 세관 신고상 PCCC 면제가 아닙니다.
     </div>
 
-    <h2 id="giant-development-request" style="color:#202124;border-bottom:2px solid #137333;padding-bottom:8px;margin-top:34px;font-size:20px;">[개발요구] 신고서식 분기와 기존 수입신고 경로 확정</h2>
+    <h2 id="giant-development-request" style="color:#202124;border-bottom:2px solid #137333;padding-bottom:8px;margin-top:34px;font-size:20px;">[개발요구] 동수 V2-1 + Geek V2-2 필드 우선 병합</h2>
     <table>
         <thead><tr><th style="width:16%">구분</th><th>자이언트 구현 요청</th><th style="width:31%">완료 기준</th></tr></thead>
         <tbody>
             <tr><td><strong>대상</strong></td><td>해외직구 포장/HWB만 처리. <strong>1 HBL = 1 포장 = 1 자이언트 HWB</strong>. TRA001은 전자상거래 전용 신고 건에만 연결</td><td>기존 수입신고와 전자상거래 전용을 주문별로 분리</td></tr>
-            <tr><td><strong>2축 판정</strong></td><td>채널 마스터의 A/B와 주문별 <code>declarationMode</code>를 각각 입력받음</td><td>A/B만으로 V2-1·V2-2·OTP 여부를 자동 선택하지 않음</td></tr>
-            <tr><td><strong>기존 수입신고</strong></td><td>TRA001·OTP 없이 처리 가능한 endpoint/flag와 필수 HWB 필드를 자이언트가 확정</td><td><code>tempAuthNo</code>·<code>orderCompletionDate</code> 미전송 정상 수용</td></tr>
-            <tr><td><strong>전자상거래 전용</strong></td><td>필요 데이터가 모두 있는 건만 자이언트가 확정한 V2-1 또는 V2-2 경로로 전송</td><td>필수값 누락 시 신고·출고 차단</td></tr>
+            <tr><td><strong>발신 버전</strong></td><td>동수=V2-1, Geek 자사몰 통관·인증=V2-2로 고정</td><td>A/B나 신고방식으로 발신 버전을 바꾸지 않음</td></tr>
+            <tr><td><strong>기존 수입신고</strong></td><td>동수 V2-1의 일회용 번호 누락을 계약된 방식으로 수용하고 운영 예외 범위를 기록</td><td>누락 표현, 응답상태, PCCC 검증 제외 범위·기간·보완주체 확인</td></tr>
+            <tr><td><strong>전자상거래 전용</strong></td><td>필요 데이터가 모두 있는 건은 V2-1 기본값과 Geek V2-2 인증값을 우선 병합해 신고</td><td>필수값 누락 시 신고·출고 차단 및 누락필드 반환</td></tr>
             <tr><td><strong>병합키</strong></td><td><code>hwbNo + orderNo</code> 복합키로 양사 데이터를 동일 HWB에 병합. 분할 주문은 원주문·<code>-1</code>·<code>-2</code>를 각각 별도 HWB로 처리</td><td>같은 <code>hwbNo</code>에 다른 <code>orderNo</code>가 오면 병합하지 않고 계약 오류 반환</td></tr>
             <tr><td><strong>저장·재전송</strong></td><td>호출 순서와 무관하게 선도착 저장. 동일 회사·동일키 재전송은 멱등 upsert로 처리</td><td>정상 재전송에서 <code>H006</code> 중복 오류가 발생하지 않음</td></tr>
-            <tr><td><strong>필드 경계</strong></td><td>A/B 사업자 필드와 신고서식별 거래정보·OTP 필드를 분리. 기본 수하인·PCCC·물류·상품은 선택 endpoint 계약을 따름</td><td>기존 수입신고 면제범위를 과대해석하지 않음</td></tr>
+            <tr><td><strong>필드 우선순위</strong></td><td>겹치는 유효한 비공백 필드는 Geek V2-2 우선. V2-2에 없는 물류·상품은 동수 V2-1 유지</td><td>V2-2 빈 값으로 V2-1 정상값 삭제 금지, 필드별 적용원천 조회</td></tr>
             <tr><td><strong>최종검증</strong></td><td>양사 데이터가 모두 도착한 뒤 전체 신고 필수값과 유형별 조건부 필드를 검증하고, 통과 건만 DKW/DKX 신고 대상으로 전환</td><td>누락 시 신고 차단 및 누락 필드 배열 반환</td></tr>
             <tr><td><strong>상태</strong></td><td><code>WAITING_GEEK</code> · <code>WAITING_DONGSU</code> · <code>READY</code> · <code>VALIDATION_FAILED</code> · <code>SUBMITTED</code> 상태 관리</td><td>등록 응답과 조회에서 현재 상태·누락 소스·누락 필드·최종검증 결과·갱신시각 확인</td></tr>
             <tr><td><strong>정정·보안</strong></td><td>신고 전에는 소유 API 재전송 또는 House Master Console에서 수정. 신고 후에는 수정 가능 여부와 수동 절차를 명확히 반환. PCCC·OTP·개인정보는 마스킹</td><td>양사 인증정보 분리, 권한 밖 필드 수정 차단, 신고 상태별 정정 절차 제공</td></tr>
@@ -98,16 +107,16 @@
     <table>
         <thead><tr><th style="width:8%">No</th><th>시나리오</th><th>기대 결과</th></tr></thead>
         <tbody>
-            <tr><td>1</td><td>Geek 데이터만 먼저 전송</td><td>정상 저장 + <code>WAITING_DONGSU</code></td></tr>
-            <tr><td>2</td><td>동수 데이터만 먼저 전송</td><td>정상 저장 + <code>WAITING_GEEK</code></td></tr>
-            <tr><td>3</td><td>양사 데이터 모두 도착</td><td>전체 필수값 검증 후 <code>READY</code> 또는 누락 필드가 포함된 <code>VALIDATION_FAILED</code></td></tr>
+            <tr><td>1</td><td>동수 V2-1 선도착 → Geek V2-2 후도착</td><td>Geek 유효 필드 우선, 동수 물류·상품 유지, 필드별 원천 기록</td></tr>
+            <tr><td>2</td><td>Geek V2-2 선도착 → 동수 V2-1 후도착</td><td>후행 V2-1이 Geek 우선 필드를 되돌리지 않음</td></tr>
+            <tr><td>3</td><td>Geek V2-2에 <code>null</code>·빈 문자열</td><td>V2-1 정상값 보존, 빈 값은 무시 또는 명시적 오류</td></tr>
             <tr><td>4</td><td>동일 회사·동일키 반복 전송</td><td><code>H006</code> 없이 정상 upsert</td></tr>
-            <tr><td>5</td><td>상대 회사 필드가 없거나 요청 순서가 역전</td><td>현재 회사 요청은 정상 저장되고 상대 데이터는 보존</td></tr>
+            <tr><td>5</td><td>일회용 번호 없는 동수 V2-1</td><td>계약된 수용·대기·기존 신고 처리 중 하나로 명확히 반환</td></tr>
             <tr><td>6</td><td>B 제출자·구매대행·판매중개자 조건 및 필드 오류</td><td>현재 소스의 오류 필드명·오류코드·설명을 반환하고 신고는 차단</td></tr>
             <tr><td>7</td><td>1주문 복수 HBL 및 500건 상태 조회</td><td>각 HBL을 독립 병합하고 조회는 최대 500건 단위로 대사</td></tr>
         </tbody>
     </table>
-    <p style="background:#e8f0fe;border-left:4px solid #1a73e8;padding:10px 12px;font-size:12.5px;line-height:1.7;"><strong>자이언트 회신 필요사항</strong> — 기존 수입신고 A/B의 실제 API URL·Method·구분값·요청/응답 JSON·<code>tempAuthNo/orderCompletionDate</code> 조건부 해제·PCCC/수하인/상품 필수범위·상태조회·오류코드·정정 절차. API 명칭은 자이언트가 정하며 본 문서에서는 추정하지 않습니다.</p>
+    <p style="background:#e8f0fe;border-left:4px solid #1a73e8;padding:10px 12px;font-size:12.5px;line-height:1.7;"><strong>자이언트 회신 필요사항</strong> — Geek 우선 필드 목록·빈 값 처리·도착순서 역전·병합 후 재전송·<code>H019</code>·필드별 적용 원천 조회·PCCC 검증 제외 범위·90건 보완 및 신고 결과·상태조회·정정 절차.</p>
 
     <div style="overflow-x:auto;">
     <table>
@@ -168,7 +177,7 @@
             <tr><td>24</td><td class="cls-kcs">관세청</td><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_bscs_addr</code></td><td>수하인 기본주소</td><td>String(250)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">consigneeAddr</span></td><td class="src-geek">Geek 자사몰 DB</td><td>도로명 기본주소</td><td>결제 시점 수집</td></tr>
             <tr><td>25</td><td class="cls-kcs">관세청</td><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_dtl_addr</code></td><td>수하인 상세주소</td><td>String(250)</td><td><span class="badge req-n">N</span></td><td><span class="mapping-code">consigneeAddrDet</span></td><td class="src-geek">Geek 자사몰 DB</td><td>상세 동/호수 주소</td><td>선택 항목. 실제 배송처 확인용</td></tr>
             <tr><td>26</td><td class="cls-kcs">관세청</td><td><span class="api-tag api-tra1">TRA001</span></td><td><code>cnsi_pers_ecm</code></td><td>수하인 개인통관고유부호</td><td>String(13)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">pccCode</span></td><td class="src-geek">Geek 자사몰 DB</td><td>P로 시작 13자리</td><td>PER001 사전 검증 완료 부호. 도용방지 검증 핵심</td></tr>
-            <tr><td>27</td><td class="cls-kcs">관세청</td><td><span class="api-tag api-tra1">TRA001</span></td><td><code>su_crtf_no</code></td><td>개인통관고유부호 인증번호</td><td>String(6)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">tempAuthNo</span></td><td class="src-geek">Geek 자사몰 DB</td><td>PER001 응답 6자리 또는 Z99999</td><td>PER001 검증 성공 시 수신한 인증번호. 통관단계 인증번호 검증을 통한 도용방지 <span class="rule-highlight">[2026-08-10 확인] NICE 경유(SMARTPCC_11 otp)로 6자리 전체 수신. 자체 체크디지트 불필요</span></td></tr>
+            <tr><td>27</td><td class="cls-kcs">관세청</td><td><span class="api-tag api-tra1">TRA001</span></td><td><code>su_crtf_no</code></td><td>개인통관고유부호 인증번호</td><td>String(6)</td><td><span class="badge req-n">N</span></td><td><span class="mapping-code">tempAuthNo</span></td><td class="src-geek">Geek 자사몰 DB</td><td>PER001 응답 6자리 또는 Z99999</td><td>PER001 검증 성공 시 수신한 인증번호. 통관단계 인증번호 검증을 통한 도용방지 <span class="rule-highlight">[2026-09-01 정정] 필수 여부를 <code>Y</code> → <code>N</code>으로 정정. 관세청 명세서 v1.4.1 p.19 원문이 <code>su_crtf_no</code>를 <strong>N(선택)</strong>으로 정의한다. 종전 <code>Y</code> 표기는 폐기한다. 단 이를 근거로 자이언트 <code>tempAuthNo</code> 필수검증 해제를 주장하지 않는다 — 공식 FAQ 6-21에 따라 인증번호는 거래정보가 아니라 <strong>통관 단계에서 검증</strong>되며, 통관 신고 주체는 자이언트다.</span> <span class="rule-highlight">[2026-08-10 확인] NICE 경유(SMARTPCC_11 otp)로 6자리 전체 수신. 자체 체크디지트 불필요. PER001 직접 연동 시 <code>rspn_tp=01</code>은 앞 2자리만 제공되나(명세서 p.41) 당사는 NICE 경유라 해당 없음</span></td></tr>
 
             <!-- 관세청 TRA001 상품정보 -->
             <tr><td>28</td><td class="cls-kcs">관세청</td><td><span class="api-tag api-tra1">TRA001</span></td><td><code>prod_srno</code></td><td>상품 일련번호</td><td>Integer(3)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">itemSeq</span></td><td class="src-gen"><strong>Geek 자체 채번</strong></td><td>1, 2, 3... (HBL 내 상품 순번)</td><td><span class="rule-highlight">[2026-08-26 정정]</span> <strong>Geek이 HBL 단위로 1부터 연속 채번</strong>한다 — 종전 “동수 자동 생성” 폐기. 관세청·자이언트 모두 값 자체에 큰 의미를 두지 않으나 <strong>필드는 필수</strong>이므로 비워 보내면 실패한다. GGATE <code>itemSeq</code>(3자 <code>001</code>…)와 같은 값을 쓰고 <code>items[]</code> 상한은 <strong>50</strong>. 한 개 주문(HBL)에 여러 상품이 있을 경우 순차 채번 (예: DS260804000011, DS260804000012...). 최대 5개까지 가능 <span class="rule-highlight">공식 Integer(3), 1부터 연속</span></td></tr>
@@ -250,10 +259,10 @@
             <tr><td>95</td><td class="cls-giant">자이언트</td><td><span class="api-tag api-hwb">선택 endpoint 명세</span></td><td><code>brokerCode</code></td><td><b>판매중개자</b> 부호</td><td>9자 고정</td><td><span class="badge req-c">endpoint 조건부</span></td><td><span class="mapping-none">채널 마스터</span></td><td class="src-dongsu">채널 마스터 → 동수</td><td>자사몰·기타9: K26000099<br>네이버: K26014765</td><td>선택 endpoint 조건을 적용하고 Unicode 공백 제거 후 9자 검증</td></tr>
             <tr><td>96</td><td class="cls-giant">자이언트</td><td><span class="api-tag api-hwb">선택 endpoint 명세</span></td><td><code>brokerName</code></td><td>판매중개자명</td><td>String(100)</td><td><span class="badge req-c">endpoint 조건부</span></td><td><span class="mapping-none">채널 마스터</span></td><td class="src-dongsu">채널 마스터 → 동수</td><td>채널별 승인 상호</td><td><code>brokerCode</code>와 원자적 한 쌍</td></tr>
             <tr><td>97</td><td class="cls-giant">자이언트</td><td><span class="api-tag api-hwb">HWB등록·양사공통키</span></td><td><code>orderNo</code></td><td>분할 주문번호</td><td>String(52)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">ord_no</span></td><td class="src-gen">Geek·동수 양사 전송</td><td>원주문 / 원주문-1 / 원주문-2</td><td><strong>자이언트 병합키.</strong> 양사 API가 같은 포장별 분할 주문번호를 전송하며 <code>hwbNo</code>와 1:1</td></tr>
-            <tr><td>98</td><td class="cls-giant">자이언트</td><td><span class="api-tag api-hwb">V2-1/2 공개명세</span></td><td><code>orderCompletionDate</code></td><td>결제 완료 일시</td><td>String(14)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">ord_cmpl_dttm</span></td><td class="src-gen">주문 원천</td><td>YYYYMMDDHHmmss</td><td>기존 수입신고 경로에서는 미전송 가능 여부 P0</td></tr>
+            <tr><td>98</td><td class="cls-giant">자이언트</td><td><span class="api-tag api-hwb">V2-1/2 공개명세</span></td><td><code>orderCompletionDate</code></td><td>결제 완료 일시</td><td>String(14)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">ord_cmpl_dttm</span></td><td class="src-gen">동수 V2-1 기본 / Geek V2-2 우선</td><td>YYYYMMDDHHmmss</td><td>자사몰에서 두 값이 겹치면 Geek V2-2의 실제 결제완료 원천값 우선. 임의 일시 생성 금지. 일회용 번호 없는 V2-1의 운영 예외와 함께 적용범위 확인</td></tr>
             <tr><td>99</td><td class="cls-giant">자이언트</td><td><span class="api-tag api-hwb">동수 API</span></td><td><code>orderSiteUrl</code></td><td>주문 사이트 대표 URL</td><td>Max <b>300</b>자</td><td><span class="badge req-n">N</span></td><td><span class="mapping-code">ord_site_url</span></td><td class="src-dongsu">동수 채널DB 단일 소유</td><td>자사몰 = <b>https://nutriciastore.co.kr/</b><br>네이버 브랜드스토어 = https://brand.naver.com/nutricia<br>기타 = 스토어별 대표 URL</td><td><span class="rule-highlight">[2026-08-13 소유권 정정]</span> 동수 API에서 채널코드 기준 주입. ① 길이 3000→<b>300</b>(컬렉션 원본) ② 자사몰 URL <s>https://krone.com</s>→<b>https://nutriciastore.co.kr/</b> — planning_v6·유형코드 문서와 불일치하던 것을 2026-08-11 동수 실 응답(<code>prodSalePgeUrl</code>)으로 확정 ③ 대응 관세청 필드는 <code>prod_sale_pge_url</code>이 아니라 <code>ord_site_url</code></td></tr>
-            <tr><td>100</td><td class="cls-giant">자이언트</td><td><span class="api-tag api-hwb">선택 endpoint 명세</span></td><td><code>pccCode</code></td><td>개인통관고유부호</td><td>String(13)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">cnsi_pers_ecm</span></td><td class="src-gen">주문 원천</td><td>P/O 시작 13자리</td><td>기존 수입신고의 기본 통관 필수범위는 자이언트 확인</td></tr>
-            <tr><td>101</td><td class="cls-giant">자이언트</td><td><span class="api-tag api-hwb">전자상거래 전용</span></td><td><code>tempAuthNo</code></td><td>일회용 인증번호</td><td>String(6)</td><td><span class="badge req-c">신고서식 조건부</span></td><td><span class="mapping-code">su_crtf_no</span></td><td class="src-gen">인증 원천</td><td>6자리 인증번호</td><td>기존 수입신고는 관세청 회신상 불필요</td></tr>
+            <tr><td>100</td><td class="cls-giant">자이언트</td><td><span class="api-tag api-hwb">V2-1/2 병합</span></td><td><code>pccCode</code></td><td>개인통관고유부호</td><td>String(13)</td><td><span class="badge req-y">Y</span></td><td><span class="mapping-code">cnsi_pers_ecm</span></td><td class="src-gen">동수 V2-1 기본 / Geek V2-2 우선</td><td>P/O 시작 13자리</td><td>Geek V2-2의 PER 원천 유효값 우선. 형식만 맞는 O/P 값을 진짜로 간주하지 않음. 동수 누락 시 임의값 생성 금지. 2026-09-01 PCCC 검증 제외 회신은 입력 검증 예외로만 기록</td></tr>
+            <tr><td>101</td><td class="cls-giant">자이언트</td><td><span class="api-tag api-hwb">전자상거래 전용</span></td><td><code>tempAuthNo</code></td><td>일회용 인증번호</td><td>String(6)</td><td><span class="badge req-c">신고서식 조건부</span></td><td><span class="mapping-code">su_crtf_no</span></td><td class="src-geek">Geek V2-2 인증 원천</td><td>6자리 인증번호</td><td>동수 V2-1에는 없을 수 있음. 자사몰 신규 신고는 Geek의 정식 인증값 우선. 기존 수입신고는 관세청 회신상 불필요. 빈 값·임의값·근거 없는 <code>Z99999</code> 금지</td></tr>
             <tr><td>102</td><td class="cls-giant">자이언트</td><td><span class="api-tag api-hwb">자이언트 내부</span></td><td><code>xrayReader1</code></td><td>X-Ray 판독자</td><td>String(50)</td><td><span class="badge req-n">N</span></td><td><span class="mapping-none">해당없음</span></td><td class="src-kcs">자이언트 관세사 입력</td><td>인천공항 입항 후 X-Ray 판독자 성명</td><td>자이언트 내부 시스템 입력. 자사몰/동수 전송 불필요</td></tr>
             <tr><td>103</td><td class="cls-giant">자이언트</td><td><span class="api-tag api-hwb">B 사업자 필드</span></td><td><code>buyingAgentCode</code></td><td>구매대행업체부호</td><td>String(9)</td><td><span class="badge req-c">B 조건부</span></td><td><span class="mapping-code">puch_vcex_bsmn_sgn</span></td><td class="src-dongsu">채널 마스터 → 동수</td><td>네이버 B: K26014765<br>기타 외부 B: K26000099</td><td>선택 endpoint가 요구할 때 전송. 다른 필드에서 변환 금지</td></tr>
             <tr><td>104</td><td class="cls-giant">자이언트</td><td><span class="api-tag api-hwb">B 사업자 필드</span></td><td><code>buyingAgentName</code></td><td>구매대행업체 상호</td><td>String(100)</td><td><span class="badge req-c">B 조건부</span></td><td><span class="mapping-code">puch_vcex_bsmn_nm</span></td><td class="src-dongsu">채널 마스터 → 동수</td><td>네이버 B: (주)아이베<br>기타 외부 B: (주)크로네</td><td><code>buyingAgentCode</code>와 승인된 한 쌍</td></tr>

@@ -19,11 +19,12 @@
 </head>
 <body>
 <div class="container">
-    <a href="./동수_최종전달기준_20260828_cn.html" class="nav-btn">[ → 东数最终传达标准 ]</a>
+    <a href="./동수_협의자료_20260901_cn.html" class="nav-btn">[ → 东数当前协商资料 ]</a>
     <a href="./api_field_mapping_cn.html" class="nav-btn">[ → API字段映射文档 ]</a>
     <h1>类型代码及符号体系整理</h1>
-<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">最后更新 <span style="color:#8ab4f8;font-size:16px;">2026-08-28</span><span style="font-weight:400;color:#bdc1c6;"> · 适用于东数开发交付</span></div>
-<div style="background:#e6f4ea;border-left:5px solid #137333;padding:12px 15px;margin:14px 0;line-height:1.75;"><strong>[2026-08-28 最终更正]</strong> A/B为交易角色；传统进口申报与跨境电商专用进口申报为逐订单申报路径。韩国海关回复：传统进口申报无需TRA001交易信息和一次性认证号，因此不能仅因B类就发送全部个人信息与OTP。当前渠道共11个（自营商城1个+外部平台10个）。</div>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">最后更新 <span style="color:#8ab4f8;font-size:16px;">2026-09-01</span><span style="font-weight:400;color:#bdc1c6;"> · 适用于东数开发交付</span></div>
+<div style="background:#e8f0fe;border-left:5px solid #1a73e8;padding:12px 15px;margin:14px 0;line-height:1.75;"><strong>[2026-09-01 当前接口标准]</strong> A/B与申报路径仍须分别判断。GGATE数据链路为<strong>东数V2-1 + Geek V2-2</strong>；同一键的重叠字段优先采用Geek V2-2中有效且非空的值，禁止用V2-2空值覆盖V2-1有效值。当前实现与验收标准请参阅<a href="./동수_협의자료_20260901_cn.html">东数协商资料 2026-09-01</a>及<a href="./api_field_mapping_cn.html">API字段映射</a>。</div>
+<div style="background:#e6f4ea;border-left:5px solid #137333;padding:12px 15px;margin:14px 0;line-height:1.75;"><strong>[2026-08-28更正 · 仍有效的业务原则]</strong> A/B为交易角色；传统进口申报与跨境电商专用进口申报为逐订单申报路径。韩国海关回复：传统进口申报无需TRA001交易信息和一次性认证号，因此不能仅因B类就发送全部个人信息与OTP。当前渠道共11个（自营商城1个+外部平台10个）。</div>
 
     <h2>1. 销售类型代码 (elcm_pcd) 详细说明 <span style="background:#e6f4ea;color:#137333;padding:2px 6px;border-radius:3px;font-size:13px;font-weight:bold;">[2026-08-28 确定] 自营商城1个A，外部平台10个B</span></h2>
     <p style="background:#e6f4ea;border-left:4px solid #137333;padding:10px 12px;"><strong>韩国关税厅2026-08-24确认：</strong>由(株)KRONE在客户下单前采购并持有、存放于海外的库存，通过自营商城直接销售，属于<code>A</code>（直接销售）。韩国国内库存销售不属于海外直购。客户下单后再从海外卖家购买的外部平台入驻订单属于<code>B</code>（代购）。<strong>自营商城不存在B类型；但TRA001是否提交及提交主体必须再按逐订单申报路径和平台合同判断。</strong></p>

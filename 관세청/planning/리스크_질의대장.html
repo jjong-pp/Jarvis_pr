@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>통합 리스크 · 질의 · 협의 대장 — 2026-08-28</title>
+<title>통합 리스크 · 질의 · 협의 대장 — 2026-09-01</title>
 <style>
   *{box-sizing:border-box}
   body{font-family:'Inter',-apple-system,'Malgun Gothic',sans-serif;background:#f6f7f9;color:#202124;line-height:1.6;margin:0;padding:30px 18px}
@@ -57,8 +57,8 @@
   <a href="./CS_QA_통관.html">CS 통관 Q&amp;A</a>
 </nav>
 <h1>통합 리스크 · 질의 · 협의 대장</h1>
-<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-08-28</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 · 관세청 테스트서버 종료 2026-08-21 · <code>Z99999</code> PER 허용 종료 <b style="color:#8ab4f8;">2026-09-27 24:00</b></span></div>
-<div class="sub">현재 미결 항목과 확정 정책·결정 변경·협의 타임라인을 한 문서에서 관리 · 리스크 집계 기준일 <strong>2026-08-28</strong></div>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-09-01</span><span style="font-weight:400;color:#bdc1c6;"> · 동수 V2-1 전환 예정 2026-09-02 · 혼재 운영 종료시각 미확인 · <code>Z99999</code> PER 허용 종료 <b style="color:#8ab4f8;">2026-09-27 24:00</b></span></div>
+<div class="sub">현재 미결 항목과 확정 정책·결정 변경·협의 타임라인을 한 문서에서 관리 · 리스크 집계 기준일 <strong>2026-09-01</strong></div>
 <div class="nav" aria-label="대장 내 이동">
   <a href="#stage-simulation">스테이지·필드 시뮬레이션</a>
   <a href="#active" class="r">현재 리스크·질의</a>
@@ -67,14 +67,29 @@
 </div>
 
 <div class="box g">
-  <strong>[2026-08-28 최종 정본] A/B와 신고서식을 분리합니다.</strong><br>
-  <code>ecTypeCode=A/B</code>는 거래 역할이고, <code>LEGACY_IMPORT/ECOMMERCE_DEDICATED</code>는 주문별 신고 경로입니다. 기존 수입신고는 관세청 담당자 회신상 TRA001 거래정보와 일회용 인증번호가 불필요합니다. 따라서 B라고 해서 동수가 개인정보·OTP 전체를 무조건 V2-1로 보내지 않습니다.<br>
-  <strong>채널 마스터:</strong> 총 11개 = 자사몰 1개 A/KRONE + 외부 플랫폼 10개 B(네이버 1개 AIBE, 기타 9개 KRONE). 주문자·수하인·PCCC·OTP는 채널 마스터가 아닌 주문 데이터입니다.<br>
-  <span class="no">잔여 P0:</span> 공개 V2-1은 <code>pccCode/tempAuthNo/orderCompletionDate</code>를 필수로 검증합니다. 기존 수입신고 A/B를 받을 endpoint·구분값·OTP 조건부 해제·기본 수하인/PCCC/상품 필수범위를 자이언트가 서면 확정해야 합니다.
+  <strong>[2026-09-01 현재 정본 · 운영전환 확정]</strong><br>
+  ① 동수의 자이언트 전송은 <strong>V2-1</strong>로 통일합니다. 대화 원문의 <code>v1 gate</code>·<code>v1</code>은 공유 문서에서 V2-1로 정규화합니다.<br>
+  ② Geek은 자사몰 PER 인증 결과와 통관·수하인 데이터를 <strong>V2-2 <code>clearance</code></strong>로 동일 <code>hwbNo + orderNo</code>에 보냅니다.<br>
+  ③ 자이언트는 겹치는 필드에서 <strong>Geek V2-2의 유효한 비공백 값을 우선</strong>하고, V2-2에 없는 물류·상품 필드는 동수 V2-1 값을 유지합니다. 빈 V2-2 값으로 정상 V2-1 값을 지우지 않습니다.<br>
+  ④ 동수는 2026-09-01 개발 완료, <strong>2026-09-02 주문부터 적용 예정</strong>입니다. 배포·첫 성공 응답은 아직 확인되지 않았습니다.<br>
+  ⑤ 2026-08-31 문제 주문 <strong>90건</strong>은 구 API 전송으로 신규 신고용 업체부호·일회용 인증번호 등이 누락됐습니다. 2026-09-01 13:00~14:00 전 필수데이터 보완 조건만 확인됐으며, 전량 보완·접수 완료는 <span class="no">미확인</span>입니다.<br>
+  ⑥ 일부 PCCC는 데이터 수집 오류로 미확보 상태이며 로그 회수 후 수기 전달 예정입니다. <code>O000000000004</code>는 진위 미검증이므로 가짜로 확정하지 않고 격리합니다.<br>
+  ⑦ 원문·해석 경계는 <code>documents/20260901_자이언트_운영전환_협의원문.md</code>, 규격 델타는 <code>documents/자이언트_API_메모.md</code>가 근거입니다.
 </div>
 
 <div class="box r">
-  <strong>[금지]</strong> A/B만으로 V2-1·V2-2를 선택하지 않습니다. 기존 수입신고 건의 검증을 통과하려고 임의 OTP·<code>Z99999</code>·가짜 주문완료일시를 만들지 않습니다. 미확정 조합은 운영 예외 큐로 격리합니다.
+  <strong>[전환기 금지]</strong> 형식만 맞는 O/P 부호를 임의 생성하지 않습니다. Geek V2-2의 빈 값이 동수 V2-1 값을 지우게 두지 않습니다. “개인통관고유부호 검증 제외” 회신을 세관 신고상 PCCC 면제로 확대하지 않습니다. 90건을 완료로 표시하려면 주문별 필수값·신고방식·접수번호·결과코드가 있어야 합니다.
+</div>
+
+<div class="box g">
+  <strong>[2026-08-28 기준 중 계속 유효한 부분 · 전송 버전은 2026-09-01 정정]</strong><br>
+  <code>ecTypeCode=A/B</code>는 거래 역할이고, <code>LEGACY_IMPORT/ECOMMERCE_DEDICATED</code>는 주문별 신고 경로입니다. 기존 수입신고는 관세청 담당자 회신상 TRA001 거래정보와 일회용 인증번호가 불필요합니다. <span class="no">종전 “신고서식별 endpoint 확정 전 자동 전송 금지”는 2026-09-01 동수 V2-1 통일 결정으로 대체합니다.</span><br>
+  <strong>채널 마스터:</strong> 총 11개 = 자사몰 1개 A/KRONE + 외부 플랫폼 10개 B(네이버 1개 AIBE, 기타 9개 KRONE). 주문자·수하인·PCCC·OTP는 채널 마스터가 아닌 주문 데이터입니다.<br>
+  <span class="no">잔여 확인:</span> 공개 V2-1의 필수검증과 2026-09-01 자이언트 운영 예외가 다르므로, 적용 필드·기간·오류코드·신고단계 보완 책임을 운영 로그와 서면으로 남겨야 합니다.
+</div>
+
+<div class="box r">
+  <strong>[금지]</strong> A/B를 신고방식과 동일시하지 않습니다. 기존 수입신고 건의 검증을 통과하려고 임의 OTP·<code>Z99999</code>·가짜 주문완료일시를 만들지 않습니다. 동수=V2-1, Geek=V2-2라는 발신사별 계약과 주문별 기존/신규 신고 판정을 별도로 기록합니다.
 </div>
 
 <div class="box r">
@@ -245,11 +260,11 @@
     <tr>
       <td><span class="pri p0">P0</span></td>
       <td><span class="who w-giant">자이언트</span><br><span class="who w-geek">Geek<br><small>(자사몰만)</small></span><br><span class="who w-ds">동수</span></td>
-      <td><strong>GGATE 분리 쓰기 운영 E2E 미완료</strong><span class="new">UPDATED</span></td>
-      <td><strong>[2026-08-28 최종 정정]</strong> A/B와 신고서식을 분리합니다. 기존 수입신고는 TRA001·OTP가 불필요하고, 전자상거래 전용만 필수값이 모두 있는 경우 확정 endpoint로 전송합니다.<br>
-      <span class="ok">[부분해소]</span> 플랫폼 B의 <code>ordererName/Tel</code>, <code>consigneeName/NameEng/Addr/AddressEng/Zip/Tel</code>, <code>pccCode</code> 송신 주체는 동수로 정리됐습니다.<br>
-      <span class="no">[잔여 P0]</span> ① 기존 수입신고 A/B 자이언트 endpoint·flag ② OTP·주문완료일 조건부 해제 ③ 기본 수하인·PCCC·상품 필수범위 ④ 실등록 E2E.<br>
-      <span class="no">완료 조건</span> A/B와 두 신고서식 조합의 양성·음성 E2E를 확보합니다.</td>
+      <td><strong>GGATE V2-1 + V2-2 우선 병합 운영 검증</strong><span class="new">09-01 UPDATED</span></td>
+      <td><span class="ok">[2026-09-01 구조 확정]</span> 동수는 V2-1로 전체등록하고 Geek은 자사몰 통관·인증 데이터를 V2-2 <code>clearance</code>로 보냅니다. 동일 <code>hwbNo + orderNo</code>에서 겹치는 유효 필드는 Geek V2-2가 우선하며, 물류·상품은 동수 V2-1을 유지합니다.<br>
+      <span class="ok">[운영 예외 회신]</span> 자이언트는 V2-1에 일회용 번호가 없을 수 있음을 인지했고 수하인정보 검증에서 개인통관고유부호를 제외하겠다고 답했습니다. 다만 이 예외의 정확한 필드·기간·신고단계 보완 책임은 아직 서면화되지 않았습니다.<br>
+      <span class="no">[잔여 P0]</span> ① 2026-09-02 동수 V2-1 배포·첫 성공 응답 ② V2-1/V2-2 도착 순서 양방향 E2E ③ 필드별 적용 원천 조회 ④ 90건의 필수값 보완·접수 결과 ⑤ 누락 PCCC와 의심 O부호 검증.<br>
+      <span class="no">완료 조건</span> 주문별 <code>hwbNo + orderNo</code>, 양쪽 도착시각, 필드별 적용 원천, 신고방식, 접수번호·오류코드를 한 대장에서 대사합니다.</td>
     </tr>
   </tbody>
 </table>
@@ -289,9 +304,10 @@
     <tr>
       <td><span class="pri p1">P1</span></td>
       <td><span class="who w-in">당사</span><br><span class="who w-in">플랫폼</span><br><span class="who w-giant">자이언트</span></td>
-      <td><strong>플랫폼 주문 PCCC·6자리 인증번호 취득 경로</strong><span class="new">P0→P1 강등</span></td>
-      <td><span class="ok">[2026-08-26 강등 근거]</span> GGATE v2.0.0 <code>clearance</code> 명세에서 <code>tempAuthNo</code>는 <strong>6자 고정 필수이되 “발급 실패 건은 <code>Z99999</code>”</strong>가 명문화되어 있습니다. <code>pccCode</code>는 <code>^[PpOo][0-9A-Za-z]{12}$</code>로 <strong>일반 <code>P</code>·간소화 <code>O</code> 둘 다 허용</strong>합니다. 또한 관세청 담당자 회신(2026-08-25) — “<strong>거래정보 미제출해도 통관은 됩니다. 다만 검사율이 상향되고 거래정보 제출율이 감소됩니다.</strong>” 따라서 <strong>오픈을 차단하는 항목이 아닙니다.</strong><br>
-      <span class="no">대상 정정(08-26)</span> 자사몰 PCCC·OTP는 Geek이 NICE 경유로 처리하지만, <strong>외부 플랫폼 주문의 PCCC·OTP는 Geek 범위 밖</strong>입니다. 이 항목의 담당은 당사 운영팀과 각 플랫폼입니다.<br><span class="no">남는 것</span> ① <code>Z99999</code>는 <strong>2026-09-27까지만</strong> 유효하므로 그 전에 NAVER·기타 외부 채널의 실제 6자리 인증번호 경로를 확정해야 합니다 ② 검사율 상향과 제출율 감소는 <strong>협력인정업체 4분기 평가</strong>에 직접 반영됩니다(관세청 회신) ③ 플랫폼→Geek→자이언트 개인정보 전달 근거는 법무 승인 대상 그대로입니다.</td>
+      <td><strong>플랫폼 주문 PCCC·일회용 번호 수집·진위 검증</strong><span class="new">09-01 INCIDENT</span></td>
+      <td><span class="no">[2026-09-01 운영 사고]</span> 일부 주문은 데이터 수집 오류로 PCCC가 확보되지 않았고, 개발로그에서 회수한 뒤 수기로 전달하기로 했습니다. 확보 건수·대상 주문·전달 완료시각은 미확인입니다. <code>O000000000004</code>는 형식상 O 시작 13자리이지만 진위 검증이 없어 자이언트가 임의값 가능성을 제기했습니다. 가짜로 확정하지 말고 원천 응답·요청번호·인증시각을 대조해야 합니다.<br>
+      <span class="ok">[경로 기준]</span> 다른 채널의 P 시작 PCCC는 기존 신고 방식, 일회용 부호가 있는 건은 신규 신고 방식으로 처리한다는 자이언트 운영방향이 회신됐습니다. 자사몰은 PER 결과로 O/P가 섞일 수 있고 신규 신고 적용 의사가 제시됐으나, 모든 필수데이터가 있어야 한다는 조건만 확인됐습니다.<br>
+      <span class="no">남는 것</span> ① PCCC 미확보 주문 목록과 회수 결과 ② O부호 원천 증빙 ③ 90건별 신고방식·필수값·접수 결과 ④ <code>Z99999</code> 종료 전 외부 채널의 정식 인증 경로 ⑤ PCCC 검증 제외 예외의 범위·종료일.</td>
     </tr>
     
     <tr>
@@ -540,7 +556,7 @@
   <tbody>
     <tr><td class="d">08-20<br>→ 08-28</td><td>GGATE 주문별 전송규칙</td><td>A/B와 신고서식을 분리. 기존 수입신고 route는 자이언트 P0, 전자상거래 전용은 필수값을 확보한 뒤 확정 endpoint 호출</td><td><span class="chip c-open">계약·E2E</span></td></tr>
     <tr><td>전자상거래 판매유형</td><td><s>전 채널 B</s> → <s>전 채널 A 후보</s></td><td><strong>[2026-08-24 확정]</strong> <strong>SELF=A/KRONE, NAVER=B/AIBE, OTHER9=B/KRONE, C=0</strong>. 자사몰은 주문 전 선매입·해외보관 재고 직접판매, 외부 플랫폼은 고객 주문 후 해외구매 대행입니다.</td><td><span class="chip c-fix">확정</span></td></tr>
-    <tr><td>자이언트 전송 주체</td><td><s>자사몰 단일 등록</s> → <s>동수 단일 전유형 개인정보</s> → <s>A/B 구분 없는 분리 소유</s> → <s>B V2-1 전체등록</s></td><td><strong>[2026-08-28 현재안]</strong> A/B와 주문별 <code>declarationMode</code>를 함께 적용합니다. 기존 수입신고의 자이언트 endpoint는 확정 전 자동 전송하지 않습니다.</td><td><span class="chip c-open">자이언트 확인</span></td></tr>
+    <tr><td>자이언트 전송 주체</td><td><s>자사몰 단일 등록</s> → <s>동수 단일 전유형 개인정보</s> → <s>A/B 구분 없는 분리 소유</s> → <s>신고서식별 endpoint 확정 전 자동 전송 금지</s></td><td><strong>[2026-09-01 현재안]</strong> 동수는 V2-1로 통일하고 Geek은 자사몰 통관·인증 필드를 V2-2로 보냅니다. 같은 키의 겹치는 유효값은 Geek V2-2가 우선하고 동수 물류·상품값은 유지합니다. 기존/신규 신고의 선택은 부호와 필수데이터 상태에 따라 자이언트가 전환기간 동안 운영합니다.</td><td><span class="chip c-conf">운영 검증 중</span></td></tr>
     <tr><td>오류 건 전달</td><td><s>동수 2회 조회</s> → <s>실패 건 취소 Push</s></td><td>자사몰이 실패 건을 동수 <code>orderDelete</code>로 삭제 요청하고 <code>p1</code>로 원복해 익일 신규 수집</td><td><span class="chip c-fix">확정</span></td></tr>
     <tr><td>국내·해외 혼재 주문</td><td><s><code>getTRA001OrderInfo</code> 한 응답에서 <code>isCrossBorder:Y/N</code>으로 분기하고 국내 <code>expressNo</code>도 반환</s></td><td>동수 공식 회신으로 정정. <code>getTRA001OrderInfo</code>에는 KR 국내 주문이 포함되지 않으며 해외 TRA 대상만 반환. <code>serachOrderInfo</code>가 국내·해외 송장번호와 <code>isCrossBorder</code>(Y=해외, N=KR 국내)를 반환하며, KR WMS 가동 후 국내 송장도 자동 연동</td><td><span class="chip c-fix">API·필드 확정</span></td></tr>
     <tr><td>HBL 수집 시점</td><td><s>포장 준비 시 순차 채번 후 Geek가 부분 수집</s> → <s>전 HBL 선발급 또는 Push 방식 중 추후 선택</s></td><td>주문별 모든 HBL을 할당한 뒤 일괄 반환. 하나라도 미할당이면 해당 주문의 모든 HBL이 null이며 Geek는 미준비로 판단해 재조회. 테스트 단계에서는 동수가 수동으로 송장번호를 할당</td><td><span class="chip c-fix">확정</span></td></tr>
@@ -554,6 +570,7 @@
 <table>
   <thead><tr><th style="width:10%">일자</th><th>주요 결정과 변경</th></tr></thead>
   <tbody>
+    <tr><td class="d">09-01</td><td><strong>[운영전환 확정]</strong> ① 동수 자이언트 전송을 <strong>V2-1</strong>로 통일하고 09-02 주문부터 적용 예정 ② Geek 자사몰 통관·인증 데이터는 V2-2 <code>clearance</code>로 전송 ③ 동일 키·겹치는 필드는 Geek V2-2 유효값 우선 ④ 08-31 문제 90건은 구 API로 보내 신규 신고용 업체부호·일회용 인증번호 등이 누락 ⑤ PCCC 미확보 주문은 로그 회수 후 수기 전달 예정 ⑥ <code>O000000000004</code> 진위 미검증으로 격리 ⑦ 기존·신규 신고 혼재 종료시각은 미확인, WeChat에서 주문별 지속 공유. 근거: <code>documents/20260901_자이언트_운영전환_협의원문.md</code>.</td></tr>
     <tr><td class="d">08-26<br>저녁</td><td><strong>[관세청 공지·서면 회신 반영]</strong> ⑧ <strong><code>Z99999</code> 종료일 <code>2026-09-27</code> 확정</strong> — 관세청 공지 「(재수정)전자상거래 전용 신고서 등 신규 서식 변경 안내」(2026-08-21, 조미정): “임시 일회용인증번호(<code>Z99999</code>)를 사용하면 일회용인증번호 검증을 통과할 수 있습니다. 단, 시행일로부터 1개월만 사용이 가능합니다.(’26.8.28.~’26.9.27.)” ⑨ <strong>같은 공지의 서식 변경</strong> — DKX ‘House B/L 번호’ 필수화, DKW·5TF ‘상품명’·‘선택옵션명’ SIZE 600→300, ‘화물관리번호’ 19자리 고정, 기존 통관목록 거래유형 A는 2026년 12월 말까지 한시 유지. ⑩ <strong>관세청 담당자 A/B형 서면 확인</strong>(08-21) — A형은 “재고가 해외에 있으면 맞습니다”, B형(당사 제출)도 “맞습니다”. ⑪ <strong>오픈 전 주문 처리 경로</strong>(08-25) — PER 인증값이 없으면 기존 수입신고로 처리 가능하며 이 경우 거래정보·인증번호 불필요, 전자상거래 물품의 기존 수입신고는 2026년까지. <strong>거래정보 미제출해도 통관은 되나 검사율 상향·제출율 감소</strong>, 협력인정업체는 4분기 내역으로 평가. ⑫ <strong>08-28 01:30~03:00 관세청 연동 테스트</strong>(<code>AUT001</code>/<code>PER001</code>/<code>TRA001</code>). ⑬ <strong>주문번호 단일 기준 확정</strong> — 전부 원주문번호로 흘리고 분할번호는 ERP 내부 식별자로만 둔다. ⑭ <strong>GGATE 컬렉션 원본 대조</strong> — v2.0.0에서 <code>PATCH</code>·PCCC 검증·레거시 <code>search</code>가 삭제되었고 <code>HWB 수정</code>은 “삭제 예정”. <code>tempAuthNo</code>는 “발급 실패 건은 <code>Z99999</code>” 명문. <code>gngMsgCode</code> 실제 12종 확인(<code>00</code>이 초기값). <code>prod_srno</code>·<code>itemSeq</code>는 발신측 채번으로 충족.</td></tr>
     <tr><td class="d">08-26</td><td><strong>[현재 정본]</strong> ① <strong>삭제 범위 확정</strong> — Geek이 서브 주문번호(<code>…-1</code>)로 <code>orderDelete</code>를 호출해 <code>state:300 订单状态不可删除</code>를 받았고, 동수는 <strong>원주문번호만 보내면 모·서브 전체를 삭제</strong>한다고 회신했다. <span class="no">[창고 처리 중]</span> 상태는 WMS API 반환값에 따라 삭제 가능 여부가 결정된다. ② <strong>내수 동반 지연 정책 확정</strong> — AN.(동수)이 “ERP 최소 조회 단위는 주문이라 혼재 주문은 전체 삭제 후 재설정해야 하고, 재조회 시 내수 주문이 중복될 수 있어 ERP 구현이 어렵다”고 회신. 박종혁은 “KR 주문은 통관과 상관없이 출고되는 것이 좋다”는 요청을 철회하고 <strong>정책적으로 해결</strong>하기로 확정했다(19:33). ③ <strong>배치 시각 전환</strong> — 마케팅·MD 회의 결과 <code>11:10</code> 동수 HBL 수집 시작, <code>11:50</code> 이전 TRA 호출·삭제 API 요청 마감. 누락·지연 건은 실제 통관에서 수기 제출. ④ <strong>TRA003 실오류로 판매업체 필드 확정</strong> — <code>sale_ents_nm=(주)크로네</code>, <code>sale_ents_sgn=K26000099</code>. 원인은 Geek이 보유한 <strong>구버전 <code>planning_v6.html</code></strong>에서 두 필드가 필수가 아니었던 것. ⑤ <strong>범위 축소·미구현 확정</strong> — 자이언트 <code>/api/hwb/bulk-sync/search</code> 미구현, 어드민 엑셀 일괄업로드의 관세청 제출 로직 제거, 오픈 후에도 TRA 배치는 자동 실행하지 않고 단건 테스트 후 수동 기동. ⑥ <strong>단계별 테스트 API 7종 인수</strong> — 08-28 테스트는 당사가 직접 수행. ⑦ 동수에 <code>20260826_ds.zip</code>(도메인·부호 마스터 포함) 공유.</td></tr>
     <tr><td class="d">08-19</td><td><strong>[중간 이력 · 2026-08-28 경로 대체]</strong> 당시 모든 채널을 A 후보로 보거나 A/B별 API를 고정하는 안을 검토했습니다. 현재 채널값은 <strong>SELF=A/KRONE, NAVER=B/AIBE, OTHER9=B/KRONE</strong>이고, API는 신고서식까지 함께 판정합니다.</td></tr>
@@ -572,7 +589,7 @@
 </table>
 
 <footer>
-  2026-08-15 갱신 · 종전 <code>협의이력.html</code>의 확정 정책·변경 이력·타임라인을 이 문서로 이관 · 근거: 관세청 REST API v1.4.1 · 자이언트 GGATE API V2 v1.3.5 · 고도몰5 openAPI v1.0 · 2026-06-29/08-12~15 동수·Geek 채팅 및 API 실응답
+  2026-09-01 갱신 · 종전 <code>협의이력.html</code>의 확정 정책·변경 이력·타임라인을 이 문서로 이관 · 근거: 관세청 REST API v1.4.1 · 자이언트 GGATE 공개 컬렉션 v2.0.0 · 고도몰5 openAPI v1.0 · 2026-09-01 자이언트 운영전환 협의 원문 · 동수·Geek 채팅 및 API 실응답
 </footer>
 
 </div>
