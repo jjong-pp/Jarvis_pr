@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>통합 리스크 · 질의 · 협의 대장 — 2026-08-28</title>
+<title>통합 리스크 · 질의 · 협의 대장 — 2026-09-01</title>
 <style>
   *{box-sizing:border-box}
   body{font-family:'Inter',-apple-system,'Malgun Gothic',sans-serif;background:#f6f7f9;color:#202124;line-height:1.6;margin:0;padding:30px 18px}
@@ -57,8 +57,8 @@
   <a href="./CS_QA_통관.html">CS 통관 Q&amp;A</a>
 </nav>
 <h1>통합 리스크 · 질의 · 협의 대장</h1>
-<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-08-28</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 · 관세청 테스트서버 종료 2026-08-21 · <code>Z99999</code> PER 허용 종료 <b style="color:#8ab4f8;">2026-09-27 24:00</b></span></div>
-<div class="sub">현재 미결 항목과 확정 정책·결정 변경·협의 타임라인을 한 문서에서 관리 · 리스크 집계 기준일 <strong>2026-08-28</strong></div>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-09-01</span><span style="font-weight:400;color:#bdc1c6;"> · 오픈 2026-08-28 09:00 · 관세청 테스트서버 종료 2026-08-21 · <code>Z99999</code> PER 허용 종료 <b style="color:#8ab4f8;">2026-09-27 24:00</b></span></div>
+<div class="sub">현재 미결 항목과 확정 정책·결정 변경·협의 타임라인을 한 문서에서 관리 · 리스크 집계 기준일 <strong>2026-09-01</strong></div>
 <div class="nav" aria-label="대장 내 이동">
   <a href="#stage-simulation">스테이지·필드 시뮬레이션</a>
   <a href="#active" class="r">현재 리스크·질의</a>
@@ -75,6 +75,11 @@
 
 <div class="box r">
   <strong>[금지]</strong> A/B만으로 V2-1·V2-2를 선택하지 않습니다. 기존 수입신고 건의 검증을 통과하려고 임의 OTP·<code>Z99999</code>·가짜 주문완료일시를 만들지 않습니다. 미확정 조합은 운영 예외 큐로 격리합니다.
+</div>
+
+<div class="box r">
+  <strong>[2026-09-01 신규 운영 장애 의심] 자사몰 A 주문의 PCCC 데이터 완전성·차단 이상을 긴급 대사합니다.</strong><br>
+  2026-08-31 CS 엑셀의 고유 주문 90건 중 <strong>32건(회원 31명, 35.6%)</strong>이 개인통관고유부호 공란으로 출력됐고 주문상태는 <strong>상품준비</strong>입니다. 원천 DB·고도몰 <code>addField</code>에도 실제로 값이 없는지, CS 엑셀 출력 매핑에서만 빠졌는지는 아직 미확인입니다. 원천 누락이면 Stage 1→2 게이트 장애이므로 확인 전까지 운영 P0로 관리하고 대상 주문을 출고 격리합니다. 정확한 원인과 정상화 시점은 미확정이며, 고객 보완 웹은 개발 요청 단계입니다.
 </div>
 
 <div class="box r">
@@ -109,14 +114,14 @@
 </div>
 
 <div class="board">
-  <div class="kpi red"><div class="n">4</div><div class="l">P0 — 오픈 차단</div></div>
-  <div class="kpi amber"><div class="n">22</div><div class="l">P1 — 오픈 전 필수</div></div>
+  <div class="kpi red"><div class="n">5</div><div class="l">P0 — 운영·오픈 차단</div></div>
+  <div class="kpi amber"><div class="n">23</div><div class="l">P1 — 필수 보완</div></div>
   <div class="kpi blue"><div class="n">7</div><div class="l">P2 — 확인 권고</div></div>
   <div class="kpi green"><div class="n">46</div><div class="l">해결 · 기준 확정</div></div>
 </div>
 
 <div class="box g">
-  <strong>2026-08-12~13 신규 해결</strong> — ⑬ <strong><code>hblNo</code> null은 단순 필드 버그가 아님</strong>. 포장별 값/null 혼재 실응답은 테스트 단계 사례이며 운영 판단은 ㉗의 공식 일괄 반환 정책을 따름 ⑭ 동수가 <strong>TRA001 전용 신규 API <code>getTRA001OrderInfo</code></strong> 개설 ⑮ <strong>자사몰 경로의 PCCC는 DS ERP에도 저장</strong> 확정. 단 외부 28채널의 원천·검증·전체 6자리 인증번호 경로는 포함하지 않으며 별도 P0 ⑯ <strong><code>shipperName</code>·<code>shipperAddr</code>는 동수 고정값</strong> 확정 ⑰ 주문 삭제 API 명세 재확인(<code>orderDelete</code>, 파라미터 <code>customerOrderNo</code>) ⑱ <strong>HWB 검색 상한은 500건으로 확정</strong>(증설 불가, 500건 단위 분할 구현) ⑲ <strong>[2026-08-19 재정정]</strong> 동수 단일 <code>bulk-sync</code>에 PCCC·OTP까지 포함하는 안은 중간 검토 이력으로 돌리고, 현재 기준은 Geek이 고객·PCCC·OTP를 자이언트에 직접 쓰고 동수는 물류·상품을 쓰며 자이언트가 동일 HWB로 병합하는 구조. 실제 분리쓰기 endpoint·병합·FINAL 계약은 P0 ⑳ <strong><code>p1</code> 반복 재처리는 의도된 정책</strong>(재시도 상한 없이 CS팀 매일 확인) ㉑ <strong>[2026-08-26 정정] 계도기간 종료는 <code>2026-09-27</code></strong>(종전 09-14 폐기) ㉒ <strong>국내·해외 조회 API 역할 분리 확정</strong> — <code>getTRA001OrderInfo</code>는 KR 국내 주문을 반환하지 않고 해외 TRA 대상만 반환. <code>serachOrderInfo</code>는 국내·해외 송장번호와 <code>isCrossBorder</code>(Y=해외, N=KR 국내)를 반환 ㉓ <strong>KR WMS 자동 연동 범위 확정</strong> — KR WMS 가동 후 국내 택배 송장 연동은 별도 추가 작업 없이 자동 연결되며 본 개발 범위에 포함 ㉔ <strong>고도몰 운영 OpenHub → 동수 ERP Pull 검증 완료</strong> — 운영 URL을 유지하고 Key만 교체하여 기간 조회 범위를 06-22로 넓혀 주문 25건 ERP 동기화 성공 ㉕ <strong>테스트 주문 출고 통제 방식 확정</strong> — 특정 스토어만 출고 중지하는 기능은 미지원이므로 평시 Pull OFF, 테스트 요청 시 ON, 수집된 테스트 주문은 심사 보류 또는 ERP 즉시 삭제 ㉖ <strong><code>getTRA001OrderInfo</code> 다건 조회 지원 확정</strong> — 요청 파라미터는 <code>customerOrderNos</code>, 값은 주문번호를 쉼표로 연결한 문자열 ㉗ <strong>주문별 HBL 일괄 할당·반환 정책 확정</strong> — 모든 송장번호가 할당된 뒤 일괄 조회되며 하나라도 미할당이면 해당 주문의 모든 <code>hblNo</code>가 null. 테스트 단계에서는 동수 수동 할당 필요
+  <strong>2026-08-12~13 신규 해결</strong> — ⑬ <strong><code>hblNo</code> null은 단순 필드 버그가 아님</strong>. 포장별 값/null 혼재 실응답은 테스트 단계 사례이며 운영 판단은 ㉗의 공식 일괄 반환 정책을 따름 ⑭ 동수가 <strong>TRA001 전용 신규 API <code>getTRA001OrderInfo</code></strong> 개설 ⑮ <strong>자사몰 경로의 PCCC는 DS ERP에도 저장</strong> 확정. 단 외부 28채널의 원천·검증·전체 6자리 인증번호 경로는 포함하지 않으며 별도 P0 ⑯ <strong><code>shipperName</code>·<code>shipperAddr</code>는 동수 고정값</strong> 확정 ⑰ 주문 삭제 API 명세 재확인(<code>orderDelete</code>, 파라미터 <code>customerOrderNo</code>) ⑱ <strong>HWB 검색 상한은 500건으로 확정</strong>(증설 불가, 500건 단위 분할 구현) ⑲ <strong>[2026-08-19 재정정]</strong> 동수 단일 <code>bulk-sync</code>에 PCCC·OTP까지 포함하는 안은 중간 검토 이력으로 돌리고, 현재 기준은 Geek이 고객·PCCC·OTP를 자이언트에 직접 쓰고 동수는 물류·상품을 쓰며 자이언트가 동일 HWB로 병합하는 구조. 실제 분리쓰기 endpoint·병합·FINAL 계약은 P0 ⑳ <s><code>p1</code> 무제한 반복·익일 자동 재수집</s> — <strong>[2026-08-26 정정]</strong> 기본 운영정책에서 폐기. 개별 반려 주문의 삭제 성공 후 <code>p1</code> 원복은 가능하지만, 11:50 마감 이탈 건은 수기통관 큐로 격리하고 자동 반복하지 않음 ㉑ <strong>[2026-08-26 정정] 계도기간 종료는 <code>2026-09-27</code></strong>(종전 09-14 폐기) ㉒ <strong>국내·해외 조회 API 역할 분리 확정</strong> — <code>getTRA001OrderInfo</code>는 KR 국내 주문을 반환하지 않고 해외 TRA 대상만 반환. <code>serachOrderInfo</code>는 국내·해외 송장번호와 <code>isCrossBorder</code>(Y=해외, N=KR 국내)를 반환 ㉓ <strong>KR WMS 자동 연동 범위 확정</strong> — KR WMS 가동 후 국내 택배 송장 연동은 별도 추가 작업 없이 자동 연결되며 본 개발 범위에 포함 ㉔ <strong>고도몰 운영 OpenHub → 동수 ERP Pull 검증 완료</strong> — 운영 URL을 유지하고 Key만 교체하여 기간 조회 범위를 06-22로 넓혀 주문 25건 ERP 동기화 성공 ㉕ <strong>테스트 주문 출고 통제 방식 확정</strong> — 특정 스토어만 출고 중지하는 기능은 미지원이므로 평시 Pull OFF, 테스트 요청 시 ON, 수집된 테스트 주문은 심사 보류 또는 ERP 즉시 삭제 ㉖ <strong><code>getTRA001OrderInfo</code> 다건 조회 지원 확정</strong> — 요청 파라미터는 <code>customerOrderNos</code>, 값은 주문번호를 쉼표로 연결한 문자열 ㉗ <strong>주문별 HBL 일괄 할당·반환 정책 확정</strong> — 모든 송장번호가 할당된 뒤 일괄 조회되며 하나라도 미할당이면 해당 주문의 모든 <code>hblNo</code>가 null. 테스트 단계에서는 동수 수동 할당 필요
   <br><strong>[2026-08-28 최종 정정 · 위 ⑮·⑲ 대체]</strong> — 외부 플랫폼 B도 신고서식에 따라 데이터 범위가 달라집니다. 기존 수입신고는 TRA001·OTP가 불필요하고, 전자상거래 전용 수입신고만 필요한 주문자·수하인·PCCC·OTP·주문완료일시를 확정 endpoint 계약에 따라 전송합니다.
   <br><strong>㉘ 판매중개자 부호 — [2026-08-28 정정]</strong> — <code>brokerCode/brokerName</code> 필수 여부는 A/B가 아니라 선택 endpoint 계약을 따릅니다. 채널 마스터 값은 역할별로 계속 분리 보관하고 모든 업체부호는 Unicode 공백 제거 후 9자로 검증합니다.<br><strong>㉙ 자사몰 제출자 상호 확정</strong> — 자사몰 관세청 <code>elcm_ents_nm</code>은 정식 등록 상호 <code>(주)크로네</code>로 사용합니다. 외부 플랫폼은 B이지만 TRA001 제출 여부는 신고서식과 플랫폼 계약으로 별도 판정합니다.<br><strong>11:57 Geek 구현 결론</strong> — 전부 null인 원주문은 조회 배치에서 제거하지 않고 <code>HBL_WAITING</code>으로 계속 유지한다.
   <br><strong>㉚ <code>Z99999</code> PER 허용기간 확정 — [2026-08-26 공지 원문으로 최종 확정]</strong> 관세청 공지 <span class="hi">「(재수정)전자상거래 전용 신고서 등 신규 서식 변경 안내」(2026-08-21, 조미정)</span> 원문 — “시행 초기 혼란을 최소화하기 위해 임시 일회용인증번호(<code>Z99999</code>)를 사용하면 일회용인증번호 검증을 통과할 수 있습니다. <strong>단, 시행일로부터 1개월만 사용이 가능합니다. (’26.8.28. ~ ’26.9.27.)</strong>” <span class="no">종전 09-14 기재는 전부 폐기</span>한다.<br><strong>㉛ [2026-08-19 중간 이력 · 2026-08-26 폐기] 총 결제금액 원천 재개방</strong> — 당시 공식 문언을 근거로 고객 최종 결제액을 별도 조달하기로 열었으나, <span class="no">2026-08-26에 전 금액을 동수 ERP 매입금으로 통일하기로 최종 결정</span>하여 이 항목은 폐기합니다. 복수 HBL은 공식 v1.4.1 p.13에 따라 각 <code>order_info</code>에 원주문 전체 고객 결제액을 반복합니다.
@@ -166,8 +171,8 @@
     </tr>
     <tr>
       <td><strong>Stage 4~5</strong><br>오류·삭제·재수집</td>
-      <td>관세청 <code>txif_sbmt_no</code>, <code>hblNo</code>, <code>originalOrderNo</code>, 동수 삭제용 <code>erpPackageOrderNo</code>, 고도몰 원복 대상 <code>orderGoodsSno[]</code>, 재시도 세대번호</td>
-      <td>관세청 <code>ord_no</code>만으로 동수 <code>orderDelete</code> 호출 금지. 이전 세대 HBL·제출번호를 새 재수집 건에 재사용 금지</td>
+      <td>관세청 <code>txif_sbmt_no</code>, <code>hblNo</code>, 동수 삭제키 <code>originalOrderNo</code>, 내부 포장 추적용 <code>erpPackageOrderNo</code>, 고도몰 원복 대상 <code>orderGoodsSno[]</code>, 재시도 세대번호</td>
+      <td>동수 <code>orderDelete.customerOrderNo</code>에는 플랫폼 원주문번호만 사용하고 <code>erpPackageOrderNo</code>·서브번호·HBL을 삭제키로 사용하지 않음. 이전 세대 HBL·제출번호를 새 재수집 건에 재사용 금지</td>
       <td>삭제·원복·재수집 후에도 동일 상품행의 이전 HBL과 신규 HBL을 구분하고 API/엑셀 중복제출이 없어야 함</td>
     </tr>
     <tr>
@@ -190,7 +195,7 @@
   <tbody>
     <tr><td>원주문</td><td><code>originalOrderNo</code>, <code>snapshotId</code>, <code>snapshotVersion</code>, <code>generatedAt</code></td><td>고도몰 원주문 식별과 09시 수집·10시 역조회·재조회 간 스냅샷 혼합 방지</td></tr>
     <tr><td>고객 결제 스냅샷</td><td><code>customerFinalPaymentAmount</code>, <code>paymentCurrency</code>, <code>totalOrderQty</code>, 구분 가능한 경우 <code>shippingFee</code>, <code>shippingDiscount</code>, <code>customsAgencyFee</code>, <code>rewardUseAmount</code>, <code>totalDiscount</code></td><td>store/Geek 원천의 KCS <code>tot_stlm_amt</code> 후보. 실제 고객 결제액과 부대금액을 검산하고 조달원가를 대신 사용하지 않음. 복수 HBL의 각 <code>order_info</code>에 같은 원주문 전체 결제액을 반복</td></tr>
-    <tr><td>포장/HBL</td><td><code>erpPackageOrderNo</code>, <code>packageSeq</code>, <code>hblNo</code>, <code>packageCount</code>, <code>innerPackageCount</code>, <code>declaredGoodsValueUsd</code></td><td>동수 조회·삭제, HBL 원자성, GIANT HWB별 USD 신고물품가·포장수 제공. 고객 최종 결제액과 직접 매핑하지 않음</td></tr>
+    <tr><td>포장/HBL</td><td><code>erpPackageOrderNo</code>, <code>packageSeq</code>, <code>hblNo</code>, <code>packageCount</code>, <code>innerPackageCount</code>, <code>declaredGoodsValueUsd</code></td><td>동수 내부 포장 추적과 조회, HBL 원자성, GIANT HWB별 USD 신고물품가·포장수 제공. 삭제키는 별도 원주문 레벨의 <code>originalOrderNo</code>이며 고객 최종 결제액과 직접 매핑하지 않음</td></tr>
     <tr><td>신고 단품</td><td><code>prodSrno</code>, <code>erpUnitSku</code>, <code>ordProdNm</code>, <code>category1/2</code>, <code>hsCode</code>, <code>qty</code>, <code>unitPrice</code>, <code>productDiscount</code>, <code>ordAmount</code>, 각 금액 통화코드</td><td>관세청 <code>product_info[]</code>와 자이언트 <code>items[]</code> 생성. 문자열 숫자는 파싱 후 범위·소수점 검증</td></tr>
     <tr><td>원천행 연결</td><td><code>originMappings[]</code>: <code>orderGoodsSno</code>, <code>apiOrderGoodsNo</code>, <code>platSkuCode</code>, <code>platformOrderQty</code>, <code>convertedUnitQty</code>, <code>allocatedQty</code></td><td>조합 SKU→단품 SKU→HBL의 1:N/N:M 변환을 보존하고 고도몰 송장등록·상태변경 대상을 결정</td></tr>
   </tbody>
@@ -208,10 +213,21 @@
   </tbody>
 </table>
 <!-- ================= P0 ================= -->
-<h2 id="active">P0 — 오픈을 막는 항목</h2>
+<h2 id="active">P0 — 운영·오픈을 막는 항목</h2>
 <table>
   <thead><tr><th style="width:6%">번호</th><th style="width:9%">대상</th><th style="width:23%">내용</th><th>상세 설명</th></tr></thead>
   <tbody>
+    <tr>
+      <td><span class="pri p0">P0</span></td>
+      <td><span class="who w-geek">Geek<br>자사몰</span><br><span class="who w-in">당사·CS</span></td>
+      <td><strong>CS 엑셀상 PCCC 공란 주문 32건이 상품준비 상태 — 원천·차단 게이트 긴급 대사</strong><span class="new">2026-09-01</span></td>
+      <td><strong>확인된 현상:</strong> 2026-08-31 CS 엑셀은 91개 행·고유 주문 90건이며, 개인통관고유부호 공란은 <strong>32개 주문·회원 31명</strong>입니다. 공란 32건은 모두 <strong>상품준비</strong> 상태이고 회원 ID·연락처·우편번호는 존재합니다. 2026-08-28~31에 반복되어 단일 주문 오입력으로 볼 수 없습니다.<br>
+      <strong>정상 불변조건:</strong> 검증된 PCCC를 Geek DB와 고도몰 주문 <code>addField</code>에 저장한 뒤에만 <code>p1</code> 주문 수집·<code>g1</code> 전환을 허용해야 합니다. <code>ECOMMERCE_DEDICATED</code> 대상은 PER001 성공과 관세청 OTP 저장까지 선행해야 하고, <code>LEGACY_IMPORT</code>는 승인된 기존 수입신고 경로를 따릅니다. 동수는 <code>Order_Search.php</code> 응답의 <code>addField</code>에서 PCCC를 수집합니다.<br>
+      <strong>판정:</strong> 현 단계에서는 <strong>Stage 1→2 데이터 완전성 또는 차단 게이트 이상 의심</strong>입니다. 원천에도 PCCC가 없으면 자동 통관·병합·출고에 영향을 주는 게이트 장애이고, 원천에는 값이 있으면 CS 엑셀 출력 매핑 장애입니다. 어느 경우인지 원문 대사 전에는 확정하지 않되, 잠재 영향이 커 P0로 관리합니다.<br>
+      <strong>원인 미확정:</strong> ① PER001 미실행·실패 주문 허용 ② PER 성공 후 Geek 주문 DB→<code>addField</code> 쓰기 누락 ③ 고도몰 주문조회 응답에서 <code>addField</code> 누락 ④ 운영명 <code>개인통관부호</code>·개발명 <code>개인통관고유부호</code> 별칭 파싱 누락 ⑤ 원천에는 값이 있으나 CS 엑셀 출력 매핑만 누락 ⑥ 협력사별 라이브 설정·배포버전 차이 중 어느 구간인지 원문 로그 대조가 필요합니다.<br>
+      <strong>즉시 통제:</strong> <span class="no">[적용 증적 미확보]</span> 후보 32건 전부를 수기 보완 큐로 격리하고 WMS 출고보류가 실제 적용됐는지 주문별 증적을 확보합니다. 정상 출력 58건과 공란 출력 32건의 PER/NICE 응답, Geek DB 저장값, 고도몰 원문 <code>addField</code>, 동수 수집 원문, CS 출력 원천, 배포버전·라이브 설정시각을 대사합니다.<br>
+      <strong>완료 조건:</strong> 32건 전부 격리·출고보류 증적 확보 → 누락 발생 구간과 책임 시스템 확정 → 원천 누락이면 저장·조회·별칭 파서와 차단 게이트 수정 후 PCCC <code>addField</code> 및 전용 신고의 <code>PER_SUCCESS + Geek OTP</code> 음성 테스트 통과, 출력만 누락이면 CS 추출 로직 수정·재출력 대사 → 실제 영향 주문 32건을 정상 재진입·수기통관·취소 중 하나로 전부 종결하고 최종 통관·출고 결과 대사 → 안정화 기준을 배치 횟수로 확정하고 해당 기간 신규 누락 0건 확인.</td>
+    </tr>
     <tr>
       <td><span class="pri p0">P0</span></td>
       <td><span class="who w-ds">동수</span><br><span class="who w-in">당사</span><br><span class="who w-geek">Geek<br><small>(자사몰만)</small></span></td>
@@ -245,20 +261,30 @@
     <tr>
       <td><span class="pri p0">P0</span></td>
       <td><span class="who w-giant">자이언트</span><br><span class="who w-geek">Geek<br><small>(자사몰만)</small></span><br><span class="who w-ds">동수</span></td>
-      <td><strong>GGATE 분리 쓰기 운영 E2E 미완료</strong><span class="new">UPDATED</span></td>
-      <td><strong>[2026-08-28 최종 정정]</strong> A/B와 신고서식을 분리합니다. 기존 수입신고는 TRA001·OTP가 불필요하고, 전자상거래 전용만 필수값이 모두 있는 경우 확정 endpoint로 전송합니다.<br>
+      <td><strong>GGATE 분리 쓰기 잔여 운영 대사·조합 E2E</strong><span class="new">UPDATED</span></td>
+      <td><strong>[2026-09-01 범위 정정]</strong> A/B와 신고서식을 분리합니다. <strong>자사몰 A 전자상거래 전용 정상 입력 건의 호출 테스트는 완료</strong>됐지만, Geek <code>clearance</code>와 동수 <code>logistics</code>의 동일키 병합 대사와 음성경로 검증은 미완료입니다. 기존 수입신고는 TRA001·OTP가 불필요하고, 전자상거래 전용만 필수값이 모두 있는 경우 확정 endpoint로 전송합니다.<br>
       <span class="ok">[부분해소]</span> 플랫폼 B의 <code>ordererName/Tel</code>, <code>consigneeName/NameEng/Addr/AddressEng/Zip/Tel</code>, <code>pccCode</code> 송신 주체는 동수로 정리됐습니다.<br>
-      <span class="no">[잔여 P0]</span> ① 기존 수입신고 A/B 자이언트 endpoint·flag ② OTP·주문완료일 조건부 해제 ③ 기본 수하인·PCCC·상품 필수범위 ④ 실등록 E2E.<br>
-      <span class="no">완료 조건</span> A/B와 두 신고서식 조합의 양성·음성 E2E를 확보합니다.</td>
+      <span class="no">[잔여 P0]</span> ① A 전용신고 <code>clearance/logistics</code> 병합 대사와 PCCC 누락 음성 테스트 ② 기존 수입신고 A/B 자이언트 endpoint·flag ③ OTP·주문완료일 조건부 해제 ④ B와 레거시 경로의 기본 수하인·PCCC·상품 필수범위 및 실등록 E2E.<br>
+      <span class="no">완료 조건</span> A 정상경로는 동일 <code>(hwbNo, orderNo)</code> 병합 결과를 대사하고, 아직 미완료인 신고경로 조합은 양성·음성 E2E를 확보합니다.</td>
     </tr>
   </tbody>
 </table>
 
 <!-- ================= P1 ================= -->
-<h2>P1 — 오픈 전 반드시 정리</h2>
+<h2>P1 — 반드시 보완</h2>
 <table>
   <thead><tr><th style="width:6%">번호</th><th style="width:9%">대상</th><th style="width:23%">내용</th><th>상세 설명</th></tr></thead>
   <tbody>
+    <tr>
+      <td><span class="pri p1">P1</span></td>
+      <td><span class="who w-geek">Geek<br>자사몰</span><br><span class="who w-in">CS·내부</span></td>
+      <td><strong>CS 엑셀상 누락 후보 32건의 고객 보완·재인증·원 흐름 재투입 경로</strong><span class="new">2026-09-01</span></td>
+      <td><strong>현재 상태:</strong> CS 엑셀로 후보 주문 32건을 식별했지만 원천 PCCC 누락 여부는 아직 대사 전입니다. 임시 웹 개발 요청서만 준비됐고 개발 가능일·공수·사용 가능일은 미확정이며 실제 서비스 코드는 아직 없습니다.<br>
+      <strong>필수 E2E:</strong> 후보 주문번호 업로드 → Geek DB·고도몰 원문 <code>addField</code> 대사로 실제 누락 대상 확정 → 고도몰 주문·고객정보 조회 및 <code>declarationMode</code> 확정 → 실제 누락 주문에만 전용 URL·<strong>6자리 웹 접근번호</strong> 생성·별도 알림톡 발송 → 고객 PCCC 입력 → <code>ECOMMERCE_DEDICATED</code> 대상은 NICE/PER 검증과 <strong>관세청 6자리 OTP</strong> 취득, <code>LEGACY_IMPORT</code> 대상은 승인된 기존 수입신고 검증·처리 적용 → PCCC는 고도몰 <code>addField</code>, 전용 신고 OTP는 Geek DB에 저장 → 해당 주문의 TRA/GGATE 또는 승인된 레거시 처리로 재진입 → 관리자 결과 엑셀 다운로드.<br>
+      <strong>구분:</strong> 웹 접근번호는 임시 페이지 로그인용이고 관세청 <code>tempAuthNo</code>가 아닙니다. 고객에게 PCCC만 받아 엑셀로 내려받는 기능으로 끝내면 전자상거래 전용 통관에 필요한 공식 OTP와 원 시스템 복구가 빠집니다.<br>
+      <strong>출시 차단:</strong> 이 임시 웹은 아래 개인정보 P0의 적용 대상입니다. URL과 접근번호를 같은 알림톡에 보내는 방식은 독립된 본인확인이 아니므로, 실고객 오픈 전 일회성·짧은 만료, 입력시도 제한, 최소 주문정보 마스킹, 전송·저장 암호화, 관리자 권한·감사로그, 보유기간·자동파기 기준을 확정하고 검증해야 합니다.<br>
+      <strong>완료 조건:</strong> 후보 32건을 출력 오류·실제 원천 누락으로 전부 분류하고, 실제 누락 주문에만 고객 보완을 수행합니다. 각 주문의 PCCC 검증 결과, 적용 신고경로, 전용 신고 대상의 공식 OTP, <code>addField</code>·Geek DB 반영, TRA/GGATE 또는 레거시 처리상태, 최종 통관·출고 결과를 연결해 대사하고 중복 제출 없이 종결합니다.</td>
+    </tr>
     <tr>
       <td><span class="pri p1">P1</span></td>
       <td><span class="who w-giant">자이언트</span><br><span class="who w-geek">Geek</span></td>
@@ -492,7 +518,7 @@
   <tbody>
     <tr><td class="who w-in">내부</td><td>반품 후 세관 정정 <span class="new">부분 해결</span></td><td><strong>[2026-08-26 공식 FAQ 8-9로 해소]</strong> 거래정보만 제출하고 반품·부분반품·반송으로 <u>수입신고·통관목록을 제출하지 않은 경우 별도 조치가 없다</u>. 따라서 <strong>통관 전 반품</strong>은 TRA001 취하 절차가 불필요하다.<br>잔여 — <u>통관이 완료된 뒤</u> 반품하는 경우의 관세 환급(과오납·계약상이 환급) 대상 여부와 절차는 여전히 미확인. 오픈 후 실제 사례 발생 시 관세사 경유로 확인한다.</td></tr>
     <tr><td class="who w-in">내부</td><td>협력인정업체 간소화 (Track A)</td><td>NICE 통합인증은 PCCC 검증 Key와 별도 서비스이며 별도 IP 권한·Client 값이 필요. <strong>CI 직접 저장 대신 NICE KEY 저장 우선안</strong>으로 신청하며 실제 응답 필드명·추가 단가·KISA 제출 대상 제외 여부는 NICE 회신 대기. 일반인증(Track B)으로 결제·통관이 성립하므로 오픈 차단 P0는 아님.</td></tr>
-    <tr><td class="who w-in">내부</td><td>PCCC 오류 <strong>고객 인증 재발송 문자</strong></td><td>2026-07-31 "추후 검토"로 남은 항목. 계도기간 종료(<strong>09-27</strong>) 후 PCCC 오류가 늘면 사실상 필수 기능이 됨.</td></tr>
+    <tr><td class="who w-in">내부</td><td>PCCC 오류 <strong>고객 인증 재발송 문자</strong></td><td><s>2026-07-31 "추후 검토"</s> → <strong>[2026-09-01 운영 발생]</strong> CS 출력상 PCCC 공란 후보 32건이 확인되어 더 이상 보류 항목이 아닙니다. 위 P0 「자사몰 A PCCC 데이터 완전성·차단 이상」와 P1 「실제 원천 누락 주문 보완·재인증 경로」로 승격해 추적합니다.</td></tr>
     <tr><td class="who w-in">법무</td><td>개인정보 5건 (진행 중)</td><td>① <strong>[P0] 유형별 개인정보 전달 경로</strong> — A는 고객→Geek→자이언트, B는 플랫폼→동수→자이언트로 주문자·수하인·<code>pccCode</code>를 전달합니다. 각 경로의 제3자 제공·처리위탁·국외이전 근거와 동의/고지, 보관 범위·기간, 전송·저장 암호화, 로그 마스킹, 목적 달성 후 삭제, 접근권한·감사로그, 사고 대응·책임주체를 승인해야 합니다. ② A의 OTP는 동수·고도몰 <code>addField</code>에 저장하지 않고 Geek→자이언트 승인 경로로만 전송하며, B의 OTP 경로는 별도 확정 ③ NICE KEY만 보유할 때 CI 보유 사업자의 KISA 연계정보 안전조치 제출 대상에서 제외되는지 확인 ④ 결제창 "반품/환불 절대 불가능" 문구 ⑤ 합산과세 배너 "입항일 동일" 기준(2022-11-17 폐지).</td></tr>
     <tr><td class="who w-kcs">관세청</td><td>공지 첨부 <strong>「전자상거래유형별 공급망, 상품 정보 기준」</strong> 미확보</td><td>2026-07-24 공지 첨부 PDF(1002KB). REST API v1.4.1에서 플랫폼 입점 직접판매 A의 <code>sale_ents_id</code> 필수 조건은 확인했으나, 플랫폼·입점사 조합별 제출자와 판매업체 필드 예시를 추가 대조할 원문으로 확보 필요.</td></tr>
     <tr><td class="who w-kcs">관세청</td><td>제출 시간대 권고와 배치 충돌</td><td>간담회 원문 "9~18시를 제외한 시간으로 거래정보 제출시간 분산 요청". 현행 배치가 10:00~11:00으로 그 구간 한복판.</td></tr>
@@ -520,8 +546,8 @@
     <tr><td class="d">08-26</td><td>판매업체명 · 판매업체부호</td><td>A유형은 <code>sale_ents_nm=(주)크로네</code>, <code>sale_ents_sgn=K26000099</code>를 <strong>전건 전송</strong>한다. TRA003 실오류로 필수임이 확인되었고 <strong>운영 이후에도 동일</strong>하다. 관세청은 <code>sale_ents_id</code>(판매업체 아이디)와 <code>sale_ents_sgn</code> 중 하나를 요구하므로 부호로 충족한다. 테스트용 <code>K26000127</code>·<code>K26000128</code>은 사용하지 않는다. 종전 “증빙·KCS 수용 검증 후 전송” 보류 조건 해제</td><td><span class="chip c-fix">확정</span></td></tr>
     <tr><td class="d">08-26</td><td>제출 후 반품 · 운송장 변경</td><td>관세청 공식 FAQ 8-9 — 거래정보 제출 후 <strong>반품·부분반품·반송으로 수입신고·통관목록을 제출하지 않는 경우 별도 조치가 없다</strong>. 반대로 FAQ 8-14 — <strong>운송장번호(HBL)가 변경되면 새 제출번호로 거래정보를 다시 제출</strong>해야 한다. FAQ 8-7 — 수정 재제출에 동일 <code>txif_sbmt_no</code>를 쓰면 중복으로 전체 반려(<code>3000</code>)되므로 반드시 새 제출번호를 채번한다. FAQ 8-8 — TRA001은 <strong>수입신고서·통관목록 접수 전</strong>에만 제출 가능하며 접수 후에는 제출할 수 없다</td><td><span class="chip c-fix">공식 확정</span></td></tr>
     <tr><td class="d">07-31<br>→ 08-15</td><td>일정 · 출고 마감</td><td>오픈 <strong>2026-08-28 09:00</strong>, <code>Z99999</code>는 실제 PER 허용코드로 <strong>2026-08-28 ~ 2026-09-27</strong> 사용 가능(2026-08-21 관세청 공지 원문). <span class="no">[08-26 정정]</span> 종전 “09:00 수집 → 11:50 통보 → 12:00 WMS 마감” 기준은 <strong>11:10 수집 시작 → 11:50 자동 처리 마감</strong>으로 대체됐다. 12:00 WMS 취소 반영 마감 → 13:00 라벨 부착·현장 출고는 유지. 오픈일 새벽 03~04시 대외 오픈 전 데이터 테스트 가능</td><td><span class="chip c-fix">확정</span></td></tr>
-    <tr><td class="d">07-31<br>→ 08-12</td><td>주문 상태 · 오류 반복</td><td><code>p1</code> 결제완료 → 동수 수집 후 <code>g1</code> 상품준비중 → 관세청 제출 완료 건만 <code>g5</code> 항공발송중. 오류 건은 동수 주문 삭제 후 <code>g1→p1</code> 원복하고 익일 재수집. 재시도 상한 없이 반복하며 CS팀이 매일 실패리스트를 확인·보정</td><td><span class="chip c-fix">정책 확정</span></td></tr>
-    <tr><td class="d">08-03</td><td>동수 주문 삭제 API</td><td><code>POST /api/openAPI/erp/orderInfo/orderDelete</code>, Body <code>{"customerOrderNo":"...-1"}</code>. 1회 1건, WMS → ERP 순으로 삭제. 가송장은 실제 택배사 할당 전이므로 폐기 가능</td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td class="d">07-31<br>→ 08-12</td><td>주문 상태 · 오류 반복</td><td><s><code>p1</code> 결제완료 → 동수 수집 후 <code>g1</code> 상품준비중 → 관세청 제출 완료 건만 <code>g5</code> 항공발송중. 오류 건은 동수 주문 삭제 후 <code>g1→p1</code> 원복하고 익일 재수집. 재시도 상한 없이 반복하며 CS팀이 매일 실패리스트를 확인·보정</s><br><strong>[2026-08-26 정정]</strong> 무제한 자동 반복은 폐기했습니다. 개별 신고 반려 건은 삭제 성공 시 <code>p1</code> 원복할 수 있으나, 11:50 마감 이탈·결과 미확정·삭제 실패 건은 수기통관 큐로 격리합니다.</td><td><span class="chip c-open">08-26 폐기·대체</span></td></tr>
+    <tr><td class="d">08-03<br>→ 08-26</td><td>동수 주문 삭제 API</td><td><code>POST /api/openAPI/erp/orderInfo/orderDelete</code>, 1회 1건, WMS → ERP 순으로 삭제. <s>Body <code>{"customerOrderNo":"...-1"}</code></s> → <strong>[2026-08-26 정정]</strong> <code>customerOrderNo</code>에는 플랫폼 원주문번호만 사용합니다. 서브번호(<code>...-1</code>) 호출은 <code>state:300</code>으로 실패하며, 원주문번호 호출 시 모·서브 주문 전체가 삭제됩니다. 가송장은 실제 택배사 할당 전이면 폐기 가능합니다.</td><td><span class="chip c-fix">08-26 정정 확정</span></td></tr>
     <tr><td class="d">08-05</td><td>동수 시스템 이원화</td><td>EIBE ERP는 발송 전 예정 데이터를 Geek에 제공하고, DS Logistics는 발송 후 실측·물류 데이터를 자이언트에 전송. 기존 합의 필드는 실측 <code>weight</code> 외에는 사전·실제 스냅샷이 같아야 함</td><td><span class="chip c-fix">확정</span></td></tr>
     <tr><td class="d">08-05<br>→ 08-28</td><td>상품 · 신고 데이터</td><td>상품명은 동수 영문명, HS코드는 동수 매핑 후 GIANT에 전송, 세트 상품은 구성 단품별 전송. <span class="no">[2026-08-26 재확정]</span> <strong><code>tot_stlm_amt</code>·신고물품가 모두 동수 ERP USD 매입금으로 통일</strong>. PCCC·OTP·주문완료일은 A/B가 아니라 신고서식과 endpoint 조건에 따라 처리</td><td><span class="chip c-open">경로 확인</span> <span class="chip c-open">E2E</span></td></tr>
     <tr><td class="d">08-12</td><td>HWB 검색 상한</td><td>자이언트 <code>POST /api/hwb/search</code>는 <strong>최대 500건이며 증설 불가</strong>. 항상 500건 이하로 분할 조회</td><td><span class="chip c-fix">확정</span></td></tr>
@@ -541,12 +567,12 @@
     <tr><td class="d">08-20<br>→ 08-28</td><td>GGATE 주문별 전송규칙</td><td>A/B와 신고서식을 분리. 기존 수입신고 route는 자이언트 P0, 전자상거래 전용은 필수값을 확보한 뒤 확정 endpoint 호출</td><td><span class="chip c-open">계약·E2E</span></td></tr>
     <tr><td>전자상거래 판매유형</td><td><s>전 채널 B</s> → <s>전 채널 A 후보</s></td><td><strong>[2026-08-24 확정]</strong> <strong>SELF=A/KRONE, NAVER=B/AIBE, OTHER9=B/KRONE, C=0</strong>. 자사몰은 주문 전 선매입·해외보관 재고 직접판매, 외부 플랫폼은 고객 주문 후 해외구매 대행입니다.</td><td><span class="chip c-fix">확정</span></td></tr>
     <tr><td>자이언트 전송 주체</td><td><s>자사몰 단일 등록</s> → <s>동수 단일 전유형 개인정보</s> → <s>A/B 구분 없는 분리 소유</s> → <s>B V2-1 전체등록</s></td><td><strong>[2026-08-28 현재안]</strong> A/B와 주문별 <code>declarationMode</code>를 함께 적용합니다. 기존 수입신고의 자이언트 endpoint는 확정 전 자동 전송하지 않습니다.</td><td><span class="chip c-open">자이언트 확인</span></td></tr>
-    <tr><td>오류 건 전달</td><td><s>동수 2회 조회</s> → <s>실패 건 취소 Push</s></td><td>자사몰이 실패 건을 동수 <code>orderDelete</code>로 삭제 요청하고 <code>p1</code>로 원복해 익일 신규 수집</td><td><span class="chip c-fix">확정</span></td></tr>
+    <tr><td>오류 건 전달</td><td><s>동수 2회 조회</s> → <s>실패 건 취소 Push</s> → <s>전 오류 건 <code>p1</code> 원복·익일 자동 재수집</s></td><td><strong>[2026-08-26 현재안]</strong> 개별 신고 반려 건은 원주문번호로 <code>orderDelete</code>가 성공한 경우에만 <code>p1</code> 원복할 수 있습니다. 11:50 마감 이탈, 결과 미확정, 삭제 실패 건은 <code>MANUAL_CLEARANCE_REQUIRED</code>로 격리해 수기통관하며 자동 반복하지 않습니다.</td><td><span class="chip c-fix">08-26 대체 확정</span></td></tr>
     <tr><td>국내·해외 혼재 주문</td><td><s><code>getTRA001OrderInfo</code> 한 응답에서 <code>isCrossBorder:Y/N</code>으로 분기하고 국내 <code>expressNo</code>도 반환</s></td><td>동수 공식 회신으로 정정. <code>getTRA001OrderInfo</code>에는 KR 국내 주문이 포함되지 않으며 해외 TRA 대상만 반환. <code>serachOrderInfo</code>가 국내·해외 송장번호와 <code>isCrossBorder</code>(Y=해외, N=KR 국내)를 반환하며, KR WMS 가동 후 국내 송장도 자동 연동</td><td><span class="chip c-fix">API·필드 확정</span></td></tr>
     <tr><td>HBL 수집 시점</td><td><s>포장 준비 시 순차 채번 후 Geek가 부분 수집</s> → <s>전 HBL 선발급 또는 Push 방식 중 추후 선택</s></td><td>주문별 모든 HBL을 할당한 뒤 일괄 반환. 하나라도 미할당이면 해당 주문의 모든 HBL이 null이며 Geek는 미준비로 판단해 재조회. 테스트 단계에서는 동수가 수동으로 송장번호를 할당</td><td><span class="chip c-fix">확정</span></td></tr>
     <tr><td>TRA001 조회 요청 단위</td><td><s><code>customerOrderNo</code> 단건 호출</s></td><td><code>customerOrderNos</code> 다건 호출로 변경. 주문번호 여러 개를 쉼표로 연결한 문자열로 전달</td><td><span class="chip c-fix">확정</span></td></tr>
     <tr><td>상품코드·품목 대사</td><td><s><code>prod_id</code>에 “동수 플랫폼 SKU”를 넣으면 상품 식별 문제가 해결된 것으로 간주</s> → <s><code>platSkuCode</code>만 TRA 응답에 추가</s></td><td>2026-08-15 동수 회신으로 조합 SKU와 신고 단품 SKU가 다르고 혼합구매에서는 조합 SKU의 정확한 단품·HBL 매칭이 어렵다는 제한을 확인. <code>platSkuCode</code>는 보조속성으로만 사용하고, 고도몰 <code>orderGoodsData.sno</code>→동수 단품 SKU→분할 HBL의 <code>originMappings[]</code> 다대다 변환계약을 신설해야 함. 관세청 선택필드 <code>prod_id</code> 여부는 Geek 내부 매칭 필요성과 무관</td><td><span class="chip c-open">P0 재협의</span></td></tr>
-    <tr><td>주문번호 역할</td><td><s>동수 분할번호를 관세청 <code>ord_no</code>·자이언트 <code>orderNo</code>·<code>itemGroupOrderNo</code>에 동일 사용</s></td><td><code>originalOrderNo</code>(고도몰·관세청·자이언트), <code>erpPackageOrderNo</code>(동수 조회·삭제), <code>hblNo</code>(포장·TRA·HWB), <code>orderGoodsSno</code>(고도몰 상품행)로 역할 분리하는 안을 P0 제안. 3사 확정 전 기존 분할번호 전송안을 개발 확정으로 보지 않음</td><td><span class="chip c-open">P0 신규</span></td></tr>
+    <tr><td>주문번호 역할</td><td><s>동수 분할번호를 관세청 <code>ord_no</code>·자이언트 <code>orderNo</code>·<code>itemGroupOrderNo</code>와 삭제 키에 동일 사용</s></td><td><strong>[2026-08-26 확정]</strong> 플랫폼 원주문번호를 고도몰·관세청 <code>ord_no</code>·자이언트 <code>orderNo</code>·동수 <code>orderDelete.customerOrderNo</code>의 단일 기준으로 사용합니다. <code>erpPackageOrderNo</code>는 동수 내부 포장 식별자로만 보존하고 외부 제출·삭제 키로 사용하지 않습니다. <code>hblNo</code>는 포장·TRA·HWB, <code>orderGoodsSno</code>는 고도몰 상품행 연결을 담당합니다.</td><td><span class="chip c-fix">08-26 확정</span></td></tr>
   </tbody>
 </table>
 
@@ -554,6 +580,7 @@
 <table>
   <thead><tr><th style="width:10%">일자</th><th>주요 결정과 변경</th></tr></thead>
   <tbody>
+    <tr><td class="d">09-01</td><td><strong>자사몰 A PCCC 데이터 완전성·차단 이상 의심 신규 등록.</strong> 2026-08-31 CS 엑셀의 고유 주문 90건 중 PCCC 공란 출력 32건(회원 31명), 전건 상품준비 상태를 확인했습니다. 원천 누락과 CS 출력 매핑 누락이 아직 구분되지 않아 후보 32건을 우선 출고 격리하고 원문 대사를 P0로 등록했습니다. 실제 원천 누락 건은 고객 보완 웹 P1로 분리하되, 신고경로를 먼저 확정한 뒤 전용신고는 NICE/PER 신규 인증·공식 OTP 취득과 TRA/GGATE 재투입, 레거시는 승인된 기존 수입신고 절차로 종결합니다. 정확한 원인·정상화일·개발일정은 미확정입니다.</td></tr>
     <tr><td class="d">08-26<br>저녁</td><td><strong>[관세청 공지·서면 회신 반영]</strong> ⑧ <strong><code>Z99999</code> 종료일 <code>2026-09-27</code> 확정</strong> — 관세청 공지 「(재수정)전자상거래 전용 신고서 등 신규 서식 변경 안내」(2026-08-21, 조미정): “임시 일회용인증번호(<code>Z99999</code>)를 사용하면 일회용인증번호 검증을 통과할 수 있습니다. 단, 시행일로부터 1개월만 사용이 가능합니다.(’26.8.28.~’26.9.27.)” ⑨ <strong>같은 공지의 서식 변경</strong> — DKX ‘House B/L 번호’ 필수화, DKW·5TF ‘상품명’·‘선택옵션명’ SIZE 600→300, ‘화물관리번호’ 19자리 고정, 기존 통관목록 거래유형 A는 2026년 12월 말까지 한시 유지. ⑩ <strong>관세청 담당자 A/B형 서면 확인</strong>(08-21) — A형은 “재고가 해외에 있으면 맞습니다”, B형(당사 제출)도 “맞습니다”. ⑪ <strong>오픈 전 주문 처리 경로</strong>(08-25) — PER 인증값이 없으면 기존 수입신고로 처리 가능하며 이 경우 거래정보·인증번호 불필요, 전자상거래 물품의 기존 수입신고는 2026년까지. <strong>거래정보 미제출해도 통관은 되나 검사율 상향·제출율 감소</strong>, 협력인정업체는 4분기 내역으로 평가. ⑫ <strong>08-28 01:30~03:00 관세청 연동 테스트</strong>(<code>AUT001</code>/<code>PER001</code>/<code>TRA001</code>). ⑬ <strong>주문번호 단일 기준 확정</strong> — 전부 원주문번호로 흘리고 분할번호는 ERP 내부 식별자로만 둔다. ⑭ <strong>GGATE 컬렉션 원본 대조</strong> — v2.0.0에서 <code>PATCH</code>·PCCC 검증·레거시 <code>search</code>가 삭제되었고 <code>HWB 수정</code>은 “삭제 예정”. <code>tempAuthNo</code>는 “발급 실패 건은 <code>Z99999</code>” 명문. <code>gngMsgCode</code> 실제 12종 확인(<code>00</code>이 초기값). <code>prod_srno</code>·<code>itemSeq</code>는 발신측 채번으로 충족.</td></tr>
     <tr><td class="d">08-26</td><td><strong>[현재 정본]</strong> ① <strong>삭제 범위 확정</strong> — Geek이 서브 주문번호(<code>…-1</code>)로 <code>orderDelete</code>를 호출해 <code>state:300 订单状态不可删除</code>를 받았고, 동수는 <strong>원주문번호만 보내면 모·서브 전체를 삭제</strong>한다고 회신했다. <span class="no">[창고 처리 중]</span> 상태는 WMS API 반환값에 따라 삭제 가능 여부가 결정된다. ② <strong>내수 동반 지연 정책 확정</strong> — AN.(동수)이 “ERP 최소 조회 단위는 주문이라 혼재 주문은 전체 삭제 후 재설정해야 하고, 재조회 시 내수 주문이 중복될 수 있어 ERP 구현이 어렵다”고 회신. 박종혁은 “KR 주문은 통관과 상관없이 출고되는 것이 좋다”는 요청을 철회하고 <strong>정책적으로 해결</strong>하기로 확정했다(19:33). ③ <strong>배치 시각 전환</strong> — 마케팅·MD 회의 결과 <code>11:10</code> 동수 HBL 수집 시작, <code>11:50</code> 이전 TRA 호출·삭제 API 요청 마감. 누락·지연 건은 실제 통관에서 수기 제출. ④ <strong>TRA003 실오류로 판매업체 필드 확정</strong> — <code>sale_ents_nm=(주)크로네</code>, <code>sale_ents_sgn=K26000099</code>. 원인은 Geek이 보유한 <strong>구버전 <code>planning_v6.html</code></strong>에서 두 필드가 필수가 아니었던 것. ⑤ <strong>범위 축소·미구현 확정</strong> — 자이언트 <code>/api/hwb/bulk-sync/search</code> 미구현, 어드민 엑셀 일괄업로드의 관세청 제출 로직 제거, 오픈 후에도 TRA 배치는 자동 실행하지 않고 단건 테스트 후 수동 기동. ⑥ <strong>단계별 테스트 API 7종 인수</strong> — 08-28 테스트는 당사가 직접 수행. ⑦ 동수에 <code>20260826_ds.zip</code>(도메인·부호 마스터 포함) 공유.</td></tr>
     <tr><td class="d">08-19</td><td><strong>[중간 이력 · 2026-08-28 경로 대체]</strong> 당시 모든 채널을 A 후보로 보거나 A/B별 API를 고정하는 안을 검토했습니다. 현재 채널값은 <strong>SELF=A/KRONE, NAVER=B/AIBE, OTHER9=B/KRONE</strong>이고, API는 신고서식까지 함께 판정합니다.</td></tr>
@@ -565,14 +592,14 @@
     <tr><td class="d">08-06</td><td>세트는 단품별 전송 → 1주문 복수 HBL·복수 TRA001 원칙 확인 → 국내건 제외안 채택(08-12 재검토)</td></tr>
     <tr><td class="d">08-07~10</td><td>SKU 단가 재확인 → 자이언트 신규 API 연동 테스트 일정 확인 → 동수 테스트 주문 요청</td></tr>
     <tr><td class="d">08-11</td><td><code>hblNo</code> null 확인 → 운영·개발 <code>addField</code>의 PCCC 구조 차이 확인 → 영문 상품명·HS코드 해결 → 자이언트·동수 잔여 질의 정리</td></tr>
-    <tr><td class="d">08-12<br>→ 08-19</td><td><code>serachOrderInfo</code>에 <code>isCrossBorder</code>(Y=해외, N=국내) 추가 및 국내·해외 송장 조회 역할 확정 → <code>getTRA001OrderInfo</code>는 해외 TRA 신고정보 전용으로 정정 → 다건 요청 키를 <code>customerOrderNos</code>와 쉼표 연결 문자열로 확정 → 주문별 전 HBL 할당 후 일괄 반환, 하나라도 미할당이면 전부 null로 확정 → 11:57 Geek이 전부 null 원주문을 배치 대상에 계속 유지하기로 확인 → 테스트 단계 동수 수동 송장 할당 → KR WMS 자동연동·HWB 500건·OTP 동수 제외·<code>p1</code> 반복·계도기간 종료 정책 확정(<span class="no">종료일은 08-26에 09-27로 정정</span>). OTP 동수 제외는 08-19 단일 bulk 검토로 잠시 재개방했으나 <strong>같은 날 Geek→자이언트 직접 경로로 복귀</strong></td></tr>
+    <tr><td class="d">08-12<br>→ 08-19</td><td><code>serachOrderInfo</code>에 <code>isCrossBorder</code>(Y=해외, N=국내) 추가 및 국내·해외 송장 조회 역할 확정 → <code>getTRA001OrderInfo</code>는 해외 TRA 신고정보 전용으로 정정 → 다건 요청 키를 <code>customerOrderNos</code>와 쉼표 연결 문자열로 확정 → 주문별 전 HBL 할당 후 일괄 반환, 하나라도 미할당이면 전부 null로 확정 → 11:57 Geek이 전부 null 원주문을 배치 대상에 계속 유지하기로 확인 → 테스트 단계 동수 수동 송장 할당 → KR WMS 자동연동·HWB 500건·OTP 동수 제외·<s><code>p1</code> 반복</s>·계도기간 종료 정책 확정(<span class="no">종료일은 08-26에 09-27로 정정</span>). <strong>[2026-08-26 정정]</strong> 무제한 <code>p1</code> 반복은 수기통관 예외정책으로 대체했습니다. OTP 동수 제외는 08-19 단일 bulk 검토로 잠시 재개방했으나 <strong>같은 날 Geek→자이언트 직접 경로로 복귀</strong></td></tr>
     <tr><td class="d">08-14<br>→ 08-19</td><td>자이언트 분리 API 다음 주 제공 예정 확인 → Geek 준비 즉시 실제 주문 테스트 진행·결과 공유 → 오픈 후 약 1주 엑셀 양식 안전망 검토. 다만 08-19 A 판정·플랫폼 OAuth·PCCC/OTP·병합 P0 확인 후 <strong>승인 전에는 비출고·비신고 조립/sandbox만 허용</strong>하고 생산 제출·출고는 채널별 승인 후로 정정<br><strong>추가 실응답 검증:</strong> 동수는 고도몰 <code>platSkuCode</code>가 세트상품이고 TRA 응답은 신고 단품이라 현 API 제공이 어렵다고 회신, Geek은 기존 <code>searchOrderInfo</code> 추가 조회 시 추가 공수라고 회신. 원주문상품↔신고 단품·HBL 공통키가 없는 기획 누락을 P0로 재개. 같은 주문의 HBL 값/null 혼재 반환도 08-13 일괄 반환 정책 위반으로 확인</td></tr>
     <tr><td class="d">08-15<br>→ 08-19</td><td><strong>정정 이력:</strong> <code>Z99999</code>는 실제 PER 허용으로 유지(<span class="no">기간은 08-26에 09-27로 최종 확정</span>). 당시 <code>tot_stlm_amt</code>=동수 매입원가 가정은 폐기하고 고객 최종 결제액 원천·통화를 P0로 재개. 복수 HBL은 공식 v1.4.1 p.13에 따라 각 <code>order_info</code>에 원주문 전체 결제액을 반복하는 것으로 확정.<br><strong>Geek·동수 상품매칭 협의:</strong> Geek은 고도몰 주문상품행의 송장등록·<code>g5</code> 전환을 위해 <code>platSkuCode</code>를 요청. 동수는 조합 SKU 제공 자체는 가능하지만 ERP 신고는 단품 SKU이며 혼합구매의 정확한 조합 SKU 매칭이 어렵다고 회신. 단순 코드 추가 대신 <code>orderGoodsData.sno</code> 기반 <code>originMappings[]</code> 다대다 변환계약으로 요구사항을 재정의.<br><strong>주문번호 검토:</strong> 동수의 <code>-1/-2</code> 번호는 ERP 포장 식별자로 분리하고 관세청·자이언트에는 고도몰 원주문번호를 사용하는 안을 P0로 신설. 1주문 다중 HBL·삭제 후 재수집 테스트로 확정 예정.</td></tr>
   </tbody>
 </table>
 
 <footer>
-  2026-08-15 갱신 · 종전 <code>협의이력.html</code>의 확정 정책·변경 이력·타임라인을 이 문서로 이관 · 근거: 관세청 REST API v1.4.1 · 자이언트 GGATE API V2 v1.3.5 · 고도몰5 openAPI v1.0 · 2026-06-29/08-12~15 동수·Geek 채팅 및 API 실응답
+  2026-09-01 갱신 · 자사몰 A PCCC 누락 운영장애 및 기존 주문 보완 E2E 추가 · 종전 <code>협의이력.html</code>의 확정 정책·변경 이력·타임라인을 이 문서로 이관 · 근거: 관세청 REST API v1.4.1 · 자이언트 GGATE API V2 · 고도몰5 openAPI v1.0 · 2026-06-29/08-12~15 동수·Geek 채팅 및 API 실응답 · 2026-08-31 CS 누락 주문 엑셀
 </footer>
 
 </div>
