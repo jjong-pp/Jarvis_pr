@@ -167,20 +167,24 @@ def build_styles():
             textColor=TEXT, wordWrap="CJK", spaceAfter=4,
         ),
         "duty_bullet": ParagraphStyle(
-            "duty_bullet", parent=styles["BodyText"], fontName="Malgun", fontSize=8.15,
-            leading=11.35, leftIndent=9, firstLineIndent=-6.5, bulletIndent=1,
-            bulletFontName="Malgun", bulletFontSize=8.15,
-            textColor=TEXT, wordWrap="CJK", spaceAfter=2,
+            "duty_bullet", parent=styles["BodyText"], fontName="Malgun", fontSize=7.9,
+            leading=10.4, leftIndent=9, firstLineIndent=-6.5, bulletIndent=1,
+            bulletFontName="Malgun", bulletFontSize=7.9,
+            textColor=TEXT, wordWrap="CJK", spaceAfter=1.5,
+        ),
+        "duty_heading": ParagraphStyle(
+            "duty_heading", parent=styles["Heading3"], fontName="MalgunBold", fontSize=12.2,
+            leading=15, textColor=NAVY, spaceBefore=0, spaceAfter=5,
         ),
         "project_title": ParagraphStyle(
-            "project_title", parent=styles["Heading3"], fontName="MalgunBold", fontSize=8.9,
-            leading=12, textColor=NAVY, spaceBefore=1, spaceAfter=2,
+            "project_title", parent=styles["Heading3"], fontName="MalgunBold", fontSize=8.7,
+            leading=11.5, textColor=NAVY, spaceBefore=1, spaceAfter=1.5,
         ),
         "project_bullet": ParagraphStyle(
-            "project_bullet", parent=styles["BodyText"], fontName="Malgun", fontSize=7.7,
-            leading=10.35, leftIndent=8, firstLineIndent=-6, bulletIndent=1,
-            bulletFontName="Malgun", bulletFontSize=7.7,
-            textColor=TEXT, wordWrap="CJK", spaceAfter=1,
+            "project_bullet", parent=styles["BodyText"], fontName="Malgun", fontSize=7.45,
+            leading=9.5, leftIndent=8, firstLineIndent=-6, bulletIndent=1,
+            bulletFontName="Malgun", bulletFontSize=7.45,
+            textColor=TEXT, wordWrap="CJK", spaceAfter=0.7,
         ),
         "rail": ParagraphStyle(
             "rail", parent=styles["Heading2"], fontName="MalgunBold", fontSize=13.2,
@@ -387,7 +391,7 @@ def build() -> Path:
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     doc = SimpleDocTemplate(
         str(OUTPUT_PATH), pagesize=A4, rightMargin=16 * mm, leftMargin=16 * mm,
-        topMargin=15 * mm, bottomMargin=18 * mm,
+        topMargin=10 * mm, bottomMargin=18 * mm,
         title="박종혁 비나우 구매 수요예측(S&OP) 지원서",
         author="박종혁",
         subject="비나우 구매 수요예측(S&OP) 지원",
@@ -409,9 +413,10 @@ def build() -> Path:
     story.append(career_history_table(history_title, history_body, styles))
 
     story.append(PageBreak())
+    story.append(Paragraph("담당 업무", styles["duty_heading"]))
     for item in bullet_items(duties):
         story.append(Paragraph(safe(item), styles["duty_bullet"], bulletText="•"))
-    story.extend([Spacer(1, 4), divider(), Spacer(1, 7)])
+    story.extend([Spacer(1, 2), divider(), Spacer(1, 4)])
     story.append(career_details_table(career_details, styles))
 
     add_section_title(story, "학력", styles)

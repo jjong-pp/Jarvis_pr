@@ -64,14 +64,23 @@
     </div>
 
     <h1>KCS 预先交易信息申报(TRA) E2E 整合策划书 (planning_v6 Full Spec)</h1>
-<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">最后更新 <span style="color:#8ab4f8;font-size:16px;">2026-08-26</span> · 文档版本 <span style="color:#8ab4f8;">v6</span><span style="font-weight:400;color:#bdc1c6;"> · 开放 2026-08-28 09:00 (D-2) · 韩国关税厅测试服务器关闭 2026-08-21</span></div>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">最后更新 <span style="color:#8ab4f8;font-size:16px;">2026-09-01</span> · 文档版本 <span style="color:#8ab4f8;">v6</span><span style="font-weight:400;color:#bdc1c6;"> · 东数 V2-1 计划自 2026-09-02 订单起适用 · 混合申报结束时间未确认</span></div>
+<div style="background:#e8f0fe;border-left:5px solid #1a73e8;padding:14px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#174d5f;line-height:1.8;">
+<strong>[2026-09-01 当前正式基准 · 按发送方固定版本并优先采用 Geek 字段]</strong>
+<br>① 东数向 GIANT 的发送统一使用 <strong>V2-1</strong>。原聊天中的 <code>v1 gate</code>和<code>v1</code>在共享文档中统一标记为 V2-1。
+<br>② Geek 使用 <strong>V2-2 <code>clearance</code></strong>，以相同 <code>hwbNo + orderNo</code>发送自营商城 PER 认证、通关及收件人数据。
+<br>③ 字段重叠时，GIANT 优先采用 Geek V2-2 的有效非空值；V2-2 未包含的物流和商品字段继续使用东数 V2-1。V2-2 的空值不得删除 V2-1 正常值。
+<br>④ 东数计划于 2026-09-01 完成开发，自 <strong>2026-09-02 订单</strong>起适用。实际部署和首个成功 E2E 尚未确认。
+<br>⑤ 2026-08-31 的 90 单通过旧 API 发送，新增申报所需的企业代码、一次性认证号等缺失，部分 PCCC 因采集错误未取得。是否全部补齐和申报完成尚未确认。
+<br>⑥ 东数详细标准以 <a href="./동수_협의자료_20260901_cn.html">东数 V2-1 运营切换传达标准</a>为准。
+</div>
 <div style="background:#e6f4ea;border-left:5px solid #137333;padding:14px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#174d2a;line-height:1.8;">
-<strong>[2026-08-28 当前基准 · A/B与申报路径分开判断]</strong>
+<strong>[2026-08-28 仍然有效的原则 · 发送版本已于 2026-09-01 更正]</strong>
 <br>① 当前渠道主数据共11个：自营商城1个A/KRONE、Naver 1个B/iBae、其他外部9个B/KRONE。
 <br>② A/B为交易角色；传统进口申报与跨境电商专用进口申报为逐订单申报路径，两者不得相互推导。
 <br>③ 韩国海关回复：传统进口申报无需TRA001交易信息与一次性认证号；专用进口申报才需要。
-<br>④ V2-1公开规格仍强制<code>pccCode/tempAuthNo/orderCompletionDate</code>，所以传统进口申报A/B的GGATE接口和条件必填规则为P0待确认。
-<br>⑤ 传统进口申报不得伪造OTP、<code>Z99999</code>或订单完成时间；未确认组合进入人工例外队列。
+<br>④ V2-1公开规格与2026-09-01 GIANT运营例外存在差异，必须另行记录字段条件、错误代码、例外期限及申报阶段补充责任。
+<br>⑤ 不得伪造OTP、<code>Z99999</code>或订单完成时间；缺失值按正式合同表达。
 <br>⑥ 11:10~11:50 KST的Geek TRA处理窗口只适用于自营商城相关流程，不自动适用于全部外部B订单。
 </div>
     <div style="background:#fff3cd;border-left:5px solid #856404;padding:12px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#856404;"><strong>[2026-08-10 更正]</strong> 依据韩国关税厅 REST API 规格 v1.4.1 修正字段名与类型：dlvr_vcex_bsmn_* → <code>shpn_vcex_bsmn_*</code>、sale_ents_biz_no → <code>sale_ents_bsns_no</code>、prod_mnfcr_nm → <code>prod_mkr_nm</code>、prod_mdl_no → <code>prod_mkr_mdl_no</code>。另新增必填项 <code>ord_site_url</code>（详见 리스크_질의대장.html 综合风险·质询台账）。</div>
@@ -79,7 +88,7 @@
     <div style="background:#e8f0fe; padding:18px 22px; border-left:5px solid #1a73e8; margin-bottom:20px; border-radius:4px; font-size:13.5px; line-height:1.7;">
         <strong>[主E2E及东数系统双轨制定义]</strong> 本策划书基于 <strong>Geek Studio - 东数(EIBE ERP / DS Logistics) - GIANT特快专递 - 韩国关税厅REST API之间的自营商城A及外部平台B实务数据与逻辑</strong>整合编写。<br>
         - <strong>EIBE ERP:</strong> 每天11:10 KST在Geek查询时返回发货前预估数据(14个属性，供TRA001使用)<br>
-        - <strong>DS Logistics:</strong> 每天17:00 KST实物出库后，HBL物流·商品通过<code>POST /api/hwb/bulk-sync/logistics</code>发送，MAWB主单通过独立<code>POST /api/hwb/bulk-sync/master</code>发送
+        - <strong>DS Logistics:</strong> 每天17:00 KST实物出库后，通过 V2-1 <code>POST /api/hwb/bulk-sync</code>发送东数持有的订单·收件人·物流·商品数据；MAWB主单通过独立<code>POST /api/hwb/bulk-sync/master</code>发送
     </div>
 
     <div style="background:#e6f4ea; padding:15px 20px; border-left:5px solid #137333; margin-bottom:25px; border-radius:4px; font-size:13px; color:#137333;">
@@ -136,12 +145,13 @@ sequenceDiagram
         Mall->>Mall: 记录人工申报编号和批准人后方可人工解除出库
     end
 
-    Note over WMS, Giant: Stage 6: 13:00 现场出库 & 17:00~18:00 HBL logistics + 独立MAWB master发送
+    Note over WMS, Giant: Stage 6: 13:00 现场出库 & 17:00~18:00 东数V2-1 + 独立MAWB master发送
     WMS->>WMS: 13:00 KST 排除已删除订单，实物打包出库正常批准件
-    WMS->>Giant: POST /api/hwb/bulk-sync/logistics — weight·包装·发货人·企业代码·商品（不含PCCC/OTP）
-    Mall->>Giant: POST /api/hwb/bulk-sync/clearance — PCCC·OTP·订购人·收件人
+    WMS->>Giant: V2-1 POST /api/hwb/bulk-sync — 东数持有的订单·收件人·物流·商品
+    Mall->>Giant: V2-2 POST /api/hwb/bulk-sync/clearance — 自营商城PCCC·OTP·订购人·收件人
     WMS->>Giant: POST /api/hwb/bulk-sync/master — MAWB主单独立发送
-    Giant->>KCS: 合并两侧数据后提交进口申报(DKW/DKX)
+    Giant->>Giant: 相同键的重叠有效字段优先Geek V2-2，物流·商品保留东数V2-1
+    Giant->>KCS: 根据订单数据及切换期标准提交传统或专用进口申报
 
     Note over Giant, Customer: Stage 7: 韩国国内配送交接及签收后退货 CS
     Giant->>Courier: 仁川机场进口通关完成后交接至乐天快递
@@ -320,13 +330,13 @@ sequenceDiagram
     </table>
 
     <h2>
-        <span>Stage 6. 13:00 现场出库 & 17:00~18:00 东数HBL logistics与MAWB master分开发送</span>
-        <span class="time-tag">13:00 出库 / 17:00 分开发送</span>
+        <span>Stage 6. 13:00 现场出库 & 17:00~18:00 东数V2-1与MAWB master分开发送</span>
+        <span class="time-tag">13:00 出库 / 17:00 V2-1</span>
     </h2>
     <div class="stage-box">
         <p><strong>详细发送及处理逻辑 (DS Logistics 物流联动):</strong></p>
         <ul>
-            <li>13:00仅对明确正常且已解除出库限制的订单进行现场出库。<code>MANUAL_CLEARANCE_REQUIRED</code>、删除未完成或范围未确认的订单须保持物理出库保留，记录人工申报编号及批准人后方可解除。17:00东数通过<code>POST /api/hwb/bulk-sync/logistics</code>写入HBL物流·商品数据，MAWB通过<code>POST /api/hwb/bulk-sync/master</code>独立发送。</li>
+            <li>13:00仅对明确正常且已解除出库限制的订单进行现场出库。<code>MANUAL_CLEARANCE_REQUIRED</code>、删除未完成或范围未确认的订单须保持物理出库保留，记录人工申报编号及批准人后方可解除。17:00东数通过 V2-1 <code>POST /api/hwb/bulk-sync</code>写入其持有的订单·收件人·物流·商品数据，MAWB通过<code>POST /api/hwb/bulk-sync/master</code>独立发送。</li>
         </ul>
     </div>
     <table>
@@ -565,11 +575,11 @@ sequenceDiagram
         <p><b>状态流转</b> — <code>p1</code>支付完成 → 东数采集后<code>g1</code>商品准备中 → 11:10开始HBL采集 → 11:50前仅明确正常订单进入<code>g5</code>候选并更新运单号。错误、缺失、延迟、结果未确定或删除失败的订单进入<code>MANUAL_CLEARANCE_REQUIRED</code>，禁止自动TRA及自动出库；记录人工申报编号和批准人后方可人工解除。</p>
         <p><span style="color:#c5221f;">※ <code>g5</code> 为自营商城新设的自定义状态码(Godomall 标准代码表中不存在)。东数采集条件请以此流转为准。</span></p>
 
-        <h3 style="color:#137333;">6. [2026-08-25 确定] Geek/东数分开写入GIANT</h3>
-        <p>Geek通过<code>POST /api/hwb/bulk-sync/clearance</code>写入通关·订购人·收件人信息；东数DS Logistics于17:00~18:00通过<code>POST /api/hwb/bulk-sync/logistics</code>写入物流·商品数据，GIANT按<code>hwbNo + orderNo</code>合并。先到侧保存为<code>pending</code>，双方到齐后返回<code>merged</code>。</p>
-        <p><b>Geek发送项</b> — <code>hwbNo</code> · <code>orderNo</code> · <code>pccCode</code> · <code>tempAuthNo</code> · <code>orderer*</code> · <code>consignee*</code> · <code>orderCompletionDate</code>。不发送东数物流·商品字段。</p>
-        <p><b>东数发送项</b> — 物流、包装、发货人、金额、渠道<code>ecTypeCode</code>、<code>broker*</code>、条件性<code>buyingAgent*</code>、<code>orderSiteUrl</code>及<code>items[]</code>。不发送PCCC、OTP、订购人或收件人字段。</p>
-        <p style="color:#c5221f;">※ A：<code>broker*</code>与<code>sellerCode</code>必填，禁止发送<code>buyingAgent*</code>；B：<code>broker*</code>与<code>buyingAgent*</code>必填，<code>sellerCode</code>选填。<code>sellerName</code>始终必填。</p>
+        <h3 style="color:#137333;">6. [2026-09-01 确定] 东数V2-1 + Geek V2-2 优先合并</h3>
+        <p>东数DS Logistics通过 V2-1 <code>POST /api/hwb/bulk-sync</code>发送其持有的订单·收件人·物流·商品数据；Geek通过 V2-2 <code>POST /api/hwb/bulk-sync/clearance</code>发送自营商城认证及通关数据。GIANT按<code>hwbNo + orderNo</code>合并。</p>
+        <p><b>优先规则</b> — 相同键的重叠字段采用Geek V2-2的有效非空值；V2-2未提供的物流和商品字段继续采用东数V2-1。Geek空值不得删除东数正常值。</p>
+        <p><b>东数缺失字段</b> — 一次性认证号或PCCC不存在时不得生成临时值，应按正式合同使用字段省略、<code>null</code>或约定方式表达。GIANT须记录临时校验例外和申报阶段补充责任。</p>
+        <p style="color:#c5221f;">※ A/B仍是交易角色，传统/专用申报仍是逐订单申报路径。不得将V2-1/V2-2版本名称直接解释为申报方式。</p>
 
         <h3 style="color:#137333;">7. 已确认事项 (无需再讨论)</h3>
         <ul>
@@ -578,7 +588,7 @@ sequenceDiagram
             <li><b>跨日拆单发货</b> — 1个HBL对应1次TRA001；3天分3次发货则提交3次。Godomall只保存第一个运单号，但Geek内部必须按分拆包裹管理提交状态。若不增加Geek批处理，东数必须首次查询时预分配全部HBL，或在后续HBL生成时Push (2026-08-12)</li>
             <li><b>快照一致性</b> — 14个属性中仅实测重量(<code>weight</code>)在11:10预估快照与17:00实测快照之间允许变化，其余字段须按双方批准规则保持一致</li>
             <li><b>订单删除API</b> — <code>POST /api/openAPI/erp/orderInfo/orderDelete</code>，参数<code>customerOrderNo</code>，单次1件。母订单号可能连带删除全部子订单；如存在国内/海外混合或删除范围未确认，不得自动调用，须转为人工通关及运营保留</li>
-            <li><b>个人通关唯一编码(PCCC)与 OTP</b> — Godomall <code>addField</code>中既有 PCCC 字段可用于订单内部核对，但 GIANT 的 PCCC、OTP、订购人及收件人写入由 Geek 负责。<br><span style="color:#c5221f;">※ <b>[2026-08-19 更正]</b> <code>tempAuthNo</code>(OTP) <b>不进入 <code>addField</code>，也不由东数发送</b>；由 Geek 保存并直送 GIANT。旧“东数 bulk-sync 发送 PCCC/OTP”的指示废止。</span></li>
+            <li><b>个人通关唯一编码(PCCC)与 OTP</b> — 自营商城的Geek V2-2认证值优先。东数V2-1只发送其真实持有值；没有OTP时不得生成。<code>tempAuthNo</code>仍不写入Godomall <code>addField</code>，Geek保存的认证结果通过V2-2直送GIANT。</li>
         </ul>
     </div>
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>东数最终传达标准 — 分开判断A/B与进口申报路径</title>
+<title>[历史] 东数传达标准 2026-08-28 — 分开判断A/B与进口申报路径</title>
 <style>
   *{box-sizing:border-box}body{margin:0;background:#f6f7f9;color:#202124;font-family:"Microsoft YaHei","Noto Sans SC",Arial,sans-serif;line-height:1.68}
   main{max-width:1180px;margin:0 auto;padding:32px 22px 70px}h1{font-size:27px;margin:0 0 6px}h2{font-size:19px;margin:34px 0 12px;border-bottom:2px solid #202124;padding-bottom:7px}
@@ -16,6 +16,10 @@
 <body>
 <main>
   <nav><a href="./api_field_mapping_cn.html">API字段映射</a><a href="./유형코드_부호체계_정리_cn.html">类型代码与符号体系</a></nav>
+  <div class="box warn">
+    <strong>[2026-09-01更正 · 本文档不是当前交付版本]</strong><br>
+    东数向GGATE发送的接口版本统一为<strong>V2-1</strong>；Geek通过<strong>V2-2</strong>发送自营商城订单的补充字段。对同一<code>(hwbNo, orderNo)</code>，GGATE应优先采用Geek V2-2中有效且非空的值，但禁止以V2-2空值覆盖东数V2-1的有效值。当前交付标准请参阅<a href="./동수_협의자료_20260901_cn.html">东数协商资料 2026-09-01</a>。以下内容仅保留2026-08-28当时的标准及更正历史。
+  </div>
   <h1>东数最终传达标准</h1>
   <div class="meta">2026-08-28最终协商基准 · 渠道主数据11个 · 分开判断A/B与进口申报路径</div>
 

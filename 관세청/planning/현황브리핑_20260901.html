@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관세청 연동 운영 현황 브리핑 — 2026-09-01</title>
+    <style>
+        body { font-family: 'Inter', -apple-system, sans-serif; background-color: #ffffff; color: #333; line-height: 1.6; padding: 40px; margin:0; }
+        .container { max-width: 1500px; margin: 0 auto; }
+        h1 { color: #111; border-bottom: 3px solid #1a73e8; padding-bottom: 12px; margin-bottom: 20px; font-size: 26px; }
+        h2 { color: #202124; border-bottom: 2px solid #1a73e8; padding-bottom: 8px; margin-top: 40px; font-size: 20px; display:flex; align-items:center; justify-content:space-between; }
+        h3 { color: #3c4043; margin-top: 25px; font-size: 16px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 12px; }
+        th, td { border: 1px solid #eaeaea; padding: 8px 10px; text-align: left; vertical-align: top; }
+        th { background-color: #f8f9fa; font-weight: 600; color: #555; position: sticky; top: 0; z-index:10; }
+        code { background:#f1f3f4; padding:1px 4px; border-radius:3px; font-family:Consolas,monospace; font-size:12px; }
+        .badge { display: inline-block; padding: 3px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+        .req-y { background-color: #ffeaea; color: #d93025; }
+        .req-n { background-color: #e8f0fe; color: #1a73e8; }
+        .req-c { background-color: #fff3cd; color: #856404; }
+        .src-dongsu { background-color: #e6f4ea; color: #137333; font-weight: bold; }
+        .src-geek { background-color: #e8f0fe; color: #1a73e8; font-weight: bold; }
+        .src-gen { background-color: #fce8e6; color: #c5221f; font-weight: bold; }
+        .src-kcs { background-color: #fff3cd; color: #856404; font-weight: bold; }
+        .stage-box { background: #fcfcfc; border: 1px solid #e0e0e0; border-left: 5px solid #1a73e8; padding: 18px 22px; margin-bottom: 20px; border-radius: 4px; }
+        .stage-box p { margin: 0 0 10px 0; font-size: 14px; }
+        .stage-box ul { margin: 0; padding-left: 20px; font-size: 13.5px; }
+        .stage-box li { margin-bottom: 6px; }
+        .time-tag { background: #1a73e8; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; margin-right: 8px; }
+        .rule-highlight { background: #fff3cd; color: #856404; padding: 2px 6px; border-radius: 3px; font-weight: bold; }
+        .api-tag { display:inline-block; padding:2px 6px; border-radius:3px; font-size:10px; font-weight:bold; white-space:nowrap; }
+        .api-per { background:#f3e8fd; color:#7b1fa2; }
+        .api-tra1 { background:#e8f0fe; color:#1a73e8; }
+        .api-hwb { background:#e6f4ea; color:#0d652d; }
+        .api-etc { background:#f1f3f4; color:#555; }
+        .core-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+        .core-nav a{display:inline-block;background:#3c4043;color:#fff;padding:8px 13px;border-radius:4px;text-decoration:none;font-size:13px;font-weight:700;margin:0}
+        .core-nav a:hover{background:#202124}
+        .core-nav a.active{background:#1a73e8}
+        #toc { position: fixed; top: 0; right: 0; width: 250px; height: 100vh; overflow-y: auto; background: #fff; border-left: 1px solid #e0e0e0; padding: 18px 14px 40px; z-index: 500; font-size: 12.5px; box-shadow: -2px 0 8px rgba(0,0,0,.04); }
+        #toc h4 { margin: 0 0 10px; font-size: 12px; color: #5f6368; letter-spacing: .5px; text-transform: uppercase; }
+        #toc a { display: block; padding: 6px 9px; margin-bottom: 2px; color: #3c4043; text-decoration: none; border-radius: 4px; border-left: 3px solid transparent; line-height: 1.35; }
+        #toc a:hover { background: #f1f3f4; }
+        #toc a.active { background: #e8f0fe; color: #1557b0; font-weight: 700; border-left-color: #1a73e8; }
+        #tocToggle { position: fixed; top: 14px; right: 262px; z-index: 501; background: #1a73e8; color: #fff; border: none; border-radius: 4px; padding: 7px 11px; font-size: 12px; font-weight: 700; cursor: pointer; }
+        body.toc-off #toc { display: none; }
+        body.toc-off #tocToggle { right: 14px; }
+        body { padding-right: 268px; }
+        body.toc-off { padding-right: 40px; }
+        h2 { scroll-margin-top: 16px; }
+        @media (max-width: 1100px) { #toc, #tocToggle { display: none; } body { padding-right: 40px; } }
+        @media (max-width: 640px) { body, body.toc-off { padding:18px; } h1 { font-size:23px; } h2 { display:block; font-size:18px; } table { display:block; max-width:100%; overflow-x:auto; } .stage-box { padding:14px; } code { overflow-wrap:anywhere; word-break:break-word; } }
+    </style>
+</head>
+<body>
+<button id="tocToggle" onclick="document.body.classList.toggle('toc-off')">목차</button>
+<nav id="toc"><h4>목차</h4><div id="tocList"></div></nav>
+
+<div class="container">
+    <nav class="core-nav" aria-label="주요 문서">
+        <a href="./현황브리핑_20260901.html" class="active">운영 현황</a>
+        <a href="./planning_v6.html">통합 기획서</a>
+        <a href="./api_field_mapping.html">API 필드 매핑</a>
+        <a href="./리스크_질의대장.html">리스크·질의 대장</a>
+        <a href="./유형코드_부호체계_정리.html">유형·부호 체계</a>
+        <a href="./CS_QA_통관.html">CS 통관 Q&amp;A</a>
+    </nav>
+
+    <h1>관세청 연동 운영 현황 브리핑</h1>
+    <div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">최종 업데이트 <span style="color:#8ab4f8;font-size:16px;">2026-09-01</span> · 운영기준 <span style="color:#8ab4f8;">동수 V2-1 + Geek V2-2 우선 병합</span><span style="font-weight:400;color:#bdc1c6;"> · 동수 적용 예정 2026-09-02 · 전환 종료시각 미확인</span></div>
+
+    <div style="background:#e6f4ea;border-left:5px solid #137333;padding:14px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#174d2a;line-height:1.8;">
+        <strong>[2026-09-01 확정 운영 구조]</strong><br>
+        ① 동수는 자이언트 전송을 <strong>V2-1</strong>로 통일합니다.<br>
+        ② Geek은 자사몰 PER 인증 결과와 통관·수하인 데이터를 <strong>V2-2 <code>clearance</code></strong>로 보냅니다.<br>
+        ③ 자이언트는 동일 <code>hwbNo + orderNo</code>의 겹치는 필드에서 <strong>Geek V2-2의 유효한 비공백 값을 우선</strong>합니다.<br>
+        ④ V2-2에 없는 물류·상품 필드는 동수 V2-1 값을 유지하고, V2-2의 빈 값으로 정상 V2-1 값을 지우지 않습니다.<br>
+        ⑤ 기존 신고와 전자상거래 전용 신고의 판정은 API 버전과 별도입니다. 발신사는 버전 계약대로 보내고 자이언트가 주문 데이터 상태에 따라 신고방식을 처리합니다.
+    </div>
+
+    <div style="background:#fce8e6;border-left:5px solid #c5221f;padding:14px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#5f2120;line-height:1.8;">
+        <strong>[현재 사고 상태]</strong> 2026-08-31 문제 주문 90건은 구 API로 전달되어 신규 신고용 업체부호·일회용 인증번호 등이 누락됐습니다. 일부 주문은 데이터 수집 오류로 개인통관고유부호도 확보되지 않았습니다. 2026-09-01 13:00~14:00 전 필수데이터 보완 조건만 확인됐으며 <strong>90건 전량 보완·접수 완료는 확인되지 않았습니다.</strong>
+    </div>
+
+    <h2 id="summary">1. 현재 상태 요약</h2>
+    <table>
+        <thead><tr><th style="width:17%">항목</th><th style="width:12%">상태</th><th>확인된 내용</th><th style="width:26%">아직 확인되지 않은 것</th></tr></thead>
+        <tbody>
+            <tr><td><strong>동수 전송 버전</strong></td><td><span class="badge req-n">확정·배포 예정</span></td><td>V2-1로 통일. 2026-09-01 개발 완료 후 2026-09-02 주문부터 API 전달 예정.</td><td>운영 배포 완료시각, 첫 성공 응답, 실패·재전송 로그.</td></tr>
+            <tr><td><strong>Geek 전송</strong></td><td><span class="badge req-n">확정</span></td><td>자사몰 PER 결과와 통관·수하인 데이터를 V2-2 <code>clearance</code>로 전달.</td><td>90건 중 Geek 보완 가능 건수와 실제 보완 완료시각.</td></tr>
+            <tr><td><strong>자이언트 병합</strong></td><td><span class="badge req-c">로직 추가·검증 필요</span></td><td>V2-1 + V2-2가 같은 키로 들어오면 Geek V2-2 값으로 업데이트한다는 담당자 회신.</td><td>정확한 우선 필드 목록, 빈 값 처리, 도착순서 역전, 병합 완료 후 재전송, 필드별 원천 조회.</td></tr>
+            <tr><td><strong>90건</strong></td><td><span class="badge req-y">미해소</span></td><td>2026-08-31 구 API 전송으로 신규 신고 데이터 누락. 2026-09-01 13:00~14:00 전 보완 조건 제시.</td><td>필수값 확보 건수, 신고방식, 접수번호, 오류코드, 통관 완료 건수.</td></tr>
+            <tr><td><strong>PCCC 누락</strong></td><td><span class="badge req-y">진행 중</span></td><td>데이터 수집 오류. 개발로그 확인 후 확보되는 값부터 수기로 전달 예정.</td><td>누락 주문 목록, 원인 코드 위치, 회수율, 수기 전달 완료 증적.</td></tr>
+            <tr><td><strong>의심 O부호</strong></td><td><span class="badge req-y">격리</span></td><td><code>O000…0004</code>가 임의값처럼 보인다는 자이언트 의견. 진위 검증은 하지 못했다고 명시.</td><td>PER/NICE 원본 응답, 요청번호, 발급시각, 실제 유효 여부.</td></tr>
+            <tr><td><strong>혼재 운영</strong></td><td><span class="badge req-c">전환 중</span></td><td>기존 신고와 전자상거래 전용 신고가 혼재하며 WeChat에 계속 공유하기로 함.</td><td>“어제부터 향후 3일”의 정확한 종료 일시와 주문별 전환 기준.</td></tr>
+        </tbody>
+    </table>
+
+    <h2 id="architecture">2. 확정 아키텍처와 데이터 흐름</h2>
+    <div class="stage-box">
+        <p><span class="time-tag">1</span><strong>동수 → 자이언트</strong> · V2-1 전체등록</p>
+        <ul><li>동수가 보유한 주문·수하인·물류·상품 데이터를 V2-1로 전달합니다.</li><li>일회용 인증번호가 없는 주문도 들어올 수 있음을 자이언트가 인지했습니다.</li><li>대화의 <code>v1 gate</code>는 공유 문서에서 V2-1로 표준화하되 원문에는 그대로 보존합니다.</li></ul>
+    </div>
+    <div class="stage-box">
+        <p><span class="time-tag">2</span><strong>Geek → 자이언트</strong> · V2-2 <code>clearance</code></p>
+        <ul><li>자사몰 PER 인증으로 반환된 O/P 부호, 인증번호, 수하인·주문자 데이터를 동일 키로 전달합니다.</li><li>Geek은 외부 플랫폼 주문의 원천 시스템이 아니므로 V2-2 우선 적용 범위는 Geek이 실제로 전송한 자사몰 데이터에 한정합니다.</li></ul>
+    </div>
+    <div class="stage-box">
+        <p><span class="time-tag">3</span><strong>자이언트</strong> · 필드 단위 우선 병합 후 신고</p>
+        <ul><li>공통키는 <code>hwbNo + orderNo</code>입니다.</li><li>겹치는 유효 필드는 Geek V2-2 우선, 물류·상품은 동수 V2-1 유지입니다.</li><li>최종 신고방식은 P/O 형식만 보지 않고 필수데이터 확보 상태와 운영 전환 기준을 함께 판정해야 합니다.</li></ul>
+    </div>
+
+    <h3>필드 우선순위</h3>
+    <table>
+        <thead><tr><th>필드군</th><th>동수 V2-1</th><th>Geek V2-2</th><th>최종 적용 규칙</th><th>필수 방어</th></tr></thead>
+        <tbody>
+            <tr><td>주문자·수하인·주소·전화</td><td>보유값 전송 가능</td><td>자사몰 인증·주문 원천값</td><td class="src-geek">Geek V2-2의 유효한 비공백 값 우선</td><td>빈 문자열·<code>null</code>은 정상값 삭제 금지. 필드별 원천 로그.</td></tr>
+            <tr><td><code>pccCode</code></td><td>채널 수집값 또는 누락</td><td>자사몰 PER 반환값</td><td class="src-geek">Geek V2-2 우선</td><td>형식검사와 진위검증을 분리. 임의 O/P 생성 금지.</td></tr>
+            <tr><td><code>tempAuthNo</code></td><td>없을 수 있음</td><td>자사몰 인증 결과</td><td class="src-geek">Geek이 보낸 정식 값만 적용</td><td>빈 값·임의값·근거 없는 <code>Z99999</code>로 채우지 않음.</td></tr>
+            <tr><td><code>orderCompletionDate</code></td><td>주문 원천값</td><td>자사몰 결제완료 원천값</td><td class="src-geek">겹치면 Geek V2-2 우선</td><td>실제와 다른 일시 생성 금지.</td></tr>
+            <tr><td>중량·포장·운송·상품·금액</td><td>물류·ERP 원천</td><td>전송하지 않음</td><td class="src-dongsu">동수 V2-1 유지</td><td>V2-2가 소유하지 않는 필드를 덮어쓰지 않음.</td></tr>
+        </tbody>
+    </table>
+
+    <h2 id="declaration">3. 신고방식 판정과 전환기 해석</h2>
+    <table>
+        <thead><tr><th>입력 상태</th><th>자이언트 회신상 방향</th><th>현재 문서 판정</th><th>금지·주의</th></tr></thead>
+        <tbody>
+            <tr><td>외부 채널의 P 시작 개인통관고유부호만 있음</td><td>기존 신고방식으로 신고할 것으로 회신</td><td><code>LEGACY_IMPORT</code> 후보. 주문별 결과 기록 필요.</td><td>P라는 이유만으로 항상 기존 신고라고 코드에 고정하지 않음. 전환 종료 후 정책 재확인.</td></tr>
+            <tr><td>정식 일회용 부호와 신규 신고 필수데이터가 모두 있음</td><td>신규 신고방식으로 진행</td><td><code>ECOMMERCE_DEDICATED</code> 후보.</td><td>업체부호·인증번호 등 필수데이터가 하나라도 없으면 완료로 표시하지 않음.</td></tr>
+            <tr><td>자사몰 PER 결과로 O/P가 혼재</td><td>신규 신고 적용 의사가 제시됨. 자이언트는 필수데이터 전부를 조건으로 제시.</td><td>주문별 필수데이터가 모두 있는 건만 신규 신고. 90건 전량 적용은 미확인.</td><td>P/O 접두문자만으로 신규 신고 성공을 추정하지 않음.</td></tr>
+            <tr><td>PCCC 또는 일회용 인증 근거가 없음</td><td>V2-1 일회용 번호 누락 가능성을 인지. PCCC 검증 제외 회신.</td><td>단기 입력검증 예외 후보. 세관 신고 단계 보완 책임은 미확인.</td><td>“검증 제외”를 PCCC 불필요 또는 가짜값 허용으로 해석하지 않음.</td></tr>
+        </tbody>
+    </table>
+
+    <h2 id="incident">4. 2026-08-31 문제 90건 상세</h2>
+    <table>
+        <thead><tr><th style="width:18%">사실</th><th>영향</th><th style="width:32%">필요한 증적</th><th style="width:16%">현재 상태</th></tr></thead>
+        <tbody>
+            <tr><td>구 API로 전송</td><td>신규 신고용 업체부호·일회용 인증번호 등이 자이언트에 전달되지 않음.</td><td>90건별 구 API 요청시각·요청키·수신응답·누락 필드 목록.</td><td><span class="badge req-y">확인</span></td></tr>
+            <tr><td>13:00~14:00 전 보완 조건</td><td>시간 내 신규 신고 필수데이터 전부를 주지 못하면 90건 전량 신규 신고 요청이 성립하지 않음.</td><td>보완 전달 파일/API 요청, 수신확인, 최종 접수시각.</td><td><span class="badge req-c">완료 미확인</span></td></tr>
+            <tr><td>PCCC 미확보 주문 존재</td><td>수기 전달 전까지 수하인 식별과 신고방식 확정 불가.</td><td>누락 주문번호, 로그 검색 결과, 회수값 원천, 수기 전달자·시각.</td><td><span class="badge req-y">진행 중</span></td></tr>
+            <tr><td>의심 O부호</td><td>형식만 맞는 임의값이면 통관 단계 검증 실패·보완·지연 가능.</td><td>PER/NICE 요청번호, 응답 전문, 인증시각, 수하인 일치 결과.</td><td><span class="badge req-y">진위 미확인</span></td></tr>
+            <tr><td>신고방식 혼재</td><td>동일 주문 중복 신고 또는 미신고, 운영팀·자이언트 간 상태 불일치 위험.</td><td>주문별 <code>declarationMode</code>, 제출경로, 접수번호, 최종 결과.</td><td><span class="badge req-c">전환 중</span></td></tr>
+        </tbody>
+    </table>
+
+    <h2 id="problems">5. 관세청 폴더와 운영 내용의 문제점</h2>
+    <h3>P0 · 즉시 해소할 문제</h3>
+    <table>
+        <thead><tr><th style="width:8%">ID</th><th style="width:24%">문제</th><th>현재 영향</th><th style="width:28%">완료 조건</th></tr></thead>
+        <tbody>
+            <tr><td><span class="badge req-y">P0-01</span></td><td>90건의 실제 완료상태 부재</td><td>대화에는 보완 조건만 있고 전량 보완·접수 결과가 없음.</td><td>90행 대사표에 필수값, 신고방식, 접수번호, 결과코드, 완료시각을 기록.</td></tr>
+            <tr><td><span class="badge req-y">P0-02</span></td><td>PCCC 수집 오류</td><td>신고 핵심값이 일부 주문에서 누락. 수기 복구가 구두 계획에 머묾.</td><td>누락 원인 수정, 회수 건수 대사, 수기 전달 증적, 재발 테스트.</td></tr>
+            <tr><td><span class="badge req-y">P0-03</span></td><td>O부호 진위 검증 공백</td><td>형식 검증만으로 임의값을 걸러내지 못함.</td><td>발급 원천·요청번호·인증시각을 주문에 연결하고 미증빙 값 자동 격리.</td></tr>
+            <tr><td><span class="badge req-y">P0-04</span></td><td>V2-1/V2-2 우선 병합의 가시성 없음</td><td>최종값이 어느 발신사의 값인지 확인할 수 없으면 잘못 덮어써도 발견 불가.</td><td>필드별 적용원천·수신시각·검증결과 조회 또는 원본 로그 제공.</td></tr>
+            <tr><td><span class="badge req-y">P0-05</span></td><td>동수 V2-1 배포 미검증</td><td>2026-09-02 적용은 예정일 뿐 실제 성공 근거가 없음.</td><td>첫 주문의 요청·202 응답·자이언트 저장·Geek 후속 병합·신고 결과 확인.</td></tr>
+            <tr><td><span class="badge req-y">P0-06</span></td><td>혼재 운영 종료시각 모호</td><td>“어제부터 향후 3일”만으로는 자동 분기·업무 마감 시점을 정할 수 없음.</td><td>YYYY-MM-DD HH:mm 기준 종료시각과 전환 대상 주문 생성시점 확정.</td></tr>
+        </tbody>
+    </table>
+
+    <h3>P1 · 운영 안정화 문제</h3>
+    <table>
+        <thead><tr><th style="width:8%">ID</th><th style="width:24%">문제</th><th>영향</th><th style="width:28%">조치</th></tr></thead>
+        <tbody>
+            <tr><td><span class="badge req-c">P1-01</span></td><td><code>status/search</code> 또는 대체 대사수단 미확인</td><td><code>pending</code>이 상대 대기인지 최종검증 실패인지 구분 불가.</td><td>자이언트 API 또는 일일 원본 로그로 상태·누락필드 제공.</td></tr>
+            <tr><td><span class="badge req-c">P1-02</span></td><td>정정·삭제 경로 부재</td><td>잘못 병합된 값이나 HBL을 신고 전후에 고칠 공식 절차가 불명확.</td><td>정정 가능 시점, endpoint, 재신고·취소 절차를 서면 확정.</td></tr>
+            <tr><td><span class="badge req-c">P1-03</span></td><td>공개 V2-1 계약과 운영 예외 불일치</td><td>공개 규격은 필수인데 운영 회신은 누락 허용·PCCC 검증 제외.</td><td>필드별 조건, 오류코드, 예외 종료일, 신고단계 보완주체 문서화.</td></tr>
+            <tr><td><span class="badge req-c">P1-04</span></td><td>구버전 문서 드리프트</td><td>8월 자료가 “통합안 검토 중”·“자이언트 P0”를 현재안처럼 표시.</td><td>상단 정정 배너, 현재본 인덱스, 협력사 재배포 목록 유지.</td></tr>
+            <tr><td><span class="badge req-c">P1-05</span></td><td>파일 상태·정본 표시 부족</td><td>planning 루트에 현재본·과거본·중문판·대장이 섞여 있으며 읽는 순서가 없음.</td><td><code>자료_인덱스_20260901.html</code>에서 현재본·참고·원본·출력물을 분류.</td></tr>
+        </tbody>
+    </table>
+
+    <h3>P2 · 문서 유지보수 문제</h3>
+    <table>
+        <thead><tr><th style="width:8%">ID</th><th style="width:24%">문제</th><th>현상</th><th style="width:28%">정리 기준</th></tr></thead>
+        <tbody>
+            <tr><td><span class="badge req-n">P2-01</span></td><td>자료별 UI/UX 불일치</td><td>오늘 초안 3종이 회색 카드형으로 만들어져 <code>planning_v6</code>와 다름.</td><td>흰 배경, 동일 상단 내비게이션, 우측 목차, 동일 표·상태색으로 재작성.</td></tr>
+            <tr><td><span class="badge req-n">P2-02</span></td><td>파일명만으로 효력 판단 불가</td><td>“최종”, 날짜, 버전이 섞여 있고 더 최신 정정이 다른 파일에 존재.</td><td>파일명보다 인덱스의 상태·대체문서·기준일을 우선.</td></tr>
+            <tr><td><span class="badge req-n">P2-03</span></td><td>루트 임시파일의 소유·용도 불명</td><td><code>key.txt</code>, <code>tmp_typecode.txt</code>, <code>tmp/</code>가 관세청 루트에 존재.</td><td>내용·참조를 확인하기 전 삭제·이동하지 않음. 시크릿 가능 파일은 별도 승인 후 처리.</td></tr>
+            <tr><td><span class="badge req-n">P2-04</span></td><td>중문판 동시 갱신 부담</td><td>국문 결론 변경 후 중문판이 늦게 따라가면 협력사 기준이 갈림.</td><td>국문·중문을 같은 변경 묶음으로 검증하고 인덱스에 한 쌍으로 표시.</td></tr>
+        </tbody>
+    </table>
+
+    <h2 id="actions">6. 회사별 실행안과 완료 증적</h2>
+    <table>
+        <thead><tr><th style="width:12%">담당</th><th style="width:13%">기한</th><th>실행</th><th style="width:29%">완료로 인정할 증적</th></tr></thead>
+        <tbody>
+            <tr><td class="src-dongsu">동수</td><td>2026-09-01</td><td>V2-1 개발 완료. 일회용 번호가 없는 건도 계약대로 전달하고 임의값을 만들지 않음.</td><td>배포 버전, 변경내역, 샘플 요청/응답, 누락 허용 필드 목록.</td></tr>
+            <tr><td class="src-dongsu">동수</td><td>2026-09-02</td><td>당일 주문부터 V2-1 운영 적용.</td><td>첫 주문 키, 전송시각, 202 응답, 자이언트 저장·신고 결과.</td></tr>
+            <tr><td class="src-geek">Geek</td><td>즉시</td><td>자사몰 V2-2에서 PER 반환값만 보내고 누락 PCCC를 로그에서 회수. 90건 보완자료를 주문별로 정리.</td><td>PER 요청번호·응답시각·마스킹 값·V2-2 전송시각·보완 성공/실패 목록.</td></tr>
+            <tr><td class="src-gen">자이언트</td><td>즉시</td><td>V2-2 유효 필드 우선 로직 적용. PCCC 검증 제외 예외 범위와 신규/기존 신고 분기를 주문별 기록.</td><td>필드 우선순위 표, 배포시각, 양방향 도착순서 테스트, 90건 결과표.</td></tr>
+            <tr><td class="src-gen">자이언트</td><td>2026-09-01</td><td>13:00~14:00 전 받은 보완데이터의 수신·반영·접수 결과 회신.</td><td>수신 건수, 반영 건수, 기존/신규 신고 건수, 접수번호, 오류·보류 사유.</td></tr>
+            <tr><td class="src-kcs">당사 운영</td><td>전환 종료 전</td><td>WeChat에 주문별 신고방식·데이터 보완·접수 결과를 연속 기록하고 혼재 종료시각 확정.</td><td>주문번호 기준 대사표와 YYYY-MM-DD HH:mm 전환 공지.</td></tr>
+        </tbody>
+    </table>
+
+    <h2 id="control">7. 전환기 주문별 대사 필수 필드</h2>
+    <table>
+        <thead><tr><th>그룹</th><th>필수 기록</th><th>판정 목적</th></tr></thead>
+        <tbody>
+            <tr><td>식별</td><td><code>orderNo</code>, <code>hwbNo</code>, 채널, 주문생성시각</td><td>동일 주문 중복·누락 방지.</td></tr>
+            <tr><td>V2-1</td><td>동수 전송시각, 응답코드, 누락필드, 원본 스냅샷 ID</td><td>동수 전달 성공과 데이터 완전성 확인.</td></tr>
+            <tr><td>V2-2</td><td>Geek 전송시각, 응답코드, PER 요청번호, P/O 유형, 인증번호 존재 여부</td><td>인증 원천과 우선 적용 근거 확인.</td></tr>
+            <tr><td>병합</td><td>필드별 <code>appliedSource</code>, 최종검증 결과, <code>pending/merged</code> 사유</td><td>잘못된 덮어쓰기·무한대기 탐지.</td></tr>
+            <tr><td>신고</td><td><code>LEGACY_IMPORT/ECOMMERCE_DEDICATED</code>, 접수번호, 접수시각, 오류코드·메시지</td><td>신고방식 혼재와 최종 성공 확인.</td></tr>
+            <tr><td>수기보완</td><td>보완 필드, 제공자, 제공시각, 원천, 자이언트 반영시각</td><td>90건·PCCC 복구의 감사 추적.</td></tr>
+        </tbody>
+    </table>
+
+    <h2 id="files">8. 파일과 정본 현황</h2>
+    <table>
+        <thead><tr><th style="width:29%">파일</th><th style="width:13%">역할</th><th>현재 상태</th><th style="width:24%">정리 판단</th></tr></thead>
+        <tbody>
+            <tr><td><code>planning/planning_v6.html</code></td><td><span class="badge req-n">통합 기획</span></td><td>구조 정본. 2026-09-01 운영전환 결론 반영 대상.</td><td>구조는 유지하고 상단 현재안과 V2 흐름만 정정.</td></tr>
+            <tr><td><code>planning/리스크_질의대장.html</code></td><td><span class="badge req-n">결정 정본</span></td><td>2026-09-01 운영전환·90건 사고 반영 완료.</td><td>새 협의는 이 파일에 먼저 기록.</td></tr>
+            <tr><td><code>documents/자이언트_API_메모.md</code></td><td><span class="badge req-n">규격 메모</span></td><td>공개 v2.0.0과 2026-09-01 운영 델타를 분리 기록.</td><td>공개 규격과 현장 예외를 섞지 않음.</td></tr>
+            <tr><td><code>documents/20260901_자이언트_운영전환_협의원문.md</code></td><td><span class="badge req-n">원문 근거</span></td><td>사용자 제공 대화와 해석 경계 보존.</td><td>수정 없이 원문 보존. 해석은 별도 절만 갱신.</td></tr>
+            <tr><td><code>planning/현황브리핑_20260901.html</code></td><td><span class="badge req-n">현재 브리핑</span></td><td>본 문서. <code>planning_v6</code> UI/UX 적용.</td><td>경영·운영 공유 시작점.</td></tr>
+            <tr><td><code>planning/동수_협의자료_20260901*.html</code></td><td><span class="badge req-c">협력사 자료</span></td><td>V2-1 확정안으로 국문·중문 동시 정정 대상.</td><td>두 언어를 한 묶음으로 배포.</td></tr>
+            <tr><td><code>planning/자이언트_확인요청_20260901.html</code></td><td><span class="badge req-c">협력사 자료</span></td><td>기존 “통합안 가능 여부” 질문을 “확정 로직 구현·검증” 요청으로 교체 대상.</td><td>확인 완료 항목과 잔여 질문을 분리.</td></tr>
+            <tr><td><code>planning/동수_최종전달기준_20260828*.html</code></td><td><span class="badge req-c">과거 기준</span></td><td>2026-09-01 결정 전 문구 포함.</td><td>삭제하지 않고 상단 정정 이력 또는 인덱스에서 대체문서 지정.</td></tr>
+        </tbody>
+    </table>
+
+    <h2 id="evidence">9. 확정·예정·미확인 경계</h2>
+    <table>
+        <thead><tr><th style="width:13%">구분</th><th>내용</th><th style="width:30%">근거</th></tr></thead>
+        <tbody>
+            <tr><td><span class="badge req-n">확정</span></td><td>동수 V2-1 통일, Geek V2-2, Geek 필드 우선, 90건 구 API 누락, PCCC 수집 오류, 혼재 운영.</td><td>2026-09-01 사용자 확정 지시와 자이언트 메신저 회신.</td></tr>
+            <tr><td><span class="badge req-c">예정</span></td><td>동수 2026-09-01 개발 완료, 2026-09-02 주문부터 적용.</td><td>10:51 사용자 정리 메시지. 배포 증적 없음.</td></tr>
+            <tr><td><span class="badge req-y">미확인</span></td><td>90건 전량 보완·신고 완료, 의심 O부호의 진위, 혼재 종료시각, 자이언트 필드 우선 로직의 정확한 범위와 배포 여부.</td><td>대화에 최종 결과 또는 서면 명세가 없음.</td></tr>
+        </tbody>
+    </table>
+
+    <div style="background:#e8f0fe;padding:14px 18px;border-left:5px solid #1a73e8;margin:34px 0 10px;border-radius:4px;font-size:13px;line-height:1.8;">
+        <strong>근거 경로</strong> — 결정·리스크: <a href="./리스크_질의대장.html">리스크·질의 대장</a> · 필드 규격: <a href="./api_field_mapping.html">API 필드 매핑</a> · 통합 흐름: <a href="./planning_v6.html">planning_v6</a> · 원문: <code>../documents/20260901_자이언트_운영전환_협의원문.md</code> · 자이언트 규격 델타: <code>../documents/자이언트_API_메모.md</code>
+    </div>
+</div>
+
+<script>
+    (function () {
+        var list = document.getElementById('tocList');
+        if (!list) return;
+        var heads = Array.prototype.slice.call(document.querySelectorAll('.container h2'));
+        var links = [];
+        heads.forEach(function (h, i) {
+            var label = h.textContent.trim();
+            if (!h.id) h.id = 'sec' + i;
+            var a = document.createElement('a');
+            a.href = '#' + h.id;
+            a.textContent = label.length > 34 ? label.slice(0, 33) + '…' : label;
+            a.title = label;
+            list.appendChild(a);
+            links.push({ a: a, h: h });
+        });
+        function onScroll() {
+            var y = window.scrollY + 90, cur = links[0];
+            links.forEach(function (o) { if (o.h.offsetTop <= y) cur = o; });
+            links.forEach(function (o) { o.a.classList.toggle('active', o === cur); });
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    })();
+</script>
+</body>
+</html>

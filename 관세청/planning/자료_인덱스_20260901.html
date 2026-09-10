@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>관세청 자료 인덱스 및 정리 기준 — 2026-09-01</title>
+<style>
+  :root{--blue:#1a73e8;--blue-bg:#e8f0fe;--green:#137333;--green-bg:#e6f4ea;--red:#c5221f;--red-bg:#fce8e6;--amber:#b06000;--amber-bg:#fef7e0;--ink:#202124;--muted:#5f6368;--line:#dadce0;--soft:#f8f9fa}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--ink);font-family:"Malgun Gothic","Noto Sans KR",Arial,sans-serif;line-height:1.65}
+  main{max-width:1280px;margin:0 auto;padding:28px 250px 80px 24px}.core-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}.core-nav a{background:#3c4043;color:#fff;padding:8px 13px;border-radius:4px;text-decoration:none;font-size:13px;font-weight:700}.core-nav a:hover,.core-nav a.active{background:var(--blue)}
+  h1{font-size:27px;margin:0 0 7px;border-bottom:3px solid var(--blue);padding-bottom:12px}h2{font-size:20px;margin:42px 0 14px;border-bottom:2px solid #e8f0fe;padding-bottom:8px;color:#174ea6}h3{font-size:16px;margin:24px 0 9px}.meta{color:var(--muted);font-size:13px;margin-bottom:18px}
+  .topline{background:#202124;color:#e8eaed;padding:11px 16px;border-radius:5px;margin:13px 0 17px;font-size:14px;font-weight:700}.topline span{color:#8ab4f8}.box{border:1px solid var(--line);border-radius:7px;padding:14px 16px;margin:12px 0;background:#fff}.info{border-left:5px solid var(--blue);background:var(--blue-bg)}.ok{border-left:5px solid var(--green);background:var(--green-bg)}.warn{border-left:5px solid var(--amber);background:var(--amber-bg)}.danger{border-left:5px solid var(--red);background:var(--red-bg)}
+  table{width:100%;border-collapse:collapse;margin:12px 0 22px;font-size:13px;table-layout:fixed}th,td{border:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top;word-break:break-word}th{background:#f1f3f4;font-weight:700}.w16{width:16%}.w22{width:22%}.w28{width:28%}.w34{width:34%}
+  code{background:#edf0f3;border-radius:3px;padding:1px 4px;font-family:Consolas,monospace;font-size:12px}.badge{display:inline-block;padding:2px 7px;border-radius:12px;font-size:12px;font-weight:700;white-space:nowrap}.b-current{background:var(--green-bg);color:var(--green)}.b-source{background:var(--blue-bg);color:#174ea6}.b-history{background:#f1f3f4;color:#3c4043}.b-check{background:var(--amber-bg);color:#8a4b00}.b-protect{background:var(--red-bg);color:var(--red)}
+  a{color:#174ea6}.path{font-size:12px;color:#3c4043}.steps{counter-reset:step;padding:0;list-style:none}.steps li{counter-increment:step;margin:10px 0;padding:10px 12px 10px 46px;border:1px solid var(--line);border-radius:6px;position:relative}.steps li:before{content:counter(step);position:absolute;left:13px;top:10px;width:23px;height:23px;border-radius:50%;background:var(--blue);color:#fff;text-align:center;line-height:23px;font-weight:700;font-size:12px}
+  .toc{position:fixed;right:20px;top:22px;width:210px;max-height:calc(100vh - 44px);overflow:auto;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px;box-shadow:0 2px 10px rgba(60,64,67,.15);font-size:12px;z-index:20}.toc strong{display:block;margin-bottom:7px}.toc a{display:block;text-decoration:none;padding:5px 3px;border-bottom:1px solid #f1f3f4}.toc a:hover{color:var(--blue);background:var(--soft)}.toc-toggle{position:fixed;right:20px;bottom:20px;border:0;border-radius:20px;background:#202124;color:#fff;padding:9px 14px;font-weight:700;cursor:pointer;z-index:21}
+  @media(max-width:980px){main{padding:20px 18px 70px}.toc{display:none}.toc-toggle{display:none}table{table-layout:auto;display:block;overflow-x:auto}h1{font-size:23px}}
+</style>
+</head>
+<body>
+<aside class="toc" id="toc" aria-label="문서 목차">
+  <strong>자료 인덱스</strong>
+  <a href="#summary">1. 현재 폴더 상태</a>
+  <a href="#reading">2. 읽는 순서</a>
+  <a href="#current">3. 현행 문서</a>
+  <a href="#sources">4. 근거·원본</a>
+  <a href="#history">5. 이력·참고</a>
+  <a href="#temp">6. 임시·산출물</a>
+  <a href="#issues">7. 문제점</a>
+  <a href="#rules">8. 정리 규칙</a>
+  <a href="#next">9. 다음 조치</a>
+</aside>
+<button class="toc-toggle" type="button" onclick="document.getElementById('toc').hidden=!document.getElementById('toc').hidden">목차 표시/숨김</button>
+<main>
+  <nav class="core-nav" aria-label="주요 문서">
+    <a href="./planning_v6.html">통합 기획서</a>
+    <a href="./현황브리핑_20260901.html">현황 브리핑</a>
+    <a href="./api_field_mapping.html">API 필드 매핑</a>
+    <a href="./리스크_질의대장.html">리스크·질의 대장</a>
+    <a href="./동수_협의자료_20260901.html">동수 협의자료</a>
+    <a href="./자이언트_확인요청_20260901.html">자이언트 확인요청</a>
+    <a href="./자료_인덱스_20260901.html" class="active">자료 인덱스</a>
+  </nav>
+
+  <h1>관세청 자료 인덱스 및 정리 기준</h1>
+  <div class="meta">기준 시각 2026-09-01 · 파일 삭제·이동 없이 정본·공유본·원본·이력·임시 산출물을 구분한 1차 정리</div>
+  <div class="topline">현재 연계 정본: <span>동수 V2-1</span> + <span>Geek V2-2</span> → 자이언트의 유효한 V2-2 필드 우선 병합</div>
+  <div class="box danger"><strong>이 인덱스의 목적</strong><br>파일명이 “최종”, “v6”, 날짜본으로 혼재해 문서 제목만으로 현행 여부를 판단할 수 없습니다. 삭제나 일괄 이동을 먼저 하면 기존 링크와 근거가 끊기므로, 현행 문서의 읽는 순서와 각 파일의 역할을 먼저 고정합니다.</div>
+
+  <section id="summary">
+    <h2>1. 현재 폴더 상태</h2>
+    <table>
+      <thead><tr><th class="w16">영역</th><th class="w16">확인 파일 수</th><th class="w22">용도</th><th>현재 판정</th></tr></thead>
+      <tbody>
+        <tr><td><code>documents/</code></td><td>17</td><td>외부 원본·계약·견적·정본 메모·대화 원문</td><td><span class="badge b-protect">원본 보호</span> PDF·PPTX·XLSX는 수정하지 않습니다. Markdown 2개는 내부 근거 정리입니다.</td></tr>
+        <tr><td><code>planning/</code></td><td>20</td><td>공유 문서·브리핑·협의자료·운영 기준</td><td><span class="badge b-current">운영 중심</span> 기존 19개에 이 인덱스 1개를 추가했습니다. 날짜가 다른 현행본과 이력본이 같은 폴더에 있어 역할 표시가 필요합니다.</td></tr>
+        <tr><td><code>outputs/</code></td><td>10</td><td>2026-08-28 엑셀 결과물 5개와 검사 로그 5개</td><td><span class="badge b-history">산출 이력</span> 중복처럼 보여도 생성 단계와 전달 대상을 확인하기 전 삭제하지 않습니다.</td></tr>
+        <tr><td><code>tmp/</code></td><td>26</td><td>PDF 검토용 페이지 이미지</td><td><span class="badge b-check">정리 후보</span> 근거 캡처로 재사용될 수 있어 이번 작업에서는 보존합니다.</td></tr>
+        <tr><td><code>.codex_tmp/</code></td><td>20</td><td>추출·엑셀 수정 스크립트와 전후 미리보기</td><td><span class="badge b-check">정리 후보</span> 재현용 스크립트 여부를 확인한 뒤 별도 정리해야 합니다.</td></tr>
+        <tr><td><code>test/</code></td><td>1</td><td>UNI-PASS 콘솔 ZIP</td><td><span class="badge b-source">검증 도구</span> 용도와 버전 검증 전 보존합니다.</td></tr>
+        <tr><td>루트 파일</td><td>2</td><td><code>key.txt</code>, <code>tmp_typecode.txt</code></td><td><span class="badge b-protect">확인 필요</span> <code>key.txt</code>는 비밀정보 가능성이 있어 내용을 열거나 이동하지 않았습니다.</td></tr>
+      </tbody>
+    </table>
+    <div class="box info"><strong>수치 출처:</strong> 2026-09-01 로컬 파일시스템의 재귀 파일 목록. 숨김 폴더를 포함하며, 빈 디렉터리는 파일 수에 포함하지 않았습니다.</div>
+  </section>
+
+  <section id="reading">
+    <h2>2. 지금 읽어야 하는 순서</h2>
+    <ol class="steps">
+      <li><a href="./현황브리핑_20260901.html"><strong>현황 브리핑 2026-09-01</strong></a>에서 문제·결정·미확인·당일 조치를 먼저 확인합니다.</li>
+      <li><a href="./planning_v6.html"><strong>통합 기획서 planning_v6</strong></a>에서 전체 업무 구조와 운영 흐름을 확인합니다.</li>
+      <li><a href="./api_field_mapping.html"><strong>API 필드 매핑</strong></a>에서 동수 V2-1, Geek V2-2, 자이언트 병합 우선순위와 필드 조건을 확인합니다.</li>
+      <li><a href="./리스크_질의대장.html"><strong>리스크·질의 대장</strong></a>에서 확정 사실·미확인 항목·담당자·기한·회신 이력을 관리합니다.</li>
+      <li>외부 전달은 대상에 따라 <a href="./동수_협의자료_20260901.html">동수 협의자료</a> 또는 <a href="./자이언트_확인요청_20260901.html">자이언트 확인요청</a>을 사용합니다.</li>
+    </ol>
+  </section>
+
+  <section id="current">
+    <h2>3. 현행 문서 지도</h2>
+    <table>
+      <thead><tr><th class="w22">파일</th><th class="w16">역할</th><th class="w28">현재 담는 내용</th><th>사용 규칙</th></tr></thead>
+      <tbody>
+        <tr><td><a href="./현황브리핑_20260901.html">현황브리핑_20260901.html</a></td><td><span class="badge b-current">현재 상황</span></td><td>90건 사고, PCCC 수집 오류, V2-1/V2-2 전환, 미확인 결과와 P0 조치</td><td>회의 시작점. 상태가 바뀌면 새 날짜본을 만들고 이 문서는 당시 스냅샷으로 보존합니다.</td></tr>
+        <tr><td><a href="./planning_v6.html">planning_v6.html</a><br><a href="./planning_v6_cn.html">planning_v6_cn.html</a></td><td><span class="badge b-current">공유 설계</span></td><td>전체 기획, 주체별 책임, 처리 흐름, 운영 기준</td><td>한글·중문을 함께 갱신합니다. 문서 구조와 UI를 임의 변경하지 않습니다.</td></tr>
+        <tr><td><a href="./api_field_mapping.html">api_field_mapping.html</a><br><a href="./api_field_mapping_cn.html">api_field_mapping_cn.html</a></td><td><span class="badge b-current">필드 계약</span></td><td>필드 출처, 필수조건, V2-2 우선·빈값 보호, 검증 테스트</td><td>필드명·필수 여부·코드값은 원본 명세 또는 상대 회신 근거와 함께 변경합니다.</td></tr>
+        <tr><td><a href="./리스크_질의대장.html">리스크_질의대장.html</a></td><td><span class="badge b-current">단일 대장</span></td><td>확정·미확인·모순·질의·회신·담당·기한</td><td>새 회신과 확정 사실을 가장 먼저 기록하는 정본입니다.</td></tr>
+        <tr><td><a href="./동수_협의자료_20260901.html">동수_협의자료_20260901.html</a><br><a href="./동수_협의자료_20260901_cn.html">동수_협의자료_20260901_cn.html</a></td><td><span class="badge b-current">동수 전달본</span></td><td>V2-1 통일, 2026-09-02 적용 예정, 요청·응답·재시도·E2E 기준</td><td>현행 동수 전달본. 한글·중문을 동일 사실로 유지합니다.</td></tr>
+        <tr><td><a href="./자이언트_확인요청_20260901.html">자이언트_확인요청_20260901.html</a></td><td><span class="badge b-current">자이언트 질의</span></td><td>V2-2 우선 병합, PCCC 예외 범위, 90건 결과, 로그·대사 요청</td><td>자이언트 회신 수신 후 대장과 메모를 먼저 갱신합니다.</td></tr>
+        <tr><td><a href="./유형코드_부호체계_정리.html">유형코드_부호체계_정리.html</a><br><a href="./유형코드_부호체계_정리_cn.html">유형코드_부호체계_정리_cn.html</a></td><td><span class="badge b-current">업무 코드</span></td><td>A/B/C 의미, 업체부호, 채널별 적용, 신고 경로 분리</td><td>전송 버전은 2026-09-01 상단 정정을 우선하고, 세부 코드 근거는 기존 이력을 유지합니다.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="sources">
+    <h2>4. 근거·원본 지도</h2>
+    <table>
+      <thead><tr><th class="w28">경로</th><th class="w22">종류</th><th>역할과 보호 기준</th></tr></thead>
+      <tbody>
+        <tr><td><code>documents/관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1.pdf</code></td><td><span class="badge b-source">관세청 원본</span></td><td>TRA/PER 등 공식 필드와 필수 여부의 근거. PDF 원본은 수정하지 않습니다.</td></tr>
+        <tr><td><code>documents/2026 전자상거래 전용 통관플랫폼 FAQ.pdf</code><br><code>documents/전자상거래전용 통관플랫폼 사업소개(202607)_v1.6(글꼴포함).pdf</code></td><td><span class="badge b-source">정책 원본</span></td><td>제도·주체·운영 해석의 근거. 요약이 원본을 대체하지 않습니다.</td></tr>
+        <tr><td><code>documents/개인통관고유부호*.pdf</code><br><code>documents/NICE*.pdf</code></td><td><span class="badge b-source">인증 원본</span></td><td>PCCC·CI 검증 구조와 서비스 범위의 근거. 계약·가이드 문서를 분리해 읽습니다.</td></tr>
+        <tr><td><a href="../documents/20260901_자이언트_운영전환_협의원문.md">20260901_자이언트_운영전환_협의원문.md</a></td><td><span class="badge b-source">대화 원문</span></td><td>2026-09-01 자이언트 협의의 원문, 사용자 확정사항, 해석상 주의사항. 원문 표현 `v1 gate`를 보존합니다.</td></tr>
+        <tr><td><a href="../documents/자이언트_API_메모.md">자이언트_API_메모.md</a></td><td><span class="badge b-source">내부 계약 메모</span></td><td>자이언트 API 버전·필드·병합 차이·질의 이력을 정리합니다. 공개 명세와 실제 회신을 구분합니다.</td></tr>
+        <tr><td><code>documents/(GeekStudio)*계약서.pdf</code><br><code>documents/[GeekStudio]*견적*.pdf</code></td><td><span class="badge b-protect">계약·견적 원본</span></td><td>범위·금액·납기의 근거. 변경 또는 덮어쓰기를 금지합니다.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="history">
+    <h2>5. 이력·참고 문서</h2>
+    <table>
+      <thead><tr><th class="w28">파일</th><th class="w16">판정</th><th>보존 이유와 주의사항</th></tr></thead>
+      <tbody>
+        <tr><td><a href="./동수_최종전달기준_20260828.html">동수_최종전달기준_20260828.html</a><br><a href="./동수_최종전달기준_20260828_cn.html">동수_최종전달기준_20260828_cn.html</a></td><td><span class="badge b-history">이력본</span></td><td>2026-08-28 당시 A/B와 신고 경로 분리 기준. “최종”이라는 파일명과 달리 현행 전송본이 아니며, 첫 화면의 2026-09-01 정정을 우선합니다.</td></tr>
+        <tr><td><a href="./동수_관세신고_연동회의_한중.html">동수_관세신고_연동회의_한중.html</a></td><td><span class="badge b-history">회의 참고</span></td><td>이전 한중 회의 자료. 2026-09-01 전송 버전과 사고 현황을 반영한 현행 전달본으로 사용하지 않습니다.</td></tr>
+        <tr><td><a href="./CS_QA_통관.html">CS_QA_통관.html</a><br><a href="./banner_cs_policy.html">banner_cs_policy.html</a></td><td><span class="badge b-history">고객응대 참고</span></td><td>통관 CS 문구와 배너 정책. 개발 전송 규격의 정본이 아닙니다.</td></tr>
+        <tr><td><a href="./privacy_policy_final.html">privacy_policy_final.html</a><br><code>아이베 개인정보처리방침 등 수정안_최앤리 검토(markup).docx</code></td><td><span class="badge b-history">법무 참고</span></td><td>개인정보 정책과 법무 검토 자료. “final” 명칭만 보고 현재 게시본으로 판단하지 말고 적용 이력 확인이 필요합니다.</td></tr>
+        <tr><td><code>planning/도메인모음_20260828.xlsx</code></td><td><span class="badge b-history">채널 마스터</span></td><td>2026-08-28 기준 채널 정적 정보. 주문별 PCCC·OTP·완료일시를 넣는 파일이 아닙니다.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="temp">
+    <h2>6. 임시·산출물 정리 판정</h2>
+    <table>
+      <thead><tr><th class="w22">대상</th><th class="w16">현재 조치</th><th class="w28">문제</th><th>삭제·이동 전 확인 조건</th></tr></thead>
+      <tbody>
+        <tr><td><code>outputs/20260828_*/</code></td><td>보존</td><td>같거나 비슷한 엑셀명이 5개 있고 각 검사 로그가 따라붙어 최종 전달본 식별이 어렵습니다.</td><td>실제 전달 파일, 한글/중문 대상, V2 분기 실험본을 지정한 뒤 나머지를 `_archive/20260828/`로 이동합니다.</td></tr>
+        <tr><td><code>tmp/pdfs/</code></td><td>보존</td><td>원본 PDF에서 뽑은 26개 근거 이미지이나 어떤 문서에서 사용하는지 목록이 없습니다.</td><td>각 이미지의 원본 PDF·페이지·인용 문서를 매핑한 뒤 재생성 가능한 파일만 정리합니다.</td></tr>
+        <tr><td><code>.codex_tmp/</code></td><td>보존</td><td>일회성 스크립트와 전후 미리보기가 섞여 있습니다.</td><td>현재 산출물을 재현하는 스크립트만 <code>tools/</code> 또는 작업 이력 폴더로 승격하고 나머지는 삭제 후보로 분류합니다.</td></tr>
+        <tr><td><code>tmp_typecode.txt</code></td><td>보존</td><td>루트의 임시 텍스트라 현재 참조 여부가 드러나지 않습니다.</td><td>현행 HTML과 스크립트의 참조 여부, 원본 대체 가능성을 확인합니다.</td></tr>
+        <tr><td><code>key.txt</code></td><td>접근·이동 안 함</td><td>비밀키 또는 운영 자격증명일 가능성이 있는 평문 파일입니다.</td><td>소유자와 용도를 확인하고, 비밀이면 저장소 밖 보안 저장소로 이전한 뒤 git 추적·이력 노출 여부를 별도 점검합니다.</td></tr>
+        <tr><td><code>test/UNIPASS-Customs-Console.zip</code></td><td>보존</td><td>약 90MB로 크지만 버전·배포처·실행 목적이 파일명에 없습니다.</td><td>공식 배포본 여부, 체크섬, 필요한 실행환경, 재다운로드 가능성을 확인합니다.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="issues">
+    <h2>7. 파일·내용 체계의 핵심 문제점</h2>
+    <table>
+      <thead><tr><th class="w16">우선순위</th><th class="w22">문제</th><th class="w28">현재 영향</th><th>정리 기준</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge b-protect">P0</span></td><td>전송 버전 표현 충돌</td><td>대화 원문은 `v1 gate`, 이전 문서는 V2-1/V2-2 분기, 사용자 결정은 동수 V2-1 통일입니다.</td><td>원문은 그대로 보존하고 현행 공유 문서는 “동수 V2-1, Geek V2-2, 자이언트 V2-2 유효값 우선”으로 통일합니다.</td></tr>
+        <tr><td><span class="badge b-protect">P0</span></td><td>90건 결과가 비어 있음</td><td>보완 필요와 13:00~14:00 시한만 있고 실제 보완·접수·신고 결과가 없습니다.</td><td>주문별 키, 신고방식, 필드 충족, 송신·접수 시각, 결과코드, 재처리 상태를 대장화합니다.</td></tr>
+        <tr><td><span class="badge b-protect">P0</span></td><td>필드 출처 추적 부재</td><td>병합 후 값만 보면 동수 V2-1과 Geek V2-2 중 어느 값이 최종 반영됐는지 증명할 수 없습니다.</td><td>필드별 `source`, 원본값, 최종값, 수신시각, 병합 규칙 버전을 저장합니다.</td></tr>
+        <tr><td><span class="badge b-check">P1</span></td><td>“최종” 파일명이 낡음</td><td>2026-08-28 파일이 현행본처럼 보입니다.</td><td>삭제 대신 상단 정정 배너로 이력본임을 명시했습니다. 다음 구조 개편 때 `_archive/20260828/` 이동과 링크 수정을 같은 변경으로 처리합니다.</td></tr>
+        <tr><td><span class="badge b-check">P1</span></td><td>한글·중문 문서의 화면 체계 차이</td><td>내용 동기화가 되어도 일부 중문 문서의 이전 내비게이션·레이아웃이 남아 있습니다.</td><td>공유 양식 구조 보존 규칙 때문에 이번에는 내용을 우선 동기화했습니다. 다음 양식 개편은 한글·중문을 한 작업으로 승인받아 진행합니다.</td></tr>
+        <tr><td><span class="badge b-check">P1</span></td><td>임시·결과 파일의 수명주기 없음</td><td>재현 자산과 삭제 가능한 캐시를 구분할 수 없습니다.</td><td>원본·재현 스크립트·최종 산출물·검사 로그를 묶고, 참조가 없는 캐시만 삭제 대상으로 지정합니다.</td></tr>
+        <tr><td><span class="badge b-history">P2</span></td><td>민감 파일 가능성</td><td><code>key.txt</code>가 루트에 있으나 용도와 추적 상태를 이 인덱스 작성 중에는 확인하지 않았습니다.</td><td>내용을 공유 문서에 노출하지 말고, 소유자 확인 후 별도 보안 점검으로 처리합니다.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="rules">
+    <h2>8. 이후 파일 정리 규칙</h2>
+    <div class="box ok"><strong>문서 계층</strong><br>① 원본은 <code>documents/</code>에서 불변 보존 → ② 확정·질의는 <code>리스크_질의대장.html</code>에 먼저 기록 → ③ 공유 설계와 필드 문서의 한글·중문을 동시 반영 → ④ 날짜 브리핑과 상대별 전달본을 생성 → ⑤ 지난 전달본은 링크를 정리한 뒤 이력 폴더로 이동합니다.</div>
+    <ul>
+      <li>파일명에 “최종”을 사용하지 않고 날짜와 대상을 사용합니다. 예: <code>동수_협의자료_YYYYMMDD.html</code>.</li>
+      <li>확정, 예정, 미확인을 같은 문장에 섞지 않습니다. 예정에는 적용일과 검증 상태를 함께 씁니다.</li>
+      <li>숫자·날짜·금액·필드명은 원본 경로나 회신 일시를 붙입니다. 확인하지 못한 값은 <code>미확인</code>으로 남깁니다.</li>
+      <li>한글·중문 공유본은 같은 변경에서 동시에 수정합니다.</li>
+      <li>모든 브리핑·협의자료는 <code>planning_v6</code>의 흰 배경, 상단 핵심 내비게이션, 표·상태 박스, 우측 목차 체계를 사용합니다.</li>
+      <li>파일을 이동하거나 통합할 때 기존 링크와 현황판을 같은 변경에서 갱신합니다. 원본·계약·견적은 이동 또는 덮어쓰기 전에 별도 승인을 받습니다.</li>
+    </ul>
+  </section>
+
+  <section id="next">
+    <h2>9. 다음 조치</h2>
+    <table>
+      <thead><tr><th class="w16">순서</th><th class="w22">담당</th><th>완료 조건</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>자이언트</td><td>90건별 최종 신고방식·보완필드·접수결과와 V2-2 우선·빈값 보호 적용 여부를 회신합니다.</td></tr>
+        <tr><td>2</td><td>동수</td><td>2026-09-02 첫 적용 주문의 V2-1 요청·응답·키·재시도 로그를 제공합니다.</td></tr>
+        <tr><td>3</td><td>Geek</td><td>동일 키 V2-2 보완필드, PCCC·일회용 번호의 인증 원본 출처, 오류 복구 건수를 제공합니다.</td></tr>
+        <tr><td>4</td><td>내부 운영</td><td>혼재 기간의 정확한 종료 일시와 주문별 <code>declarationMode</code> 판정 근거를 확정합니다.</td></tr>
+        <tr><td>5</td><td>파일 소유자</td><td><code>key.txt</code>, 임시 폴더, outputs 중 실제 최종 전달본을 확인합니다. 확인 전에는 삭제하거나 이동하지 않습니다.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+</body>
+</html>

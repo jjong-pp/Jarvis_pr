@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>자이언트 V2-1·V2-2 우선 병합 구현·확인 요청 — 2026-09-01</title>
+<style>
+body{font-family:'Inter',-apple-system,sans-serif;background:#fff;color:#333;line-height:1.6;padding:40px;margin:0}.container{max-width:1500px;margin:0 auto}h1{color:#111;border-bottom:3px solid #1a73e8;padding-bottom:12px;margin-bottom:20px;font-size:26px}h2{color:#202124;border-bottom:2px solid #1a73e8;padding-bottom:8px;margin-top:40px;font-size:20px;display:flex;align-items:center;justify-content:space-between;scroll-margin-top:16px}h3{color:#3c4043;margin-top:25px;font-size:16px}table{width:100%;border-collapse:collapse;margin-bottom:25px;font-size:12px}th,td{border:1px solid #eaeaea;padding:8px 10px;text-align:left;vertical-align:top}th{background:#f8f9fa;font-weight:600;color:#555;position:sticky;top:0;z-index:10}code{background:#f1f3f4;padding:1px 4px;border-radius:3px;font-family:Consolas,monospace;font-size:12px}.badge{display:inline-block;padding:3px 6px;border-radius:4px;font-size:11px;font-weight:bold}.req-y{background:#ffeaea;color:#d93025}.req-n{background:#e8f0fe;color:#1a73e8}.req-c{background:#fff3cd;color:#856404}.src-dongsu{background:#e6f4ea;color:#137333;font-weight:bold}.src-geek{background:#e8f0fe;color:#1a73e8;font-weight:bold}.src-gen{background:#fce8e6;color:#c5221f;font-weight:bold}.stage-box{background:#fcfcfc;border:1px solid #e0e0e0;border-left:5px solid #1a73e8;padding:18px 22px;margin-bottom:20px;border-radius:4px}.stage-box p{margin:0 0 10px;font-size:14px}.stage-box ul{margin:0;padding-left:20px;font-size:13.5px}.stage-box li{margin-bottom:6px}.time-tag{background:#1a73e8;color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:bold;margin-right:8px}.rule-highlight{background:#fff3cd;color:#856404;padding:2px 6px;border-radius:3px;font-weight:bold}.core-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}.core-nav a{display:inline-block;background:#3c4043;color:#fff;padding:8px 13px;border-radius:4px;text-decoration:none;font-size:13px;font-weight:700;margin:0}.core-nav a:hover{background:#202124}.core-nav a.active{background:#1a73e8}#toc{position:fixed;top:0;right:0;width:250px;height:100vh;overflow-y:auto;background:#fff;border-left:1px solid #e0e0e0;padding:18px 14px 40px;z-index:500;font-size:12.5px;box-shadow:-2px 0 8px rgba(0,0,0,.04)}#toc h4{margin:0 0 10px;font-size:12px;color:#5f6368;letter-spacing:.5px;text-transform:uppercase}#toc a{display:block;padding:6px 9px;margin-bottom:2px;color:#3c4043;text-decoration:none;border-radius:4px;border-left:3px solid transparent;line-height:1.35}#toc a:hover{background:#f1f3f4}#toc a.active{background:#e8f0fe;color:#1557b0;font-weight:700;border-left-color:#1a73e8}#tocToggle{position:fixed;top:14px;right:262px;z-index:501;background:#1a73e8;color:#fff;border:0;border-radius:4px;padding:7px 11px;font-size:12px;font-weight:700;cursor:pointer}body{padding-right:268px}body.toc-off{padding-right:40px}body.toc-off #toc{display:none}body.toc-off #tocToggle{right:14px}@media(max-width:1100px){#toc,#tocToggle{display:none}body{padding-right:40px}}@media(max-width:640px){body,body.toc-off{padding:18px}h1{font-size:23px}h2{display:block;font-size:18px}table{display:block;max-width:100%;overflow-x:auto}.stage-box{padding:14px}code{overflow-wrap:anywhere;word-break:break-word}}
+</style>
+</head>
+<body>
+<button id="tocToggle" onclick="document.body.classList.toggle('toc-off')">목차</button>
+<nav id="toc"><h4>목차</h4><div id="tocList"></div></nav>
+<div class="container">
+<nav class="core-nav" aria-label="주요 문서"><a href="./현황브리핑_20260901.html">운영 현황</a><a href="./planning_v6.html">통합 기획서</a><a href="./api_field_mapping.html">API 필드 매핑</a><a href="./자이언트_확인요청_20260901.html" class="active">자이언트 구현 요청</a><a href="./리스크_질의대장.html">리스크·질의 대장</a></nav>
+<h1>자이언트 V2-1·V2-2 우선 병합 구현·확인 요청</h1>
+<div style="background:#202124;color:#e8eaed;padding:11px 18px;border-radius:5px;margin-bottom:16px;font-size:14px;font-weight:600;line-height:1.6;">기준일 <span style="color:#8ab4f8;font-size:16px;">2026-09-01</span> · 확정 구조 <span style="color:#8ab4f8;">동수 V2-1 + Geek V2-2</span><span style="font-weight:400;color:#bdc1c6;"> · 요청 성격: 가능 여부 재질의가 아니라 구현범위·운영결과 확인</span></div>
+
+<div style="background:#e6f4ea;border-left:5px solid #137333;padding:14px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#174d2a;line-height:1.8;"><strong>[확인된 합의]</strong><br>동수가 V2-1로 보내고 Geek이 병합 API인 V2-2로 보내면 Geek 데이터로 업데이트된다는 2026-09-01 10:54 회신을 운영 기준으로 반영합니다. 따라서 본 문서는 구조 가능 여부를 다시 묻지 않고 <strong>필드 우선순위·빈 값 방어·도착순서·로그·90건 결과</strong>를 구현·확인 요청합니다.</div>
+<div style="background:#fce8e6;border-left:5px solid #c5221f;padding:14px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#5f2120;line-height:1.8;"><strong>[현재 사고]</strong> 2026-08-31 문제 90건은 구 API 전송으로 신규 신고용 업체부호·일회용 인증번호 등이 누락됐고 일부 PCCC는 수집 오류로 확보되지 않았습니다. 2026-09-01 13:00~14:00 전 보완 조건만 확인됐으며 전량 보완·접수 결과는 미확인입니다.</div>
+
+<h2 id="architecture">1. 구현할 최종 구조</h2>
+<table><thead><tr><th style="width:15%">단계</th><th style="width:19%">입력</th><th>자이언트 처리</th><th style="width:29%">필수 결과</th></tr></thead><tbody>
+<tr><td><span class="time-tag">1</span>동수 선·후도착</td><td class="src-dongsu">V2-1</td><td>동수 스냅샷을 <code>hwbNo + orderNo</code>에 저장. 일회용 번호가 없는 주문도 계약된 상태로 수용 또는 명시적 사유 반환.</td><td>저장시각, 응답상태, 누락필드, 신고 후보상태.</td></tr>
+<tr><td><span class="time-tag">2</span>Geek 선·후도착</td><td class="src-geek">V2-2 <code>clearance</code></td><td>같은 키에서 Geek이 보낸 유효한 비공백 통관·인증 필드를 우선 적용.</td><td>필드별 적용 원천, 변경 전후, 검증결과.</td></tr>
+<tr><td><span class="time-tag">3</span>최종검증</td><td class="src-gen">병합 레코드</td><td>V2-2에 없는 동수 물류·상품값은 유지. 신고방식별 필수값을 확인해 기존 또는 신규 신고 처리.</td><td>신고방식, 접수번호, 접수시각, 오류코드·메시지.</td></tr>
+</tbody></table>
+
+<h2 id="priority">2. 필드 우선순위 요구사항</h2>
+<table><thead><tr><th>필드군</th><th>기본 원천</th><th>Geek V2-2 도착 시</th><th>빈 값·오류 처리</th></tr></thead><tbody>
+<tr><td>주문자·수하인·주소·전화</td><td>동수 V2-1</td><td class="src-geek">Geek의 유효한 비공백 값을 우선 적용</td><td>Geek의 <code>null</code>·빈 문자열은 동수 정상값을 지우지 않음.</td></tr>
+<tr><td><code>pccCode</code></td><td>동수 V2-1 또는 누락</td><td class="src-geek">Geek PER 반환값 우선</td><td>형식 오류·원천 미증빙 값은 격리. 임의 P/O 생성 금지.</td></tr>
+<tr><td><code>tempAuthNo</code></td><td>동수에 없을 수 있음</td><td class="src-geek">Geek의 정식 인증 결과 적용</td><td>빈 값으로 기존 값을 지우지 않음. 임의값·근거 없는 <code>Z99999</code> 금지.</td></tr>
+<tr><td><code>orderCompletionDate</code></td><td>동수 주문값</td><td class="src-geek">Geek 자사몰 결제완료 원천값 우선</td><td>형식만 맞춘 가짜 일시 금지. 실제 주문시각과 불일치하면 오류.</td></tr>
+<tr><td>중량·포장·운송·상품·금액</td><td class="src-dongsu">동수 V2-1</td><td>Geek V2-2 비소유</td><td>V2-2 요청에 없다는 이유로 초기화하지 않음.</td></tr>
+</tbody></table>
+<div class="stage-box"><p><strong>우선순위 범위 확인 요청</strong></p><ul><li>“Geek 데이터로 업데이트”가 스냅샷 전체 교체가 아니라 <strong>Geek이 실제로 보낸 필드 단위 업데이트</strong>인지 확인해 주십시오.</li><li>V2-2의 빈 값이 V2-1 정상값을 삭제하지 않도록 해주십시오.</li><li>필드별 최종 적용원천을 <code>DONGSU_V2_1</code> 또는 <code>GEEK_V2_2</code>로 조회 가능하게 해주십시오.</li></ul></div>
+
+<h2 id="validation">3. 검증 예외의 범위 확인</h2>
+<table><thead><tr><th style="width:19%">회신 내용</th><th>현재 해석</th><th style="width:34%">확인 요청</th></tr></thead><tbody>
+<tr><td>V2-1에는 일회용 번호가 없이 들어올 수 있음</td><td>동수 V2-1 입력 단계에서 일회용 번호 누락을 허용하는 운영 예외.</td><td>필드 생략/<code>null</code>/빈 문자열 중 허용 형식, 응답상태, 예외 종료일.</td></tr>
+<tr><td>수하인정보 검증하고 개인통관고유부호는 제외</td><td>자이언트 입력 검증의 단기 예외로만 해석. 세관 신고상 PCCC 면제는 아님.</td><td>제외되는 정확한 검증 항목, 기존/신규 신고별 적용, 신고단계 보완 주체·기한.</td></tr>
+<tr><td>Geek 데이터로 업데이트</td><td>동일키·겹치는 유효 필드의 Geek 우선.</td><td>도착순서 양방향, 병합완료 후 재전송, <code>H019</code> 적용 여부.</td></tr>
+</tbody></table>
+
+<h2 id="routing">4. 전환기 신고방식 처리</h2>
+<table><thead><tr><th>주문 데이터</th><th>대화에서 확인된 방향</th><th>자이언트가 남길 결과</th></tr></thead><tbody>
+<tr><td>외부 채널의 P 시작 PCCC</td><td>기존 신고방식으로 신고 예정.</td><td><code>LEGACY_IMPORT</code>, 판정시각, 접수번호, 결과.</td></tr>
+<tr><td>정식 일회용 부호와 신규 신고 필수값 보유</td><td>신규 신고방식으로 진행.</td><td><code>ECOMMERCE_DEDICATED</code>, 적용 필수값, 접수번호, 결과.</td></tr>
+<tr><td>자사몰 PER 결과 O/P 혼재</td><td>신규 신고 요청 의사가 있으나 모든 필수데이터 제공이 조건.</td><td>주문별 실제 신고방식과 신규 신고 미적용 사유.</td></tr>
+<tr><td>PCCC·인증 근거 미확보</td><td>검증 예외 또는 보완 필요.</td><td>격리/보완/기존 신고 중 선택 결과와 책임자·기한.</td></tr>
+</tbody></table>
+<div style="background:#fff3cd;border-left:5px solid #856404;padding:14px 18px;margin-bottom:18px;border-radius:4px;font-size:13px;color:#6b5200;line-height:1.8;"><strong>종료시각 확인 요청</strong> — 대화에는 “어제부터 향후 3일 간 혼재”라고만 남아 있습니다. 적용 종료를 <strong>YYYY-MM-DD HH:mm</strong>과 주문 생성시각 기준으로 회신해 주십시오.</div>
+
+<h2 id="incident">5. 90건 처리 결과 요청</h2>
+<table><thead><tr><th>필수 집계</th><th>요청 값</th><th style="width:29%">완료 판정</th></tr></thead><tbody>
+<tr><td>수신</td><td>대상 90건, 구 API 수신 건수, 2026-09-01 보완 수신 건수·시각.</td><td>90건과 수신·보완 합계가 주문키 기준으로 대사됨.</td></tr>
+<tr><td>데이터</td><td>업체부호·PCCC·일회용 인증번호·신규 신고 필수값의 건별 보유/누락.</td><td>누락필드 배열과 보완 책임이 각 주문에 있음.</td></tr>
+<tr><td>신고방식</td><td>기존 신고 건수, 신규 신고 건수, 보류·격리 건수.</td><td>90건 전부가 한 상태에만 속함.</td></tr>
+<tr><td>결과</td><td>접수번호, 접수시각, 오류코드·메시지, 통관 진행상태.</td><td>“요청 수신”이 아니라 신고 접수 결과까지 확인.</td></tr>
+<tr><td>의심 O부호</td><td><code>O000…0004</code>의 진위 판정 또는 검증불가 사유.</td><td>가짜로 단정하지 않고 원천 증빙 유무로 판정.</td></tr>
+</tbody></table>
+
+<h2 id="tests">6. 필수 E2E 테스트</h2>
+<table><thead><tr><th style="width:8%">ID</th><th>시나리오</th><th>기대 결과</th><th style="width:27%">회신 증적</th></tr></thead><tbody>
+<tr><td><span class="badge req-y">G-01</span></td><td>V2-1 선도착 → V2-2 후도착</td><td>Geek 유효필드 우선, 동수 물류·상품 유지.</td><td>요청 2건, 병합 전후값, 필드별 원천.</td></tr>
+<tr><td><span class="badge req-y">G-02</span></td><td>V2-2 선도착 → V2-1 후도착</td><td>후행 V2-1이 Geek 우선필드를 되돌리지 않음.</td><td>수신시각 역전 로그와 최종값.</td></tr>
+<tr><td><span class="badge req-y">G-03</span></td><td>V2-2에 <code>null</code>·빈 문자열</td><td>V2-1 정상값 보존, 빈 값은 무시 또는 명시적 오류.</td><td>필드별 처리결과.</td></tr>
+<tr><td><span class="badge req-y">G-04</span></td><td>일회용 번호 없는 V2-1</td><td>계약된 대기·수용·기존 신고 처리 중 하나로 명확히 반환.</td><td>요청 예시와 응답코드.</td></tr>
+<tr><td><span class="badge req-y">G-05</span></td><td>병합완료 후 Geek 재전송</td><td>허용된 갱신 또는 명시적 정정절차. 조용한 무시 금지.</td><td><code>H019</code> 포함 실제 결과.</td></tr>
+<tr><td><span class="badge req-c">G-06</span></td><td>의심 O부호·PCCC 누락</td><td>형식 통과와 진위확인을 구분하고 보완상태로 격리.</td><td>오류·상태코드와 보완 절차.</td></tr>
+</tbody></table>
+
+<h2 id="remaining">7. 기존 미해소 운영 항목</h2>
+<table><thead><tr><th style="width:8%">ID</th><th>항목</th><th>확인 요청</th></tr></thead><tbody>
+<tr><td><span class="badge req-c">G-07</span></td><td><code>bulk-sync/status/search</code> 또는 대체 로그</td><td><code>pending</code>의 상대 대기와 최종검증 실패를 구분하고 누락필드·원천을 조회할 수 있어야 함.</td></tr>
+<tr><td><span class="badge req-c">G-08</span></td><td>등록 후 정정·삭제</td><td>신고 전/후 허용 경로, 병합완료 건 수정, HBL 변경 시 재신고 절차.</td></tr>
+<tr><td><span class="badge req-c">G-09</span></td><td>공개 V2-1 규격과 운영 예외 차이</td><td>필드별 필수조건·오류코드·예외 종료일·변경 이력 제공.</td></tr>
+<tr><td><span class="badge req-c">G-10</span></td><td>전체 통관 이상 코드표</td><td><code>gngMsgCode</code> 별첨 원문과 24·26 코드 존재 여부.</td></tr>
+</tbody></table>
+
+<div style="background:#e8f0fe;padding:14px 18px;border-left:5px solid #1a73e8;margin-top:30px;border-radius:4px;font-size:13px;line-height:1.8;"><strong>회신 기록</strong> — 답변은 <a href="./리스크_질의대장.html">리스크·질의 대장</a>에 먼저 반영합니다. 공개 규격과 운영 예외의 차이는 <code>../documents/자이언트_API_메모.md</code>에 정정 이력으로 남깁니다.</div>
+</div>
+<script>(function(){var list=document.getElementById('tocList');if(!list)return;var heads=Array.prototype.slice.call(document.querySelectorAll('.container h2')),links=[];heads.forEach(function(h,i){var label=h.textContent.trim();if(!h.id)h.id='sec'+i;var a=document.createElement('a');a.href='#'+h.id;a.textContent=label.length>34?label.slice(0,33)+'…':label;a.title=label;list.appendChild(a);links.push({a:a,h:h})});function onScroll(){var y=window.scrollY+90,cur=links[0];links.forEach(function(o){if(o.h.offsetTop<=y)cur=o});links.forEach(function(o){o.a.classList.toggle('active',o===cur)})}window.addEventListener('scroll',onScroll,{passive:true});onScroll()})();</script>
+</body>
+</html>
