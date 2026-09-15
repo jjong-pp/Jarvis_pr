@@ -1,0 +1,197 @@
+{"kind":"deck","id":"pr/z7mln7","name":"Deck"}
+{"kind":"layout","layoutId":"f28a4fbc-ed12-4e41-88ad-33375d316aa9","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"7c510374-4804-45c4-b435-384a9ee6d270","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/nbm5vo","slide":1,"title":"수요예측·재고 운영","textShapes":11}
+{"kind":"shape","id":"sh/x4jm1kb2","slide":1,"bbox":[0,0,710,720]}
+{"kind":"textbox","id":"sh/a1snq5sb","slide":1,"text":"수요예측·재고 운영","textPreview":"수요예측·재고 운영","textChars":10,"textLines":1,"bbox":[70,150,570,72]}
+{"kind":"textbox","id":"sh/b214zatw","slide":1,"text":"판매·출고·재고 데이터를\n월간 발주 판단으로 연결한 경험","textPreview":"판매·출고·재고 데이터를 | 월간 발주 판단으로 연결한 경험","textChars":31,"textLines":2,"bbox":[70,238,550,110]}
+{"kind":"textbox","id":"sh/k7u5wfat","slide":1,"text":"박종혁","textPreview":"박종혁","textChars":3,"textLines":1,"bbox":[70,555,210,45]}
+{"kind":"textbox","id":"sh/l8365kbe","slide":1,"text":"비나우 구매 수요예측(S&OP) 지원","textPreview":"비나우 구매 수요예측(S&OP) 지원","textChars":20,"textLines":1,"bbox":[70,604,420,28]}
+{"kind":"textbox","id":"sh/y5snupsn","slide":1,"text":"40개 SKU","textPreview":"40개 SKU","textChars":7,"textLines":1,"bbox":[790,152,340,52]}
+{"kind":"textbox","id":"sh/j61o3ut8","slide":1,"text":"실제 업무 판단 범위","textPreview":"실제 업무 판단 범위","textChars":11,"textLines":1,"bbox":[790,207,340,25]}
+{"kind":"shape","id":"sh/0bq5kva9","slide":1,"bbox":[790,255,360,0]}
+{"kind":"textbox","id":"sh/1czmt0bu","slide":1,"text":"24주","textPreview":"24주","textChars":3,"textLines":1,"bbox":[790,292,340,52]}
+{"kind":"textbox","id":"sh/p4retwzy","slide":1,"text":"현재고와 입고계획을 연결한 예상 재고","textPreview":"현재고와 입고계획을 연결한 예상 재고","textChars":20,"textLines":1,"bbox":[790,347,390,42]}
+{"kind":"shape","id":"sh/o3ydkrid","slide":1,"bbox":[790,414,360,0]}
+{"kind":"textbox","id":"sh/n2pwrmhs","slide":1,"text":"월간 S&OP","textPreview":"월간 S&OP","textChars":7,"textLines":1,"bbox":[790,450,340,52]}
+{"kind":"textbox","id":"sh/21gvih07","slide":1,"text":"세일즈 전망과 공급 제약을 함께 검토","textPreview":"세일즈 전망과 공급 제약을 함께 검토","textChars":20,"textLines":1,"bbox":[790,505,390,42]}
+{"kind":"textbox","id":"sh/xsrexwzu","slide":1,"text":"초안 v0.2 · 확인된 사실만 사용","textPreview":"초안 v0.2 · 확인된 사실만 사용","textChars":20,"textLines":1,"bbox":[790,640,380,22]}
+{"kind":"notes","id":"nt/nbm5vo","slide":1,"text":"근거: C:/MyMain/main/resume/career_facts.md C-077~C-087\n40개 SKU는 사용자 확인 실무 범위이며 공개 화면은 4개 샘플 SKU입니다."}
+{"kind":"slide","id":"sl/yjrup7","slide":2,"title":"02","textShapes":14}
+{"kind":"textbox","id":"sh/fqp8bypo","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[52,36,46,28]}
+{"kind":"textbox","id":"sh/gryp436t","slide":2,"text":"장기 리드타임 상품의 발주 판단 구조","textPreview":"장기 리드타임 상품의 발주 판단 구조","textChars":20,"textLines":1,"bbox":[104,31,1080,54]}
+{"kind":"textbox","id":"sh/hs7qd87e","slide":2,"text":"자료를 모으는 시간보다 늦게 발견되는 재고 위험이 문제였습니다","textPreview":"자료를 모으는 시간보다 늦게 발견되는 재고 위험이 문제였습니다","textChars":34,"textLines":1,"bbox":[104,82,1080,30]}
+{"kind":"shape","id":"sh/6lw7ytor","slide":2,"bbox":[52,116,1176,0]}
+{"kind":"textbox","id":"sh/7m587ypc","slide":2,"text":"분산된 원천","textPreview":"분산된 원천","textChars":6,"textLines":1,"bbox":[72,155,270,34]}
+{"kind":"shape","id":"sh/snep036x","slide":2,"bbox":[72,202,280,286]}
+{"kind":"textbox","id":"sh/tonq987i","slide":2,"text":"판매 전망\n\n주차별 판매·출고\n\n창고별 현재고\n\n도착월별 발주계획","textPreview":"판매 전망 |  | 주차별 판매·출고 |  | 창고별 현재고 |  | 도착월별 발주계획","textChars":36,"textLines":7,"bbox":[102,232,220,230]}
+{"kind":"textbox","id":"sh/ixc7ut8v","slide":2,"text":"기존 작업","textPreview":"기존 작업","textChars":5,"textLines":1,"bbox":[438,155,250,34]}
+{"kind":"shape","id":"sh/jy583epg","slide":2,"bbox":[420,202,320,286]}
+{"kind":"textbox","id":"sh/3mlkvu90","slide":2,"text":"월 8~9시간","textPreview":"월 8~9시간","textChars":7,"textLines":1,"bbox":[452,252,250,52]}
+{"kind":"textbox","id":"sh/i1cj2psf","slide":2,"text":"자료 취합과 Excel 양식 정리","textPreview":"자료 취합과 Excel 양식 정리","textChars":18,"textLines":1,"bbox":[452,319,250,52]}
+{"kind":"textbox","id":"sh/5o32x4r6","slide":2,"text":"결품·과재고 위험을\n늦게 확인","textPreview":"결품·과재고 위험을 | 늦게 확인","textChars":16,"textLines":2,"bbox":[452,396,250,60]}
+{"kind":"textbox","id":"sh/4nu14zal","slide":2,"text":"회의에서 함께 보는 제약","textPreview":"회의에서 함께 보는 제약","textChars":13,"textLines":1,"bbox":[822,155,350,34]}
+{"kind":"shape","id":"sh/rq5kze9c","slide":2,"bbox":[812,202,370,286]}
+{"kind":"textbox","id":"sh/qpwj69sr","slide":2,"text":"6개월 이상 리드타임\n\n3개월 수준의 목표재고\n\n현금흐름과 공급사 MOQ\n\n행사·프로모션 수량","textPreview":"6개월 이상 리드타임 |  | 3개월 수준의 목표재고 |  | 현금흐름과 공급사 MOQ |  | 행사·프로모션 수량","textChars":52,"textLines":7,"bbox":[846,232,302,230]}
+{"kind":"shape","id":"sh/dsn214r2","slide":2,"bbox":[72,535,1110,95]}
+{"kind":"textbox","id":"sh/sre18jah","slide":2,"text":"정리해야 할 것은 데이터뿐 아니라, 누가 어떤 숫자를 언제 확정하는가였습니다.","textPreview":"정리해야 할 것은 데이터뿐 아니라, 누가 어떤 숫자를 언제 확정하는가였습니다.","textChars":43,"textLines":1,"bbox":[105,560,1044,46]}
+{"kind":"shape","id":"sh/7u103a9s","slide":2,"bbox":[52,678,1176,0]}
+{"kind":"textbox","id":"sh/6tsju5s7","slide":2,"text":"박종혁 | 비나우 구매 수요예측(S&OP)","textPreview":"박종혁 | 비나우 구매 수요예측(S&OP)","textChars":23,"textLines":1,"bbox":[52,686,1040,20]}
+{"kind":"textbox","id":"sh/ap0n2dcv","slide":2,"text":"2 / 7","textPreview":"2 / 7","textChars":5,"textLines":1,"bbox":[1150,686,78,20]}
+{"kind":"notes","id":"nt/yjrup7","slide":2,"text":"근거: career_facts.md C-070, C-080, C-082~C-084\n월 8~9시간은 사용자 확인 수치이며 별도 사용 로그는 확보되지 않았습니다."}
+{"kind":"slide","id":"sl/rii6gd","slide":3,"title":"03","textShapes":24}
+{"kind":"textbox","id":"sh/to3uhkra","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[52,36,46,28]}
+{"kind":"textbox","id":"sh/6lcb65sz","slide":3,"text":"기준 데이터와 실무자 판단의 경계","textPreview":"기준 데이터와 실무자 판단의 경계","textChars":18,"textLines":1,"bbox":[104,31,1080,54]}
+{"kind":"textbox","id":"sh/7mlcfa94","slide":3,"text":"자동 계산과 회의 판단을 분리해 결과를 검산할 수 있도록 설계했습니다","textPreview":"자동 계산과 회의 판단을 분리해 결과를 검산할 수 있도록 설계했습니다","textChars":38,"textLines":1,"bbox":[104,82,1080,30]}
+{"kind":"shape","id":"sh/gbetcza1","slide":3,"bbox":[52,116,1176,0]}
+{"kind":"textbox","id":"sh/hcnulkrm","slide":3,"text":"시스템이 계산한 항목","textPreview":"시스템이 계산한 항목","textChars":11,"textLines":1,"bbox":[75,154,500,34]}
+{"kind":"shape","id":"sh/upwbapsv","slide":3,"bbox":[72,200,525,366]}
+{"kind":"textbox","id":"sh/vq5cju9g","slide":3,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[104,232,48,28]}
+{"kind":"textbox","id":"sh/4fetgzax","slide":3,"text":"최근 최대 12주 출고 평균","textPreview":"최근 최대 12주 출고 평균","textChars":15,"textLines":1,"bbox":[166,227,380,40]}
+{"kind":"shape","id":"sh/5gnup4ri","slide":3,"bbox":[104,284,448,0]}
+{"kind":"textbox","id":"sh/1wfi1cbq","slide":3,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[104,308,48,28]}
+{"kind":"textbox","id":"sh/gv61s7a5","slide":3,"text":"판매·출고 차이 버퍼","textPreview":"판매·출고 차이 버퍼","textChars":11,"textLines":1,"bbox":[166,303,380,40]}
+{"kind":"shape","id":"sh/fux0z2tk","slide":3,"bbox":[104,360,448,0]}
+{"kind":"textbox","id":"sh/etojqxsf","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[104,384,48,28]}
+{"kind":"textbox","id":"sh/p0z25cb2","slide":3,"text":"최신 현재고와 도착월 발주계획","textPreview":"최신 현재고와 도착월 발주계획","textChars":16,"textLines":1,"bbox":[166,379,380,40]}
+{"kind":"shape","id":"sh/ozq1w7ah","slide":3,"bbox":[104,436,448,0]}
+{"kind":"textbox","id":"sh/3yx03mtw","slide":3,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[104,460,48,28]}
+{"kind":"textbox","id":"sh/2xojuhsb","slide":3,"text":"24주 예상 재고와 제안 수량","textPreview":"24주 예상 재고와 제안 수량","textChars":16,"textLines":1,"bbox":[166,455,380,40]}
+{"kind":"textbox","id":"sh/54vitsbi","slide":3,"text":"S&OP에서 사람이 결정한 항목","textPreview":"S&OP에서 사람이 결정한 항목","textChars":17,"textLines":1,"bbox":[678,154,500,34]}
+{"kind":"shape","id":"sh/43m1knax","slide":3,"bbox":[675,200,535,366]}
+{"kind":"textbox","id":"sh/wnq10nit","slide":3,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[708,232,48,28]}
+{"kind":"textbox","id":"sh/x8zi9sje","slide":3,"text":"세일즈 전망과 프로모션 가중치","textPreview":"세일즈 전망과 프로모션 가중치","textChars":16,"textLines":1,"bbox":[770,227,392,40]}
+{"kind":"shape","id":"sh/al8jyd03","slide":3,"bbox":[708,284,456,0]}
+{"kind":"textbox","id":"sh/bmh07i18","slide":3,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[708,308,48,28]}
+{"kind":"textbox","id":"sh/kbq147i5","slide":3,"text":"3개월 목표재고와 현금흐름","textPreview":"3개월 목표재고와 현금흐름","textChars":14,"textLines":1,"bbox":[770,303,392,40]}
+{"kind":"shape","id":"sh/5cz2dsjq","slide":3,"bbox":[708,360,456,0]}
+{"kind":"textbox","id":"sh/i98j2x0z","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[708,384,48,28]}
+{"kind":"textbox","id":"sh/jahkb21k","slide":3,"text":"공급사 MOQ와 발주 시점","textPreview":"공급사 MOQ와 발주 시점","textChars":14,"textLines":1,"bbox":[770,379,392,40]}
+{"kind":"shape","id":"sh/sfa187i1","slide":3,"bbox":[708,436,456,0]}
+{"kind":"textbox","id":"sh/tgj2hcjm","slide":3,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[708,460,48,28]}
+{"kind":"textbox","id":"sh/3al476lo","slide":3,"text":"최종 발주 수량과 채널 배분","textPreview":"최종 발주 수량과 채널 배분","textChars":15,"textLines":1,"bbox":[770,455,392,40]}
+{"kind":"textbox","id":"sh/29c3y1k3","slide":3,"text":"주간 예상수요 = 출고 평균 × 실무자 가중치 + 판매·출고 차이 버퍼","textPreview":"주간 예상수요 = 출고 평균 × 실무자 가중치 + 판매·출고 차이 버퍼","textChars":39,"textLines":1,"bbox":[180,600,920,35]}
+{"kind":"shape","id":"sh/pcnm9g3u","slide":3,"bbox":[52,678,1176,0]}
+{"kind":"textbox","id":"sh/4bul0b29","slide":3,"text":"프로모션·현금흐름·공급사 MOQ는 자동 계산 기능이 아니라 회의 판단 기준입니다","textPreview":"프로모션·현금흐름·공급사 MOQ는 자동 계산 기능이 아니라 회의 판단 기준입니다","textChars":44,"textLines":1,"bbox":[52,686,1040,20]}
+{"kind":"textbox","id":"sh/f6l436ls","slide":3,"text":"3 / 7","textPreview":"3 / 7","textChars":5,"textLines":1,"bbox":[1150,686,78,20]}
+{"kind":"notes","id":"nt/rii6gd","slide":3,"text":"코드 근거: app/core/forecasting.py:13-105, app/routers/inventory.py:438-568\n실무 운영 근거: career_facts.md C-082~C-084\n주의: 현재 master의 MOQ 자동 반영은 공급사 MOQ가 아니라 품목 포장입수량입니다."}
+{"kind":"slide","id":"sl/rirl13","slide":4,"title":"04","textShapes":12}
+{"kind":"textbox","id":"sh/32lknqxo","slide":4,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[52,36,46,28]}
+{"kind":"textbox","id":"sh/43ulgvy9","slide":4,"text":"24주 예상 재고와 발주 검토 화면","textPreview":"24주 예상 재고와 발주 검토 화면","textChars":19,"textLines":1,"bbox":[104,31,1080,54]}
+{"kind":"textbox","id":"sh/5432p0fu","slide":4,"text":"시스템 제안과 담당자 확정 수량을 같은 화면에서 비교합니다","textPreview":"시스템 제안과 담당자 확정 수량을 같은 화면에서 비교합니다","textChars":32,"textLines":1,"bbox":[104,82,1080,30]}
+{"kind":"shape","id":"sh/q5c3i5gf","slide":4,"bbox":[52,116,1176,0]}
+{"kind":"textbox","id":"sh/r6lkraxk","slide":4,"text":"업무 검증용 재구성 화면 · 4개 샘플 SKU","textPreview":"업무 검증용 재구성 화면 · 4개 샘플 SKU","textChars":25,"textLines":1,"bbox":[542,132,660,24]}
+{"kind":"textbox","id":"sh/s7ulkvy5","slide":4,"text":"시스템 제안과\n실무자 확정","textPreview":"시스템 제안과 | 실무자 확정","textChars":14,"textLines":2,"bbox":[72,171,330,68]}
+{"kind":"textbox","id":"sh/d8nmt0fq","slide":4,"text":"차이를 수량으로 표시해\n회의에서 조정 근거를 확인","textPreview":"차이를 수량으로 표시해 | 회의에서 조정 근거를 확인","textChars":27,"textLines":2,"bbox":[72,250,330,66]}
+{"kind":"shape","id":"sh/69s361gv","slide":4,"bbox":[72,338,310,0]}
+{"kind":"textbox","id":"sh/7a1kf6hg","slide":4,"text":"가중치 시뮬레이션","textPreview":"가중치 시뮬레이션","textChars":9,"textLines":1,"bbox":[72,363,330,34]}
+{"kind":"textbox","id":"sh/repknyl0","slide":4,"text":"프로모션·채널 상황에 따라\n실무자가 수요 가정을 변경","textPreview":"프로모션·채널 상황에 따라 | 실무자가 수요 가정을 변경","textChars":29,"textLines":2,"bbox":[72,407,330,66]}
+{"kind":"shape","id":"sh/6dg3utkf","slide":4,"bbox":[72,493,310,0]}
+{"kind":"textbox","id":"sh/tg72p836","slide":4,"text":"재고주수 히트맵","textPreview":"재고주수 히트맵","textChars":8,"textLines":1,"bbox":[72,518,330,34]}
+{"kind":"textbox","id":"sh/sfylw32l","slide":4,"text":"결품과 과재고 위험을\n주차별로 먼저 확인","textPreview":"결품과 과재고 위험을 | 주차별로 먼저 확인","textChars":22,"textLines":2,"bbox":[72,562,330,66]}
+{"kind":"shape","id":"sh/ipwjq9kj","slide":4,"bbox":[52,678,1176,0]}
+{"kind":"textbox","id":"sh/5c72lo3u","slide":4,"text":"실제 업무 판단 범위는 40개 SKU이며 공개 화면에는 샘플 데이터를 사용했습니다","textPreview":"실제 업무 판단 범위는 40개 SKU이며 공개 화면에는 샘플 데이터를 사용했습니다","textChars":45,"textLines":1,"bbox":[52,686,1040,20]}
+{"kind":"textbox","id":"sh/4re1sj29","slide":4,"text":"4 / 7","textPreview":"4 / 7","textChars":5,"textLines":1,"bbox":[1150,686,78,20]}
+{"kind":"image","id":"im/g7mh87qh","slide":4,"name":"","geometry":"roundRect","alt":"발주 계획 시뮬레이션 재구성 화면","bbox":[420,158,790,492]}
+{"kind":"notes","id":"nt/rirl13","slide":4,"text":"화면: C:/MyMain/Eibe/SCM-Dashboard/portfolio/05_order_plan.png\n라벨: 업무 검증용 재구성 화면·샘플 데이터\n현재 화면의 대화형 로컬 계산 일부는 4개 샘플 SKU에 묶여 있습니다."}
+{"kind":"slide","id":"sl/nkfpab","slide":5,"title":"05","textShapes":19}
+{"kind":"textbox","id":"sh/4vepszu9","slide":5,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[52,36,46,28]}
+{"kind":"textbox","id":"sh/ju5ojuto","slide":5,"text":"월간 S&OP와 채널 재고 실행","textPreview":"월간 S&OP와 채널 재고 실행","textChars":17,"textLines":1,"bbox":[104,31,1080,54]}
+{"kind":"textbox","id":"sh/itw7qpc3","slide":5,"text":"자료 취합에서 끝내지 않고 발주안·판매 제한·풀필먼트 실행까지 연결했습니다","textPreview":"자료 취합에서 끝내지 않고 발주안·판매 제한·풀필먼트 실행까지 연결했습니다","textChars":41,"textLines":1,"bbox":[104,82,1080,30]}
+{"kind":"shape","id":"sh/hsn6h4by","slide":5,"bbox":[52,116,1176,0]}
+{"kind":"shape","id":"sh/wru5ozud","slide":5,"bbox":[60,216,200,170]}
+{"kind":"textbox","id":"sh/vqlofuts","slide":5,"text":"세일즈 전망","textPreview":"세일즈 전망","textChars":6,"textLines":1,"bbox":[78,238,164,34]}
+{"kind":"textbox","id":"sh/upcnmpc7","slide":5,"text":"정해진 양식으로\n판매 전망 취합","textPreview":"정해진 양식으로 | 판매 전망 취합","textChars":17,"textLines":2,"bbox":[78,290,164,62]}
+{"kind":"shape","id":"sh/9436dkbm","slide":5,"bbox":[300,216,200,170]}
+{"kind":"textbox","id":"sh/83u5kfu1","slide":5,"text":"재고 연결","textPreview":"재고 연결","textChars":5,"textLines":1,"bbox":[318,238,164,34]}
+{"kind":"textbox","id":"sh/a1czetgf","slide":5,"text":"현재고·입고계획을\n24주 흐름으로 연결","textPreview":"현재고·입고계획을 | 24주 흐름으로 연결","textChars":21,"textLines":2,"bbox":[318,290,164,62]}
+{"kind":"shape","id":"sh/b2l0nyx0","slide":5,"bbox":[540,216,200,170]}
+{"kind":"textbox","id":"sh/w3ehg3yl","slide":5,"text":"공급 제약","textPreview":"공급 제약","textChars":5,"textLines":1,"bbox":[558,238,164,34]}
+{"kind":"textbox","id":"sh/x4nip8f6","slide":5,"text":"리드타임·목표재고\n현금흐름·MOQ 검토","textPreview":"리드타임·목표재고 | 현금흐름·MOQ 검토","textChars":21,"textLines":2,"bbox":[558,290,164,62]}
+{"kind":"shape","id":"sh/mdczatgj","slide":5,"bbox":[780,216,200,170]}
+{"kind":"textbox","id":"sh/nelgjexo","slide":5,"text":"발주안 조정","textPreview":"발주안 조정","textChars":6,"textLines":1,"bbox":[798,238,164,34]}
+{"kind":"textbox","id":"sh/ofuhcjy9","slide":5,"text":"프로모션 영향과\n판매 제한 수량 조율","textPreview":"프로모션 영향과 | 판매 제한 수량 조율","textChars":20,"textLines":2,"bbox":[798,290,164,62]}
+{"kind":"shape","id":"sh/9g3ylofu","slide":5,"bbox":[1020,216,200,170]}
+{"kind":"textbox","id":"sh/e9sz69g7","slide":5,"text":"채널 실행","textPreview":"채널 실행","textChars":5,"textLines":1,"bbox":[1038,238,164,34]}
+{"kind":"textbox","id":"sh/za1gfexs","slide":5,"text":"사입·이관·ASN\n배차와 현장 전달","textPreview":"사입·이관·ASN | 배차와 현장 전달","textChars":19,"textLines":2,"bbox":[1038,290,164,62]}
+{"kind":"shape","id":"sh/j2xor698","slide":5,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/i1onylsn","slide":5,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/54f6tgre","slide":5,"bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/43650bat","slide":5,"bbox":[0,0,0,0]}
+{"kind":"textbox","id":"sh/r6hovq9k","slide":5,"text":"채널 운영 범위","textPreview":"채널 운영 범위","textChars":8,"textLines":1,"bbox":[72,452,250,30]}
+{"kind":"shape","id":"sh/65on2lsz","slide":5,"bbox":[72,488,1136,0]}
+{"kind":"textbox","id":"sh/t8z6x0ra","slide":5,"text":"쿠팡·네이버 풀필먼트 사입과 재고 이관","textPreview":"쿠팡·네이버 풀필먼트 사입과 재고 이관","textChars":21,"textLines":1,"bbox":[72,516,510,36]}
+{"kind":"textbox","id":"sh/s7q54va5","slide":5,"text":"3PL ASN과 물류팀 현장 작업·배차","textPreview":"3PL ASN과 물류팀 현장 작업·배차","textChars":21,"textLines":1,"bbox":[670,516,510,36]}
+{"kind":"textbox","id":"sh/7ad4jmt0","slide":5,"text":"결품 위험이 높으면 행사 수량을 제한하고, 과재고 위험은 채널 배분과 발주량을 함께 조정했습니다.","textPreview":"결품 위험이 높으면 행사 수량을 제한하고, 과재고 위험은 채널 배분과 발주량을 함께 조정했습니다.","textChars":54,"textLines":1,"bbox":[72,586,1136,40]}
+{"kind":"shape","id":"sh/m94nq1sv","slide":5,"bbox":[52,678,1176,0]}
+{"kind":"textbox","id":"sh/cfilknqd","slide":5,"text":"박종혁 | 비나우 구매 수요예측(S&OP)","textPreview":"박종혁 | 비나우 구매 수요예측(S&OP)","textChars":23,"textLines":1,"bbox":[52,686,1040,20]}
+{"kind":"textbox","id":"sh/xgb2ts7y","slide":5,"text":"5 / 7","textPreview":"5 / 7","textChars":5,"textLines":1,"bbox":[1150,686,78,20]}
+{"kind":"notes","id":"nt/nkfpab","slide":5,"text":"근거: career_facts.md C-082~C-084\n실제 발주 승인권자와 본인의 최종 결정 범위는 사용자 확인 후 보강할 예정입니다."}
+{"kind":"slide","id":"sl/zv1o4v","slide":6,"title":"06","textShapes":22}
+{"kind":"textbox","id":"sh/w7ul4re9","slide":6,"text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[52,36,46,28]}
+{"kind":"textbox","id":"sh/v6lkv6xo","slide":6,"text":"2개월 미사용에서 월간 검토 기준으로","textPreview":"2개월 미사용에서 월간 검토 기준으로","textChars":20,"textLines":1,"bbox":[104,31,1080,54]}
+{"kind":"textbox","id":"sh/a5c321w3","slide":6,"text":"기능보다 사용 장면과 판단 순서를 먼저 고쳤습니다","textPreview":"기능보다 사용 장면과 판단 순서를 먼저 고쳤습니다","textChars":27,"textLines":1,"bbox":[104,82,1080,30]}
+{"kind":"shape","id":"sh/9432twfi","slide":6,"bbox":[52,116,1176,0]}
+{"kind":"textbox","id":"sh/83ul0rex","slide":6,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[70,172,60,30]}
+{"kind":"textbox","id":"sh/n21krmxc","slide":6,"text":"초기 구현","textPreview":"초기 구현","textChars":5,"textLines":1,"bbox":[70,215,230,38]}
+{"kind":"textbox","id":"sh/mhs3yhw7","slide":6,"text":"예측 결과를 만드는 데\n집중","textPreview":"예측 결과를 만드는 데 | 집중","textChars":15,"textLines":2,"bbox":[70,264,225,60]}
+{"kind":"shape","id":"sh/t0nm5gvm","slide":6,"bbox":[250,187,92,0]}
+{"kind":"textbox","id":"sh/szelcbeh","slide":6,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[355,172,60,30]}
+{"kind":"textbox","id":"sh/2t03mp8n","slide":6,"text":"현업 미사용","textPreview":"현업 미사용","textChars":6,"textLines":1,"bbox":[355,215,230,38]}
+{"kind":"textbox","id":"sh/nu94vup8","slide":6,"text":"2개월 동안 월간 업무에\n사용되지 않음","textPreview":"2개월 동안 월간 업무에 | 사용되지 않음","textChars":21,"textLines":2,"bbox":[355,264,225,60]}
+{"kind":"shape","id":"sh/ovilozqt","slide":6,"bbox":[535,187,92,0]}
+{"kind":"textbox","id":"sh/pwbmx47e","slide":6,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[640,172,60,30]}
+{"kind":"textbox","id":"sh/e503i58r","slide":6,"text":"공동 재설계","textPreview":"공동 재설계","textChars":6,"textLines":1,"bbox":[640,215,230,38]}
+{"kind":"textbox","id":"sh/fq94rapc","slide":6,"text":"세일즈·SCM의 판단 순서에\n맞춰 화면과 로직 수정","textPreview":"세일즈·SCM의 판단 순서에 | 맞춰 화면과 로직 수정","textChars":28,"textLines":2,"bbox":[640,264,225,60]}
+{"kind":"shape","id":"sh/0rilkfqx","slide":6,"bbox":[820,187,92,0]}
+{"kind":"textbox","id":"sh/1srmtk72","slide":6,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[925,172,60,30]}
+{"kind":"textbox","id":"sh/y1knu98v","slide":6,"text":"반복 운영","textPreview":"반복 운영","textChars":5,"textLines":1,"bbox":[925,215,230,38]}
+{"kind":"textbox","id":"sh/zmt43epg","slide":6,"text":"월간 발주 검토의\n공통 기준으로 사용","textPreview":"월간 발주 검토의 | 공통 기준으로 사용","textChars":20,"textLines":2,"bbox":[925,264,225,60]}
+{"kind":"shape","id":"sh/v650v65s","slide":6,"bbox":[88,395,470,170]}
+{"kind":"textbox","id":"sh/u5wjm1o7","slide":6,"text":"월 8~9시간","textPreview":"월 8~9시간","textChars":7,"textLines":1,"bbox":[120,426,405,48]}
+{"kind":"textbox","id":"sh/h8nixgny","slide":6,"text":"자료 취합·Excel 양식 작업 자동화","textPreview":"자료 취합·Excel 양식 작업 자동화","textChars":21,"textLines":1,"bbox":[120,494,405,36]}
+{"kind":"shape","id":"sh/g7e1ob6d","slide":6,"bbox":[722,395,470,170]}
+{"kind":"textbox","id":"sh/3a50z654","slide":6,"text":"4개 SKU","textPreview":"4개 SKU","textChars":6,"textLines":1,"bbox":[754,426,405,48]}
+{"kind":"textbox","id":"sh/i9wjq1oj","slide":6,"text":"품절 위험을 발주 검토 전에 확인","textPreview":"품절 위험을 발주 검토 전에 확인","textChars":18,"textLines":1,"bbox":[754,494,405,36]}
+{"kind":"textbox","id":"sh/5c7i1gnu","slide":6,"text":"현재 한계: 예측 정확도·Bias·실제 결품 및 과재고 개선률은 당시 정식 계측하지 못했습니다.","textPreview":"현재 한계: 예측 정확도·Bias·실제 결품 및 과재고 개선률은 당시 정식 계측하지 못했습니다.","textChars":53,"textLines":1,"bbox":[94,612,1092,38]}
+{"kind":"shape","id":"sh/4be1sb6p","slide":6,"bbox":[52,678,1176,0]}
+{"kind":"textbox","id":"sh/rypk3q50","slide":6,"text":"박종혁 | 비나우 구매 수요예측(S&OP)","textPreview":"박종혁 | 비나우 구매 수요예측(S&OP)","textChars":23,"textLines":1,"bbox":[52,686,1040,20]}
+{"kind":"textbox","id":"sh/qxgjulof","slide":6,"text":"6 / 7","textPreview":"6 / 7","textChars":5,"textLines":1,"bbox":[1150,686,78,20]}
+{"kind":"notes","id":"nt/zv1o4v","slide":6,"text":"근거: career_facts.md C-080~C-081\n월 8~9시간, 4개 SKU, 2개월 미사용은 사용자 확인 사실이며 저장소에 운영 로그는 없습니다."}
+{"kind":"slide","id":"sl/kvo1rq","slide":7,"title":"07","textShapes":24}
+{"kind":"textbox","id":"sh/m5ov2xkf","slide":7,"text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[52,36,46,28]}
+{"kind":"textbox","id":"sh/9sfedcjq","slide":7,"text":"수요예측을 공급망 전체로 연결한 경험","textPreview":"수요예측을 공급망 전체로 연결한 경험","textChars":20,"textLines":1,"bbox":[104,31,1080,54]}
+{"kind":"textbox","id":"sh/8r6d4725","slide":7,"text":"재고 위험을 수입·풀필먼트·ERP·통관 운영까지 이어서 판단했습니다","textPreview":"재고 위험을 수입·풀필먼트·ERP·통관 운영까지 이어서 판단했습니다","textChars":37,"textLines":1,"bbox":[104,82,1080,30]}
+{"kind":"shape","id":"sh/z2xw721o","slide":7,"bbox":[52,116,1176,0]}
+{"kind":"textbox","id":"sh/y14vyxk3","slide":7,"text":"공급망 위험 대응","textPreview":"공급망 위험 대응","textChars":9,"textLines":1,"bbox":[72,158,330,34]}
+{"kind":"shape","id":"sh/l4fe9cju","slide":7,"bbox":[72,205,350,348]}
+{"kind":"textbox","id":"sh/k36d0729","slide":7,"text":"105,000캔","textPreview":"105,000캔","textChars":8,"textLines":1,"bbox":[105,237,286,48]}
+{"kind":"textbox","id":"sh/jyhwjm1s","slide":7,"text":"약 30억 원 규모 리콜","textPreview":"약 30억 원 규모 리콜","textChars":13,"textLines":1,"bbox":[105,293,286,30]}
+{"kind":"shape","id":"sh/ix8fahkn","slide":7,"bbox":[105,343,286,0]}
+{"kind":"textbox","id":"sh/cby1snah","slide":7,"text":"한국·중국 창고의 증빙과\n감사 입회·폐기·결과보고 절차 정리","textPreview":"한국·중국 창고의 증빙과 | 감사 입회·폐기·결과보고 절차 정리","textChars":33,"textLines":2,"bbox":[105,369,286,72]}
+{"kind":"textbox","id":"sh/xcr2lsr2","slide":7,"text":"본사 보상액 100% 환수에 필요한\n증빙·보고 완성에 기여","textPreview":"본사 보상액 100% 환수에 필요한 | 증빙·보고 완성에 기여","textChars":32,"textLines":2,"bbox":[105,466,286,58]}
+{"kind":"textbox","id":"sh/a9gjqxsb","slide":7,"text":"시스템 연결","textPreview":"시스템 연결","textChars":6,"textLines":1,"bbox":[472,158,330,34]}
+{"kind":"shape","id":"sh/bapkji9w","slide":7,"bbox":[472,205,350,348]}
+{"kind":"textbox","id":"sh/ony1onal","slide":7,"text":"판매채널","textPreview":"판매채널","textChars":4,"textLines":1,"bbox":[512,243,270,28]}
+{"kind":"shape","id":"sh/po72hsrq","slide":7,"bbox":[532,287,230,0]}
+{"kind":"textbox","id":"sh/2lgjmdsf","slide":7,"text":"사내 ERP","textPreview":"사내 ERP","textChars":6,"textLines":1,"bbox":[512,307,270,28]}
+{"kind":"shape","id":"sh/nmpkfi90","slide":7,"bbox":[532,351,230,0]}
+{"kind":"textbox","id":"sh/0je1k3a9","slide":7,"text":"WMS·3PL","textPreview":"WMS·3PL","textChars":7,"textLines":1,"bbox":[512,371,270,28]}
+{"kind":"shape","id":"sh/1knid8ru","slide":7,"bbox":[532,415,230,0]}
+{"kind":"textbox","id":"sh/h4fq10z6","slide":7,"text":"통관 관련 시스템","textPreview":"통관 관련 시스템","textChars":9,"textLines":1,"bbox":[512,435,270,28]}
+{"kind":"textbox","id":"sh/g3m9sfy1","slide":7,"text":"필드·상태·오류·재처리·QA 기준 정의","textPreview":"필드·상태·오류·재처리·QA 기준 정의","textChars":21,"textLines":1,"bbox":[504,492,286,38]}
+{"kind":"textbox","id":"sh/v2d8zahg","slide":7,"text":"다음 고도화","textPreview":"다음 고도화","textChars":6,"textLines":1,"bbox":[872,158,330,34]}
+{"kind":"shape","id":"sh/u147q5gv","slide":7,"bbox":[872,205,336,348]}
+{"kind":"textbox","id":"sh/t0vqx0za","slide":7,"text":"예측 정확도","textPreview":"예측 정확도","textChars":6,"textLines":1,"bbox":[905,240,270,30]}
+{"kind":"textbox","id":"sh/8zmpovyp","slide":7,"text":"SKU·채널별 Bias와 WMAPE 계측","textPreview":"SKU·채널별 Bias와 WMAPE 계측","textChars":22,"textLines":1,"bbox":[905,278,270,40]}
+{"kind":"shape","id":"sh/7yd8vqh4","slide":7,"bbox":[905,333,270,0]}
+{"kind":"textbox","id":"sh/6x47mlgj","slide":7,"text":"신제품·프로모션","textPreview":"신제품·프로모션","textChars":8,"textLines":1,"bbox":[905,354,270,30]}
+{"kind":"textbox","id":"sh/dwzq9kfe","slide":7,"text":"유사 SKU와 행사 증가분 분리","textPreview":"유사 SKU와 행사 증가분 분리","textChars":17,"textLines":1,"bbox":[905,392,270,40]}
+{"kind":"shape","id":"sh/svq90zy9","slide":7,"bbox":[905,447,270,0]}
+{"kind":"textbox","id":"sh/a10nuhwb","slide":7,"text":"AX","textPreview":"AX","textChars":2,"textLines":1,"bbox":[905,468,270,30]}
+{"kind":"textbox","id":"sh/b29o3mxw","slide":7,"text":"운영 정확도를 먼저 확보한 뒤 반복 판단을 자동화","textPreview":"운영 정확도를 먼저 확보한 뒤 반복 판단을 자동화","textChars":27,"textLines":1,"bbox":[905,506,270,45]}
+{"kind":"textbox","id":"sh/c3i5wreh","slide":7,"text":"SCM 현장에서 검증한 판단 기준을 데이터와 시스템으로 남기는 것이 다음 목표입니다.","textPreview":"SCM 현장에서 검증한 판단 기준을 데이터와 시스템으로 남기는 것이 다음 목표입니다.","textChars":47,"textLines":1,"bbox":[88,604,1100,38]}
+{"kind":"shape","id":"sh/x4b65wf2","slide":7,"bbox":[52,678,1176,0]}
+{"kind":"textbox","id":"sh/2d0nqhwf","slide":7,"text":"관세청 연동은 진행 중이며 외부 개발사 구현, 본인은 정책·요건·QA·운영 적용을 담당했습니다","textPreview":"관세청 연동은 진행 중이며 외부 개발사 구현, 본인은 정책·요건·QA·운영 적용을 담당했습니다","textChars":52,"textLines":1,"bbox":[52,686,1040,20]}
+{"kind":"textbox","id":"sh/ne9ozmx0","slide":7,"text":"7 / 7","textPreview":"7 / 7","textChars":5,"textLines":1,"bbox":[1150,686,78,20]}
+{"kind":"notes","id":"nt/kvo1rq","slide":7,"text":"리콜 근거: career_facts.md C-060~C-062\nERP·통관 근거: career_facts.md C-020~C-029, C-085\n관세청 연동은 진행 중이며 외부 개발사 구현 범위를 본인 역할과 분리했습니다."}

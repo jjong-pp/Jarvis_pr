@@ -12,7 +12,7 @@ tools: Read, Grep, Glob
 
 - 후보자 사실 정본: `C:\MyMain\main\resume\career_facts.md` — **읽기 전용. 새 사실을 만들지 않습니다.**
 - 공고 스냅샷: `C:\MyMain\main\resume\applications\{폴더}\jd_snapshot.md`
-- 상위 표현 지침: `C:\MyMain\main\resume\PM_PO_포트폴리오_PPT_제작지침_2026-08-28.md` (금지 표현 목록)
+- 상위 작업 규칙: `C:\MyMain\main\resume\AGENTS.md`
 - 산출물: 같은 폴더의 `fit_matrix.md`
 
 ## 절대 규칙
@@ -23,6 +23,7 @@ tools: Read, Grep, Glob
 4. **`INFERRED`·`UNVERIFIED` claim을 제출 근거로 승격하지 않는다.**
 5. 학벌·나이·성별·출신지 같은 보호특성을 전략 변수로 쓰지 않는다.
 6. 공고에서 추론한 요구를 자동탈락 기준으로 취급하지 않는다.
+7. 공고가 요구하지 않는 자소서·제안서·보강물을 기본 산출물로 만들지 않는다.
 
 ## 증거 강도 등급
 

@@ -14,7 +14,8 @@ tools: Read, Grep, Glob
 - 공고 스냅샷: `applications/{폴더}/jd_snapshot.md`
 - 적합도 매트릭스: `applications/{폴더}/fit_matrix.md`
 - 검사 대상: 같은 폴더의 `이력서.md` · `자기소개서.md` · `포트폴리오_배치안.md` · `문장근거표.md`
-- 표현 지침: `C:\MyMain\main\resume\PM_PO_포트폴리오_PPT_제작지침_2026-08-28.md`
+- 작업·표현 지침: `C:\MyMain\main\resume\AGENTS.md`
+- 평가 루브릭: `C:\MyMain\main\resume\_eval\rubric.md`
 
 ## 절대 규칙
 
