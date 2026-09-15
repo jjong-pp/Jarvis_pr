@@ -33,30 +33,31 @@
 </head>
 <body>
 <header>
-  <h1>뉴트리시아몰 전자상거래 통관 연동<br>최종 기획·인수인계 문서 v7</h1>
-  <p>관세청, NICE, 고도몰, 행정안전부 주소 API, 동수, 자이언트(GGATE), GeekStudio의 API·키·데이터 책임·운영 전환 상황을 2026-09-07 기준으로 다시 대조한 한국어 단일본이다.</p>
-  <div class="meta"><span>기준일 2026-09-07</span><span>정리 요청 지윤환</span><span>문서 상태 인수인계 기준본</span><span>내부 인수인계용</span><span>외부 배포 금지</span><span>비밀값 미수록</span></div>
+  <h1>뉴트리시아몰 전자상거래 통관 연동<br>최종 기획 문서 v7</h1>
+  <p>관세청, NICE, 고도몰, 행정안전부 주소 API, 동수, 자이언트(GGATE), GeekStudio의 API·키·데이터 책임·운영 전환 상황과 외부 플랫폼 원본 Excel의 동수 ERP 매핑 검증 범위를 2026-09-08 기준으로 다시 대조한 한국어 단일본이다.</p>
+  <div class="meta"><span>기준일 2026-09-08</span><span>정리 요청 지윤환</span><span>문서 상태 최신 기준본</span><span>내부 공유용</span><span>외부 배포 금지</span><span>비밀값 미수록</span></div>
 </header>
 <div class="layout">
 <nav aria-label="목차">
   <strong>목차</strong>
-  <a href="#summary">1. 인수인계 결론</a><a href="#background">2. 배경과 목적</a><a href="#authority">3. 정본과 변경 이력</a><a href="#architecture">4. 전체 연관관계</a><a href="#route">5. 현재 라우팅 기준</a><a href="#catalog">6. 업체별 API 전수</a><a href="#keys">7. 키·인증정보 대장</a><a href="#data">8. 데이터 책임·매핑</a><a href="#operations">9. 운영·장애·CS</a><a href="#conflicts">10. 모순·미확정</a><a href="#actions">11. 인수인계 실행안</a><a href="#sources">12. 원문·레퍼런스</a><a href="#archive">13. 과거 문서 보관</a><a href="#changelog">14. v7 변경 이력</a>
+  <a href="#summary">1. 전체 상황</a><a href="#background">2. 배경과 목적</a><a href="#authority">3. 정본과 변경 이력</a><a href="#architecture">4. 전체 연관관계</a><a href="#route">5. 현재 라우팅 기준</a><a href="#catalog">6. 업체별 API 전수</a><a href="#keys">7. 키·인증정보 대장</a><a href="#data">8. 데이터 책임·매핑</a><a href="#operations">9. 운영·장애·CS</a><a href="#conflicts">10. 모순·미확정</a><a href="#actions">11. 확인·조치 항목</a><a href="#sources">12. 원본 문서·레퍼런스</a><a href="#archive">13. 과거 문서 보관</a><a href="#changelog">14. v7 변경 이력</a>
 </nav>
 <main>
 <section class="section" id="summary">
-  <h2>1. 인수인계 결론</h2>
+  <h2>1. 전체 상황</h2>
   <div class="grid three">
     <div class="card"><div class="kpi">7개</div><div>연동 주체</div><p class="small">관세청·NICE·고도몰·행안부·동수·자이언트·GeekStudio</p></div>
-    <div class="card"><div class="kpi">11개</div><div>현재 채널 마스터</div><p class="small">자사몰 1 + 외부 플랫폼 10. 근거: 도메인모음 2026-08-28</p></div>
+    <div class="card"><div class="kpi">11개</div><div>현재 채널 마스터</div><p class="small">자사몰 API 1 + 외부 플랫폼 Excel 10. 근거: 도메인모음 2026-08-28 및 2026-09-08 사용자 확정</p></div>
     <div class="card"><div class="kpi">v2.0.1</div><div>최신 GGATE 공개 문서</div><p class="small">2026-08-31, B형 수하인·통관정보 조건 변경</p></div>
   </div>
-  <div class="callout danger"><strong>현재 완료로 말할 수 없다.</strong> 문서·계약·공개 규격은 확보됐지만, 운영 배포 증빙, 첫 성공 응답, 혼합 MAWB 처리, 외부 플랫폼 PER 준비, 2026-08-31 문제 주문 90건의 종결 증빙은 확인되지 않았다.</div>
+  <div class="callout warn"><strong>확인 범위:</strong> 문서·계약·공개 규격은 확보되어 있다. 운영 배포 증빙, 첫 성공 응답, 혼합 MAWB 처리, 외부 플랫폼 PER 준비, 외부 플랫폼 10개의 실제 주문 Excel 원본과 동수 ERP 매핑 결과, 2026-08-31 문제 주문 90건의 종결 증빙은 현재 자료에서 확인되지 않는다.</div>
   <div class="table-wrap"><table>
-    <thead><tr><th>판정</th><th>현재 기준</th><th>근거</th></tr></thead><tbody>
-      <tr><td><span class="badge confirmed">확인</span></td><td>관세청 직접 연동 규격은 REST API v1.4.1 재개정판(2026-07-27, 76쪽)이며, 2026-09-07 현재 후속 REST 버전은 확인되지 않았다. 같은 이름의 74쪽 구첨부와 구분해야 한다.</td><td><a href="../documents/관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1_재개정포함_20260727.pdf">최신 로컬 정본</a> · <a href="https://www.customs.go.kr/kcs/na/ntt/selectNttInfo.do?bbsId=3800&amp;mi=14185&amp;nttSn=10171363&amp;nttSnUrl=b291c739a953b51e96e791cef6a6c226">공식 게시글</a></td></tr>
-      <tr><td><span class="badge confirmed">확인</span></td><td>GGATE 공개 정본은 v2.0.1(2026-08-31)이다. B형 물류 등록은 주문자·수하인·PCCC 9개 필드를 조건부 필수로 받고 Geek 값이 있으면 Geek 값을 우선한다.</td><td><a href="https://documenter.getpostman.com/view/11773234/2sBYArTsRz">GGATE 공개 문서</a> · <a href="https://documenter.getpostman.com/api/collections/11773234/2sBYArTsRz">컬렉션 JSON</a></td></tr>
-      <tr><td><span class="badge pending">운영 기준</span></td><td>2026-09-04 최신 내부안은 자사몰을 신규 GNG V2-1/신규 통관, PER 미적용 외부 플랫폼을 기존 GNG API/기존 통관으로 분리한다.</td><td><a href="과거/dongsu-gng-clearance-flow-20260904.html">2026-09-04 흐름 문서</a></td></tr>
-      <tr><td><span class="badge risk">미확정</span></td><td>내부 명칭 V2-1/V2-2와 공개 물리 경로 <code>logistics</code>/<code>clearance</code>의 대응표, 기존 GNG API 전체 URL, 혼합 MAWB 지원 여부는 서면 확정이 없다.</td><td><a href="../documents/20260901_자이언트_운영전환_협의원문.md">2026-09-01 협의원문</a> · 2026-09-04 확인요청</td></tr>
+    <thead><tr><th>구분</th><th>현재 상황</th><th>근거</th></tr></thead><tbody>
+      <tr><td><span class="badge confirmed">확인</span></td><td>관세청 직접 연동 규격은 REST API v1.4.1 재개정판(2026-07-27, 76쪽)이며, 2026-09-08 현재 후속 REST 버전은 확인되지 않았다. 같은 이름의 74쪽 구첨부와 구분해야 한다.</td><td><a href="../documents/관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1_재개정포함_20260727.pdf">관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1_재개정포함_20260727.pdf</a> · <a href="https://www.customs.go.kr/kcs/na/ntt/selectNttInfo.do?bbsId=3800&amp;mi=14185&amp;nttSn=10171363&amp;nttSnUrl=b291c739a953b51e96e791cef6a6c226">관세청 공식 게시글</a></td></tr>
+      <tr><td><span class="badge confirmed">확인</span></td><td>GGATE 문서는 두 개다. 사용자 지정 V2-1은 v2.0.1(2026-08-31), V2-2는 v1.3.7(2026-08-25)이며 서로 다른 Postman 원본이다. V2-1 B형 물류 등록은 주문자·수하인·PCCC 9개 필드를 조건부 필수로 받고 Geek 값이 있으면 Geek 값을 우선한다.</td><td><a href="https://documenter.getpostman.com/view/11773234/2sBYArTsRz">V2-1 — GGATE API V2 아이배</a> · <a href="https://documenter.getpostman.com/view/11773234/2sBXqGrh3A">V2-2 — GGATE API V2</a></td></tr>
+      <tr><td><span class="badge pending">운영 기준</span></td><td>자사몰은 고도몰 API로 수집해 신규 GNG V2-1/신규 통관으로 보낸다. 외부 플랫폼 10개는 현재와 향후 모두 플랫폼별 원본 Excel로 동수 ERP에 수집하며, PER·필수컬럼·매핑·E2E가 끝나지 않은 채널은 기존 GNG API/기존 통관을 유지한다.</td><td><a href="과거/dongsu-gng-clearance-flow-20260904.html">2026-09-04 흐름 문서</a> · 2026-09-08 사용자 확정</td></tr>
+      <tr><td><span class="badge risk">Excel 미확보</span></td><td>현재 작업공간에는 외부 플랫폼 10개의 실제 주문 Excel 원본이 없다. <code>도메인모음_20260828.xlsx</code>은 채널·업체부호 마스터이고 <code>ECB0103001S_TxifExcelForm.xlsx</code>은 관세청 포털 대량제출 양식이므로 플랫폼 주문 원본이나 동수 ERP 수입 양식으로 대신할 수 없다.</td><td>2026-09-08 저장소 내 XLS/XLSX/CSV/TSV 전수 확인</td></tr>
+      <tr><td><span class="badge risk">미확정</span></td><td>V2-1/V2-2의 문서 URL과 공개 API 구조는 확인됐다. 실제 운영 Base URL, 환경별 배포 버전·키, 첫 성공 응답, 혼합 MAWB 지원 여부는 서면·로그로 확인되지 않았다.</td><td><a href="../documents/20260901_자이언트_운영전환_협의원문.md">20260901_자이언트_운영전환_협의원문.md</a> · 2026-09-04 확인요청</td></tr>
       <tr><td><span class="badge risk">보안 위험</span></td><td>저장소 루트 <code>key.txt</code>가 Git 추적 상태이며 Client ID/Secret 형태의 민감정보를 포함한다. 값은 이 문서에 옮기지 않았다.</td><td>2026-09-07 로컬 Git·파일 구조 점검. 제공자·환경 매핑 및 교체 여부는 담당자 확인 필요</td></tr>
     </tbody></table></div>
 </section>
@@ -65,8 +66,8 @@
   <h2>2. API 문서가 생긴 배경과 목적</h2>
   <p>이 프로젝트는 단순 주문 연동이 아니라, 주문 시점의 본인확인부터 거래정보 사전 제출, 영문주소 보완, 통관사 HBL/MWB 생성, 오류·CS 처리까지 여러 기관의 데이터 계약을 하나의 운영 흐름으로 묶는 작업이다. 업체별 문서가 따로 생긴 이유는 각 기관의 책임과 데이터 소유권이 다르고, 한 기관의 변경이 다른 기관의 필수값·마감·예외처리에 직접 영향을 주기 때문이다.</p>
   <div class="grid">
-    <div class="card"><h3>제도적 근거</h3><ul><li>전자상거래 공급망 정보 연계를 확대하고 전용 신고서와 위험관리 체계를 구축한다.</li><li>개인통관고유부호 도용을 줄이기 위해 본인확인기관과 PCCC 검증·인증번호 발급 절차를 연결한다.</li><li>거래정보와 수입신고/통관목록을 대사할 수 있도록 주문·수하인·결제·상품·HBL 데이터를 사전에 제출한다.</li><li>관세청 공식 FAQ는 전자상거래물품 거래정보 제출의 근거로 관세법 제254조 및 같은 법 시행령 제258조를 안내한다.</li></ul><p class="footnote">근거: <a href="../documents/전자상거래전용 통관플랫폼 사업소개(202607)_v1.6(글꼴포함).pdf">사업소개 v1.6</a> p.9–14, <a href="../documents/2026 전자상거래  전용 통관플랫폼 FAQ.pdf">관세청 FAQ</a>, <a href="https://www.customs.go.kr/kcs/na/ntt/selectNttInfo.do?bbsId=3800&amp;mi=14185&amp;nttSn=10174363&amp;nttSnUrl=3a0a1abcfb583c9ddaccef938140928b">공식 FAQ 게시글</a></p></div>
-    <div class="card"><h3>사업·계약상 근거</h3><ul><li>크로네는 GeekStudio에 뉴트리시아몰 관세청 연동 개발을 위탁했다.</li><li>계약기간은 2026-06-01~2026-08-31이며, 계약 범위는 첨부 견적서를 따른다.</li><li>초기 견적은 NICE 토큰·PCCC 검증, 관세청 제출/오류조회, 동수 HBL, 자이언트 오류 연동을 포함한다.</li><li>2026-08-10 추가 견적은 CI 기반 통합인증, 자이언트 제출, 수동 API, 운영 화면 변경 등을 추가 제안했다. 발주·검수·지급 완료는 미확인이다.</li></ul><p class="footnote">근거: <a href="../documents/(GeekStudio) 뉴트리시아_관세청_연동_개발_계약서.pdf">개발계약서</a> 제1–4조 · <a href="../documents/%5BGeekStudio%5D 뉴트리시아몰_관세청_API_연동_1차 견적 최종.pdf">1차 견적</a> · <a href="../documents/%5BGeekStudio%5D 뉴트리시아몰_관세청_API_연동_추가개발_견적서_260810.pdf">추가개발 견적</a></p></div>
+    <div class="card"><h3>제도적 근거</h3><ul><li>전자상거래 공급망 정보 연계를 확대하고 전용 신고서와 위험관리 체계를 구축한다.</li><li>개인통관고유부호 도용을 줄이기 위해 본인확인기관과 PCCC 검증·인증번호 발급 절차를 연결한다.</li><li>거래정보와 수입신고/통관목록을 대사할 수 있도록 주문·수하인·결제·상품·HBL 데이터를 사전에 제출한다.</li><li>관세청 공식 FAQ는 전자상거래물품 거래정보 제출의 근거로 관세법 제254조 및 같은 법 시행령 제258조를 안내한다.</li></ul><p class="footnote">근거: <a href="../documents/전자상거래전용 통관플랫폼 사업소개(202607)_v1.6(글꼴포함).pdf">전자상거래전용 통관플랫폼 사업소개(202607)_v1.6(글꼴포함).pdf</a> p.9–14, <a href="../documents/2026 전자상거래  전용 통관플랫폼 FAQ.pdf">2026 전자상거래  전용 통관플랫폼 FAQ.pdf</a>, <a href="https://www.customs.go.kr/kcs/na/ntt/selectNttInfo.do?bbsId=3800&amp;mi=14185&amp;nttSn=10174363&amp;nttSnUrl=3a0a1abcfb583c9ddaccef938140928b">공식 FAQ 게시글</a></p></div>
+    <div class="card"><h3>사업·계약상 근거</h3><ul><li>크로네는 GeekStudio에 뉴트리시아몰 관세청 연동 개발을 위탁했다.</li><li>계약기간은 2026-06-01~2026-08-31이며, 계약 범위는 첨부 견적서를 따른다.</li><li>초기 견적은 NICE 토큰·PCCC 검증, 관세청 제출/오류조회, 동수 HBL, 자이언트 오류 연동을 포함한다.</li><li>2026-08-10 추가 견적은 CI 기반 통합인증, 자이언트 제출, 수동 API, 운영 화면 변경 등을 추가 제안했다. 발주·검수·지급 완료는 미확인이다.</li></ul><p class="footnote">근거: <a href="../documents/(GeekStudio) 뉴트리시아_관세청_연동_개발_계약서.pdf">(GeekStudio) 뉴트리시아_관세청_연동_개발_계약서.pdf</a> 제1–4조 · <a href="../documents/%5BGeekStudio%5D 뉴트리시아몰_관세청_API_연동_1차 견적 최종.pdf">[GeekStudio] 뉴트리시아몰_관세청_API_연동_1차 견적 최종.pdf</a> · <a href="../documents/%5BGeekStudio%5D 뉴트리시아몰_관세청_API_연동_추가개발_견적서_260810.pdf">[GeekStudio] 뉴트리시아몰_관세청_API_연동_추가개발_견적서_260810.pdf</a></p></div>
   </div>
   <h3>문서별 존재 목적</h3>
   <div class="table-wrap"><table class="tight"><thead><tr><th>문서군</th><th>존재 이유</th><th>결정하는 것</th><th>결정하지 못하는 것</th></tr></thead><tbody>
@@ -74,9 +75,9 @@
     <tr><td>NICE 개발가이드·계약</td><td>본인확인·PCCC 중계의 실제 구현 계약</td><td>SMARTPCC 경로, 암호화, 권한·IP 등록</td><td>관세청 TRA 제출, 물류·HBL 처리</td></tr>
     <tr><td>고도몰 스펙</td><td>자사몰 주문 원천 수집</td><td>주문조회·상태변경·호출제한·응답 필드</td><td>PER 성공과 통관 승인</td></tr>
     <tr><td>행안부 도로명주소 API</td><td>한글 기본주소의 표준 영문주소 보완</td><td>영문 기본주소 검색과 승인키 계약</td><td>동·층·호 상세주소를 자동 완성하지 못함</td></tr>
-    <tr><td>동수 협의·내부 API</td><td>ERP/WMS·포장·HBL과 상품/물류 데이터 연결</td><td>원주문 조회, HBL 생성, 삭제·마감 운영</td><td>공개 GGATE 계약과 관세청 규격을 대체하지 않음</td></tr>
-    <tr><td>GGATE Postman·운영협의</td><td>관세사/통관 시스템에 HBL/MWB 데이터를 전달</td><td>공개 엔드포인트·필드·병합·오류</td><td>내부 별칭 V2-1/V2-2와 배포 완료를 단독 증명하지 못함</td></tr>
-    <tr><td>기획서 v7</td><td>인수인계용 통합 판단 기준</td><td>현재 채택안, 충돌, 미확정, 담당자 행동</td><td>외부사의 서면 승인·실제 성공 로그를 대신하지 않음</td></tr>
+    <tr><td>동수 협의·내부 API·Excel 매핑</td><td>ERP/WMS·포장·HBL과 상품/물류 데이터 연결</td><td>외부 플랫폼 원본 Excel 수입·필드 변환, 원주문 조회, HBL 생성, 삭제·마감 운영</td><td>플랫폼별 원본 Excel과 실제 수입 결과 없이는 매핑 완료를 증명하지 못함</td></tr>
+    <tr><td>GGATE Postman·운영협의</td><td>관세사/통관 시스템에 HBL/MWB 데이터를 전달</td><td>공개 엔드포인트·필드·병합·오류</td><td>프로젝트 라벨과 URL은 2026-09-08 사용자 지정으로 확정했으나 운영 배포 완료를 단독 증명하지 못함</td></tr>
+    <tr><td>기획서 v7</td><td>현재 상황의 통합 판단 기준</td><td>현재 채택안, 충돌, 미확정, 담당자 행동</td><td>외부사의 서면 승인·실제 성공 로그를 대신하지 않음</td></tr>
   </tbody></table></div>
 </section>
 
@@ -88,46 +89,59 @@
     <tr><td>2026-07-27</td><td>관세청 REST v1.4.1 74쪽 첨부</td><td>같은 버전명의 76쪽 재개정판: 상품명 원문, 합배송 주문별 거래자료, 판매업체 조건 설명과 API 사용관리 보강</td><td><span class="badge confirmed">공식 최신 첨부</span> 파일명만으로 판별 금지</td></tr>
     <tr><td>2026-08-20</td><td>GGATE 레거시 등록·PCCC 검증·일부 수정 전제</td><td>v2.0.0에서 삭제/분리형 등록으로 전환. 수정은 기능 미제공</td><td><span class="badge history">이력</span> Postman 컬렉션</td></tr>
     <tr><td>2026-08-31</td><td>GGATE v2.0.0의 동수 <code>logistics</code>에 개인정보 없음</td><td>v2.0.1에서 B형은 주문자·수하인·PCCC 9개 필드를 조건부 필수로 수용하며 Geek 값 우선</td><td><span class="badge confirmed">최신 공개</span> Postman 컬렉션</td></tr>
-    <tr><td>2026-09-01</td><td>동수/Geek 전송 역할 미정</td><td>내부 운영안: 동수 V2-1 + Geek V2-2, 같은 키의 유효한 Geek 통관필드 우선</td><td><span class="badge pending">서면 운영협의</span> 실제 배포·첫 성공 응답 미확인</td></tr>
-    <tr><td>2026-09-04</td><td>동수 V2-1 전 주문 적용</td><td>자사몰은 신규 V2-1, PER 없는 외부 플랫폼은 기존 API 유지로 정정</td><td><span class="badge pending">최신 내부안</span> GNG/동수 최종 회신 필요</td></tr>
+    <tr><td>2026-09-01</td><td>동수/Geek 전송 역할 미정</td><td>당시 내부 운영안은 “동수 V2-1 + Geek V2-2”라고 표현하고 같은 키의 유효한 Geek 통관필드 우선을 기록</td><td><span class="badge history">당시 표현 보존</span> 현재 URL 라벨과 혼동 금지</td></tr>
+    <tr><td>2026-09-04</td><td>당시 “동수 V2-1 전 주문 적용” 표현</td><td>자사몰 신규 분리형 API, PER 없는 외부 플랫폼 기존 일체형 API 유지로 정정</td><td><span class="badge pending">내부 운영안</span> GNG/동수 최종 회신 필요</td></tr>
     <tr><td>2026-09-07</td><td>채널 수 27/29 등 혼재 표기</td><td>현재 마스터는 총 11개 = 자사몰 1 + 외부 10</td><td><span class="badge confirmed">파일 대조</span> 도메인모음 2026-08-28</td></tr>
+    <tr><td>2026-09-07</td><td>동수가 같은 MAWB에 3개 API의 HBL 전송을 지원한다고 답변</td><td>GNG가 같은 MAWB 아래 HBL을 병합하는 구조라고 설명했으나 전 과정 완수는 보장하지 않았고 3가지 주문 테스트를 요청했다. 따라서 “정상 매핑 확정”이 아니라 <strong>테스트 필요 상태</strong>다.</td><td><span class="badge pending">담당자 대화</span> MAWB 등록 API·호출주체·실제 병합 결과 미확정</td></tr>
+    <tr><td>2026-09-08</td><td><code>planning/과거/api_field_mapping.html</code>은 V2-1/V2-2 URL을 현재 사용자 지정과 반대로 기록</td><td><strong>V2-1 = <code>2sBYArTsRz</code> 신형 분리형, V2-2 = <code>2sBXqGrh3A</code> 구형 일체형</strong>으로 정정</td><td><span class="badge confirmed">사용자 지정·원본 확인</span> Postman 화면/컬렉션 HTTP 200</td></tr>
+    <tr><td>2026-09-08</td><td>외부 플랫폼의 향후 주문 수집을 신규 Excel 또는 API로 열어 둔 표현</td><td><strong>외부 플랫폼 10개는 모두 플랫폼별 원본 Excel → 동수 ERP 방식</strong>으로 고정한다. 신규 통관 전환은 수집 API 전환이 아니라 Excel 컬럼·PER·동수/GGATE 매핑 검증이다.</td><td><span class="badge confirmed">사용자 확정</span> 각 플랫폼 원본 파일은 현재 작업공간 미보유</td></tr>
   </tbody></table></div>
 </section>
 
 <section class="section" id="architecture">
   <h2>4. 전체 연관관계와 책임</h2>
   <div class="flow" aria-label="통합 흐름">
-    <div class="node"><strong>고객</strong>주문·수하인·본인확인</div><div class="node"><strong>고도몰/Geek</strong>주문 수집·화면·상태·감사로그</div><div class="node"><strong>행안부 주소</strong>영문 기본주소 보완</div><div class="node"><strong>NICE</strong>NICE KEY·PCCC 검증·OTP 중계</div><div class="node"><strong>관세청</strong>TRA 제출·오류·신고 기준</div><div class="node"><strong>동수 ERP/WMS</strong>포장·HBL·상품·중량</div><div class="node split"><strong>GGATE</strong>스냅샷 병합·HWB/MWB·통관</div><div class="node"><strong>배송/CS</strong>화물진행·예외·고객안내</div>
+    <div class="node"><strong>고객</strong>주문·수하인·본인확인</div><div class="node"><strong>주문 원천</strong>자사몰: 고도몰 API<br>외부 10개: 원본 Excel</div><div class="node"><strong>Geek/동수</strong>API 수집·Excel 수입·매핑·감사로그</div><div class="node"><strong>행안부·NICE</strong>영문주소·PCCC·OTP</div><div class="node"><strong>관세청</strong>TRA 제출·오류·신고 기준</div><div class="node"><strong>동수 ERP/WMS</strong>포장·HBL·상품·중량</div><div class="node split"><strong>GGATE</strong>스냅샷 병합·HWB/MWB·통관</div><div class="node"><strong>배송/CS</strong>화물진행·예외·고객안내</div>
   </div>
   <div class="table-wrap"><table><thead><tr><th>주체</th><th>핵심 목적</th><th>소유/생성 데이터</th><th>다음 주체에 주는 것</th><th>완료 판정</th></tr></thead><tbody>
     <tr><td>고객</td><td>실명 기반 주문·수취</td><td>주문자, 수하인, 실휴대폰, 배송지, PCCC 입력/확인</td><td>고도몰·NICE에 입력</td><td>본인확인·결제 완료</td></tr>
-    <tr><td>고도몰</td><td>주문 원천</td><td>주문번호, 결제, 상품, 수하인, 주문상태</td><td>Geek 수집 API</td><td>주문조회 응답과 상태 일치</td></tr>
+    <tr><td>고도몰</td><td>자사몰 주문 원천</td><td>주문번호, 결제, 상품, 수하인, 주문상태</td><td>Geek 수집 API</td><td>주문조회 응답과 상태 일치</td></tr>
+    <tr><td>외부 플랫폼 10개</td><td>외부 주문 원천</td><td>플랫폼별 주문·상품·결제·수하인 Excel</td><td>수정하지 않은 실제 원본 Excel을 동수 ERP에 수입</td><td>플랫폼별 원본 파일 버전·컬럼과 ERP 수입 결과 대사</td></tr>
     <tr><td>행안부</td><td>영문주소 검색</td><td>표준 영문 기본주소</td><td>Geek 주소 보완 단계</td><td>기본주소와 원 상세주소 결합·사용자 확인</td></tr>
     <tr><td>GeekStudio</td><td>오케스트레이션</td><td>NICE 거래상태, PCCC/OTP 보호저장, TRA 작업, 통관 화면</td><td>NICE·관세청·동수·GGATE 호출</td><td>단계별 성공 응답·감사로그</td></tr>
     <tr><td>NICE</td><td>본인확인/PCCC 중계</td><td>NICE KEY, transaction_id, result_inquiry_id, 암호화 결과</td><td>검증 결과, P/O 부호, OTP</td><td>무결성 검증·복호화 성공</td></tr>
     <tr><td>관세청</td><td>거래정보와 PCCC 검증</td><td>access token, 거래제출번호, 제출·오류 결과</td><td>Geek/통관주체에 공식 결과</td><td>TRA 정상 근거 또는 오류 처리</td></tr>
-    <tr><td>동수</td><td>물류·포장·HBL</td><td>HBL, 중량, 포장수, 상품·송하인, ERP 포장 주문번호</td><td>Geek 조회, GGATE 물류 스냅샷</td><td>전 HBL 채번 및 전송 응답</td></tr>
+    <tr><td>동수</td><td>외부 Excel 수입·물류·포장·HBL</td><td>플랫폼별 원본 컬럼 매핑, HBL, 중량, 포장수, 상품·송하인, ERP 포장 주문번호</td><td>Geek 조회, GGATE 물류 스냅샷</td><td>원본 무수정 수입, 행·금액·식별자 대사, 전 HBL 채번 및 전송 응답</td></tr>
     <tr><td>자이언트</td><td>통관 데이터 병합·신고 연결</td><td>pending/merged, HWB/MWB, 통관 이상·화물진행</td><td>동수/Geek/CS에 처리상태</td><td>병합·신고·오류 종결 증빙</td></tr>
   </tbody></table></div>
   <h3>단계 흐름</h3>
-  <p class="footnote">아래 1~8은 자사몰 신규 경로의 기준 흐름이다. 현재 외부 플랫폼은 이 흐름을 그대로 적용하지 않고 5장의 채널별 기존/신규 분기를 따른다.</p>
+  <p class="footnote">아래 1~8은 자사몰 신규 경로의 기준 흐름이다. 외부 플랫폼은 원본 Excel을 동수 ERP에 수입·매핑한 뒤 5장의 채널별 기존/신규 분기를 따른다.</p>
   <ol><li>Geek이 고도몰 주문을 수집하고 수하인 실명·실휴대폰·5자리 우편번호를 검증한다.</li><li>영문주소가 필요하면 행안부 API로 기본주소를 표준화하되 동·층·호 상세주소는 원문을 별도 보존해 결합한다.</li><li>NICE <code>SMARTPCC_10/11</code>로 PCCC 검증을 수행한다. 최초 NICE KEY 발급이 필요하면 <code>SMARTPCC_02/03</code>을 먼저 수행한다.</li><li>동수 ERP/WMS에서 포장별 HBL을 확정한다. 원주문번호와 ERP 분할번호를 함께 보존한다.</li><li>Geek이 관세청 <code>TRA001</code> 거래정보를 주문별로 제출하고 <code>TRA002/003</code>으로 결과·오류를 회수한다.</li><li>동수는 GGATE 물류·상품, Geek은 필요한 경우 통관·수하인 스냅샷을 같은 <code>hwbNo + orderNo</code>로 보낸다.</li><li>GGATE가 두 스냅샷을 병합하고, MAWB 등록·통관 이상·화물진행 상태를 관리한다.</li><li>실패·미확인은 승인으로 추정하지 않고 보류/수기통관/CS 대장으로 이관한다.</li></ol>
+  <h3>외부 플랫폼 Excel 경로</h3>
+  <ol><li>MD/운영이 각 플랫폼에서 수정하지 않은 실제 주문 Excel 원본을 내려받고 파일명·내려받은 시각·화면/메뉴·양식 버전을 기록한다.</li><li>동수는 원본 파일을 수동 전처리 없이 ERP에 시험 수입하고 원본 컬럼→ERP 필드→GGATE 필드 매핑표를 작성한다.</li><li>원본 행수·주문수·상품수·금액·주문번호와 ERP 수입 결과를 대사하고 누락·중복·형변환을 기록한다.</li><li>PER/PCCC/일회용 인증정보가 원본에 없으면 생성하거나 기본값으로 채우지 않는다. 해당 채널은 기존 GNG API·기존 통관을 유지한다.</li><li>채널별 원본 매핑, PER 필수정보, GGATE 요청/응답, 출고 차단이 모두 검증된 뒤에만 신규 통관 대상으로 전환한다.</li></ol>
 </section>
 
 <section class="section" id="route">
-  <h2>5. 2026-09-07 현재 라우팅 기준</h2>
-  <div class="callout warn"><strong>운영 보호 기준:</strong> 아래 라우팅은 2026-09-04 문서를 채택한 잠정 기준이다. GNG·동수 서면 회신과 생산 E2E가 없으므로 신규 경로를 외부 플랫폼 전체로 확대하지 않는다.</div>
-  <div class="route"><div class="head">구분</div><div class="head">자사몰</div><div class="head">현재 외부 플랫폼</div><div class="head">향후 전환 외부 플랫폼</div>
+  <h2>5. 2026-09-08 현재 라우팅 기준</h2>
+  <div class="callout warn"><strong>운영 보호 기준:</strong> 아래 라우팅은 2026-09-04 문서와 2026-09-08 사용자 확정을 반영한 잠정 기준이다. 외부 플랫폼의 주문 수집은 전부 Excel로 고정하며, GNG·동수 서면 회신과 채널별 원본 Excel 매핑·생산 E2E가 없으면 신규 경로를 확대하지 않는다.</div>
+  <div class="route"><div class="head">구분</div><div class="head">자사몰</div><div class="head">현재 외부 플랫폼</div><div class="head">신규 통관 전환 후 외부 플랫폼</div>
     <div>판매유형</div><div>A 직접판매</div><div>B 구매대행</div><div>B 구매대행 유지</div>
-    <div>주문 수집</div><div>고도몰 API</div><div>엑셀 → 동수 ERP</div><div>신규 컬럼 엑셀 또는 확정 API</div>
+    <div>주문 수집</div><div>고도몰 API</div><div>플랫폼별 원본 Excel → 동수 ERP</div><div>플랫폼별 원본 Excel → 동수 ERP 유지</div>
     <div>PER</div><div class="new">적용</div><div class="old">현재 미적용</div><div>채널별 완료 필요</div>
     <div>현재 GNG 경로</div><div class="new">신규 V2-1</div><div class="old">기존 GNG API</div><div>매핑·E2E 성공 뒤 신규 V2-1</div>
     <div>통관 방식</div><div class="new">전자상거래 전용 신규 통관 가능</div><div class="old">기존 통관 유지</div><div>승인된 채널만 신규 통관</div>
   </div>
-  <p><strong>A/B는 판매유형이고, 기존/신규 API는 전송·신고 경로다.</strong> 두 축을 같은 값으로 취급하지 않는다. 11개 채널의 업체부호는 <a href="과거/도메인모음_20260828.xlsx">채널 마스터</a>에서 관리한다.</p>
+  <p><strong>A/B는 판매유형이고, Excel/API는 주문 수집 방식이며, 기존/신규 GNG API는 전송·신고 경로다.</strong> 세 축을 같은 값으로 취급하지 않는다. 11개 채널의 업체부호는 <a href="과거/도메인모음_20260828.xlsx">채널 마스터</a>에서 관리한다. 외부 플랫폼을 신규 통관으로 전환해도 주문 수집 방식은 Excel이다.</p>
   <h3>혼합 MAWB 결정 트리</h3>
   <ol><li>GNG가 하나의 MAWB 아래 기존 API HBL과 신규 V2-1 HBL을 함께 연결할 수 있는지 확인한다.</li><li>가능하면 MAWB는 유지하고 HBL별로 경로를 분리한다.</li><li>불가능하지만 V2-1에서 PER 유무에 따라 HBL별 신고경로를 구분할 수 있으면 통합 수신 후 내부 라우팅한다.</li><li>둘 다 불가능하면 실제 출고 전 MAWB를 통관방식별로 분리한다.</li></ol>
-  <p class="footnote">현재 1~3 어느 방식도 서면 확정되지 않았다. 임의로 혼합 출고하지 않는다.</p>
+  <p class="footnote">2026-09-07 동수는 동일 MAWB에 서로 다른 API의 HBL을 보낼 수 있다고 답변했으나 전 과정 완수는 보장하지 않았고 테스트를 요청했다. 실제 병합·신고 결과 전에는 지원 확정으로 보지 않으며 임의로 혼합 출고하지 않는다.</p>
+  <h3>동수·GNG 테스트 시나리오와 API</h3>
+  <div class="table-wrap"><table class="tight"><thead><tr><th>시나리오</th><th>주문 입력</th><th>HBL 전송</th><th>PER 조건</th><th>판정</th></tr></thead><tbody>
+    <tr><td>T1 자사몰 A·신규 통관</td><td>고도몰 API에서 생성한 테스트 주문</td><td>동수 <code>POST /api/hwb/bulk-sync/logistics</code> + Geek <code>POST /api/hwb/bulk-sync/clearance</code></td><td>PCCC·인증정보를 포함한 신규 통관 필수값</td><td>V2-1 <code>hwbNo + orderNo</code> 병합·신고 결과 확인</td></tr>
+    <tr><td>T2 외부 플랫폼 B·기존 통관</td><td>10개 플랫폼별 실제 주문 Excel 원본→동수 ERP</td><td>V2-2 구형 일체형 <code>POST /api/hwb/bulk-sync</code>로 계획하되 현재 매일 출고 API의 실제 Base URL·경로와 일치 여부를 먼저 확인</td><td>현재 미적용. 없는 PER 값을 요구·생성하지 않음</td><td>플랫폼별 Excel 수입·매핑과 기존 신고 결과 확인</td></tr>
+    <tr><td>T3 외부 플랫폼 B·신규 통관</td><td>플랫폼별 실제 주문 Excel 원본→동수 ERP</td><td>동수 <code>logistics</code> + Geek <code>clearance</code></td><td>해당 플랫폼의 PER·필수컬럼·값 원천이 모두 검증된 경우만 실시</td><td>준비된 채널별로 V2-1 병합·신고 결과 확인. 미준비 채널은 T2 유지</td></tr>
+    <tr><td>공통 MAWB</td><td>T1·T2, 가능하면 T3 HBL을 같은 테스트 MAWB로 구성</td><td><code>POST /api/hwb/bulk-sync/master</code>. 실제 호출주체·순서·Base URL은 동수/GNG 서면 확정 필요</td><td>HBL별 통관방식에 맞게 적용</td><td>동일 MAWB 하위 병합, HBL별 신고 구분, 실패 시 MAWB 분리 규칙 확인</td></tr>
+  </tbody></table></div>
 </section>
 
 <section class="section" id="catalog">
@@ -135,7 +149,7 @@
   <p class="footnote">여기서 “전수”는 이 프로젝트가 사용하거나 도입 검토한 API와 관련 문서 전부를 뜻한다. 고도몰 등 제공사의 전체 제품군 API를 재전재하지 않고, 전체 스펙 원문 링크와 프로젝트 사용 범위를 함께 둔다.</p>
   <div class="filter" aria-label="API 표 필터"><button class="active" data-provider="all">전체</button><button data-provider="KCS">관세청</button><button data-provider="NICE">NICE</button><button data-provider="GODO">고도몰</button><button data-provider="MOIS">행안부</button><button data-provider="DONGSU">동수</button><button data-provider="GNG">자이언트</button></div>
   <h3>6.1 관세청</h3>
-  <p><strong>정본:</strong> <a href="../documents/관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1_재개정포함_20260727.pdf">REST API v1.4.1 재개정판</a>, 2026-07-27, 76쪽. Base URL <code>https://ecapi.customs.go.kr</code>. JSON/UTF-8, KST, TLS 1.3만 지원한다(명세 p.3–4). 출처 잠금: 공식 <code>fileKey=5461fa29919142379936256b3db16b5b</code>, 489,967바이트, SHA-256 <code>2F6987C887474CBA505E5C43FE7FE7186BACBC8D2AB9192B4C6B3AC9FAD3DEC5</code>.</p>
+  <p><strong>정본:</strong> <a href="../documents/관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1_재개정포함_20260727.pdf">관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1_재개정포함_20260727.pdf</a>, 2026-07-27, 76쪽. Base URL <code>https://ecapi.customs.go.kr</code>. JSON/UTF-8, KST, TLS 1.3만 지원한다(명세 p.3–4). 출처 잠금: 공식 <code>fileKey=5461fa29919142379936256b3db16b5b</code>, 489,967바이트, SHA-256 <code>2F6987C887474CBA505E5C43FE7FE7186BACBC8D2AB9192B4C6B3AC9FAD3DEC5</code>.</p>
   <div class="table-wrap"><table class="api-table"><thead><tr><th>ID</th><th>Method/Path</th><th>목적</th><th>핵심 제약</th><th>프로젝트 적용</th></tr></thead><tbody>
     <tr data-provider="KCS"><td>AUT001</td><td><code>POST /oauth/token</code></td><td>OAuth 접근토큰 발급</td><td>client_credentials, 24시간, 인증정보당 활성 2개, 초과 시 FIFO·1분 유예</td><td>사용. 단일 갱신 잠금과 Secret Vault 필요</td></tr>
     <tr data-provider="KCS"><td>AUT002</td><td><code>POST /oauth/revoke</code></td><td>접근토큰 폐기</td><td>공식 제공</td><td>상시 흐름 미도입. 사고·교체 절차에서 사용 검토</td></tr>
@@ -157,7 +171,7 @@
   <p class="footnote">근거: <a href="https://www.customs.go.kr/kcs/na/ntt/selectNttInfo.do?bbsId=3800&amp;mi=14185&amp;nttSn=10174063&amp;nttSnUrl=f8188dd82358e4a8870016d004b31c54">관세청 2026-08-21 신규 서식 재정정 공지</a>. 공지의 서식 규칙과 REST API 필드 길이는 적용 대상이 다르므로 별도 계약으로 관리한다.</p>
 
   <h3>6.2 NICE</h3>
-  <p><strong>정본:</strong> <a href="../documents/개인통관고유부호 유효성 검증 서비스_고유식별키활용_20260728.pdf">고유식별키 활용 가이드 2026-07-28</a> 및 <a href="../documents/NICE %5BCI%5D 개인통관고유부호 유효성 검증 API 개발 가이드_20260724.pdf">PCCC 검증 가이드 2026-07-24</a>. 도메인 <code>smartpcc.niceid.co.kr</code>. Outbound IP·전자상거래업체 부호 등록, 암복호화·무결성 검증이 선행된다. 공통 요청 헤더는 <code>Authorization</code>, <code>X-Cons-TimeStamp</code>, <code>X-Cons-DevLang</code>이며, 가이드의 <code>ticket</code>과 <code>iterators</code>를 PBKDF2/AES-GCM/HMAC 파생 절차에 사용한다.</p>
+  <p><strong>정본:</strong> <a href="../documents/개인통관고유부호 유효성 검증 서비스_고유식별키활용_20260728.pdf">개인통관고유부호 유효성 검증 서비스_고유식별키활용_20260728.pdf</a> 및 <a href="../documents/NICE %5BCI%5D 개인통관고유부호 유효성 검증 API 개발 가이드_20260724.pdf">NICE [CI] 개인통관고유부호 유효성 검증 API 개발 가이드_20260724.pdf</a>. 도메인 <code>smartpcc.niceid.co.kr</code>. Outbound IP·전자상거래업체 부호 등록, 암복호화·무결성 검증이 선행된다. 공통 요청 헤더는 <code>Authorization</code>, <code>X-Cons-TimeStamp</code>, <code>X-Cons-DevLang</code>이며, 가이드의 <code>ticket</code>과 <code>iterators</code>를 PBKDF2/AES-GCM/HMAC 파생 절차에 사용한다.</p>
   <div class="table-wrap"><table class="api-table"><thead><tr><th>ID</th><th>Method/Path</th><th>목적</th><th>입출력 핵심</th><th>상태</th></tr></thead><tbody>
     <tr data-provider="NICE"><td>SMARTPCC_01</td><td><code>POST /cons/pccc/v1.0/auth/token</code></td><td>NICE 접근토큰</td><td>Basic client 인증 → 24시간 토큰</td><td>필수</td></tr>
     <tr data-provider="NICE"><td>SMARTPCC_02</td><td><code>POST /cons/pccc/v1.0/issue/customskey/url</code></td><td>NICE KEY 발급 URL</td><td><code>request_no</code>, 콜백 → <code>auth_url</code>, <code>transaction_id</code></td><td>최초/미보유 회원</td></tr>
@@ -171,7 +185,7 @@
   <div class="callout warn"><strong>NICE 문서 내부 불일치:</strong> API 목록의 <code>/cons/pccc/v1.0/verify/result</code>와 일부 설명의 <code>/pccc/ecmr/v1.0/verify/result</code>, 기본 도메인 <code>smartpcc</code>와 예시 <code>smartpccc</code>, 우편번호 6자 표기와 관세청/GGATE 5자 요구, 2026-07-24의 <code>result_msg</code>와 2026-07-28의 <code>result_message</code>가 서로 다르다. 2026-07-28 가이드와 실응답을 우선하되 NICE 서면 확답 전 하드코딩하지 않는다.</div>
 
   <h3>6.3 고도몰</h3>
-  <p><strong>정본:</strong> <a href="../documents/godomall5_openAPI_spec_v1.0_20250616.pdf">고도몰5 Open API v1.0, 2025-06-16</a>. POST/XML/UTF-8. Sandbox <code>http://sbopenhub.godo.co.kr/</code>, 운영 <code>https://openhub.godo.co.kr/</code>. 공식 서버 문서는 <a href="https://server-docs.godomall.com/">server-docs.godomall.com</a>에서 현재 정책을 재확인한다.</p>
+  <p><strong>정본:</strong> <a href="../documents/godomall5_openAPI_spec_v1.0_20250616.pdf">godomall5_openAPI_spec_v1.0_20250616.pdf</a>. POST/XML/UTF-8. Sandbox <code>http://sbopenhub.godo.co.kr/</code>, 운영 <code>https://openhub.godo.co.kr/</code>. 공식 원본은 <a href="https://devcenter.nhn-commerce.com/godomall5/openapi/specDownload">NHN커머스 고도몰5 Open API 스펙</a>에서 재확인한다.</p>
   <div class="table-wrap"><table class="api-table"><thead><tr><th>API</th><th>Method/URL</th><th>목적</th><th>핵심 주의</th><th>상태</th></tr></thead><tbody>
     <tr data-provider="GODO"><td>주문조회</td><td><code>POST /godomall5/order/Order_Search.php</code></td><td>주문·결제·상품·수하인·<code>addField</code> 수집</td><td>검색기간 30일 이내. 날짜 또는 주문번호 필요. 5자리 <code>receiverZonecode</code>, 실번호 <code>receiverCellPhone</code> 사용</td><td>현재 자사몰 주문 원천</td></tr>
     <tr data-provider="GODO"><td>주문상태변경</td><td><code>POST /godomall5/order/Order_Status.php</code></td><td>결제·배송·클레임 상태 변경</td><td>부분수량 클레임·네이버페이·일괄변경 제약 확인</td><td>취소/변경 차단과 상태 동기화에 사용</td></tr>
@@ -179,7 +193,7 @@
   </tbody></table></div>
 
   <h3>6.4 행정안전부 도로명주소 영문 API</h3>
-  <p><strong>공식 원문:</strong> <a href="https://business.juso.go.kr/addrlink/addrEngApi.do">영문주소 검색 API</a> · <a href="https://www.juso.go.kr/addrlink/qna/qnaDetail.do?bulletinRefSn=132618&amp;currentPage=36&amp;noticeMgtSn=132618&amp;noticeType=QNA&amp;noticeTypeTmp=QNA">별도 승인키 안내</a>. 공개 의미 버전은 확인되지 않았다. 관세청/GGATE 영문 수하인 주소 보완에 사용할 수 있으나 상세주소 유실을 막는 결합 규칙이 필요하다.</p>
+  <p><strong>공식 원문:</strong> <a href="https://business.juso.go.kr/addrlink/addrEngApi.do">영문주소 검색 API</a> · <a href="https://m1.juso.go.kr/addrlink/openApi/apiExprn.do">도로명주소 API 체험</a>. 종전 “별도 승인키 안내” Q&amp;A 직링크는 실제 브라우저에서 오류가 발생해 제거했다. 공개 의미 버전은 확인되지 않았다. 관세청/GGATE 영문 수하인 주소 보완에 사용할 수 있으나 상세주소 유실을 막는 결합 규칙이 필요하다.</p>
   <div class="table-wrap"><table class="api-table"><thead><tr><th>Method/URL</th><th>목적</th><th>입출력</th><th>제약</th><th>현재 판정</th></tr></thead><tbody>
     <tr data-provider="MOIS"><td><code>https://business.juso.go.kr/addrlink/addrEngApi.do</code></td><td>한글 도로명주소의 표준 영문주소 검색</td><td><code>currentPage</code>, <code>countPerPage</code>, <code>keyword</code>, <code>confmKey</code>, <code>resultType</code> → <code>engAddr</code></td><td>페이지당 최대 100건. 영문주소 API 전용 승인키 필요. HTTP Method는 도입 시 공식 연동가이드로 확정</td><td>도입·키 보유 여부 미확인. 기본주소만 변환하고 상세주소는 원문 보존</td></tr>
   </tbody></table></div>
@@ -190,14 +204,20 @@
     <tr data-provider="DONGSU"><td><code>GET /openAPI/erp/orderInfo/getTRA001OrderInfo</code></td><td>해외 TRA용 주문·포장/HBL 조회</td><td><code>customerOrderNos</code>에 원주문번호 쉼표 연결, <code>packageList/hblNo</code> 반환</td><td>Method·Body/Query 실제 방식, 인증, 최대 건수, 부분 실패 응답 확인</td></tr>
     <tr data-provider="DONGSU"><td><code>POST /api/openAPI/erp/orderInfo/orderDelete</code></td><td>ERP 주문 삭제</td><td>정확한 원주문번호, 11:50 전, 1건씩. 부모 삭제 시 분할·혼합 주문 영향</td><td>가역성·감사로그·권한·성공 응답 확인</td></tr>
     <tr data-provider="DONGSU"><td><code>serachOrderInfo</code></td><td>국내/해외 송장·<code>isCrossBorder</code> 조회</td><td>문서상 오탈자 이름 그대로 보존</td><td>정확한 경로·Method·파라미터·배치 계약 미확인</td></tr>
-    <tr data-provider="DONGSU"><td>동수 → GGATE</td><td>HBL 물류·상품 스냅샷</td><td>공개 v2.0.1의 <code>POST /api/hwb/bulk-sync/logistics</code>와 내부 V2-1 명칭 대응 필요</td><td>생산 URL·버전·첫 202 성공 응답 증빙 필요</td></tr>
+    <tr data-provider="DONGSU"><td>동수 → GGATE</td><td>HBL 물류·상품 스냅샷</td><td>V2-1 v2.0.1의 <code>POST /api/hwb/bulk-sync/logistics</code></td><td>생산 Base URL·배포 버전·첫 202 성공 응답 증빙 필요</td></tr>
   </tbody></table></div>
 
   <h3>6.6 자이언트 GGATE</h3>
-  <p><strong>공개 정본:</strong> <a href="https://documenter.getpostman.com/view/11773234/2sBYArTsRz">GGATE API V2 v2.0.1</a>, 2026-08-31. 운영 Base URL은 과거 문서에 <code>https://g-api.giantnetworkgroup.com</code>으로 기록되어 있으나 현재 컬렉션은 <code>{{prop}}</code> 변수만 제공하므로, 생산 적용 전 자이언트 발급 환경값으로 다시 확인한다. 인증 헤더는 <code>X-Api-Key</code>다.</p>
+  <p><strong>공개 문서는 두 개이며 URL을 서로 바꾸어 쓰면 안 된다.</strong> 2026-09-08 실제 페이지를 열어 제목과 버전 이력을 확인했다.</p>
+  <div class="table-wrap"><table class="tight"><thead><tr><th>내부 구분</th><th>정확한 원본 URL</th><th>페이지 제목</th><th>확인된 최신 이력</th></tr></thead><tbody>
+    <tr><td><strong>V2-1</strong></td><td><a href="https://documenter.getpostman.com/view/11773234/2sBYArTsRz">https://documenter.getpostman.com/view/11773234/2sBYArTsRz</a></td><td>GGATE API V2 아이배</td><td>신형 분리형. v2.0.1 · 2026-08-31 · Geek <code>clearance</code>와 동수 <code>logistics</code> 스냅샷 병합</td></tr>
+    <tr><td><strong>V2-2</strong></td><td><a href="https://documenter.getpostman.com/view/11773234/2sBXqGrh3A">https://documenter.getpostman.com/view/11773234/2sBXqGrh3A</a></td><td>GGATE API V2</td><td>구형 일체형. v1.3.7 · 2026-08-25 · <code>POST /api/hwb/bulk-sync</code>, 해상(OI) <code>volume</code> 추가</td></tr>
+  </tbody></table></div>
+  <p>운영 Base URL은 과거 문서에 <code>https://g-api.giantnetworkgroup.com</code>으로 기록되어 있으나 공개 문서는 <code>{{prop}}</code> 환경변수를 사용하므로, 실제 운영값은 자이언트 발급 환경과 배포 설정에서 확인한다. 인증 헤더는 <code>X-Api-Key</code>다.</p>
+  <h4>V2-1 — 신형 분리형 API 전수</h4>
   <div class="table-wrap"><table class="api-table"><thead><tr><th>Method/Path</th><th>소유/목적</th><th>핵심 계약</th><th>현재 판정</th></tr></thead><tbody>
-    <tr data-provider="GNG"><td><code>POST /api/hwb/bulk-sync/clearance</code></td><td>Geek 통관·수하인</td><td>1~500건, <code>hwbNo + orderNo</code>, 부분 스냅샷, 202 Accepted</td><td>내부 V2-2 대응으로 사용해 왔으나 지속 사용 범위 재확인</td></tr>
-    <tr data-provider="GNG"><td><code>POST /api/hwb/bulk-sync/logistics</code></td><td>동수 물류·상품</td><td>1~500건, 품목 1~50, A/B만 허용. B는 9개 주문자·수하인·PCCC 필드 조건부 필수. Geek 유효값 우선</td><td>v2.0.1 최신. 내부 V2-1 명칭 대응 필요</td></tr>
+    <tr data-provider="GNG"><td><code>POST /api/hwb/bulk-sync/clearance</code></td><td>Geek 통관·수하인</td><td>1~500건, <code>hwbNo + orderNo</code>, 부분 스냅샷, 202 Accepted</td><td>V2-1 공개 문서 v2.0.1 기준. 운영 Base URL·배포 버전 확인</td></tr>
+    <tr data-provider="GNG"><td><code>POST /api/hwb/bulk-sync/logistics</code></td><td>동수 물류·상품</td><td>1~500건, 품목 1~50, A/B만 허용. B는 9개 주문자·수하인·PCCC 필드 조건부 필수. Geek 유효값 우선</td><td>V2-1 공개 문서 v2.0.1 기준. 운영 배포 버전 확인</td></tr>
     <tr data-provider="GNG"><td><code>POST /api/hwb/bulk-sync/status/search</code></td><td>등록·병합 상태</td><td><code>NOT_FOUND</code>, <code>WAITING_COUNTERPART</code>, <code>VALIDATION_FAILED</code>, <code>RETRY_WAITING</code>, <code>MERGED</code></td><td>공개 컬렉션 URL이 localhost로 남아 있어 실제 Base URL 조합 확인. Geek 구현 미확인</td></tr>
     <tr data-provider="GNG"><td><code>POST /api/hwb/bulk-sync/search</code></td><td>병합 확정 HWB 조회</td><td>최종 병합값 조회</td><td>과거 Geek 미호출 회신. 운영 대사 필요</td></tr>
     <tr data-provider="GNG"><td><code>POST /api/hwb/bulk-sync/master</code></td><td>MWB 등록</td><td>MAWB와 HBL 목록 연결</td><td>혼합 라우팅 가능 여부 미확인</td></tr>
@@ -206,6 +226,18 @@
     <tr data-provider="GNG"><td><code>GET /api/unipass/cargo-progress</code></td><td>화물 진행 조회</td><td>화물관리번호 또는 HBL/MWB+연도</td><td>고객 실시간 알림은 현재 미제공</td></tr>
   </tbody></table></div>
   <p class="footnote">v2.0.1 <code>logistics</code>는 B형에 <code>ordererName</code>, <code>ordererTel</code>, <code>consigneeName</code>, <code>consigneeNameEng</code>, <code>consigneeAddr</code>, <code>consigneeAddressEng</code>, <code>consigneeZip</code>, <code>consigneeTel</code>, <code>pccCode</code>를 조건부 필수로 정의한다. A형은 이 9개를 검증하지 않는다. 빈 Geek 값은 동수 값을 지우지 않는 폴백으로 설명되어 있다.</p>
+  <h4>V2-2 — 구형 일체형 API 전수</h4>
+  <div class="table-wrap"><table class="api-table"><thead><tr><th>Method/Path</th><th>목적</th><th>문서상 계약·이력</th><th>현재 판정</th></tr></thead><tbody>
+    <tr data-provider="GNG"><td><code>GET /api/hwb/:hwbNo</code></td><td>HWB 단건 조회</td><td>HWB 정보와 택배사 집배코드 조회</td><td>V2-2 조회용. 신규 분리형의 최종 병합조회와 경로가 다름</td></tr>
+    <tr data-provider="GNG"><td><code>POST /api/hwb/bulk-sync</code></td><td>HWB 일체형 등록</td><td>물류·상품·통관 정보를 한 요청으로 등록. v1.3.5부터 <code>hwbNo</code> 미입력 시 택배사 코드 기반 자동 채번</td><td>기존 경로 대상 채널에만 사용. V2-1 <code>clearance/logistics</code>와 혼용 금지</td></tr>
+    <tr data-provider="GNG"><td><code>POST /api/hwb/search</code></td><td>HWB 검색</td><td>등록된 HWB 검색</td><td>V2-2 검색 경로. V2-1 <code>/api/hwb/bulk-sync/search</code>와 구분</td></tr>
+    <tr data-provider="GNG"><td><code>POST /api/hwb/bulk-sync/master</code></td><td>MWB 등록</td><td>MAWB와 HBL 목록 연결</td><td>두 문서에 공통으로 존재. 운영 버전과 혼합 MAWB 지원은 확인 필요</td></tr>
+    <tr data-provider="GNG"><td><code>PATCH /api/hwb/:hwbNo</code></td><td>HWB 정보 일부 수정</td><td>V2-2 문서에 수정 API 존재</td><td>V2-1의 <code>PATCH /api/hwb/bulk-sync/merged</code>와 경로·계약이 다름. 실제 지원 여부 확인</td></tr>
+    <tr data-provider="GNG"><td><code>GET /api/unipass/personal-code/validate</code></td><td>개인통관고유부호 검증</td><td>V2-2에 존재한 구형 PCCC 검증</td><td>V2-1 v2.0.0 변경 이력에서 삭제됨. 신규 흐름은 NICE/관세청 계약 사용</td></tr>
+    <tr data-provider="GNG"><td><code>POST /api/entry-exit/search</code></td><td>통관 이상 조회</td><td>통관 이상·오류 조회</td><td>두 문서에 공통으로 존재. 호출 주기·SLA는 미확정</td></tr>
+    <tr data-provider="GNG"><td><code>GET /api/unipass/cargo-progress</code></td><td>화물 진행 조회</td><td>화물관리번호 또는 HBL/MWB+연도 기반 진행 조회</td><td>두 문서에 공통으로 존재. 고객 실시간 알림은 현재 미제공</td></tr>
+  </tbody></table></div>
+  <p class="footnote">V2-2 최신 이력 v1.3.7(2026-08-25)은 해상(OI) 등록에 <code>volume</code> 필드를 추가한다. V2-1 v2.0.0(2026-08-20)은 구형 일체형 HWB 등록·검색·일부 수정·MWB의 PCCC 검증을 삭제하거나 분리형 계약으로 전환했다고 설명한다.</p>
 
   <h3>6.7 GeekStudio 맞춤 연동</h3>
   <p>GeekStudio가 별도 공개 API를 제공한다는 근거는 없다. 이 프로젝트에서는 고도몰·NICE·관세청·동수·GGATE를 묶는 맞춤 커넥터, 배치, 관리자 화면, 오류·재제출 기능의 구현 주체다. 현재 작업공간에는 애플리케이션 소스코드가 없으므로 코드 저장소·배포 환경·커밋·첫 성공 로그는 인수되지 않은 상태로 본다.</p>
@@ -213,14 +245,14 @@
     <tr><td>주문 커넥터</td><td>고도몰 주문·추가필드·상태 수집</td><td>소스 저장소, 스케줄, 운영몰 필드 키, Rate limit 처리</td><td>문서만 확인</td></tr>
     <tr><td>인증 커넥터</td><td>NICE KEY·PCCC 검증·재검증·사후처리</td><td>암호화 구현, Callback URL, 테스트 계정, E2E 로그</td><td>3011 포함 미확정</td></tr>
     <tr><td>관세청 커넥터</td><td>AUT/TRA 제출·조회·오류 보존</td><td>76쪽 재개정판 반영 코드, 제출번호 생성기, 대사 로그</td><td>최신판 재검증 필요</td></tr>
-    <tr><td>물류·통관 커넥터</td><td>동수 HBL 조회, GGATE clearance/상태/CS</td><td>V2-1/V2-2 대응표, 환경 URL, 배포 로그</td><td>명칭·배포 미확정</td></tr>
+    <tr><td>물류·통관 커넥터</td><td>동수 HBL 조회, GGATE clearance/상태/CS</td><td>V2-1/V2-2별 운영 환경 URL, 배포 버전, 배포 로그</td><td>문서 라벨 확정, 운영 배포 미확정</td></tr>
   </tbody></table></div>
 </section>
 
 <section class="section" id="keys">
-  <h2>7. API 키·인증정보 인수인계 대장</h2>
-  <div class="callout danger"><strong>보안 원칙:</strong> 실제 키·토큰·Secret 값은 HTML, Git, 메신저, 티켓, 로그에 쓰지 않는다. 아래는 이름·보관 책임·수명만 기록한다. 값 인계는 승인된 Secret Vault와 별도 권한 절차로 수행한다.</div>
-  <div class="table-wrap"><table><thead><tr><th>제공자</th><th>키/토큰 종류</th><th>비밀 여부</th><th>발급·등록 조건</th><th>수명/교체</th><th>2026-09-07 인수인계 상태</th></tr></thead><tbody>
+  <h2>7. API 키·인증정보 대장</h2>
+  <div class="callout danger"><strong>보안 원칙:</strong> 실제 키·토큰·Secret 값은 HTML, Git, 메신저, 티켓, 로그에 쓰지 않는다. 아래는 이름·보관 책임·수명만 기록한다. 값 등록·공유는 승인된 Secret Vault와 별도 권한 절차로 수행한다.</div>
+  <div class="table-wrap"><table><thead><tr><th>제공자</th><th>키/토큰 종류</th><th>비밀 여부</th><th>발급·등록 조건</th><th>수명/교체</th><th>2026-09-08 현재 상태</th></tr></thead><tbody>
     <tr><td>관세청</td><td><code>client_id</code> / <code>client_secret</code></td><td><span class="badge risk">Secret</span></td><td>전자상거래 API 사용 신청, 계정당 최대 3개. Secret은 최초 발급 때만 확인</td><td>6개월 토큰 미발급 시 정지. 양도 금지, 노출 시 즉시 재발급</td><td>발급값 존재 정황은 있으나 환경·소유자·Vault 위치 미확인</td></tr>
     <tr><td>관세청</td><td>OAuth <code>access_token</code></td><td><span class="badge risk">Secret</span></td><td>AUT001 client_credentials</td><td>24시간, 활성 최대 2개, FIFO</td><td>캐시·분산잠금·폐기 절차 증빙 필요</td></tr>
     <tr><td>NICE</td><td><code>client_id</code> / <code>client_secret</code></td><td><span class="badge risk">Secret</span></td><td>계약, Outbound IP, 업체부호, Scope 등록</td><td>발급기관 정책. 개발/운영 분리</td><td>기존 Client 유지 또는 KEY API 권한 추가/재발급 여부 미확인</td></tr>
@@ -280,6 +312,48 @@
     <tr><td>기타 외부 플랫폼</td><td>9</td><td>B</td><td>G마켓·옥션·11번가·롯데온·오늘의집·SSG·쿠팡·CJ온스타일·카카오톡딜</td><td>PER 준비 전 기존 통관</td></tr>
   </tbody></table></div>
   <p class="footnote">업체부호의 실제 채널별 값은 <a href="과거/도메인모음_20260828.xlsx">도메인모음_20260828.xlsx</a>이 근거다. 이 문서에는 Secret이 아닌 등록 식별자만 기재할 수 있으나, 변경 시 원본과 동시에 갱신한다.</p>
+  <h3>외부 플랫폼 원본 Excel → 동수 ERP → GGATE 매핑 검증</h3>
+  <div class="callout danger"><strong>[2026-09-08 정정]</strong> 외부 플랫폼 10개의 주문 수집은 현재와 향후 모두 플랫폼별 원본 Excel 방식이다. 신규 통관 전환은 외부 플랫폼 API 개발이 아니라 <strong>각 원본 Excel의 실제 컬럼을 동수 ERP와 GGATE 필드에 정확히 매핑하고, PER 필수정보의 존재와 원천을 검증하는 작업</strong>이다. Excel에 없는 PCCC·일회용 인증정보는 수입이나 매핑으로 새로 생기지 않는다.</div>
+  <div class="table-wrap"><table class="tight"><thead><tr><th>외부 플랫폼</th><th>주문 수집 방식</th><th>실제 주문 Excel 원본</th><th>동수 ERP 매핑</th><th>현재 조치</th></tr></thead><tbody>
+    <tr><td>네이버</td><td>원본 Excel</td><td><span class="badge risk">작업공간 미보유</span></td><td><span class="badge pending">미검증</span></td><td>실제 내려받기 원본 확보 후 무수정 수입 시험</td></tr>
+    <tr><td>지마켓(G마켓)</td><td>원본 Excel</td><td><span class="badge risk">작업공간 미보유</span></td><td><span class="badge pending">미검증</span></td><td>실제 내려받기 원본 확보 후 무수정 수입 시험</td></tr>
+    <tr><td>옥션</td><td>원본 Excel</td><td><span class="badge risk">작업공간 미보유</span></td><td><span class="badge pending">미검증</span></td><td>실제 내려받기 원본 확보 후 무수정 수입 시험</td></tr>
+    <tr><td>11번가</td><td>원본 Excel</td><td><span class="badge risk">작업공간 미보유</span></td><td><span class="badge pending">미검증</span></td><td>실제 내려받기 원본 확보 후 무수정 수입 시험</td></tr>
+    <tr><td>롯데ON</td><td>원본 Excel</td><td><span class="badge risk">작업공간 미보유</span></td><td><span class="badge pending">미검증</span></td><td>실제 내려받기 원본 확보 후 무수정 수입 시험</td></tr>
+    <tr><td>오늘의집</td><td>원본 Excel</td><td><span class="badge risk">작업공간 미보유</span></td><td><span class="badge pending">미검증</span></td><td>실제 내려받기 원본 확보 후 무수정 수입 시험</td></tr>
+    <tr><td>SSG닷컴</td><td>원본 Excel</td><td><span class="badge risk">작업공간 미보유</span></td><td><span class="badge pending">미검증</span></td><td>실제 내려받기 원본 확보 후 무수정 수입 시험</td></tr>
+    <tr><td>쿠팡</td><td>원본 Excel</td><td><span class="badge risk">작업공간 미보유</span></td><td><span class="badge pending">미검증</span></td><td>실제 내려받기 원본 확보 후 무수정 수입 시험</td></tr>
+    <tr><td>CJ온스타일</td><td>원본 Excel</td><td><span class="badge risk">작업공간 미보유</span></td><td><span class="badge pending">미검증</span></td><td>실제 내려받기 원본 확보 후 무수정 수입 시험</td></tr>
+    <tr><td>카카오 톡딜</td><td>원본 Excel</td><td><span class="badge risk">작업공간 미보유</span></td><td><span class="badge pending">미검증</span></td><td>실제 내려받기 원본 확보 후 무수정 수입 시험</td></tr>
+  </tbody></table></div>
+  <p class="footnote">원본 파일 상태는 2026-09-08 저장소의 XLS/XLSX/CSV/TSV 전체 검색 결과다. 파일을 확보하면 추정한 이름이 아니라 실제 파일명·양식 버전·내려받은 시각·플랫폼 메뉴를 그대로 기록한다.</p>
+
+  <h3>현재 보유 Excel의 정확한 역할</h3>
+  <div class="table-wrap"><table class="tight"><thead><tr><th>정확한 파일명</th><th>확인한 내용</th><th>이번 테스트에서의 역할</th><th>대체할 수 없는 것</th></tr></thead><tbody>
+    <tr><td><a href="과거/도메인모음_20260828.xlsx">도메인모음_20260828.xlsx</a></td><td>11개 채널명·도메인·ERP 스토어명·업체부호·A/B 코드 마스터</td><td>채널 식별과 업체부호 매핑의 기준</td><td>플랫폼별 주문 Excel 원본과 주문 컬럼 구조를 증명하지 못함</td></tr>
+    <tr><td><a href="../documents/ECB0103001S_TxifExcelForm.xlsx">ECB0103001S_TxifExcelForm.xlsx</a></td><td><code>Form</code>/<code>Sample</code> 시트, 60개 열의 관세청 거래정보 포털 대량제출 양식</td><td>관세청 제출 필드 확인용 보조 원본</td><td>플랫폼 주문 원본 또는 동수 ERP 수입 양식으로 사용 금지</td></tr>
+  </tbody></table></div>
+
+  <h3>플랫폼별 매핑표 필수 항목</h3>
+  <div class="table-wrap"><table class="tight"><thead><tr><th>검증 구간</th><th>반드시 기록할 항목</th><th>판정 기준</th></tr></thead><tbody>
+    <tr><td>원본 식별</td><td>플랫폼, 실제 파일명, 내려받은 일시, 메뉴/화면, 양식 버전, 시트명, 헤더 행, 파일 형식</td><td>같은 플랫폼도 메뉴·버전별 양식을 섞지 않는다.</td></tr>
+    <tr><td>원본 컬럼</td><td>헤더 원문, 의미, 마스킹 예시, 필수/선택, 데이터형·길이·날짜/숫자 표시, 빈값·중복 가능성</td><td>헤더명·순서·서식 변경 없이 동수가 읽을 수 있는지 확인한다.</td></tr>
+    <tr><td>동수 ERP</td><td>대상 필드, 변환식, 기본값, 주문/상품 반복 구조, 수입 오류, 수입 후 값</td><td>기본값으로 통관 필수정보를 꾸미지 않고 행수·주문수·상품수·금액을 원본과 대사한다.</td></tr>
+    <tr><td>GGATE</td><td>사용 API와 필드, A/B 조건, 필수/선택, 값 원천, 변환·누락 처리</td><td>현재 기존 API와 향후 V2-1을 분리하고 실제 요청 미리보기와 응답으로 확인한다.</td></tr>
+    <tr><td>PER·개인정보</td><td>PCCC, 일회용 개인통관부호/인증번호, 주문자·수하인 9개 필드의 존재 여부와 생성 주체</td><td>Excel에 없는 값은 생성·추정하지 않는다. 원천과 유효성 검증이 없으면 신규 통관 불가다.</td></tr>
+    <tr><td>식별·대사</td><td>원주문번호, 상품행 키, ERP 포장 주문번호, HBL, <code>hwbNo + orderNo</code>, MAWB</td><td>다건 상품·분할 포장·동일 MAWB에서도 추적 가능한 1:1 또는 1:N 관계를 보존한다.</td></tr>
+  </tbody></table></div>
+
+  <h3>Excel 매핑 및 연계 테스트 게이트</h3>
+  <ol>
+    <li><strong>G0 원본 확보:</strong> 10개 플랫폼별 실제 내려받기 원본과 파일 메타데이터를 확보한다. 공통 샘플 한 개로 대신하지 않는다.</li>
+    <li><strong>G1 컬럼 매핑 승인:</strong> 원본 컬럼→동수 ERP→GGATE 필드 매핑표를 동수와 함께 작성하고 누락·모호한 컬럼을 확정한다.</li>
+    <li><strong>G2 동수 수입 단독시험:</strong> GNG로 전송하지 않고 원본 무수정 수입을 먼저 수행한다. 헤더 순서, 다중 시트, 숫자 앞자리 0, 긴 주문번호, 날짜·금액·전화·우편번호, 다상품·취소/변경 데이터를 확인한다.</li>
+    <li><strong>G3 수입 결과 대사:</strong> 원본과 ERP의 행수·주문수·상품수·금액·수하인·업체부호·식별자를 대조하고 차이를 0건 또는 승인된 예외로 만든다.</li>
+    <li><strong>G4 GGATE 전송시험:</strong> 기존 통관 채널은 기존 GNG API로, PER과 필수정보가 갖춰진 승인 채널만 V2-1로 전송해 요청/응답을 보존한다.</li>
+    <li><strong>G5 혼합 MAWB 시험:</strong> 자사몰 신규 통관 HBL과 외부 플랫폼 기존 통관 HBL을 같은 테스트 MAWB 아래에서 보내 병합·신고 구분을 확인한다.</li>
+    <li><strong>G6 출고 차단·종결:</strong> 모든 테스트 송장/HBL을 사전에 동수에 전달해 실출고를 차단하고, 주문→Excel→ERP→HBL→MAWB→GGATE 결과를 채널별로 보존한다.</li>
+  </ol>
 </section>
 
 <section class="section" id="operations">
@@ -287,10 +361,10 @@
   <h3>운영 타임라인 (KST)</h3>
   <div class="table-wrap"><table><thead><tr><th>시각/단계</th><th>작업</th><th>실패 시</th><th>상태</th></tr></thead><tbody>
     <tr><td>결제 전</td><td>실수하인 정보 확인, NICE PCCC 검증</td><td>결제 차단·수정 안내. 공식 장애코드만 예외 큐</td><td>설계됨, E2E 증빙 필요</td></tr>
-    <tr><td>09:00</td><td>동수 ERP 주문 수집 시작</td><td>수집 실패 대장·재시도</td><td>기존 기획 기준, 실제 스케줄 확인</td></tr>
+    <tr><td>09:00</td><td>자사몰 API 주문 수집 및 외부 플랫폼 원본 Excel의 동수 ERP 수입 시작</td><td>플랫폼·파일별 수입 실패 대장, 원본 보존, 재시도</td><td>기존 기획 기준. 플랫폼별 실제 수입 시각·마감 확인</td></tr>
     <tr><td>11:10~11:50</td><td>HBL 재조회, TRA 제출·오류 회수</td><td>11:50까지 정상 근거 없으면 <code>MANUAL_CLEARANCE_REQUIRED</code></td><td>내부 운영안, 동수/Geek 합의 확인</td></tr>
     <tr><td>13:00 전후</td><td>출고·통관 데이터 확정</td><td>불완전 주문 출고 묶음에서 격리</td><td>일별 항공편 SLA 확인</td></tr>
-    <tr><td>17:00 전후</td><td>상태 대사·CS 인계</td><td>통관 이상·장기 pending·오류 미회수 알림</td><td>모니터링 구현 증빙 필요</td></tr>
+    <tr><td>17:00 전후</td><td>상태 대사·CS 전달</td><td>통관 이상·장기 pending·오류 미회수 알림</td><td>모니터링 구현 증빙 필요</td></tr>
   </tbody></table></div>
   <h3>상태와 재시도</h3>
   <ul><li>HTTP 202는 GGATE 접수이지 통관 완료가 아니다. <code>merged</code>와 <code>pending</code>을 분리 저장한다.</li><li><code>pending</code>은 상대 스냅샷 대기와 검증 실패가 섞일 수 있으므로 <code>status/search</code>로 구분해야 한다.</li><li>KCS TRA003은 최근 7일·미확인 오류 기반이므로 조회 원문을 한 번에 보존하고 일별 제출 건수와 대사한다.</li><li>재시도 키는 KCS <code>txif_sbmt_no</code>, GGATE <code>hwbNo+orderNo</code>, NICE <code>request_no/transaction_id</code>별로 분리한다.</li><li>빈 값 재전송으로 유효값을 지우지 않는다. 수정 API의 공식 지원이 없으면 운영자 승인 없는 덮어쓰기를 금지한다.</li></ul>
@@ -298,24 +372,24 @@
   <h3>2026-08-31 문제 주문 90건</h3>
   <div class="callout danger">구 API 전송으로 신규 신고용 업체부호·일회용 인증정보 등이 전달되지 않았다는 협의 기록만 있다. 2026-09-01 13:00~14:00 전 보완 조건은 확인됐지만, 90건 전량의 데이터 확보·제출·접수·통관 완료 증빙은 없다. 주문별 결과표를 받아 종결하기 전에는 “처리 완료”로 표시하지 않는다.</div>
   <h3>CS 문서 경계</h3>
-  <p><a href="../documents/뉴트리시아몰 해외직구 결제 및 통관 FAQ_v26.09.07.pdf">고객 FAQ 2026-09-07</a>는 고객 안내용이며 API 기술 정본이 아니다. O번호 생성 주체, 개인정보 삭제 시점, 적용 대상·시범운영 설명은 관세청/NICE 실제 명세 및 개인정보 처리정책과 대조 후 배포해야 한다. 특히 “전달 후 삭제”는 감사·재검증·법정보존 요구와 충돌 가능성이 있어 법무 확정 전 기술 삭제정책으로 사용하지 않는다.</p>
+  <p><a href="../documents/뉴트리시아몰 해외직구 결제 및 통관 FAQ_v26.09.07.pdf">뉴트리시아몰 해외직구 결제 및 통관 FAQ_v26.09.07.pdf</a>는 고객 안내용이며 API 기술 정본이 아니다. O번호 생성 주체, 개인정보 삭제 시점, 적용 대상·시범운영 설명은 관세청/NICE 실제 명세 및 개인정보 처리정책과 대조 후 배포해야 한다. 특히 “전달 후 삭제”는 감사·재검증·법정보존 요구와 충돌 가능성이 있어 법무 확정 전 기술 삭제정책으로 사용하지 않는다.</p>
 </section>
 
 <section class="section" id="conflicts">
   <h2>10. 발견된 모순과 미확정 사항</h2>
   <div class="table-wrap"><table><thead><tr><th>번호</th><th>충돌/질문</th><th>날짜별 근거</th><th>v7 판정</th><th>확정 책임</th></tr></thead><tbody>
     <tr><td>C-01</td><td>동수 V2-1 전 주문 vs 채널별 기존/신규 분리</td><td>2026-09-01 전 주문 V2-1 · 2026-09-04 외부 PER 미적용은 기존 API</td><td>후자 잠정 채택. 서면·E2E 전 확대 금지</td><td>동수·GNG·PM</td></tr>
-    <tr><td>C-02</td><td>내부 V2-1/V2-2와 공개 API 물리경로</td><td>내부 별칭 사용 · 공개 v2.0.1은 <code>logistics/clearance</code></td><td>대응표 미확정. 이름만 보고 구현 금지</td><td>GNG 개발</td></tr>
+    <tr><td>C-02</td><td>V2-1/V2-2 라벨과 운영 배포</td><td><strong>[2026-09-08 정정]</strong> V2-1 = <code>2sBYArTsRz</code>(신형 <code>clearance/logistics</code> 분리형), V2-2 = <code>2sBXqGrh3A</code>(구형 <code>/api/hwb/bulk-sync</code> 일체형). 과거 <code>api_field_mapping.html</code> 표기는 반대였음</td><td>문서·경로는 확정. 운영 Base URL·실제 배포 버전·첫 성공 응답은 미확인</td><td>GNG 개발</td></tr>
     <tr><td>C-03</td><td>동수 B형 9개 개인정보 수용</td><td>v2.0.0에는 없음 · v2.0.1(2026-08-31)에 조건부 필수 추가</td><td>공개 계약은 최신화됨. 운영 배포 버전 확인 필요</td><td>GNG·동수</td></tr>
     <tr><td>C-04</td><td>채널 수 11 vs 27/29</td><td>v6 일부 서술 27/29 · 2026-08-28 마스터 실파일 11</td><td>11개 채택. 추가 채널 목록 제출 전 숫자 확대 금지</td><td>사업/MD</td></tr>
-    <tr><td>C-05</td><td>한 MAWB의 기존/신규 HBL 혼재</td><td>2026-09-04 질문만 존재</td><td>지원 여부 미확정. 불가 시 MAWB 분리</td><td>GNG·동수·물류</td></tr>
+    <tr><td>C-05</td><td>한 MAWB의 기존/신규 HBL 혼재</td><td>2026-09-07 동수는 같은 MAWB에 3개 API로 HBL을 보내고 GNG가 병합할 수 있다고 답변했으나 전 과정 완수는 보장하지 않았고 테스트를 요청함</td><td>기능 가능성만 확인. MAWB 등록 API·호출주체·3가지 주문의 실제 병합·신고 결과를 테스트하기 전에는 지원 확정으로 표시하지 않음. 실패 시 MAWB 분리</td><td>GNG·동수·물류</td></tr>
     <tr><td>C-06</td><td>GGATE <code>status/search</code> URL</td><td>컬렉션에 localhost 하드코딩 · 다른 API는 <code>{{prop}}</code></td><td>운영 URL 조합 확인 전 호출 금지</td><td>GNG</td></tr>
     <tr><td>C-07</td><td>GGATE 수정</td><td>v2.0.1 컬렉션에 PATCH 있으나 “삭제 예정”, 기능 미제공 이력</td><td>지원 안 됨으로 처리</td><td>GNG</td></tr>
     <tr><td>C-08</td><td>NICE KEY 응답 필드명·길이</td><td>가이드 표/샘플에 <code>nice_customs_key</code>/<code>customs_key</code>, 길이 혼재</td><td>DB 여유 확보, 실제 응답·서면으로 확정</td><td>NICE·Geek</td></tr>
     <tr><td>C-09</td><td>동수 API 전체 계약</td><td>기획·협의에는 경로 일부만 존재</td><td>OpenAPI/샘플/오류/인증/배치 한도 요청</td><td>동수</td></tr>
     <tr><td>C-10</td><td>보안 자격증명</td><td><code>key.txt</code> Git 추적</td><td>노출 간주·교체. 역사 정리는 별도 승인</td><td>보안·개발책임자</td></tr>
     <tr><td>C-11</td><td>2026-08-31 90건 종결</td><td>보완 조건만 기록, 완료 결과 없음</td><td>미종결</td><td>GNG·Geek·운영</td></tr>
-    <tr><td>C-12</td><td>외부 플랫폼 2026-11 전환 일정</td><td>2026-09-04 내부 문서에 예정만 기재</td><td>채널별 확정일·담당·샘플 파일 없으므로 계획값</td><td>MD·동수·플랫폼</td></tr>
+    <tr><td>C-12</td><td>외부 플랫폼 2026-11 신규 통관 전환 일정</td><td>2026-09-04 내부 문서에 예정만 기재. 2026-09-08 외부 플랫폼의 주문 수집은 모두 Excel로 확정</td><td>Excel 방식은 확정됐지만 채널별 원본 파일·필수컬럼·PER·담당·전환일이 없으므로 일정은 계획값</td><td>MD·동수·플랫폼</td></tr>
     <tr><td>C-13</td><td>관세청 v1.4.1 동일 버전명 구/신첨부</td><td>로컬 구판 74쪽·485,728바이트 · 공식 최신 76쪽·489,967바이트</td><td>재개정포함 76쪽을 정본으로 사용. 파일명·버전만으로 판별 금지</td><td>PM·Geek</td></tr>
     <tr><td>C-14</td><td>상품명 정제와 합배송 모델</td><td>v6의 정제 영문명·1 HBL 단일 TRA 전제 · 최신 관세청은 게시 원문 및 한 HBL 복수 주문 예시</td><td>공식 최신 규칙으로 정정. 코드·DB·테스트 영향 점검</td><td>Geek·동수</td></tr>
     <tr><td>C-15</td><td>NICE 경로·도메인·우편번호·결과필드 문서 불일치</td><td>2026-07-24 CI판과 2026-07-28 고유식별키판의 표/샘플이 서로 다름</td><td>2026-07-28 문서 우선, NICE 서면과 개발계 실응답으로 잠금</td><td>NICE·Geek</td></tr>
@@ -323,91 +397,100 @@
     <tr><td>C-17</td><td><code>Z99999</code> 경계일</td><td>관세청 공지 허용기간 2026-08-28~2026-09-27, 종료 시각 미표기</td><td>허용 실패 건만 사용, 2026-09-27 이후 차단, 경계일은 사전 확인</td><td>관세청·관세사·Geek</td></tr>
     <tr><td>C-18</td><td>고객 결제금액과 동수 USD 매입금액 혼용</td><td>2026-08-26 v6는 모든 값을 동수 ERP USD로 통일 · 관세청 2026-07-27 재개정판은 <code>tot_stlm_amt</code>를 고객의 해외직구 최종 결제금액으로 정의</td><td>v6 결정을 정정. KCS 결제 도메인과 GGATE 물류 원가 도메인을 분리</td><td>PM·Geek·동수</td></tr>
     <tr><td>C-19</td><td>관세청과 GGATE 필드 한도 불일치</td><td>상품명 600/200자, 상품 999/50건, 수하인·주소 길이가 서로 다름</td><td>원천 보존 + 제공자별 DTO 검증. 자동 절단·임의 분할 금지</td><td>Geek·GNG·동수</td></tr>
+    <tr><td>C-20</td><td>외부 플랫폼 10개 주문 Excel 원본과 동수 매핑 증빙 부재</td><td>2026-09-08 저장소 전체에서 플랫폼 주문 원본은 0개. 보유 Excel은 채널 마스터와 관세청 대량제출 서식뿐</td><td>플랫폼별 실제 원본을 확보해 원본 컬럼→동수 ERP→GGATE 매핑과 무수정 수입 결과를 확인하기 전 통합 테스트 완료로 판정하지 않음</td><td>MD·운영·동수</td></tr>
+    <tr><td>C-21</td><td>테스트 범위 인식 불일치</td><td>2026-09-07 동수는 사용할 API와 테스트 주문번호를 요청했으나 외부 플랫폼별 원본 Excel 수입·필드 매핑 검증 범위는 확인되지 않음</td><td>API 전송 테스트만으로 완료 처리하지 않음. G0 원본 확보→G1 매핑→G2 수입→G3 대사를 통과한 뒤 G4 API→G5 혼합 MAWB→G6 출고 차단·증빙 순서로 진행</td><td>PM·동수·MD</td></tr>
   </tbody></table></div>
 </section>
 
 <section class="section" id="actions">
-  <h2>11. 인수인계 실행안</h2>
+  <h2>11. 확인·조치 항목</h2>
   <div class="table-wrap"><table><thead><tr><th>우선순위</th><th>행동</th><th>요구 증빙</th><th>담당</th><th>완료 기준</th></tr></thead><tbody>
     <tr><td><span class="badge risk">P0</span></td><td>모든 API 자격증명 소유자·환경 매핑 및 <code>key.txt</code> 포함 노출값 교체</td><td>키 자산대장, 폐기/재발급 확인, Vault 참조명</td><td>보안·Geek·각 업체</td><td>구 값 401/폐기 확인, 신규 값 E2E 성공</td></tr>
-    <tr><td><span class="badge risk">P0</span></td><td>GNG 명칭/물리경로/버전 대응표 확정</td><td>V2-1/V2-2 ↔ endpoint, Base URL, 환경, X-Api-Key 범위 서면</td><td>GNG·동수·Geek</td><td>3사 서면 일치</td></tr>
-    <tr><td><span class="badge risk">P0</span></td><td>혼합 MAWB 처리 결정</td><td>동일 MAWB 기존/신규 HBL 테스트 응답</td><td>GNG·동수·물류</td><td>지원/분리 규칙과 운영 SOP 승인</td></tr>
+    <tr><td><span class="badge risk">P0</span></td><td>GNG 운영 환경·배포 버전 확정</td><td>V2-1(<code>2sBYArTsRz</code>)/V2-2(<code>2sBXqGrh3A</code>)별 Base URL, 환경, 실제 배포 버전, X-Api-Key 범위 서면</td><td>GNG·동수·Geek</td><td>3사 서면 일치</td></tr>
+    <tr><td><span class="badge risk">P0</span></td><td>외부 플랫폼 10개 실제 주문 Excel 원본 확보</td><td>플랫폼별 실제 파일명·양식 버전·내려받은 시각·메뉴, 개인정보 마스킹 샘플, 파일 해시</td><td>MD·운영</td><td>10개 채널 전부 원본 식별 완료. 관세청 대량서식·채널 마스터로 대체하지 않음</td></tr>
+    <tr><td><span class="badge risk">P0</span></td><td>원본 Excel의 동수 ERP 매핑·무수정 수입 검증</td><td>원본 컬럼→ERP→GGATE 매핑표, 플랫폼별 수입 로그·오류·대사표</td><td>동수·MD·PM</td><td>10개 채널 모두 행·주문·상품·금액·식별자 대사 통과, 미지원 컬럼과 처리방식 서면 확정</td></tr>
+    <tr><td><span class="badge risk">P0</span></td><td>혼합 MAWB 처리 결정</td><td>자사몰 API 주문과 외부 플랫폼 원본 Excel 주문을 포함한 동일 MAWB의 기존/신규 HBL 테스트 응답</td><td>GNG·동수·물류</td><td>MAWB 등록 API·호출주체·지원/분리 규칙과 운영 SOP 승인</td></tr>
     <tr><td><span class="badge risk">P0</span></td><td>90건 사건 종결</td><td>주문별 HBL, TRA/GGATE 제출·오류·통관 결과</td><td>운영·Geek·GNG</td><td>90건 전량 결과 대사</td></tr>
     <tr><td><span class="badge risk">P0</span></td><td>관세청 재개정판 필드 반영</td><td>상품명 원문, 한 HBL 복수 주문, 판매업체 조건, TRA002 조회</td><td>Geek·PM</td><td>코드·매핑·QA가 76쪽 정본과 일치</td></tr>
     <tr><td><span class="badge risk">P0</span></td><td>고객 결제금액·USD 매입금액 매핑 분리</td><td>KCS 결제 원천, GGATE 매입 원천, 통화, 분할 HBL 샘플</td><td>Geek·동수·PM</td><td><code>tot_stlm_amt</code>에 동수 USD 매입가가 들어가지 않으며 주문 대사 통과</td></tr>
     <tr><td><span class="badge risk">P0</span></td><td><code>Z99999</code> 한시 규칙 종료 통제</td><td>허용 사유·주문·사용일·종료 후 차단 테스트</td><td>Geek·운영</td><td>2026-09-27 이후 생성/전송 불가 및 예외대장 보존</td></tr>
     <tr><td><span class="badge pending">P1</span></td><td>자사몰 전체 E2E 재검증</td><td>고도몰→NICE→동수→KCS→GNG 요청/응답 마스킹 로그</td><td>Geek</td><td>정상·불일치·변경·장애·분할출고 시나리오 통과</td></tr>
-    <tr><td><span class="badge pending">P1</span></td><td>GGATE v2.0.1 B형 샘플 테스트</td><td>9개 조건부 필드, A/B 금지 조합, Geek 우선/빈값 폴백, H005/H019</td><td>동수·GNG</td><td>개발/운영 각각 기대 응답 일치</td></tr>
+    <tr><td><span class="badge pending">P1</span></td><td>GGATE v2.0.1 B형 샘플 테스트</td><td>승인된 플랫폼 원본 Excel에서 시작한 주문, 9개 조건부 필드, A/B 금지 조합, Geek 우선/빈값 폴백, H005/H019</td><td>동수·GNG</td><td>원본 Excel→ERP→GGATE 개발/운영 결과가 각각 기대값과 일치</td></tr>
     <tr><td><span class="badge pending">P1</span></td><td>NICE SMARTPCC_03/20/30 실응답 확정</td><td>필드명·길이·3011 정상화·재검증 결과</td><td>NICE·Geek</td><td>문서/실응답/DB 스키마 일치</td></tr>
     <tr><td><span class="badge pending">P1</span></td><td>동수 API 계약서 완성</td><td>OpenAPI 또는 요청/응답 샘플, 인증, 한도, 오류, 멱등성</td><td>동수</td><td>Mock·통합테스트 통과</td></tr>
     <tr><td><span class="badge pending">P1</span></td><td>제공자별 길이·건수 한도 처리</td><td>상품명 600/200자, 상품 999/50건, 수하인·주소 경계값 테스트</td><td>Geek·GNG</td><td>원천 무손실, 초과건 예외 큐, 임의 절단·분할 없음</td></tr>
-    <tr><td><span class="badge info">P2</span></td><td>외부 플랫폼 채널별 신규 전환</td><td>PER 방식, 신규 엑셀 컬럼, 업체부호, GNG 매핑, E2E</td><td>MD·동수·플랫폼</td><td>11개 채널 대장에 전환일·결과 기재</td></tr>
+    <tr><td><span class="badge info">P2</span></td><td>외부 플랫폼 채널별 신규 통관 전환</td><td>원본 Excel과 양식 버전, PER 방식, 필수컬럼, 동수 ERP·GNG 매핑, E2E</td><td>MD·동수·플랫폼</td><td>외부 10개 채널 대장에 Excel 매핑 승인일·신규 통관 전환일·결과 기재</td></tr>
     <tr><td><span class="badge info">P2</span></td><td>고객 FAQ 기술·법무 대조</td><td>O번호, 삭제·보존, 적용일, 고객 문구 근거</td><td>법무·CS·PM</td><td>승인자·승인일·버전 표시</td></tr>
   </tbody></table></div>
-  <h3>인계받는 사람이 반드시 받아야 할 것</h3>
-  <ul><li>개발/운영 환경별 Base URL, 허용 IP, 계정 소유자, Vault 참조명, 키 교체일</li><li>최신 요청/응답 샘플과 실제 성공 로그: 개인정보·Secret 마스킹본</li><li>배포 버전·커밋·배포일·롤백 절차·배치 스케줄·모니터링 대시보드</li><li>업체별 연락망과 장애 에스컬레이션 기준: 관세청, NICE, NHN커머스, 행안부 주소 API, 동수, GNG, Geek</li><li>미결 목록 C-01~C-19의 답변 원문과 답변일</li><li>주문·HBL·TRA 제출번호·GGATE 병합상태를 연결하는 일별 대사 파일</li></ul>
+  <h3>추가로 확보해야 할 자료</h3>
+  <ul><li>외부 플랫폼 10개의 실제 주문 Excel 원본, 양식 버전, 내려받기 메뉴·시각, 파일 해시</li><li>플랫폼별 원본 컬럼→동수 ERP→GGATE 필드 매핑표와 무수정 수입·대사 결과</li><li>개발/운영 환경별 Base URL, 허용 IP, 계정 소유자, Vault 참조명, 키 교체일</li><li>최신 요청/응답 샘플과 실제 성공 로그: 개인정보·Secret 마스킹본</li><li>배포 버전·커밋·배포일·롤백 절차·배치 스케줄·모니터링 대시보드</li><li>업체별 연락망과 장애 에스컬레이션 기준: 관세청, NICE, NHN커머스, 행안부 주소 API, 동수, GNG, Geek</li><li>미결 목록 C-01~C-21의 답변 원문과 답변일</li><li>주문·Excel 원본·ERP 수입행·HBL·TRA 제출번호·GGATE 병합상태를 연결하는 채널별 대사 파일</li></ul>
 </section>
 
 <section class="section" id="sources">
-  <h2>12. 원문·레퍼런스 인덱스</h2>
-  <h3>공식/외부 최신 원문</h3>
-  <div class="table-wrap"><table><thead><tr><th>주제</th><th>원문</th><th>버전·날짜</th><th>권위/비고</th></tr></thead><tbody>
-    <tr><td>관세청 REST</td><td><a href="../documents/관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1_재개정포함_20260727.pdf">최신 로컬 76쪽 PDF</a> · <a href="https://www.customs.go.kr/kcs/na/ntt/selectNttInfo.do?bbsId=3800&amp;mi=14185&amp;nttSn=10171363&amp;nttSnUrl=b291c739a953b51e96e791cef6a6c226">공식 게시글</a> · <a href="https://www.customs.go.kr/common/nttFileDownload.do?fileKey=5461fa29919142379936256b3db16b5b">공식 첨부</a></td><td>v1.4.1 재개정 · 2026-07-27</td><td>필드·경로·제약 최우선. 기존 74쪽 PDF는 구첨부로 보존</td></tr>
-    <tr><td>관세청 제도</td><td><a href="../documents/전자상거래전용 통관플랫폼 사업소개(202607)_v1.6(글꼴포함).pdf">사업소개</a> · <a href="../documents/2026 전자상거래  전용 통관플랫폼 FAQ.pdf">FAQ</a> · <a href="https://unipass.customs.go.kr/ecb/">업자 전용 누리집</a> · <a href="https://ecos.customs.go.kr/ecp/index.do?qryIssTp=1">개인 전용 포털</a></td><td>2026-07~09 확인</td><td>정책·신청·포털 기준</td></tr>
-    <tr><td>NICE KEY/PCCC</td><td><a href="../documents/개인통관고유부호 유효성 검증 서비스_고유식별키활용_20260728.pdf">고유식별키 가이드</a> · <a href="../documents/NICE %5BCI%5D 개인통관고유부호 유효성 검증 API 개발 가이드_20260724.pdf">검증 가이드</a></td><td>2026-07-28 / 2026-07-24</td><td>계약 고객용 구현 정본. 공개 배포 금지 여부 확인</td></tr>
-    <tr><td>고도몰</td><td><a href="../documents/godomall5_openAPI_spec_v1.0_20250616.pdf">로컬 스펙</a> · <a href="https://server-docs.godomall.com/">공식 서버 문서</a></td><td>v1.0 · 2025-06-16 / 웹 현재</td><td>주문 원천·Rate limit</td></tr>
-    <tr><td>행안부 영문주소</td><td><a href="https://business.juso.go.kr/addrlink/addrEngApi.do">API</a> · <a href="https://m1.juso.go.kr/addrlink/openApi/apiExprn.do">API 체험</a></td><td>공개 의미 버전 미표기 · 2026-09-07 확인</td><td>영문 기본주소 보완. 상세주소 별도 보존</td></tr>
-    <tr><td>GGATE</td><td><a href="https://documenter.getpostman.com/view/11773234/2sBYArTsRz">Postman</a> · <a href="https://documenter.getpostman.com/api/collections/11773234/2sBYArTsRz">컬렉션 JSON</a></td><td>v2.0.1 · 2026-08-31</td><td>화면보다 컬렉션 JSON으로 전수 대조</td></tr>
+  <h2>12. 원본 문서·레퍼런스</h2>
+  <p>로컬 원본은 <code>documents</code>의 실제 파일명을 그대로 적었다. 외부 URL은 2026-09-08에 공식 사이트 또는 실제 문서 페이지를 확인한 주소만 기재했다. NICE·계약·내부 협의 문서는 공개 원본 URL이 없으므로 임의 주소를 만들지 않고 “공개 URL 없음” 또는 “미확인”으로 표시한다. 외부 플랫폼 10개의 실제 주문 Excel 원본은 현재 작업공간에 없으므로 파일명을 추정하지 않는다.</p>
+
+  <h3>API·제도 핵심 원본</h3>
+  <div class="table-wrap"><table><thead><tr><th>구분</th><th>정확한 원본</th><th>확인한 내용</th><th>외부 원본 URL·상태</th></tr></thead><tbody>
+    <tr><td>관세청 REST 현재판</td><td><a href="../documents/관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1_재개정포함_20260727.pdf">관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1_재개정포함_20260727.pdf</a></td><td>76쪽. AUT·PER·TRA API 경로, 요청·응답 필드, 길이·건수 제한, TLS·토큰 정책. 현재 기술 정본</td><td><a href="https://www.customs.go.kr/kcs/na/ntt/selectNttInfo.do?bbsId=3800&amp;mi=14185&amp;nttSn=10171363&amp;nttSnUrl=b291c739a953b51e96e791cef6a6c226">관세청 공식 게시글</a> · <a href="https://www.customs.go.kr/common/nttFileDownload.do?fileKey=5461fa29919142379936256b3db16b5b">공식 첨부 PDF</a> <span class="badge confirmed">확인</span></td></tr>
+    <tr><td>관세청 REST 구첨부</td><td><a href="../documents/관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1.pdf">관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1.pdf</a></td><td>74쪽. 같은 v1.4.1 이름의 종전 첨부. 재개정판과 혼용하지 않고 변경 비교용으로만 보존</td><td><a href="https://www.customs.go.kr/common/nttFileDownload.do?fileKey=88667a5e48840bdba7643a276f23fbd0">관세청 공식 구첨부</a> <span class="badge confirmed">파일 일치 확인</span></td></tr>
+    <tr><td>관세청 FAQ</td><td><a href="../documents/2026 전자상거래  전용 통관플랫폼 FAQ.pdf">2026 전자상거래  전용 통관플랫폼 FAQ.pdf</a></td><td>거래정보 제출 주체·시기, 시범운영, 전자상거래업자 부호, 오류·예외 관련 공식 질의응답</td><td><a href="https://www.customs.go.kr/kcs/na/ntt/selectNttInfo.do?bbsId=3800&amp;mi=14185&amp;nttSn=10174363&amp;nttSnUrl=3a0a1abcfb583c9ddaccef938140928b">관세청 공식 FAQ 게시글</a> · <a href="https://www.customs.go.kr/common/nttFileDownload.do?fileKey=03e80783605d6e7e9fc246541632d7c9">공식 첨부 PDF</a> <span class="badge confirmed">확인</span></td></tr>
+    <tr><td>관세청 사업 배경</td><td><a href="../documents/전자상거래전용 통관플랫폼 사업소개(202607)_v1.6(글꼴포함).pdf">전자상거래전용 통관플랫폼 사업소개(202607)_v1.6(글꼴포함).pdf</a></td><td>42쪽. 플랫폼 추진 배경, 공급망 정보 사전 제출, 본인인증, 전용 신고서, 포털·위험관리 구조</td><td>로컬 v1.6과 완전히 같은 공개 파일은 미확인. 관련 구자료: <a href="https://www.customs.go.kr/kcs/na/ntt/selectNttInfo.do?bbsId=3800&amp;mi=14185&amp;nttSn=10169183&amp;nttSnUrl=f998e2ae568ff4ea9fcda26c60766fca">2026-07-09 공식 게시글</a> · <a href="https://www.customs.go.kr/common/nttFileDownload.do?fileKey=7e1287aa83b74d5ee980e66319d8d386">사업소개 첨부</a>. <strong>파일 크기·SHA-256이 달라 동일 원본으로 보지 않음</strong></td></tr>
+    <tr><td>관세청 대량서식</td><td><a href="../documents/ECB0103001S_TxifExcelForm.xlsx">ECB0103001S_TxifExcelForm.xlsx</a></td><td><code>Form</code>/<code>Sample</code> 시트, 60개 열의 거래정보 포털 대량 제출용 Excel 양식. REST JSON 계약과 별도로 관리. <strong>외부 플랫폼 주문 원본과 동수 ERP 수입 양식이 아님</strong></td><td><a href="https://unipass.customs.go.kr/ecb/index.do">전자상거래업자 전용 누리집</a> <span class="badge confirmed">포털 확인</span> · 개별 파일의 공개 직링크는 미확인</td></tr>
+    <tr><td>NICE 고유식별키</td><td><a href="../documents/개인통관고유부호 유효성 검증 서비스_고유식별키활용_20260728.pdf">개인통관고유부호 유효성 검증 서비스_고유식별키활용_20260728.pdf</a></td><td>SMARTPCC_01/02/03/10/11/20/30, 토큰·CI·PCCC 검증, 암복호화·무결성, 허용 IP·기관 설정</td><td>NICE 계약 고객 제공 원본. 공개 URL 없음</td></tr>
+    <tr><td>NICE CI 검증</td><td><a href="../documents/NICE %5BCI%5D 개인통관고유부호 유효성 검증 API 개발 가이드_20260724.pdf">NICE [CI] 개인통관고유부호 유효성 검증 API 개발 가이드_20260724.pdf</a></td><td>2026-07-24 CI형 PCCC 검증 API 규격. 2026-07-28 고유식별키판과 다른 필드·샘플은 NICE 서면과 실응답으로 확정 필요</td><td>NICE 계약 고객 제공 원본. 공개 URL 없음</td></tr>
+    <tr><td>고도몰5 Open API</td><td><a href="../documents/godomall5_openAPI_spec_v1.0_20250616.pdf">godomall5_openAPI_spec_v1.0_20250616.pdf</a></td><td>91쪽, Version 1.0, 최종 개정 2025-06-16. 주문·상품·상태 API, XML 요청·응답, 호출 제한</td><td><a href="https://devcenter.nhn-commerce.com/godomall5/openapi/specDownload">NHN커머스 공식 스펙</a> <span class="badge confirmed">확인</span></td></tr>
+    <tr><td>GGATE V2-1</td><td>웹 원본만 존재</td><td>페이지 제목 “GGATE API V2 아이배”. 최신 v2.0.1(2026-08-31). Geek <code>clearance</code>와 동수 <code>logistics</code>를 따로 받아 <code>hwbNo + orderNo</code>로 병합하는 신형 계약</td><td><a href="https://documenter.getpostman.com/view/11773234/2sBYArTsRz">V2-1 화면</a> · <a href="https://documenter.getpostman.com/api/collections/11773234/2sBYArTsRz">V2-1 컬렉션 JSON</a> <span class="badge confirmed">HTTP 200 확인</span></td></tr>
+    <tr><td>GGATE V2-2</td><td>웹 원본만 존재</td><td>페이지 제목 “GGATE API V2”. 최신 v1.3.7(2026-08-25). <code>POST /api/hwb/bulk-sync</code>로 HWB 전체를 한 번에 받는 구형 일체형 계약</td><td><a href="https://documenter.getpostman.com/view/11773234/2sBXqGrh3A">V2-2 화면</a> · <a href="https://documenter.getpostman.com/api/collections/11773234/2sBXqGrh3A">V2-2 컬렉션 JSON</a> <span class="badge confirmed">HTTP 200 확인</span></td></tr>
+    <tr><td>행정안전부 영문주소</td><td>웹 원본만 존재</td><td>한글 도로명 기본주소를 영문 기본주소로 조회. 동·층·호 상세주소는 별도 보존</td><td><a href="https://business.juso.go.kr/addrlink/addrEngApi.do">영문주소 API endpoint</a> · <a href="https://m1.juso.go.kr/addrlink/openApi/apiExprn.do">도로명주소 API 체험</a> <span class="badge confirmed">확인</span></td></tr>
   </tbody></table></div>
-  <h3>내부·계약·운영 근거</h3>
-  <ul class="source-list">
-    <li><a href="../documents/(GeekStudio) 뉴트리시아_관세청_연동_개발_계약서.pdf">GeekStudio 개발 계약서</a> — 위탁 목적·기간·성과물·비밀유지</li>
-    <li><a href="../documents/%5BGeekStudio%5D 뉴트리시아몰_관세청_API_연동_1차 견적 최종.pdf">1차 견적</a> — 초기 개발 범위</li>
-    <li><a href="../documents/%5BGeekStudio%5D 뉴트리시아몰_관세청_API_연동_추가개발_견적서_260810.pdf">추가 견적 2026-08-10</a> — 추가 범위 제안</li>
-    <li><a href="../documents/20260901_자이언트_운영전환_협의원문.md">자이언트 운영전환 협의원문</a> — V2-1/V2-2, 90건, 미확정 보존</li>
-    <li><a href="../documents/자이언트_API_메모.md">자이언트 API 메모</a> — v2.0.0 대조본. v2.0.1 이전 자료이므로 역사 참고</li>
-    <li><a href="과거/dongsu-gng-clearance-flow-20260904.html">동수-GNG 통관 흐름 2026-09-04</a> — 최신 내부 라우팅안</li>
-    <li><a href="과거/도메인모음_20260828.xlsx">채널·업체부호 마스터</a> — 11개 채널</li>
-    <li><a href="../documents/뉴트리시아몰 해외직구 결제 및 통관 FAQ_v26.09.07.pdf">고객 FAQ 2026-09-07</a> · <a href="../documents/뉴트리시아몰 해외직구 결제 및 통관 FAQ.docx">편집본</a> — CS용, 기술 정본 아님</li>
-    <li><a href="과거/아이베 개인정보처리방침 등 수정안_최앤리 검토(markup).docx">개인정보 문서 법무 검토본</a> — 보존·고지 근거, 최종 승인 확인</li>
-    <li><a href="../documents/전자상거래업자 간담회 안건.pdf">전자상거래업자 간담회 안건</a> — 업계 질의·제도 맥락</li>
-  </ul>
-  <details><summary>documents 폴더 전체 31개 파일 대장</summary><div>
-    <div class="table-wrap"><table class="tight"><thead><tr><th>No</th><th>파일</th><th>역할</th><th>정본/보안 상태</th></tr></thead><tbody>
-      <tr><td>1</td><td><a href="../documents/(GeekStudio) 뉴트리시아_관세청_연동_개발_계약서.pdf">GeekStudio 개발 계약서</a></td><td>위탁 목적·기간·검수·비밀유지</td><td>계약 근거</td></tr>
-      <tr><td>2</td><td><a href="../documents/%5BGeekStudio%5D 뉴트리시아몰_관세청_API_연동_1차 견적 최종.pdf">GeekStudio 1차 견적</a></td><td>초기 기능·투입 범위</td><td>계약 첨부 범위 확인</td></tr>
-      <tr><td>3</td><td><a href="../documents/%5BGeekStudio%5D 뉴트리시아몰_관세청_API_연동_추가개발_견적서_260810.pdf">GeekStudio 추가 견적</a></td><td>추가 개발 제안</td><td>발주·검수 여부 미확인</td></tr>
-      <tr><td>4</td><td><a href="../documents/2026 전자상거래  전용 통관플랫폼 FAQ.pdf">관세청 통관플랫폼 FAQ</a></td><td>제도·운영 질의응답</td><td>공식 제공 자료</td></tr>
-      <tr><td>5</td><td><a href="../documents/20260901_자이언트_운영전환_협의원문.md">자이언트 운영전환 협의원문</a></td><td>V2-1/V2-2·90건·예외 이력</td><td>내부 서면 원문, 미확정 포함</td></tr>
-      <tr><td>6</td><td><a href="../documents/개인통관고유부호 유효성 검증 서비스_고유식별키활용_20260728.pdf">NICE 고유식별키 활용 가이드</a></td><td>SMARTPCC_01/02/03/10/11/20/30</td><td>NICE 기술 정본 후보, 공개 범위 확인</td></tr>
-      <tr><td>7</td><td><a href="../documents/개인통관고유부호_CI활용_기관.pdf">개인통관고유부호 CI활용 기관 자료</a></td><td>CI 활용 배경</td><td>보조 근거</td></tr>
-      <tr><td>8</td><td><a href="../documents/관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1_재개정포함_20260727.pdf">관세청 REST v1.4.1 재개정판</a></td><td>현재 API 경로·필드·제약</td><td><span class="badge confirmed">현재 정본</span> 76쪽, Git 미추적</td></tr>
-      <tr><td>9</td><td><a href="../documents/관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1.pdf">관세청 REST v1.4.1 구첨부</a></td><td>종전 74쪽 판본</td><td><span class="badge history">과거</span> 삭제하지 않고 보존</td></tr>
-      <tr><td>10</td><td><a href="../documents/관세청_통관플랫폼_연동_브리핑_v3.pptx">관세청 연동 브리핑 v3</a></td><td>회의·설명 자료</td><td>파생 요약, 공식 명세보다 후순위</td></tr>
-      <tr><td>11</td><td><a href="../documents/관세청_통관플랫폼_연동_운영보고_v8.pptx">관세청 연동 운영보고 v8</a></td><td>운영 보고</td><td>완료 증빙은 원로그로 별도 확인</td></tr>
-      <tr><td>12</td><td><a href="../documents/뉴트리시아몰 해외직구 결제 및 통관 FAQ_v26.09.07.pdf">고객 FAQ PDF 2026-09-07</a></td><td>고객/CS 안내</td><td>Git 미추적, 기술 정본 아님</td></tr>
-      <tr><td>13</td><td><a href="../documents/뉴트리시아몰 해외직구 결제 및 통관 FAQ.docx">고객 FAQ DOCX</a></td><td>고객 FAQ 편집 원본</td><td>Git 미추적, 법무·기술 승인 필요</td></tr>
-      <tr><td>14</td><td><a href="../documents/자이언트_API_메모.md">자이언트 API 메모</a></td><td>GGATE v2.0.0 대조·협의 이력</td><td><span class="badge history">과거 기술판</span> v2.0.1 이전</td></tr>
-      <tr><td>15</td><td><a href="../documents/전자상거래업자 간담회 안건.pdf">전자상거래업자 간담회 안건</a></td><td>업계 질의·제도 맥락</td><td>보조 근거</td></tr>
-      <tr><td>16</td><td><a href="../documents/전자상거래전용 통관플랫폼 사업소개(202607)_v1.6(글꼴포함).pdf">통관플랫폼 사업소개 v1.6</a></td><td>사업 배경·과제·법제도</td><td>공식 배경 근거</td></tr>
-      <tr><td>17</td><td><a href="../documents/ECB0103001S_TxifExcelForm.xlsx">거래정보 Excel 양식</a></td><td>포털/대량 제출 필드 양식</td><td>REST JSON과 별도 계약, 최신 서식 확인</td></tr>
-      <tr><td>18</td><td><a href="../documents/godomall5_openAPI_spec_v1.0_20250616.pdf">고도몰5 Open API v1.0</a></td><td>주문·상품·상태 API 전체 스펙</td><td>2025-06-16 공식 판본과 표시 일치</td></tr>
-      <tr><td>19</td><td><a href="../documents/NICE %5BCI%5D 개인통관고유부호 유효성 검증 API 개발 가이드_20260724.pdf">NICE CI PCCC 가이드</a></td><td>2026-07-24 CI형 검증 규격</td><td>2026-07-28 판과 불일치 항목 있음</td></tr>
-      <tr><td>20</td><td><a href="../documents/NICE 크로네 년선납 견적서 (26-08-14).pdf">NICE 크로네 년선납 견적</a></td><td>요금·계약 상업조건</td><td>기술 정본 아님, 계약 상태 확인</td></tr>
-      <tr><td>21</td><td><a href="../documents/NICE자료/(제출용)크로네_(필수) 본인확인서비스_연계신청서.pdf">제출용 본인확인서비스 연계신청서</a></td><td>연계 신청·기관정보</td><td><span class="badge risk">제한·미추적</span></td></tr>
-      <tr><td>22</td><td><a href="../documents/NICE자료/(제출용)크로네_종합 NICE 신청 및 동의서.pdf">제출용 NICE 신청·동의서</a></td><td>신청·동의 근거</td><td><span class="badge risk">제한·미추적</span></td></tr>
-      <tr><td>23</td><td><a href="../documents/NICE자료/(제출용)크로네_NICE아이디_통합_신청서_V0.pdf">제출용 NICE아이디 통합신청서</a></td><td>통합서비스 신청</td><td><span class="badge risk">제한·미추적</span></td></tr>
-      <tr><td>24</td><td><a href="../documents/NICE자료/(필수) 본인확인서비스_연계신청서 .docx">본인확인서비스 연계신청서 DOCX</a></td><td>신청 원본</td><td><span class="badge risk">제한·미추적</span></td></tr>
-      <tr><td>25</td><td><a href="../documents/NICE자료/개인통관고유부호 유효성 검증 서비스_개인정보처리위수탁 계약서_크로네.docx">개인정보 처리위수탁 계약서</a></td><td>NICE 위수탁·개인정보 책임</td><td><span class="badge risk">제한·미추적</span></td></tr>
-      <tr><td>26</td><td><a href="../documents/NICE자료/개인통관고유부호 유효성 검증 서비스_고유식별키활용_20260728.pdf">NICE자료 고유식별키 가이드 사본</a></td><td>No.6과 중복 사본</td><td><span class="badge risk">제한·미추적</span> 중복 정본 지정 필요</td></tr>
-      <tr><td>27</td><td><a href="../documents/NICE자료/개인통관고유부호 유효성 검증 서비스_이용계약서_크로네.docx">PCCC 검증 서비스 이용계약서</a></td><td>서비스 이용 조건</td><td><span class="badge risk">제한·미추적</span></td></tr>
-      <tr><td>28</td><td><a href="../documents/NICE자료/본인확인서비스 이용기관 취약점 자체점검 체크리스트.docx">취약점 자체점검 체크리스트</a></td><td>보안통제·점검 증빙</td><td><span class="badge risk">제한·미추적</span></td></tr>
-      <tr><td>29</td><td><a href="../documents/NICE자료/크로네 년선납 견적서 (26-08-14).pdf">NICE자료 년선납 견적 사본</a></td><td>No.20과 중복 사본</td><td><span class="badge risk">제한·미추적</span> 중복 정본 지정 필요</td></tr>
-      <tr><td>30</td><td><a href="../documents/NICE자료/NICE아이디_통합_신청서_V0.8.docx">NICE아이디 통합 신청서 V0.8</a></td><td>신청 편집본</td><td><span class="badge risk">제한·미추적</span></td></tr>
-      <tr><td>31</td><td><a href="../documents/NICE자료/NICEAPI(대외비) 개인통관고유부호_유효성 검증_서비스_API 가이드_CI.pdf">NICE API 대외비 가이드</a></td><td>CI형 상세 API</td><td><span class="badge risk">대외비·미추적</span> 외부 공유 금지</td></tr>
+
+  <h3>계약·운영 핵심 원본</h3>
+  <div class="table-wrap"><table class="tight"><thead><tr><th>정확한 파일명</th><th>확인한 내용</th><th>원본 상태</th></tr></thead><tbody>
+    <tr><td><a href="../documents/(GeekStudio) 뉴트리시아_관세청_연동_개발_계약서.pdf">(GeekStudio) 뉴트리시아_관세청_연동_개발_계약서.pdf</a></td><td>개발 위탁 목적, 2026-06-01~2026-08-31 계약기간, 성과물·검수·비밀유지</td><td>당사·GeekStudio 계약 원본, 공개 URL 없음</td></tr>
+    <tr><td><a href="../documents/%5BGeekStudio%5D 뉴트리시아몰_관세청_API_연동_1차 견적 최종.pdf">[GeekStudio] 뉴트리시아몰_관세청_API_연동_1차 견적 최종.pdf</a></td><td>NICE 토큰·PCCC 검증, 관세청 제출·오류조회, 동수 HBL, 자이언트 오류 연동의 최초 범위</td><td>업체 제공 견적 원본, 공개 URL 없음</td></tr>
+    <tr><td><a href="../documents/%5BGeekStudio%5D 뉴트리시아몰_관세청_API_연동_추가개발_견적서_260810.pdf">[GeekStudio] 뉴트리시아몰_관세청_API_연동_추가개발_견적서_260810.pdf</a></td><td>CI 기반 통합인증, 자이언트 제출, 수동 API, 운영 화면 변경의 추가 제안 범위</td><td>업체 제공 견적 원본, 공개 URL 없음. 발주·검수·지급 상태 미확인</td></tr>
+    <tr><td><a href="../documents/20260901_자이언트_운영전환_협의원문.md">20260901_자이언트_운영전환_협의원문.md</a></td><td>V2-1/V2-2 협의, 2026-08-31 문제 주문 90건, 데이터 보완·예외·미확정 질문</td><td>내부 협의 원문, 공개 URL 없음</td></tr>
+    <tr><td><a href="../documents/자이언트_API_메모.md">자이언트_API_메모.md</a></td><td>GGATE v2.0.0 시점의 API 대조와 협의 메모</td><td>과거 기술판. 현재는 V2-1·V2-2 Postman 원본과 함께 비교</td></tr>
+    <tr><td><a href="../documents/뉴트리시아몰 해외직구 결제 및 통관 FAQ_v26.09.07.pdf">뉴트리시아몰 해외직구 결제 및 통관 FAQ_v26.09.07.pdf</a></td><td>고객·CS용 주문, 개인통관고유부호, 결제·통관 안내</td><td>내부 고객안내 원본, 공개 URL 없음. API 기술 정본 아님</td></tr>
+  </tbody></table></div>
+
+  <details><summary>documents 폴더 전체 31개 파일: 정확한 파일명·내용·원본 상태</summary><div>
+    <div class="table-wrap"><table class="tight"><thead><tr><th>No</th><th>정확한 파일명</th><th>확인한 내용</th><th>원본·URL·보안 상태</th></tr></thead><tbody>
+      <tr><td>1</td><td><a href="../documents/(GeekStudio) 뉴트리시아_관세청_연동_개발_계약서.pdf">(GeekStudio) 뉴트리시아_관세청_연동_개발_계약서.pdf</a></td><td>개발 위탁 목적·기간·성과물·검수·비밀유지</td><td>당사·GeekStudio 계약 원본, 공개 URL 없음</td></tr>
+      <tr><td>2</td><td><a href="../documents/%5BGeekStudio%5D 뉴트리시아몰_관세청_API_연동_1차 견적 최종.pdf">[GeekStudio] 뉴트리시아몰_관세청_API_연동_1차 견적 최종.pdf</a></td><td>초기 API 개발 기능·투입 범위·견적</td><td>업체 제공 원본, 공개 URL 없음</td></tr>
+      <tr><td>3</td><td><a href="../documents/%5BGeekStudio%5D 뉴트리시아몰_관세청_API_연동_추가개발_견적서_260810.pdf">[GeekStudio] 뉴트리시아몰_관세청_API_연동_추가개발_견적서_260810.pdf</a></td><td>2026-08-10 추가 개발 기능·투입 범위·견적</td><td>업체 제공 원본, 공개 URL 없음. 발주·검수 상태 미확인</td></tr>
+      <tr><td>4</td><td><a href="../documents/2026 전자상거래  전용 통관플랫폼 FAQ.pdf">2026 전자상거래  전용 통관플랫폼 FAQ.pdf</a></td><td>관세청 전용플랫폼 제도·운영 질의응답</td><td><a href="https://www.customs.go.kr/kcs/na/ntt/selectNttInfo.do?bbsId=3800&amp;mi=14185&amp;nttSn=10174363&amp;nttSnUrl=3a0a1abcfb583c9ddaccef938140928b">공식 게시글</a> · <a href="https://www.customs.go.kr/common/nttFileDownload.do?fileKey=03e80783605d6e7e9fc246541632d7c9">공식 첨부</a></td></tr>
+      <tr><td>5</td><td><a href="../documents/20260901_자이언트_운영전환_협의원문.md">20260901_자이언트_운영전환_협의원문.md</a></td><td>V2-1/V2-2·90건·운영 전환·예외 협의</td><td>내부 서면 원문, 공개 URL 없음</td></tr>
+      <tr><td>6</td><td><a href="../documents/개인통관고유부호 유효성 검증 서비스_고유식별키활용_20260728.pdf">개인통관고유부호 유효성 검증 서비스_고유식별키활용_20260728.pdf</a></td><td>SMARTPCC_01/02/03/10/11/20/30, 고유식별키·CI·PCCC 검증</td><td>NICE 제공 기술 원본, 공개 URL 없음</td></tr>
+      <tr><td>7</td><td><a href="../documents/개인통관고유부호_CI활용_기관.pdf">개인통관고유부호_CI활용_기관.pdf</a></td><td>기관의 CI 활용과 개인통관고유부호 검증 배경·절차</td><td>업체 제공 자료, 공개 URL 미확인</td></tr>
+      <tr><td>8</td><td><a href="../documents/관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1_재개정포함_20260727.pdf">관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1_재개정포함_20260727.pdf</a></td><td>76쪽. 현재 AUT·PER·TRA API 경로·필드·제약</td><td><a href="https://www.customs.go.kr/kcs/na/ntt/selectNttInfo.do?bbsId=3800&amp;mi=14185&amp;nttSn=10171363&amp;nttSnUrl=b291c739a953b51e96e791cef6a6c226">공식 게시글</a> · <a href="https://www.customs.go.kr/common/nttFileDownload.do?fileKey=5461fa29919142379936256b3db16b5b">공식 첨부</a> <span class="badge confirmed">현재 정본</span></td></tr>
+      <tr><td>9</td><td><a href="../documents/관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1.pdf">관세청 제공 전자상거래 전용 REST API 명세서_v1.4.1.pdf</a></td><td>74쪽. 동일 버전명의 종전 첨부</td><td><span class="badge history">과거</span> <a href="https://www.customs.go.kr/common/nttFileDownload.do?fileKey=88667a5e48840bdba7643a276f23fbd0">관세청 공식 구첨부</a>와 파일 일치</td></tr>
+      <tr><td>10</td><td><a href="../documents/관세청_통관플랫폼_연동_브리핑_v3.pptx">관세청_통관플랫폼_연동_브리핑_v3.pptx</a></td><td>관세청 연동 구조·쟁점의 회의·설명용 요약</td><td>내부 파생본, 공식 명세보다 후순위, 공개 URL 없음</td></tr>
+      <tr><td>11</td><td><a href="../documents/관세청_통관플랫폼_연동_운영보고_v8.pptx">관세청_통관플랫폼_연동_운영보고_v8.pptx</a></td><td>연동 진행·운영 상태 보고</td><td>내부 파생본, 완료 여부는 원로그로 별도 확인</td></tr>
+      <tr><td>12</td><td><a href="../documents/뉴트리시아몰 해외직구 결제 및 통관 FAQ_v26.09.07.pdf">뉴트리시아몰 해외직구 결제 및 통관 FAQ_v26.09.07.pdf</a></td><td>고객·CS용 결제·통관 FAQ</td><td>내부 고객안내본, 공개 URL 없음, 기술 정본 아님</td></tr>
+      <tr><td>13</td><td><a href="../documents/뉴트리시아몰 해외직구 결제 및 통관 FAQ.docx">뉴트리시아몰 해외직구 결제 및 통관 FAQ.docx</a></td><td>No.12 고객 FAQ의 편집 원본</td><td>내부 편집본, 공개 URL 없음, 법무·기술 승인 필요</td></tr>
+      <tr><td>14</td><td><a href="../documents/자이언트_API_메모.md">자이언트_API_메모.md</a></td><td>GGATE v2.0.0 대조·협의 이력</td><td><span class="badge history">과거 기술판</span> 현재 공개 원본은 <a href="https://documenter.getpostman.com/view/11773234/2sBYArTsRz">V2-1</a> · <a href="https://documenter.getpostman.com/view/11773234/2sBXqGrh3A">V2-2</a></td></tr>
+      <tr><td>15</td><td><a href="../documents/전자상거래업자 간담회 안건.pdf">전자상거래업자 간담회 안건.pdf</a></td><td>전자상거래업자 질의·제도·시스템 쟁점</td><td>간담회 제공 자료, 개별 공개 URL 미확인</td></tr>
+      <tr><td>16</td><td><a href="../documents/전자상거래전용 통관플랫폼 사업소개(202607)_v1.6(글꼴포함).pdf">전자상거래전용 통관플랫폼 사업소개(202607)_v1.6(글꼴포함).pdf</a></td><td>42쪽. 사업 배경·주요 과제·법제도·플랫폼 구조</td><td>동일 공개 원본 미확인. <a href="https://www.customs.go.kr/kcs/na/ntt/selectNttInfo.do?bbsId=3800&amp;mi=14185&amp;nttSn=10169183&amp;nttSnUrl=f998e2ae568ff4ea9fcda26c60766fca">관련 공식 게시글</a>의 첨부와는 다른 파일</td></tr>
+      <tr><td>17</td><td><a href="../documents/ECB0103001S_TxifExcelForm.xlsx">ECB0103001S_TxifExcelForm.xlsx</a></td><td>거래정보 포털·대량 제출용 Excel 필드 양식. 외부 플랫폼 주문 원본 및 동수 ERP 수입 양식과 구분</td><td><a href="https://unipass.customs.go.kr/ecb/index.do">전자상거래업자 전용 누리집</a> · 개별 파일 직링크 미확인</td></tr>
+      <tr><td>18</td><td><a href="../documents/godomall5_openAPI_spec_v1.0_20250616.pdf">godomall5_openAPI_spec_v1.0_20250616.pdf</a></td><td>91쪽. 고도몰5 주문·상품·상태 Open API 전체 스펙</td><td><a href="https://devcenter.nhn-commerce.com/godomall5/openapi/specDownload">NHN커머스 공식 스펙</a> <span class="badge confirmed">확인</span></td></tr>
+      <tr><td>19</td><td><a href="../documents/NICE %5BCI%5D 개인통관고유부호 유효성 검증 API 개발 가이드_20260724.pdf">NICE [CI] 개인통관고유부호 유효성 검증 API 개발 가이드_20260724.pdf</a></td><td>2026-07-24 CI형 PCCC 검증 API 규격</td><td>NICE 제공 기술 원본, 공개 URL 없음</td></tr>
+      <tr><td>20</td><td><a href="../documents/NICE 크로네 년선납 견적서 (26-08-14).pdf">NICE 크로네 년선납 견적서 (26-08-14).pdf</a></td><td>NICE 서비스 요금·연납 상업조건</td><td>NICE 제공 견적 원본, 공개 URL 없음, 기술 정본 아님</td></tr>
+      <tr><td>21</td><td><a href="../documents/NICE자료/(제출용)크로네_(필수) 본인확인서비스_연계신청서.pdf">(제출용)크로네_(필수) 본인확인서비스_연계신청서.pdf</a></td><td>본인확인서비스 연계 신청·기관정보</td><td><span class="badge risk">제한</span> NICE 제출 원본, 공개 URL 없음</td></tr>
+      <tr><td>22</td><td><a href="../documents/NICE자료/(제출용)크로네_종합 NICE 신청 및 동의서.pdf">(제출용)크로네_종합 NICE 신청 및 동의서.pdf</a></td><td>NICE 서비스 종합 신청·동의</td><td><span class="badge risk">제한</span> NICE 제출 원본, 공개 URL 없음</td></tr>
+      <tr><td>23</td><td><a href="../documents/NICE자료/(제출용)크로네_NICE아이디_통합_신청서_V0.pdf">(제출용)크로네_NICE아이디_통합_신청서_V0.pdf</a></td><td>NICE아이디 통합서비스 신청</td><td><span class="badge risk">제한</span> NICE 제출 원본, 공개 URL 없음</td></tr>
+      <tr><td>24</td><td><a href="../documents/NICE자료/(필수) 본인확인서비스_연계신청서 .docx">(필수) 본인확인서비스_연계신청서 .docx</a></td><td>본인확인서비스 연계신청 편집 양식</td><td><span class="badge risk">제한</span> NICE 제공 양식, 공개 URL 없음</td></tr>
+      <tr><td>25</td><td><a href="../documents/NICE자료/개인통관고유부호 유효성 검증 서비스_개인정보처리위수탁 계약서_크로네.docx">개인통관고유부호 유효성 검증 서비스_개인정보처리위수탁 계약서_크로네.docx</a></td><td>NICE 개인정보 처리위수탁 범위·책임</td><td><span class="badge risk">제한</span> 계약 원본, 공개 URL 없음</td></tr>
+      <tr><td>26</td><td><a href="../documents/NICE자료/개인통관고유부호 유효성 검증 서비스_고유식별키활용_20260728.pdf">개인통관고유부호 유효성 검증 서비스_고유식별키활용_20260728.pdf</a></td><td>No.6과 내용 및 SHA-256이 같은 사본</td><td><span class="badge risk">제한</span> NICE자료 폴더 사본, 공개 URL 없음</td></tr>
+      <tr><td>27</td><td><a href="../documents/NICE자료/개인통관고유부호 유효성 검증 서비스_이용계약서_크로네.docx">개인통관고유부호 유효성 검증 서비스_이용계약서_크로네.docx</a></td><td>PCCC 검증 서비스 이용조건·당사자 책임</td><td><span class="badge risk">제한</span> 계약 원본, 공개 URL 없음</td></tr>
+      <tr><td>28</td><td><a href="../documents/NICE자료/본인확인서비스 이용기관 취약점 자체점검 체크리스트.docx">본인확인서비스 이용기관 취약점 자체점검 체크리스트.docx</a></td><td>이용기관 보안통제·취약점 자체점검 항목</td><td><span class="badge risk">제한</span> 보안 점검 원본, 공개 URL 없음</td></tr>
+      <tr><td>29</td><td><a href="../documents/NICE자료/크로네 년선납 견적서 (26-08-14).pdf">크로네 년선납 견적서 (26-08-14).pdf</a></td><td>No.20과 내용 및 SHA-256이 같은 사본</td><td><span class="badge risk">제한</span> NICE자료 폴더 사본, 공개 URL 없음</td></tr>
+      <tr><td>30</td><td><a href="../documents/NICE자료/NICE아이디_통합_신청서_V0.8.docx">NICE아이디_통합_신청서_V0.8.docx</a></td><td>NICE아이디 통합서비스 신청 편집본 V0.8</td><td><span class="badge risk">제한</span> NICE 제공 양식, 공개 URL 없음</td></tr>
+      <tr><td>31</td><td><a href="../documents/NICE자료/NICEAPI(대외비) 개인통관고유부호_유효성 검증_서비스_API 가이드_CI.pdf">NICEAPI(대외비) 개인통관고유부호_유효성 검증_서비스_API 가이드_CI.pdf</a></td><td>CI형 개인통관고유부호 검증 상세 API·암복호화 계약</td><td><span class="badge risk">대외비</span> NICE 제공 원본, 공개 URL 없음, 외부 공유 금지</td></tr>
     </tbody></table></div>
   </div></details>
-  <div class="callout warn"><strong>저장소 정본 유실 위험:</strong> 2026-09-07 점검 시 이 v7과 <code>planning/과거</code> 이동이 아직 미커밋 상태이고, <code>documents/NICE자료/</code>, 2026-09-07 고객 FAQ DOCX/PDF, 이번에 내려받은 관세청 76쪽 재개정판이 Git 미추적 상태다. NICE 자료는 민감·대외비이므로 무조건 커밋하지 말고 암호화 저장소를 정한 뒤 위치·접근권한만 기록한다. 관세청 공개 PDF와 고객 FAQ는 검토 완료 후 정본 보존 절차에서 커밋 여부를 결정한다.</div>
+  <div class="callout warn"><strong>저장소 정본 유실 위험:</strong> 2026-09-08 점검 시 이 v7과 <code>planning/과거</code> 이동이 아직 미커밋 상태이고, <code>documents/NICE자료/</code>, 고객 FAQ DOCX/PDF, 관세청 76쪽 재개정판이 Git 미추적 상태다. NICE 자료는 민감·대외비이므로 무조건 커밋하지 말고 암호화 저장소를 정한 뒤 위치·접근권한만 기록한다. 관세청 공개 PDF와 고객 FAQ는 검토 완료 후 정본 보존 절차에서 커밋 여부를 결정한다.</div>
 </section>
 
 <section class="section" id="archive">
@@ -417,13 +500,15 @@
     <li><a href="과거/planning_v6.html">planning_v6.html</a></li><li><a href="과거/현황브리핑_20260901.html">현황브리핑_20260901.html</a></li><li><a href="과거/자료_인덱스_20260901.html">자료_인덱스_20260901.html</a></li><li><a href="과거/자이언트_확인요청_20260901.html">자이언트_확인요청_20260901.html</a></li><li><a href="과거/동수_협의자료_20260901.html">동수_협의자료_20260901.html</a></li><li><a href="과거/동수_최종전달기준_20260828.html">동수_최종전달기준_20260828.html</a></li><li><a href="과거/동수_관세신고_연동회의_한중.html">동수_관세신고_연동회의_한중.html</a></li><li><a href="과거/dongsu-gng-clearance-flow-20260904.html">dongsu-gng-clearance-flow-20260904.html</a></li><li><a href="과거/api_field_mapping.html">api_field_mapping.html</a></li><li><a href="과거/유형코드_부호체계_정리.html">유형코드_부호체계_정리.html</a></li><li><a href="과거/리스크_질의대장.html">리스크_질의대장.html</a></li><li><a href="과거/CS_QA_통관.html">CS_QA_통관.html</a></li><li><a href="과거/banner_cs_policy.html">banner_cs_policy.html</a></li><li><a href="과거/privacy_policy_final.html">privacy_policy_final.html</a></li>
   </ul></div></details>
   <details><summary>중국어·다국어판</summary><div><ul class="source-list"><li><a href="과거/planning_v6_cn.html">planning_v6_cn.html</a></li><li><a href="과거/api_field_mapping_cn.html">api_field_mapping_cn.html</a></li><li><a href="과거/유형코드_부호체계_정리_cn.html">유형코드_부호체계_정리_cn.html</a></li><li><a href="과거/동수_협의자료_20260901_cn.html">동수_협의자료_20260901_cn.html</a></li><li><a href="과거/동수_최종전달기준_20260828_cn.html">동수_최종전달기준_20260828_cn.html</a></li><li><a href="과거/dongsu-gng-clearance-flow-20260904-zh.html">dongsu-gng-clearance-flow-20260904-zh.html</a></li></ul></div></details>
-  <details><summary>데이터·법무 원본</summary><div><ul><li><a href="과거/도메인모음_20260828.xlsx">도메인모음_20260828.xlsx</a></li><li><a href="과거/아이베 개인정보처리방침 등 수정안_최앤리 검토(markup).docx">아이베 개인정보처리방침 등 수정안_최앤리 검토(markup).docx</a></li></ul></div></details>
+  <details><summary>데이터·법무 원본</summary><div><ul><li><a href="과거/도메인모음_20260828.xlsx">도메인모음_20260828.xlsx</a> — 채널·ERP 스토어명·업체부호·A/B 코드 마스터이며 플랫폼 주문 원본이 아님</li><li><a href="과거/아이베 개인정보처리방침 등 수정안_최앤리 검토(markup).docx">아이베 개인정보처리방침 등 수정안_최앤리 검토(markup).docx</a></li></ul></div></details>
 </section>
 
 <section class="section" id="changelog">
   <h2>14. v7 변경 이력</h2>
   <div class="table-wrap"><table><thead><tr><th>일자</th><th>변경</th><th>근거</th></tr></thead><tbody>
-    <tr><td>2026-09-07</td><td>관세청·NICE·고도몰·행안부·동수·GGATE·Geek 계약/API/키/운영을 단일 한국어 인수인계본으로 통합</td><td>로컬 PDF·DOCX·XLSX·HTML·MD 및 공식 웹 대조</td></tr>
+    <tr><td>2026-09-08</td><td>외부 플랫폼 10개의 주문 수집을 모두 원본 Excel→동수 ERP 방식으로 확정했다. 플랫폼별 원본 확보, 무수정 수입, 원본 컬럼→ERP→GGATE 매핑, PER 누락 판정, 혼합 MAWB, 출고 차단까지 테스트 게이트에 추가했다. 현재 보유한 채널 마스터와 관세청 대량서식은 플랫폼 주문 원본이 아님을 명시했다.</td><td>사용자 확정 · 저장소 XLS/XLSX/CSV/TSV 전수 확인 · 도메인모음_20260828.xlsx · ECB0103001S_TxifExcelForm.xlsx</td></tr>
+    <tr><td>2026-09-08</td><td>첫 절을 전체 상황 중심으로 바꾸고, V2-1·V2-2 URL을 사용자 지정대로 정정·분리했다. <code>documents</code> 31개 파일명을 그대로 표기하고 공개 원본 URL의 일치 여부를 재검증했다.</td><td>사용자 정정 · Postman 화면/컬렉션 · 관세청·NHN커머스 공식 원본 · 로컬 파일 SHA-256 대조</td></tr>
+    <tr><td>2026-09-07</td><td>관세청·NICE·고도몰·행안부·동수·GGATE·Geek 계약/API/키/운영 상황을 단일 한국어 기준본으로 통합</td><td>로컬 PDF·DOCX·XLSX·HTML·MD 및 공식 웹 대조</td></tr>
     <tr><td>2026-09-07</td><td>관세청 같은 버전명의 최신 76쪽 재개정판을 별도 파일로 보존하고 상품명 원문·합배송 복수 거래·키 정책 반영</td><td>관세청 공식 게시글·첨부, SHA-256 출처 잠금</td></tr>
     <tr><td>2026-09-07</td><td>GGATE 공개 정본을 v2.0.0 → v2.0.1(2026-08-31)로 갱신하고 B형 9개 조건부 필드·Geek 우선 폴백 반영</td><td>Postman 컬렉션 JSON</td></tr>
     <tr><td>2026-09-07</td><td>동수 V2-1 전 주문 문장을 2026-09-04 채널별 기존/신규 분리안으로 정정하되 양쪽 이력을 보존</td><td>2026-09-01 협의원문 · 2026-09-04 흐름 문서</td></tr>
@@ -432,7 +517,7 @@
     <tr><td>2026-09-07</td><td>관세청 고객 결제금액과 GGATE USD 매입금액을 분리하고 제공자별 필드 길이·건수 한도를 추가</td><td>관세청 재개정판 p.14–17 · GGATE v2.0.1</td></tr>
     <tr><td>2026-09-07</td><td>기존 planning 22개 파일을 <code>planning/과거</code>로 보존 이동</td><td>사용자 요청</td></tr>
   </tbody></table></div>
-  <p class="footnote">이 문서는 2026-09-07 현재 확인 가능한 자료를 기준으로 한다. 미확정 항목은 빈칸을 추정값으로 채우지 않고 C-01~C-19에 남겼다.</p>
+  <p class="footnote">이 문서는 2026-09-08 현재 확인 가능한 자료를 기준으로 한다. 미확정 항목은 빈칸을 추정값으로 채우지 않고 C-01~C-21에 남겼다.</p>
 </section>
 </main>
 </div>
