@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EIBE SCM | 현재고 현황</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script>
+        if (!localStorage.getItem('scm_token') && window.location.pathname !== '/login') {
+            window.location.replace('/login');
+        }
+    </script>
+</head>
+<body>
+    <div class="app-wrapper">
+        
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1 class="page-title" id="main-page-title">현재고</h1>
+            </div>
+            <div class="filter-group">
+                <select id="brand-filter" class="form-select" style="width: 200px;"></select>
+            </div>
+
+
+            <!-- KPI 요약 -->
+            <section class="kpi-grid section-gap" id="inventory-kpi">
+                <div class="kpi-card">
+                    <span class="kpi-label">전사 총 현재고</span>
+                    <div class="kpi-value" id="inv-total-qty">0</div>
+                    <div class="kpi-sub">캔 (전 창고 합계)</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-label">재고 자산 금액</span>
+                    <div class="kpi-value" id="inv-total-value">₩0</div>
+                    <div class="kpi-sub">원화 환산 총액</div>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-label">등록 창고 수</span>
+                    <div class="kpi-value" id="inv-ffc-count">0</div>
+                    <div class="kpi-sub">풀필먼트 창고</div>
+                </div>
+            </section>
+
+            <!-- 창고별 현재고 상세 테이블 -->
+            <section class="card" id="inventory-detail-section">
+                <div class="card-header">
+                    <h2 class="card-title">창고별 현재고 상세</h2>
+                    <div class="btn-group">
+                        <button class="btn btn--secondary btn--sm" onclick="downloadTemplate('inventory_snapshot')">양식 다운로드</button>
+                        <input type="file" id="inventory-upload" accept=".xlsx" style="display: none;">
+                        <button class="btn btn--primary btn--sm" onclick="document.getElementById('inventory-upload').click()">엑셀 업로드</button>
+                        <button class="btn btn--primary btn--sm" onclick="InventoryPage.addInlineRow()">+ 행 추가</button>
+                        <button class="btn btn--secondary btn--sm" onclick="InventoryPage.load()">새로고침</button>
+                    </div>
+                </div>
+                <div class="card-body" style="padding-bottom: 0;">
+                    <div class="checkbox-filter-group" id="ffc-checkbox-filter"></div>
+                </div>
+                <div class="card-body card-body--no-pad">
+                    <div class="data-table-wrapper">
+                        <table class="data-table" id="inventory-detail-table">
+                            <thead>
+                                <tr>
+                                    <th data-sort="string">창고</th>
+                                    <th data-sort="string">품목코드</th>
+                                    <th data-sort="string">품목명</th>
+                                    <th data-sort="string" id="expiry-th">기한</th>
+                                    <th data-sort="number" class="text-right">현재고 (캔)</th>
+                                    <th data-sort="number" class="text-right">자산 금액</th>
+                                    <th data-sort="string">업데이트 일시</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td colspan="8" class="empty-state">데이터를 불러오는 중...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 이관 시뮬레이터 섹션 -->
+            <section class="card" style="margin-top: var(--space-xl);">
+                <div class="card-header collapsible-header" onclick="toggleCollapsible('transfer-body', this)">
+                    <div class="card-header-left">
+                        <h2 class="card-title">재고 이관 시뮬레이터</h2>
+                        <span class="card-subtitle">메인 창고(HUB)에서 각 FFC로 이관 시나리오 검증</span>
+                    </div>
+                    <div class="btn-group" onclick="event.stopPropagation()">
+                        <input type="file" id="transfer-upload" accept=".xlsx" style="display: none;">
+                        <button class="btn btn--primary btn--sm" onclick="document.getElementById('transfer-upload').click()">시나리오 업로드</button>
+                    </div>
+                </div>
+                <div class="card-body collapsible-body" id="transfer-body" style="display: none;">
+                    <div class="data-table-wrapper" style="max-height: 400px; overflow-y: auto;">
+                        <table class="data-table" id="transfer-table">
+                            <thead>
+                                <tr>
+                                    <th>품목코드</th>
+                                    <th>품목명</th>
+                                    <th>도착 창고</th>
+                                    <th class="text-right">이관 수량(캔)</th>
+                                    <th class="text-right">메인창고 잔여재고(Before)</th>
+                                    <th class="text-right">메인창고 잔여재고(After)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td colspan="6" class="empty-state">이관 시나리오 엑셀을 업로드해주세요.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- 재고 관리(추가/수정) 모달 -->
+
+
+    <div id="toast-container" class="toast-container"></div>
+    <script src="/static/js/app.js"></script>
+    <script>
+        const InventoryPage = {
+            currentBrand: 'ALL',
+            
+            switchBrand(brand) {
+                this.currentBrand = brand;
+                const th = document.getElementById('expiry-th');
+                if (brand === 'ELECTRONICS') {
+                    th.textContent = '보증기한';
+                } else {
+                    th.textContent = '기한';
+                }
+                this.load();
+            },
+
+            // Removed sample inventory, using API.
+            
+            addInlineRow() {
+                const tbody = document.querySelector('#inventory-detail-table tbody');
+                // Remove empty state if present
+                if (tbody.querySelector('.empty-state')) tbody.innerHTML = '';
+                
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><select class="form-select inline-ffc"><option value="1">용인 메인창고</option><option value="2">온라인 FFC</option><option value="3">오프라인 FFC</option></select></td>
+                    <td><select class="form-select inline-product"><option value="1">SN-001</option><option value="2">SN-002</option></select></td>
+                    <td>-</td>
+                    <td><input type="number" class="form-input inline-qty" min="0" value="0" style="width:100px;"></td>
+                    <td>-</td>
+                    <td>자동 생성됨</td>
+                    <td>
+                        <button class="btn btn--primary btn--sm" onclick="InventoryPage.saveInlineRow(this)">저장</button>
+                        <button class="btn btn--secondary btn--sm" onclick="this.closest('tr').remove()">취소</button>
+                    </td>
+                `;
+                tbody.insertBefore(tr, tbody.firstChild);
+                
+                // Fetch dynamic options
+                API.get('/api/warehouses').then(res => {
+                    tr.querySelector('.inline-ffc').innerHTML = (res || []).map(w => `<option value="${w.id}">${w.warehouse_name || w.ffc_name || w.name}</option>`).join('');
+                }).catch(() => {});
+                API.get('/api/products').then(res => {
+                    tr.querySelector('.inline-product').innerHTML = (res || []).map(p => `<option value="${p.id}">${p.product_code || p.code}</option>`).join('');
+                }).catch(() => {});
+            },
+            async saveInlineRow(btn) {
+                const tr = btn.closest('tr');
+                const whId = tr.querySelector('.inline-ffc').value;
+                const prodId = tr.querySelector('.inline-product').value;
+                const qty = parseInt(tr.querySelector('.inline-qty').value);
+                
+                const today = new Date().toISOString().split('T')[0];
+                try {
+                    await API.post('/api/inventory-snapshot', {
+                        snapshot_date: today,
+                        warehouse_id: parseInt(whId),
+                        product_id: parseInt(prodId),
+                        qty_cans: qty,
+                        expiry_date: null
+                    });
+                    Toast.show('재고가 성공적으로 추가되었습니다.', 'success');
+                    this.loadData();
+                } catch(e) {
+                    console.error(e);
+                }
+            },
+
+            init() {
+                this.buildFilters();
+                this.renderInventoryTable();
+                this.updateKPIs();
+            },
+
+            getProduct(code) {
+                return this.sampleProducts.find(p => p.code === code);
+            },
+            getFfc(id) {
+                return this.sampleFfcs.find(f => f.id === id);
+            },
+
+            async buildFilters() {
+                try {
+                    const filterGroup = document.getElementById('ffc-checkbox-filter');
+                    const warehouses = await API.get('/api/warehouses');
+                    let html = '<label><input type="checkbox" value="all" checked onchange="InventoryPage.onFilterAll(this)"> 전체</label>';
+                    warehouses.forEach(wh => {
+                        html += `<label><input type="checkbox" value="${wh.id}" checked onchange="InventoryPage.onFilterChange()"> ${wh.warehouse_name}</label>`;
+                    });
+                    filterGroup.innerHTML = html;
+                } catch(e) {
+                    console.error('Failed to load warehouses', e);
+                }
+            },
+
+            renderInventoryTable() {
+                const tbody = document.querySelector('#inventory-detail-table tbody');
+                const checked = this.getCheckedFfcs();
+
+                const rows = (this.sampleInventory || [])
+                    .filter(inv => checked.includes(String(inv.warehouse_id)) || checked.includes(String(inv.ffcId)))
+                    .map(inv => {
+                        const prod = this.getProduct(inv.productCode) || this.getProduct(inv.product_code);
+                        const value = inv.totalValueKrw || 0;
+                        const ffcName = inv.warehouse_name || inv.warehouse_id;
+                        
+                        return `
+                            <tr>
+                                <td>${ffcName}</td>
+                                <td class="mono">${inv.product_code}</td>
+                                <td>${inv.product_name || (prod ? prod.name : '')}</td>
+                                <td class="mono">${inv.expiry_date || '-'}</td>
+                                <td class="text-right mono" style="font-weight:600;">${Format.number(inv.qty)}</td>
+                                <td class="text-right mono">${Format.currency(value)}</td>
+                                <td style="color: var(--text-muted);">${inv.updated || '-'}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn--secondary btn--sm" onclick="InventoryPage.deleteInventory(${inv.id})">삭제</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    }).join('');
+                
+                tbody.innerHTML = rows || '<tr><td colspan="8" class="empty-state">조건에 맞는 데이터가 없습니다.</td></tr>';
+            },
+
+            getCheckedFfcs() {
+                const checkboxes = document.querySelectorAll('#ffc-checkbox-filter input[type="checkbox"]:not([value="all"])');
+                return Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+            },
+            onFilterAll(allCb) {
+                const checkboxes = document.querySelectorAll('#ffc-checkbox-filter input[type="checkbox"]:not([value="all"])');
+                checkboxes.forEach(cb => cb.checked = allCb.checked);
+                this.renderInventoryTable();
+            },
+            onFilterChange() {
+                const allCb = document.querySelector('#ffc-checkbox-filter input[value="all"]');
+                const checkboxes = document.querySelectorAll('#ffc-checkbox-filter input[type="checkbox"]:not([value="all"])');
+                const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+                allCb.checked = allChecked;
+                this.renderInventoryTable();
+            },
+
+            updateKPIs() {
+                const checked = this.getCheckedFfcs();
+                let totalQty = 0;
+                let totalValue = 0;
+                const activeFfcs = new Set();
+                
+                this.sampleInventory.forEach(inv => {
+                    if (checked.includes(inv.ffcId) || checked.includes(inv.warehouse_id)) {
+                        totalQty += (inv.qty || 0);
+                        totalValue += (inv.totalValueKrw || 0);
+                        activeFfcs.add(inv.ffcId || inv.warehouse_id);
+                    }
+                });
+                
+                document.getElementById('inv-total-qty').textContent = Format.number(totalQty);
+                document.getElementById('inv-total-value').textContent = Format.currency(totalValue);
+                document.getElementById('inv-ffc-count').textContent = activeFfcs.size;
+            },
+
+            async deleteInventory(id) {
+                if (!confirm('정말로 이 재고 기록을 삭제하시겠습니까?')) return;
+                try {
+                    await API.delete(`/api/inventory-snapshot/${id}`);
+                    Toast.show('재고 삭제 완료', 'success');
+                    await this.load();
+                } catch(e) {
+                    console.error(e);
+                }
+            },
+
+            async load() {
+                try {
+                    let url = '/api/inventory/summary';
+                    if (this.currentBrand !== 'ALL') {
+                        url += `?brand_category=${this.currentBrand}`;
+                    }
+                    const [summary, ffcs, products] = await Promise.all([
+                        API.get(url),
+                        API.get('/api/warehouses'),
+                        API.get('/api/products')
+                    ]);
+                    // Replace sample data with API data if available
+                    if (summary && summary.length) {
+                        const newInventory = [];
+                        summary.forEach(wh => {
+                            if (wh.products) {
+                                wh.products.forEach(p => {
+                                    if (p.batches && p.batches.length) {
+                                        p.batches.forEach(b => {
+                                            newInventory.push({
+                                                id: b.snapshot_id,
+                                                warehouse_id: wh.warehouse_id,
+                                                ffcId: wh.warehouse_id || wh.warehouse_name,
+                                                warehouse_name: wh.warehouse_name,
+                                                productCode: p.product_code || p.product_name,
+                                                product_name: p.product_name,
+                                                qty: b.qty_cans || 0,
+                                                totalValueKrw: b.total_value_krw || 0,
+                                                expiry_date: b.expiry_date || '',
+                                                updated: b.updated_at || '',
+                                                snapshot_date: b.snapshot_date || Format.todayShort(),
+                                            });
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                        if (newInventory.length > 0) {
+                            this.sampleInventory = newInventory;
+                        }
+                    }
+                    if (ffcs && ffcs.length) {
+                        this.sampleFfcs = ffcs.map(f => ({ id: f.id || f.ffc_id || f.warehouse_name, name: f.name || f.warehouse_name || f.ffc_name }));
+                    }
+                    if (products && products.length) {
+                        this.sampleProducts = products.map(p => ({
+                            id: p.id,
+                            code: p.product_code || p.code,
+                            name: p.product_name || p.name,
+                            unitPrice: p.unit_price || p.unitPrice || p.purchase_price || 0
+                        }));
+                    }
+                    this.init();
+                } catch(e) {
+                    // API not available — use sample data
+                }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            Theme.init();
+            Toast.init();
+            await BrandFilter.init('brand-filter', (val) => InventoryPage.switchBrand(val));
+            await InventoryPage.buildFilters();
+            InventoryPage.init();
+            InventoryPage.load();
+
+            document.getElementById('inventory-upload').addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                e.target.value = '';
+                const formData = new FormData();
+                formData.append('file', file);
+                try {
+                    const result = await API.postFormData('/api/inventory-snapshot/upload', formData);
+                    Toast.show(`${result.message} (${result.rows_inserted}건 추가, ${result.rows_updated}건 수정)`, 'success');
+                    InventoryPage.load();
+                } catch(err) {
+                    // Error already shown by API handler
+                }
+            });
+
+            document.getElementById('transfer-upload').addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                e.target.value = '';
+                const formData = new FormData();
+                formData.append('file', file);
+                try {
+                    const result = await API.postFormData('/api/transfer/simulation', formData);
+                    const tbody = document.querySelector('#transfer-table tbody');
+                    if (!result || result.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="6" class="empty-state">처리된 데이터가 없습니다.</td></tr>';
+                        return;
+                    }
+                    tbody.innerHTML = result.map(r => {
+                        const afterClass = r.hub_after < 0 ? 'color: var(--accent-red); font-weight: bold;' : '';
+                        return `
+                            <tr>
+                                <td class="mono">${r.product_code}</td>
+                                <td>${r.product_name}</td>
+                                <td>${r.to_warehouse}</td>
+                                <td class="text-right mono">${Format.number(r.transfer_qty)}</td>
+                                <td class="text-right mono">${Format.number(r.hub_before)}</td>
+                                <td class="text-right mono" style="${afterClass}">${Format.number(r.hub_after)}</td>
+                            </tr>
+                        `;
+                    }).join('');
+                    document.getElementById('transfer-body').style.display = 'block';
+                    Toast.show('시뮬레이션 완료', 'success');
+                } catch(err) {
+                    // API handler shows error
+                }
+            });
+        });
+    </script>
+</body>
+</html>

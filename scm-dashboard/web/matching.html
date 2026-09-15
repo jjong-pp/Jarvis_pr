@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EIBE SCM | 입고 관리</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">입고 내역</h1>
+            </div>
+            
+            <div class="filter-group">
+                <select id="brand-filter" class="form-select" style="width: 200px;"></select>
+            </div>
+
+            <div class="card section-gap">
+                <div class="card-header">
+                    <h2 class="card-title">입고 리스트</h2>
+                    <div class="btn-group" style="margin-left: auto;">
+                        <input type="file" id="upload-inbound" style="display:none;" accept=".xlsx" onchange="InboundPage.handleUpload(this)">
+                        <button class="btn btn--secondary btn--sm" onclick="document.getElementById('upload-inbound').click()">엑셀 업로드</button>
+                        <button class="btn btn--primary btn--sm" onclick="InboundPage.addInlineRow()">+ 수동 입력 (행 추가)</button>
+                    </div>
+                </div>
+                <div class="card-body card-body--no-pad">
+                    <div class="data-table-wrapper">
+                        <table class="data-table" id="inbound-table">
+                            <thead>
+                                <tr>
+                                    <th>입고 번호</th>
+                                    <th>품목코드</th>
+                                    <th>상태</th>
+                                    <th class="text-right">외화 단가</th>
+                                    <th class="text-right">결제 금액(KRW)</th>
+                                    <th class="text-right">수량(Carton)</th>
+                                    <th>도착/출발일</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <div id="toast-container" class="toast-container"></div>
+    <script src="/static/js/app.js"></script>
+    <script>
+        const InboundPage = {
+            currentBrand: 'ALL',
+            productsDict: {},
+            
+            async init() {
+
+                
+                try {
+                    const products = await API.get('/api/products');
+                    products.forEach(p => this.productsDict[p.product_code] = p);
+                } catch(e) {}
+
+                await this.load();
+            },
+
+            switchBrand(brand) {
+                this.currentBrand = brand;
+                this.load();
+            },
+
+            async load() {
+                try {
+                    let url = '/api/inbound';
+                    if (this.currentBrand !== 'ALL') {
+                        url += `?brand_category=${this.currentBrand}`;
+                    }
+                    const data = await API.get(url);
+                    this.render(data);
+                } catch(e) {
+                    console.error(e);
+                    this.render([]);
+                }
+            },
+
+            render(data) {
+                const tbody = document.querySelector('#inbound-table tbody');
+                if (!data || data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8" class="text-center" style="padding:20px; color:var(--text-muted)">입고 내역이 없습니다.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = data.map(item => {
+                    const prod = this.productsDict[item.product_code];
+                    const brandBadge = prod ? `<span class="badge badge--blue" style="margin-right: 5px;">${prod.brand_category}</span>` : '';
+                    let statusBadge = '';
+                    if (item.status === '입고완료') statusBadge = '<span class="badge badge--primary">입고완료</span>';
+                    else if (item.status === '결제완료') statusBadge = '<span class="badge badge--green">결제완료</span>';
+                    else statusBadge = `<span class="badge badge--warning">${item.status || '-'}</span>`;
+
+                    return `
+                        <tr>
+                            <td class="mono">${item.invoice_no || '-'}</td>
+                            <td>${brandBadge}<span class="mono">${item.product_code || '-'}</span></td>
+                            <td>${statusBadge}</td>
+                            <td class="text-right mono">${Format.currency(item.unit_price || 0)}</td>
+                            <td class="text-right mono" style="font-weight: 500;">${Format.currency(item.payment_amount_krw || 0)} 원</td>
+                            <td class="text-right mono">${Format.number(item.carton_qty || 0)}</td>
+                            <td>${item.eta || item.shipping_date || '-'}</td>
+                            <td>
+                                <button class="btn btn--danger btn--sm" onclick="InboundPage.deleteInbound(${item.id}, '${item.invoice_no}')">삭제</button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            },
+
+            async handleUpload(inputElem) {
+                const file = inputElem.files[0];
+                if (!file) return;
+                inputElem.value = '';
+                const formData = new FormData();
+                formData.append('file', file);
+                try {
+                    const res = await API.postFormData('/api/inbound/upload', formData);
+                    Toast.show(res.message || '업로드 완료', 'success');
+                    this.load();
+                } catch(e) { 
+                    Toast.show('엑셀 업로드 실패', 'error');
+                }
+            },
+
+            addInlineRow() {
+                const tbody = document.querySelector('#inbound-table tbody');
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><input type="text" class="form-input inline-inv" placeholder="INV-2026-06" style="width: 100%;"></td>
+                    <td><input type="text" class="form-input inline-code" placeholder="SN-001" style="width: 100%;"></td>
+                    <td>
+                        <select class="form-select inline-status">
+                            <option value="입고완료">입고완료</option>
+                            <option value="결제완료">결제완료</option>
+                            <option value="생산중">생산중</option>
+                            <option value="운송중">운송중</option>
+                        </select>
+                    </td>
+                    <td class="text-right"><input type="number" class="form-input inline-price" step="0.01" placeholder="단가" style="width: 100%;"></td>
+                    <td class="text-right"><input type="number" class="form-input inline-krw" placeholder="원화" style="width: 100%;"></td>
+                    <td class="text-right"><input type="number" class="form-input inline-qty" placeholder="수량" style="width: 100%;"></td>
+                    <td><input type="date" class="form-input inline-eta" style="width: 100%;"></td>
+                    <td>
+                        <button class="btn btn--primary btn--sm" onclick="InboundPage.saveInlineRow(this)">저장</button>
+                        <button class="btn btn--secondary btn--sm" onclick="this.closest('tr').remove()">취소</button>
+                    </td>
+                `;
+                
+                if (tbody.querySelector('.text-center')) {
+                    tbody.innerHTML = '';
+                }
+                tbody.insertBefore(tr, tbody.firstChild);
+            },
+
+            async saveInlineRow(btn) {
+                const tr = btn.closest('tr');
+                try {
+                    const inv = tr.querySelector('.inline-inv').value;
+                    const code = tr.querySelector('.inline-code').value;
+                    if (!inv || !code) { Toast.show('입고 번호와 품목코드를 입력하세요', 'error'); return; }
+                    
+                    const payload = {
+                        invoice_no: inv,
+                        product_code: code,
+                        status: tr.querySelector('.inline-status').value,
+                        unit_price: parseFloat(tr.querySelector('.inline-price').value) || 0,
+                        payment_amount_krw: parseFloat(tr.querySelector('.inline-krw').value) || 0,
+                        carton_qty: parseInt(tr.querySelector('.inline-qty').value) || 0,
+                        eta: tr.querySelector('.inline-eta').value || null
+                    };
+                    
+                    await API.post('/api/inbound', payload);
+                    Toast.show('등록 완료', 'success');
+                    this.load();
+                } catch(e) {
+                    Toast.show('등록 실패', 'error');
+                }
+            },
+
+            async deleteInbound(id, invNo) {
+                if (!confirm(`입고 내역 '${invNo}'를 삭제하시겠습니까?`)) return;
+                try {
+                    await API.delete(`/api/inbound/${id}`);
+                    Toast.show('삭제 완료', 'success');
+                    this.load();
+                } catch(e) {
+                    Toast.show('삭제 실패', 'error');
+                }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            Theme.init();
+            Toast.init();
+            await BrandFilter.init('brand-filter', (val) => InboundPage.switchBrand(val));
+            InboundPage.init();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EIBE SCM | 시스템 운영</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1 class="page-title" id="main-page-title">설정</h1>
+            </div>
+
+            <!-- 데이터 양식 관리 -->
+            <section class="card section-gap settings-section" id="template-section" style="display: none;">
+                <div class="card-header collapsible-header" id="template-header" onclick="toggleCollapsible('template-header')">
+                    <h2 class="card-title">데이터 양식 관리</h2>
+                    <div class="btn-group" onclick="event.stopPropagation();" style="margin-left: auto; margin-right: 15px;">
+                        <button class="btn btn--primary" onclick="downloadTemplate('all')">전체 양식 엑셀 다운로드</button>
+                    </div>
+                    <span class="collapse-icon">▼</span>
+                </div>
+                <div class="card-body collapsible-body" id="template-body">
+                    <p style="color: var(--text-muted); margin-bottom: var(--space-lg); font-size: 0.85rem;">
+                        종류별 고정 양식을 개별 다운로드하거나, 전체를 한꺼번에 받을 수 있습니다.
+                    </p>
+                    <div class="template-grid">
+                        <div class="template-card" onclick="downloadTemplate('product')">
+                            <span class="label">품목DB</span>
+                        </div>
+                        <div class="template-card" onclick="downloadTemplate('warehouse')">
+                            <span class="label">창고DB</span>
+                        </div>
+                        <div class="template-card" onclick="downloadTemplate('inbound')">
+                            <span class="label">입고</span>
+                        </div>
+                        <div class="template-card" onclick="downloadTemplate('inventory')">
+                            <span class="label">현재고스냅샷</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 창고 관리 -->
+            <section class="card section-gap settings-section" id="warehouse-section" style="display: none;">
+                <div class="card-header collapsible-header" id="warehouse-header" onclick="toggleCollapsible('warehouse-header')">
+                    <h2 class="card-title">창고 관리</h2>
+                    <div class="btn-group" onclick="event.stopPropagation();" style="margin-left: auto; margin-right: 15px;">
+                        <button class="btn btn--primary btn--sm" onclick="AdminPage.addInlineRow('warehouse')">+ 창고 추가</button>
+                    </div>
+                    <span class="collapse-icon">▼</span>
+                </div>
+                <div class="card-body collapsible-body card-body--no-pad" id="warehouse-body">
+                    <div class="data-table-wrapper">
+                        <table class="data-table" id="warehouse-table">
+                            <thead>
+                                <tr>
+                                    <th>이름</th>
+                                    <th>종류</th>
+                                    <th class="text-right">허용 기한(일)</th>
+                                    <th class="text-right">기본 이관 MOQ</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 품목 관리 -->
+            <section class="card section-gap settings-section" id="product-section" style="display: none;">
+                <div class="card-header collapsible-header" id="product-header" onclick="toggleCollapsible('product-header')">
+                    <h2 class="card-title">품목 및 브랜드 관리</h2>
+                    <div class="btn-group" onclick="event.stopPropagation();" style="margin-left: auto; margin-right: 15px;">
+                        <label class="btn btn--secondary btn--sm" style="cursor: pointer;">
+                            엑셀 일괄 업로드
+                            <input type="file" id="product-upload" accept=".xlsx" style="display: none;">
+                        </label>
+                        <button class="btn btn--primary btn--sm" onclick="AdminPage.addInlineRow('product')">+ 품목 추가</button>
+                    </div>
+                    <span class="collapse-icon">▼</span>
+                </div>
+                <div class="card-body collapsible-body card-body--no-pad" id="product-body">
+                    <div class="data-table-wrapper">
+                        <table class="data-table" id="product-table">
+                            <thead>
+                                <tr>
+                                    <th>코드</th>
+                                    <th>품명</th>
+                                    <th>브랜드/카테고리</th>
+                                    <th class="text-right">입수량(PCS)</th>
+                                    <th>통화</th>
+                                    <th class="text-right">단가</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 이관 MOQ 관리 -->
+            <section class="card section-gap settings-section" id="moq-section" style="display: none;">
+                <div class="card-header collapsible-header" id="moq-header" onclick="toggleCollapsible('moq-header')">
+                    <h2 class="card-title">이관 MOQ 오버라이드 관리</h2>
+                    <span class="collapse-icon">▼</span>
+                </div>
+                <div class="card-body collapsible-body card-body--no-pad" id="moq-body">
+                    <div style="padding: 15px; border-bottom: 1px solid var(--border-default); display: flex; gap: 10px; align-items: center; background: var(--bg-surface);">
+                        <select id="moq-ffc-select" class="form-select" style="width: 200px;"></select>
+                        <select id="moq-product-select" class="form-select" style="width: 200px;"></select>
+                        <input type="number" id="moq-value" class="form-input" placeholder="이관 MOQ" style="width: 150px;">
+                        <button class="btn btn--primary" onclick="AdminPage.saveMOQ()">추가/변경</button>
+                    </div>
+                    <div class="data-table-wrapper">
+                        <table class="data-table" id="moq-list-table">
+                            <thead>
+                                <tr>
+                                    <th>창고 (도착지)</th>
+                                    <th>품목코드</th>
+                                    <th class="text-right">이관 MOQ</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 사용자 관리 -->
+            <section class="card section-gap settings-section" id="user-section" style="display: none;">
+                <div class="card-header collapsible-header" id="user-header" onclick="toggleCollapsible('user-header')">
+                    <h2 class="card-title">사용자 관리</h2>
+                    <div class="btn-group" onclick="event.stopPropagation();" style="margin-left: auto; margin-right: 15px;">
+                        <button class="btn btn--primary btn--sm" onclick="AdminPage.addInlineRow('user')">+ 사용자 추가</button>
+                    </div>
+                    <span class="collapse-icon">▼</span>
+                </div>
+                <div class="card-body collapsible-body card-body--no-pad" id="user-body">
+                    <div class="data-table-wrapper">
+                        <table class="data-table" id="users-table">
+                            <thead>
+                                <tr>
+                                    <th>아이디</th>
+                                    <th>이름</th>
+                                    <th>권한</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 백업 및 스냅샷 -->
+            <section class="card section-gap settings-section" id="snapshot-section" style="display: none;">
+                <div class="card-header collapsible-header" id="snapshot-header" onclick="toggleCollapsible('snapshot-header')">
+                    <h2 class="card-title">시스템 백업 및 스냅샷</h2>
+                    <div class="btn-group" onclick="event.stopPropagation();" style="margin-left: auto; margin-right: 15px;">
+                        <button class="btn btn--warning btn--sm" onclick="AdminPage.triggerSnapshot()">수동 스냅샷 생성</button>
+                    </div>
+                    <span class="collapse-icon">▼</span>
+                </div>
+                <div class="card-body collapsible-body card-body--no-pad" id="snapshot-body">
+                    <div class="data-table-wrapper">
+                        <table class="data-table" id="snapshot-table">
+                            <thead>
+                                <tr>
+                                    <th>생성일시</th>
+                                    <th>파일명</th>
+                                    <th>종류</th>
+                                    <th>복원</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+    <script>
+        const AdminPage = {
+            async loadWarehouses() {
+                try {
+                    const warehouses = await API.get('/api/warehouses');
+                    const tbody = document.querySelector('#warehouse-table tbody');
+                    if (!warehouses.length) return;
+                    tbody.innerHTML = warehouses.map(w => `
+                        <tr>
+                            <td>${w.warehouse_name}</td>
+                            <td><span class="badge ${w.warehouse_type === 'OFFLINE' ? 'badge--primary' : w.warehouse_type === 'ONLINE' ? 'badge--blue' : 'badge--warning'}">${w.warehouse_type}</span></td>
+                            <td class="text-right mono">${w.allowed_expiry_days}일</td>
+                            <td class="text-right mono">${Format.number(w.moq)}</td>
+                            <td>
+                                <button class="btn btn--danger btn--sm" onclick="AdminPage.deleteWarehouse(${w.id}, '${w.warehouse_name}')">삭제</button>
+                            </td>
+                        </tr>
+                    `).join('');
+                } catch(e) { console.error(e); }
+            },
+
+            async deleteWarehouse(id, name) {
+                if (!confirm(`창고 '${name}'을(를) 삭제하시겠습니까?`)) return;
+                try {
+                    await API.delete(`/api/warehouses/${id}`);
+                    Toast.show('창고 삭제 완료', 'success');
+                    this.loadWarehouses();
+                } catch(e) {}
+            },
+
+            async loadProducts() {
+                try {
+                    const products = await API.get('/api/products');
+                    const tbody = document.querySelector('#product-table tbody');
+                    if (!products.length) {
+                        tbody.innerHTML = '<tr><td colspan="7" class="text-center" style="padding:20px;color:var(--text-muted)">등록된 품목이 없습니다</td></tr>';
+                        return;
+                    }
+                    tbody.innerHTML = products.map(p => `
+                        <tr>
+                            <td class="mono">${p.product_code}</td>
+                            <td>${p.product_name}</td>
+                            <td><span class="badge badge--blue">${p.brand_category || 'FOOD'}</span></td>
+                            <td class="text-right mono">${p.pack_qty_per_tu || '-'}</td>
+                            <td class="mono">${p.currency_unit || 'USD'}</td>
+                            <td class="text-right mono">${(p.purchase_price || 0).toFixed(2)}</td>
+                            <td>
+                                <button class="btn btn--danger btn--sm" onclick="AdminPage.deleteProduct(${p.id}, '${p.product_name}')">삭제</button>
+                            </td>
+                        </tr>
+                    `).join('');
+                } catch(e) { console.error(e); }
+            },
+
+            async deleteProduct(id, name) {
+                if (!confirm(`품목 '${name}'을(를) 삭제하시겠습니까?`)) return;
+                try {
+                    await API.delete(`/api/products/${id}`);
+                    Toast.show('품목 삭제 완료', 'success');
+                    this.loadProducts();
+                } catch(e) {}
+            },
+
+            async loadUsers() {
+                try {
+                    const users = await API.get('/api/users');
+                    const tbody = document.querySelector('#users-table tbody');
+                    if (!users.length) return;
+                    tbody.innerHTML = users.map(u => `
+                        <tr>
+                            <td class="mono">${u.username}</td>
+                            <td>${u.name}</td>
+                            <td><span class="badge ${u.role === 'ADMIN' ? 'badge--primary' : 'badge--blue'}">${u.role}</span></td>
+                            <td>
+                                ${u.username !== 'admin' ? 
+                                    `<button class="btn btn--danger btn--sm" onclick="AdminPage.deleteUser(${u.id}, '${u.username}')">삭제</button>` :
+                                    '<span style="color: var(--text-muted); font-size: 0.78rem;">시스템 계정</span>'}
+                            </td>
+                        </tr>
+                    `).join('');
+                } catch(e) { console.error(e); }
+            },
+
+            async deleteUser(userId, username) {
+                if (!confirm(`사용자 '${username}'을(를) 삭제하시겠습니까?`)) return;
+                try {
+                    await API.delete(`/api/users/${userId}`);
+                    Toast.show('사용자 삭제 완료', 'success');
+                    this.loadUsers();
+                } catch(e) {}
+            },
+
+            async loadSnapshots() {
+                try {
+                    const res = await API.get('/api/snapshot/list');
+                    const tbody = document.querySelector('#snapshot-table tbody');
+                    if (res && res.length > 0) {
+                        tbody.innerHTML = res.map(snap => `
+                            <tr>
+                                <td>${snap.created_at}</td>
+                                <td style="font-size: 0.78rem; color: var(--text-muted);">${snap.snapshot_path.split(/\\|\//).pop()}</td>
+                                <td>${snap.is_auto ? '<span class="badge badge--primary">자동</span>' : '<span class="badge badge--warning">수동</span>'}</td>
+                                <td><button class="btn btn--danger btn--sm" onclick="AdminPage.restoreSnapshot(${snap.id})">복원</button></td>
+                            </tr>
+                        `).join('');
+                    }
+                } catch(e) { console.error(e); }
+            },
+
+            async triggerSnapshot() {
+                try {
+                    Toast.show('스냅샷 생성 중...');
+                    await API.post('/api/snapshot/manual');
+                    Toast.show('스냅샷 생성 완료', 'success');
+                    this.loadSnapshots();
+                } catch(e) {}
+            },
+
+            async restoreSnapshot(snapId) {
+                if (!confirm(`이 스냅샷으로 데이터베이스를 덮어씁니다. 현재 데이터가 유실될 수 있습니다.\n\n정말로 복원하시겠습니까?`)) return;
+                try {
+                    Toast.show('스냅샷 복원 중...');
+                    const res = await API.post(`/api/snapshot/restore/${snapId}`);
+                    Toast.show(res.message || '복원 완료. 창을 새로고침합니다.', 'success');
+                    setTimeout(() => window.location.reload(), 1500);
+                } catch(e) {}
+            },
+
+            async loadMOQ() {
+                try {
+                    const [ffcs, products] = await Promise.all([
+                        API.get('/api/warehouses'),
+                        API.get('/api/products'),
+                    ]);
+                    const ffcSelect = document.getElementById('moq-ffc-select');
+                    const prodSelect = document.getElementById('moq-product-select');
+                    if (ffcSelect) ffcSelect.innerHTML = ffcs.map(f => `<option value="${f.id}">${f.warehouse_name}</option>`).join('');
+                    if (prodSelect) prodSelect.innerHTML = products.map(p => `<option value="${p.id}">${p.product_code} - ${p.product_name}</option>`).join('');
+
+                    const moqs = await API.get('/api/warehouse-moq');
+                    const tbody = document.querySelector('#moq-list-table tbody');
+                    if (moqs && moqs.length && tbody) {
+                        tbody.innerHTML = moqs.map(m => `
+                            <tr>
+                                <td>${m.warehouse_name}</td>
+                                <td class="mono">${m.product_name}</td>
+                                <td class="text-right mono" style="font-weight:600;">${Format.number(m.transfer_moq)}</td>
+                                <td><button class="btn btn--danger btn--sm" onclick="AdminPage.deleteMOQ(${m.warehouse_id}, ${m.product_id})">삭제</button></td>
+                            </tr>
+                        `).join('');
+                    }
+                } catch(e) { console.error(e); }
+            },
+
+            async saveMOQ() {
+                const warehouse_id = parseInt(document.getElementById('moq-ffc-select').value);
+                const product_id = parseInt(document.getElementById('moq-product-select').value);
+                const transfer_moq = parseInt(document.getElementById('moq-value').value) || 0;
+                try {
+                    await API.post('/api/warehouse-moq', { warehouse_id, product_id, transfer_moq });
+                    Toast.show('이관 MOQ 저장 완료', 'success');
+                    this.loadMOQ();
+                } catch(e) {}
+            },
+
+            async deleteMOQ(whId, prodId) {
+                if(!confirm('MOQ 규칙을 삭제하시겠습니까?')) return;
+                try {
+                    await API.delete(`/api/warehouse-moq?warehouse_id=${whId}&product_id=${prodId}`);
+                    Toast.show('삭제 완료', 'success');
+                    this.loadMOQ();
+                } catch(e) {}
+            },
+
+            async load() {
+                await Promise.all([this.loadUsers(), this.loadSnapshots(), this.loadWarehouses(), this.loadMOQ(), this.loadProducts()]);
+            },
+
+            addInlineRow(type) {
+                let tbody, tr = document.createElement('tr');
+                if (type === 'warehouse') {
+                    tbody = document.querySelector('#warehouse-table tbody');
+                    tr.innerHTML = `
+                        <td><input type="text" class="form-input inline-name" placeholder="창고명"></td>
+                        <td>
+                            <select class="form-select inline-type">
+                                <option value="OFFLINE">OFFLINE</option>
+                                <option value="ONLINE">ONLINE</option>
+                                <option value="BUYOUT">BUYOUT</option>
+                            </select>
+                        </td>
+                        <td class="text-right"><input type="number" class="form-input inline-expiry" value="90"></td>
+                        <td class="text-right"><input type="number" class="form-input inline-moq" value="0"></td>
+                        <td>
+                            <button class="btn btn--primary btn--sm" onclick="AdminPage.saveInlineRow(this, 'warehouse')">저장</button>
+                            <button class="btn btn--secondary btn--sm" onclick="this.closest('tr').remove()">취소</button>
+                        </td>
+                    `;
+                } else if (type === 'product') {
+                    tbody = document.querySelector('#product-table tbody');
+                    tr.innerHTML = `
+                        <td><input type="text" class="form-input inline-code" placeholder="상품코드"></td>
+                        <td><input type="text" class="form-input inline-name" placeholder="상품명"></td>
+                        <td><select class="form-select inline-brand"><option value="FOOD">FOOD (식품)</option><option value="ELECTRONICS">ELECTRONICS (전자/기타)</option></select></td>
+                        <td class="text-right"><input type="number" class="form-input inline-pcs" value="24"></td>
+                        <td>
+                            <select class="form-select inline-currency">
+                                <option value="USD">USD</option><option value="KRW">KRW</option>
+                            </select>
+                        </td>
+                        <td class="text-right"><input type="number" class="form-input inline-price" step="0.01" value="0"></td>
+                        <td>
+                            <button class="btn btn--primary btn--sm" onclick="AdminPage.saveInlineRow(this, 'product')">저장</button>
+                            <button class="btn btn--secondary btn--sm" onclick="this.closest('tr').remove()">취소</button>
+                        </td>
+                    `;
+                } else if (type === 'user') {
+                    tbody = document.querySelector('#users-table tbody');
+                    tr.innerHTML = `
+                        <td>
+                            <input type="text" class="form-input inline-id" placeholder="아이디" style="display:block; margin-bottom:4px;">
+                            <input type="password" class="form-input inline-pw" placeholder="비밀번호" style="display:block;">
+                        </td>
+                        <td><input type="text" class="form-input inline-name" placeholder="이름"></td>
+                        <td>
+                            <select class="form-select inline-role"><option value="OPERATOR">OPERATOR</option><option value="ADMIN">ADMIN</option></select>
+                        </td>
+                        <td>
+                            <button class="btn btn--primary btn--sm" onclick="AdminPage.saveInlineRow(this, 'user')">저장</button>
+                            <button class="btn btn--secondary btn--sm" onclick="this.closest('tr').remove()">취소</button>
+                        </td>
+                    `;
+                }
+                
+                if (tbody.querySelector('.empty-state') || tbody.querySelector('.text-center')) {
+                    tbody.innerHTML = '';
+                }
+                tbody.insertBefore(tr, tbody.firstChild);
+            },
+
+            async saveInlineRow(btn, type) {
+                const tr = btn.closest('tr');
+                try {
+                    if (type === 'warehouse') {
+                        const name = tr.querySelector('.inline-name').value;
+                        if (!name) { Toast.show('창고명을 입력하세요', 'error'); return; }
+                        await API.post('/api/warehouses', {
+                            warehouse_name: name, warehouse_type: tr.querySelector('.inline-type').value,
+                            allowed_expiry_days: parseInt(tr.querySelector('.inline-expiry').value)||90,
+                            moq: parseInt(tr.querySelector('.inline-moq').value)||0
+                        });
+                        this.loadWarehouses();
+                    } else if (type === 'product') {
+                        const code = tr.querySelector('.inline-code').value;
+                        const name = tr.querySelector('.inline-name').value;
+                        if (!code || !name) { Toast.show('코드와 상품명을 입력하세요', 'error'); return; }
+                        await API.post('/api/products', {
+                            product_code: code, product_name: name,
+                            brand_category: tr.querySelector('.inline-brand').value,
+                            pack_qty_per_tu: parseInt(tr.querySelector('.inline-pcs').value)||24,
+                            currency_unit: tr.querySelector('.inline-currency').value,
+                            purchase_price: parseFloat(tr.querySelector('.inline-price').value)||0
+                        });
+                        this.loadProducts();
+                    } else if (type === 'user') {
+                        const id = tr.querySelector('.inline-id').value;
+                        const pw = tr.querySelector('.inline-pw').value;
+                        const name = tr.querySelector('.inline-name').value;
+                        if (!id || !pw || !name) { Toast.show('모든 필드를 입력하세요', 'error'); return; }
+                        await API.post('/api/users', { username: id, password: pw, name: name, role: tr.querySelector('.inline-role').value });
+                        this.loadUsers();
+                    }
+                    Toast.show('등록 완료', 'success');
+                } catch(e) {
+                    console.error(e);
+                }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            Theme.init();
+            Toast.init();
+            
+
+
+            AdminPage.load().catch(() => {});
+
+            document.getElementById('product-upload')?.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                e.target.value = '';
+                const formData = new FormData();
+                formData.append('file', file);
+                try {
+                    const result = await API.postFormData('/api/products/upload', formData);
+                    Toast.show(result.message || '업로드 완료', 'success');
+                    AdminPage.loadProducts();
+                } catch(err) {
+                    Toast.show('업로드 실패', 'error');
+                }
+            });
+            
+            // Hash Navigation
+            function handleHashChange() {
+                let hash = window.location.hash || '#template-header';
+                if (hash.endsWith('-header')) {
+                    hash = hash.replace('-header', '-section');
+                }
+                
+                // Hide all sections
+                document.querySelectorAll('.settings-section').forEach(sec => sec.style.display = 'none');
+                
+                // Show target section
+                const target = document.querySelector(hash);
+                if (target) {
+                    target.style.display = 'block';
+                } else {
+                    document.getElementById('template-section').style.display = 'block';
+                }
+                
+                // Update active sub-nav item
+                document.querySelectorAll('.nav-sub a').forEach(a => {
+                    a.style.color = 'var(--text-muted)';
+                    a.style.fontWeight = 'normal';
+                    if (a.getAttribute('href') === `/users${window.location.hash}`) {
+                        a.style.color = 'var(--accent-main)';
+                        a.style.fontWeight = '600';
+                    }
+                });
+            }
+            
+            window.addEventListener('hashchange', handleHashChange);
+            handleHashChange(); // Run on load
+        });
+        
+        function downloadTemplate(type) {
+            window.location.href = `/api/excel/template/${type}`;
+        }
+        function toggleCollapsible(id) {
+            const header = document.getElementById(id);
+            if(!header) return;
+            const body = header.nextElementSibling;
+            const icon = header.querySelector('.collapse-icon');
+            if (body.style.display === 'none') {
+                body.style.display = 'block';
+                if(icon) icon.textContent = '▼';
+            } else {
+                body.style.display = 'none';
+                if(icon) icon.textContent = '▲';
+            }
+        }
+    </script>
+</body>
+</html>
