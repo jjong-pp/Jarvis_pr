@@ -27,7 +27,7 @@ from reportlab.platypus import (
 APP_DIR = Path(__file__).resolve().parent
 RESUME_ROOT = APP_DIR.parents[1]
 OUTPUT_PATH = RESUME_ROOT / "output" / "pdf" / "박종혁_비나우_구매수요예측_SOP_지원서.pdf"
-PHOTO_PATH = RESUME_ROOT / "_photo.png"
+PHOTO_PATH = RESUME_ROOT / "포트폴리오" / "assets" / "portrait" / "_photo.png"
 RESUME_MD = APP_DIR / "이력서.md"
 COVER_MD = APP_DIR / "자기소개서.md"
 
