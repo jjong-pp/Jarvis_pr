@@ -1,0 +1,89 @@
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster1.xml","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout1.xml","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/y90nupkv","slide":1,"title":"Slide 1","textShapes":0}
+{"kind":"image","id":"im/3e9kr2xw","slide":1,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/hwbqtkby","slide":2,"title":"Slide 2","textShapes":0}
+{"kind":"image","id":"im/jah0jy1g","slide":2,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/ofy9wn61","slide":3,"title":"Slide 3","textShapes":0}
+{"kind":"image","id":"im/ux4nyx0b","slide":3,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/jyx0ra1s","slide":4,"title":"국내","textShapes":4}
+{"kind":"textbox","id":"sh/0ba143al","slide":4,"name":"status-1-label-s4","text":"국내","textPreview":"국내","textChars":2,"textLines":1,"bbox":[550.4,296.57,53.33,17.6]}
+{"kind":"textbox","id":"sh/ql8jytsj","slide":4,"name":"status-2-label-s4","text":"국내","textPreview":"국내","textChars":2,"textLines":1,"bbox":[550.4,332.83,53.33,17.6]}
+{"kind":"textbox","id":"sh/sna103ap","slide":4,"name":"status-3-label-s4","text":"해외","textPreview":"해외","textChars":2,"textLines":1,"bbox":[550.4,369.63,53.33,17.07]}
+{"kind":"textbox","id":"sh/ih8ju9sn","slide":4,"name":"status-4-label-s4","text":"국내","textPreview":"국내","textChars":2,"textLines":1,"bbox":[550.4,405.9,53.33,17.07]}
+{"kind":"image","id":"im/fed47q18","slide":4,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/i107q5of","slide":5,"title":"R","textShapes":13}
+{"kind":"textbox","id":"sh/cf2tcr61","slide":5,"name":"raci-1-label-s5","text":"R","textPreview":"R","textChars":1,"textLines":1,"bbox":[300.27,459.77,29.33,25.6]}
+{"kind":"textbox","id":"sh/yhkbe1o7","slide":5,"name":"raci-2-label-s5","text":"I","textPreview":"I","textChars":1,"textLines":1,"bbox":[810.13,459.77,29.87,25.6]}
+{"kind":"textbox","id":"sh/032tgr6d","slide":5,"name":"raci-3-label-s5","text":"A","textPreview":"A","textChars":1,"textLines":1,"bbox":[300.27,491.77,29.33,25.6]}
+{"kind":"textbox","id":"sh/m5kbi1oj","slide":5,"name":"raci-4-label-s5","text":"R","textPreview":"R","textChars":1,"textLines":1,"bbox":[470.4,491.77,29.33,25.6]}
+{"kind":"textbox","id":"sh/x4vedgvm","slide":5,"name":"raci-5-label-s5","text":"I","textPreview":"I","textChars":1,"textLines":1,"bbox":[300.27,523.77,29.33,25.6]}
+{"kind":"textbox","id":"sh/v2twb6dw","slide":5,"name":"raci-6-label-s5","text":"R","textPreview":"R","textChars":1,"textLines":1,"bbox":[640,523.77,29.87,25.6]}
+{"kind":"textbox","id":"sh/58vehgvy","slide":5,"name":"raci-7-label-s5","text":"C","textPreview":"C","textChars":1,"textLines":1,"bbox":[810.13,523.77,29.87,25.6]}
+{"kind":"textbox","id":"sh/j6dwfqds","slide":5,"name":"raci-8-label-s5","text":"R","textPreview":"R","textChars":1,"textLines":1,"bbox":[300.27,555.77,29.33,25.6]}
+{"kind":"textbox","id":"sh/tcfel0vu","slide":5,"name":"raci-9-label-s5","text":"C","textPreview":"C","textChars":1,"textLines":1,"bbox":[640,555.77,29.87,25.6]}
+{"kind":"textbox","id":"sh/gfi5grih","slide":5,"name":"raci-10-label-s5","text":"I","textPreview":"I","textChars":1,"textLines":1,"bbox":[810.13,555.77,29.87,25.6]}
+{"kind":"textbox","id":"sh/ud0ne10b","slide":5,"name":"raci-11-label-s5","text":"C","textPreview":"C","textChars":1,"textLines":1,"bbox":[300.27,587.77,29.33,25.6]}
+{"kind":"textbox","id":"sh/4ji5kbid","slide":5,"name":"raci-12-label-s5","text":"C","textPreview":"C","textChars":1,"textLines":1,"bbox":[640,587.77,29.87,25.6]}
+{"kind":"textbox","id":"sh/2h0ni107","slide":5,"name":"raci-13-label-s5","text":"R","textPreview":"R","textChars":1,"textLines":1,"bbox":[810.13,587.77,29.87,25.6]}
+{"kind":"image","id":"im/ulkfaloz","slide":5,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/x8f69ofe","slide":6,"title":"Slide 6","textShapes":0}
+{"kind":"image","id":"im/wnylcr29","slide":6,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/gnmp4jqx","slide":7,"title":"Slide 7","textShapes":0}
+{"kind":"image","id":"im/uls3e5or","slide":7,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/fu1gfa1s","slide":8,"title":"PASS","textShapes":6}
+{"kind":"textbox","id":"sh/g72x4zyd","slide":8,"name":"pass-label-s8-1","text":"PASS","textPreview":"PASS","textChars":4,"textLines":1,"bbox":[552,153.5,62,18]}
+{"kind":"textbox","id":"sh/6h0fypgb","slide":8,"name":"pass-label-s8-2","text":"PASS","textPreview":"PASS","textChars":4,"textLines":1,"bbox":[552,185.5,62,18]}
+{"kind":"textbox","id":"sh/sjix0zy1","slide":8,"name":"pass-label-s8-3","text":"PASS","textPreview":"PASS","textChars":4,"textLines":1,"bbox":[552,217.5,62,18]}
+{"kind":"textbox","id":"sh/id0fu50z","slide":8,"name":"pass-label-s8-4","text":"PASS","textPreview":"PASS","textChars":4,"textLines":1,"bbox":[552,249.5,62,18]}
+{"kind":"textbox","id":"sh/98rehwve","slide":8,"name":"pass-label-s8-5","text":"PASS","textPreview":"PASS","textChars":4,"textLines":1,"bbox":[552,281.5,62,18]}
+{"kind":"textbox","id":"sh/n6pwfmd8","slide":8,"name":"pass-label-s8-6","text":"PASS","textPreview":"PASS","textChars":4,"textLines":1,"bbox":[552,313.5,62,18]}
+{"kind":"image","id":"im/zqd8fe18","slide":8,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/udsvah03","slide":9,"title":"Slide 9","textShapes":0}
+{"kind":"image","id":"im/f2dkvidc","slide":9,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/m90b6t0r","slide":10,"title":"Slide 10","textShapes":0}
+{"kind":"image","id":"im/jups3qlc","slide":10,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/jetc3ut0","slide":11,"title":"Slide 11","textShapes":0}
+{"kind":"image","id":"im/ru1g36h0","slide":11,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/8f2psfyx","slide":12,"title":"Slide 12","textShapes":0}
+{"kind":"image","id":"im/vqls3exw","slide":12,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/hgzapcr6","slide":13,"title":"Slide 13","textShapes":0}
+{"kind":"image","id":"im/0fm58zqp","slide":13,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/6lsnupw7","slide":14,"title":"PASS","textShapes":6}
+{"kind":"textbox","id":"sh/wbydknq1","slide":14,"name":"pass-label-s14-1","text":"PASS","textPreview":"PASS","textChars":4,"textLines":1,"bbox":[552,153.5,62,18]}
+{"kind":"textbox","id":"sh/idgvmx8r","slide":14,"name":"pass-label-s14-2","text":"PASS","textPreview":"PASS","textChars":4,"textLines":1,"bbox":[552,185.5,62,18]}
+{"kind":"textbox","id":"sh/kfidonqx","slide":14,"name":"pass-label-s14-3","text":"PASS","textPreview":"PASS","textChars":4,"textLines":1,"bbox":[552,217.5,62,18]}
+{"kind":"textbox","id":"sh/ehwvat8n","slide":14,"name":"pass-label-s14-4","text":"PASS","textPreview":"PASS","textChars":4,"textLines":1,"bbox":[552,249.5,62,18]}
+{"kind":"textbox","id":"sh/x4ni9ofy","slide":14,"name":"pass-label-s14-5","text":"PASS","textPreview":"PASS","textChars":4,"textLines":1,"bbox":[552,281.5,62,18]}
+{"kind":"textbox","id":"sh/b2507exs","slide":14,"name":"pass-label-s14-6","text":"PASS","textPreview":"PASS","textChars":4,"textLines":1,"bbox":[552,313.5,62,18]}
+{"kind":"image","id":"im/rq1cvq1g","slide":14,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/vaxsvy10","slide":15,"title":"Slide 15","textShapes":0}
+{"kind":"image","id":"im/ju5cz2pc","slide":15,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/gny5sjyp","slide":16,"title":"1","textShapes":5}
+{"kind":"textbox","id":"sh/9kby1g7m","slide":16,"name":"step-number-1-label-s16","text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[82.13,165.9,21.87,21.33]}
+{"kind":"textbox","id":"sh/zutgvm94","slide":16,"name":"step-number-2-label-s16","text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[318.4,165.9,21.33,21.33]}
+{"kind":"textbox","id":"sh/lwbyxwra","slide":16,"name":"step-number-3-label-s16","text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[554.13,165.9,21.87,21.33]}
+{"kind":"textbox","id":"sh/3qdg7qpo","slide":16,"name":"step-number-4-label-s16","text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[790.4,165.9,21.33,21.33]}
+{"kind":"textbox","id":"sh/e1sf65o3","slide":16,"name":"step-number-5-label-s16","text":"5","textPreview":"5","textChars":1,"textLines":1,"bbox":[1026.13,165.9,21.87,21.33]}
+{"kind":"image","id":"im/6l0b25sv","slide":16,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/14bup87q","slide":17,"title":"Slide 17","textShapes":0}
+{"kind":"image","id":"im/n6d43ip8","slide":17,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/y5wne50z","slide":18,"title":"Slide 18","textShapes":0}
+{"kind":"image","id":"im/edgb6x0z","slide":18,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/nid43ytk","slide":19,"title":"P1","textShapes":3}
+{"kind":"textbox","id":"sh/8v2pobax","slide":19,"name":"persona-1-label-s19","text":"P1","textPreview":"P1","textChars":2,"textLines":1,"bbox":[84.27,291.77,35.73,19.73]}
+{"kind":"textbox","id":"sh/ahk7qls3","slide":19,"name":"persona-2-label-s19","text":"P2","textPreview":"P2","textChars":2,"textLines":1,"bbox":[476.27,291.77,35.73,19.73]}
+{"kind":"textbox","id":"sh/wj2psvat","slide":19,"name":"persona-3-label-s19","text":"P3","textPreview":"P3","textChars":2,"textLines":1,"bbox":[868.27,291.77,35.73,19.73]}
+{"kind":"image","id":"im/qpsvupk7","slide":19,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/zyxsni5k","slide":20,"title":"키워드 정하기","textShapes":6}
+{"kind":"textbox","id":"sh/rq50vmp8","slide":20,"name":"journey-stage-1-label-s20","text":"키워드 정하기","textPreview":"키워드 정하기","textChars":7,"textLines":1,"bbox":[64,137.63,179.73,25.6]}
+{"kind":"textbox","id":"sh/po3itc72","slide":20,"name":"journey-stage-2-label-s20","text":"채널별 조회","textPreview":"채널별 조회","textChars":6,"textLines":1,"bbox":[256,137.63,179.73,25.6]}
+{"kind":"textbox","id":"sh/3ml0rmpw","slide":20,"name":"journey-stage-3-label-s20","text":"결과 읽기","textPreview":"결과 읽기","textChars":5,"textLines":1,"bbox":[448,137.63,179.73,25.6]}
+{"kind":"textbox","id":"sh/hk3ipcr6","slide":20,"name":"journey-stage-4-label-s20","text":"내보내기","textPreview":"내보내기","textChars":4,"textLines":1,"bbox":[640,137.63,179.73,25.6]}
+{"kind":"textbox","id":"sh/cj65wzyd","slide":20,"name":"journey-stage-5-label-s20","text":"보고서 만들기","textPreview":"보고서 만들기","textChars":7,"textLines":1,"bbox":[832,137.63,179.73,25.6]}
+{"kind":"textbox","id":"sh/qh4nupg7","slide":20,"name":"journey-stage-6-label-s20","text":"실행 · 성과 확인","textPreview":"실행 · 성과 확인","textChars":10,"textLines":1,"bbox":[1024,137.63,179.73,25.6]}
+{"kind":"image","id":"im/a947ulgz","slide":20,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/m1wvqtk3","slide":21,"title":"Slide 21","textShapes":0}
+{"kind":"image","id":"im/329wbuxw","slide":21,"name":"","bbox":[0,0,1280,720]}
+{"kind":"slide","id":"sl/5onypobq","slide":22,"title":"Slide 22","textShapes":0}
+{"kind":"image","id":"im/gve5gr2h","slide":22,"name":"","bbox":[0,0,1280,720]}

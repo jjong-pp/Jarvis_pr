@@ -1,0 +1,590 @@
+{"kind":"deck","id":"pr/n1asey","name":"Deck"}
+{"kind":"layout","layoutId":"03a16a68-b8e4-4c16-9005-8b4d9bcce269","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"8bb9e5da-19b0-4462-b3fa-340a992c61e5","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/gd4duc","slide":1,"title":"PM PORTFOLIO","textShapes":13}
+{"kind":"shape","id":"sh/zatcnyd0","slide":1,"bbox":[0,0,18,720]}
+{"kind":"textbox","id":"sh/0b2dw3ul","slide":1,"text":"PM PORTFOLIO","textPreview":"PM PORTFOLIO","textChars":12,"textLines":1,"bbox":[72,61,260,28]}
+{"kind":"textbox","id":"sh/1cbup8v6","slide":1,"text":"운영 요구를 정책으로 만들고\n검증까지 연결한 두 프로젝트","textPreview":"운영 요구를 정책으로 만들고 | 검증까지 연결한 두 프로젝트","textChars":31,"textLines":2,"bbox":[72,128,730,130]}
+{"kind":"textbox","id":"sh/q50bqtwj","slide":1,"text":"통관 연동에서는 분할 출고 단위와 오류 재제출 기준을,\nB2B 몰에서는 계정·결제 정책과 운영 완료 기준을 정했습니다.","textPreview":"통관 연동에서는 분할 출고 단위와 오류 재제출 기준을, | B2B 몰에서는 계정·결제 정책과 운영 완료 기준을 정했습니다.","textChars":66,"textLines":2,"bbox":[72,280,700,66]}
+{"kind":"shape","id":"sh/r6tcjyd4","slide":1,"bbox":[72,400,350,142]}
+{"kind":"shape","id":"sh/c72dsju9","slide":1,"bbox":[94,421,112,28]}
+{"kind":"textbox","id":"sh/d8bulovu","slide":1,"text":"PROJECT 01","textPreview":"PROJECT 01","textChars":10,"textLines":1,"bbox":[102,425,96,20]}
+{"kind":"textbox","id":"sh/a14v2dcn","slide":1,"text":"관세청 통관 연동","textPreview":"관세청 통관 연동","textChars":9,"textLines":1,"bbox":[94,463,292,31]}
+{"kind":"textbox","id":"sh/v2dcvid8","slide":1,"text":"분할 출고 기준 · 오류 재제출 · 운영 QA","textPreview":"분할 출고 기준 · 오류 재제출 · 운영 QA","textChars":25,"textLines":1,"bbox":[94,504,292,24]}
+{"kind":"shape","id":"sh/jy9sjmtg","slide":1,"bbox":[438,400,350,142]}
+{"kind":"shape","id":"sh/id0bahcv","slide":1,"bbox":[460,421,112,28]}
+{"kind":"textbox","id":"sh/50balwb6","slide":1,"text":"PROJECT 02","textPreview":"PROJECT 02","textChars":10,"textLines":1,"bbox":[468,425,96,20]}
+{"kind":"textbox","id":"sh/4zitcru1","slide":1,"text":"산후조리원 B2B 몰","textPreview":"산후조리원 B2B 몰","textChars":11,"textLines":1,"bbox":[460,463,292,31]}
+{"kind":"textbox","id":"sh/r2tcn6tc","slide":1,"text":"계정·결제 정책 · 운영 서버 검증 · 결과","textPreview":"계정·결제 정책 · 운영 서버 검증 · 결과","textChars":24,"textLines":1,"bbox":[460,504,292,24]}
+{"kind":"shape","id":"sh/61kbe1cr","slide":1,"bbox":[845,0,435,720]}
+{"kind":"textbox","id":"sh/s32tgbux","slide":1,"text":"박종혁","textPreview":"박종혁","textChars":3,"textLines":1,"bbox":[900,286,325,44]}
+{"kind":"textbox","id":"sh/f6tcr6to","slide":1,"text":"프로젝트 운영 · SCM","textPreview":"프로젝트 운영 · SCM","textChars":13,"textLines":1,"bbox":[900,334,325,30]}
+{"kind":"shape","id":"sh/e5kbi1s3","slide":1,"bbox":[900,395,325,0]}
+{"kind":"textbox","id":"sh/q1ovq5wb","slide":1,"text":"요구사항 구조화\n이해관계자 조율\n완료 기준과 운영 검증","textPreview":"요구사항 구조화 | 이해관계자 조율 | 완료 기준과 운영 검증","textChars":30,"textLines":3,"bbox":[910,425,305,120]}
+{"kind":"textbox","id":"sh/b2xwjadw","slide":1,"text":"2026-09","textPreview":"2026-09","textChars":7,"textLines":1,"bbox":[884,650,340,20]}
+{"kind":"image","id":"im/uts7ylcz","slide":1,"name":"","geometry":"ellipse","alt":"박종혁 프로필 사진","bbox":[983,92,154,154]}
+{"kind":"notes","id":"nt/gd4duc","slide":1,"text":""}
+{"kind":"slide","id":"sl/3mt4kr","slide":2,"title":"두 프로젝트에서 반복한 PM 운영 방식","textShapes":37}
+{"kind":"textbox","id":"sh/hs7etof2","slide":2,"text":"두 프로젝트에서 반복한 PM 운영 방식","textPreview":"두 프로젝트에서 반복한 PM 운영 방식","textChars":21,"textLines":1,"bbox":[68,37,957,44]}
+{"kind":"shape","id":"sh/upwvy9gb","slide":2,"bbox":[68,101,1140,0]}
+{"kind":"textbox","id":"sh/vq5wrexw","slide":2,"text":"운영 문제를 기능 목록으로 받지 않고 결정 기준, 정책, 검증 기준, 측정 범위로 나눴습니다.","textPreview":"운영 문제를 기능 목록으로 받지 않고 결정 기준, 정책, 검증 기준, 측정 범위로 나눴습니다.","textChars":52,"textLines":1,"bbox":[68,117,1140,27]}
+{"kind":"shape","id":"sh/4vyd4jyd","slide":2,"bbox":[68,173,198,144]}
+{"kind":"shape","id":"sh/5w7exofy","slide":2,"bbox":[84,189,44,28]}
+{"kind":"textbox","id":"sh/itgv2tgn","slide":2,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[92,193,28,20]}
+{"kind":"textbox","id":"sh/3upwvyx8","slide":2,"text":"문제 경계","textPreview":"문제 경계","textChars":5,"textLines":1,"bbox":[84,230,166,28]}
+{"kind":"textbox","id":"sh/sjix83yp","slide":2,"text":"사용자와 운영 주체\n책임 범위","textPreview":"사용자와 운영 주체 | 책임 범위","textChars":16,"textLines":2,"bbox":[84,270,166,38]}
+{"kind":"textbox","id":"sh/dkre18fa","slide":2,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[266,225,30,34]}
+{"kind":"shape","id":"sh/ds3a5szq","slide":2,"bbox":[296,173,198,144]}
+{"kind":"shape","id":"sh/cra9cni5","slide":2,"bbox":[312,189,44,28]}
+{"kind":"textbox","id":"sh/bq183ihk","slide":2,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[320,193,28,20]}
+{"kind":"textbox","id":"sh/qpsrad0z","slide":2,"text":"판단 기준","textPreview":"판단 기준","textChars":5,"textLines":1,"bbox":[312,230,166,28]}
+{"kind":"textbox","id":"sh/lw3a9szm","slide":2,"text":"대안과 제외 범위\n선택 이유","textPreview":"대안과 제외 범위 | 선택 이유","textChars":15,"textLines":2,"bbox":[312,270,166,38]}
+{"kind":"textbox","id":"sh/0vu9g7i1","slide":2,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[494,225,30,34]}
+{"kind":"shape","id":"sh/zuls72hg","slide":2,"bbox":[524,173,198,144]}
+{"kind":"shape","id":"sh/ytcrex0v","slide":2,"bbox":[540,189,44,28]}
+{"kind":"textbox","id":"sh/10zqx8zi","slide":2,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[548,193,28,20]}
+{"kind":"textbox","id":"sh/gzq943ix","slide":2,"text":"정책·데이터 계약","textPreview":"정책·데이터 계약","textChars":9,"textLines":1,"bbox":[540,230,166,28]}
+{"kind":"textbox","id":"sh/s3u9k3qt","slide":2,"text":"단위와 권한\n필드와 상태","textPreview":"단위와 권한 | 필드와 상태","textChars":13,"textLines":2,"bbox":[540,270,166,38]}
+{"kind":"textbox","id":"sh/t43ad87e","slide":2,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[722,225,30,34]}
+{"kind":"shape","id":"sh/61crid8n","slide":2,"bbox":[752,173,198,144]}
+{"kind":"shape","id":"sh/72lsbyp8","slide":2,"bbox":[768,189,44,28]}
+{"kind":"textbox","id":"sh/g7e9onqp","slide":2,"text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[776,193,28,20]}
+{"kind":"textbox","id":"sh/h8nahs7a","slide":2,"text":"완료·QA 기준","textPreview":"완료·QA 기준","textChars":8,"textLines":1,"bbox":[768,230,166,28]}
+{"kind":"textbox","id":"sh/u5crmd8j","slide":2,"text":"운영 서버 확인\n오류 복구","textPreview":"운영 서버 확인 | 오류 복구","textChars":14,"textLines":2,"bbox":[768,270,166,38]}
+{"kind":"textbox","id":"sh/f65sfip4","slide":2,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[950,225,30,34]}
+{"kind":"shape","id":"sh/4be9snq1","slide":2,"bbox":[980,173,198,144]}
+{"kind":"shape","id":"sh/pcnals7m","slide":2,"bbox":[996,189,44,28]}
+{"kind":"textbox","id":"sh/z2t47qd0","slide":2,"text":"5","textPreview":"5","textChars":1,"textLines":1,"bbox":[1004,193,28,20]}
+{"kind":"textbox","id":"sh/yh03ylwf","slide":2,"text":"결과·측정 경계","textPreview":"결과·측정 경계","textChars":8,"textLines":1,"bbox":[996,230,166,28]}
+{"kind":"textbox","id":"sh/l4bm90vq","slide":2,"text":"확인한 변화\n미계측 항목","textPreview":"확인한 변화 | 미계측 항목","textChars":13,"textLines":2,"bbox":[996,270,166,38]}
+{"kind":"textbox","id":"sh/k32l0ve5","slide":2,"text":"관세청 통관 연동","textPreview":"관세청 통관 연동","textChars":9,"textLines":1,"bbox":[68,365,210,28]}
+{"kind":"shape","id":"sh/be9k36do","slide":2,"bbox":[68,400,1140,0]}
+{"kind":"textbox","id":"sh/qd03u1w3","slide":2,"text":"주문·포장 식별자","textPreview":"주문·포장 식별자","textChars":9,"textLines":1,"bbox":[68,418,198,42]}
+{"kind":"textbox","id":"sh/xgr25gvu","slide":2,"text":"협력사 API 요건","textPreview":"협력사 API 요건","textChars":10,"textLines":1,"bbox":[296,418,198,42]}
+{"kind":"textbox","id":"sh/cfilwbe9","slide":2,"text":"필드·복합키","textPreview":"필드·복합키","textChars":6,"textLines":1,"bbox":[524,418,198,42]}
+{"kind":"textbox","id":"sh/vad4fads","slide":2,"text":"접수·병합·재시도","textPreview":"접수·병합·재시도","textChars":9,"textLines":1,"bbox":[752,418,198,42]}
+{"kind":"textbox","id":"sh/u9k365wn","slide":2,"text":"30건 검증과 운영 집계","textPreview":"30건 검증과 운영 집계","textChars":13,"textLines":1,"bbox":[980,418,198,42]}
+{"kind":"textbox","id":"sh/ihk7u9sr","slide":2,"text":"산후조리원 B2B 몰","textPreview":"산후조리원 B2B 몰","textChars":11,"textLines":1,"bbox":[68,484,230,28]}
+{"kind":"shape","id":"sh/3ito3u9c","slide":2,"bbox":[68,519,1140,0]}
+{"kind":"textbox","id":"sh/4j2pwzax","slide":2,"text":"오출고·CS·입금 대조","textPreview":"오출고·CS·입금 대조","textChars":12,"textLines":1,"bbox":[68,537,198,42]}
+{"kind":"textbox","id":"sh/5kb654ri","slide":2,"text":"플랫폼 대안 비교","textPreview":"플랫폼 대안 비교","textChars":9,"textLines":1,"bbox":[296,537,198,42]}
+{"kind":"textbox","id":"sh/ut07qpsf","slide":2,"text":"계정·결제 정책","textPreview":"계정·결제 정책","textChars":8,"textLines":1,"bbox":[524,537,198,42]}
+{"kind":"textbox","id":"sh/vu9ozut0","slide":2,"text":"운영 서버 직접 확인","textPreview":"운영 서버 직접 확인","textChars":11,"textLines":1,"bbox":[752,537,198,42]}
+{"kind":"textbox","id":"sh/gfipszal","slide":2,"text":"초기 성과와 후속 지표","textPreview":"초기 성과와 후속 지표","textChars":12,"textLines":1,"bbox":[980,537,198,42]}
+{"kind":"shape","id":"sh/hgr614r6","slide":2,"bbox":[68,606,1140,42]}
+{"kind":"textbox","id":"sh/ep472tsz","slide":2,"text":"공통 원칙","textPreview":"공통 원칙","textChars":5,"textLines":1,"bbox":[88,616,120,22]}
+{"kind":"textbox","id":"sh/fqd8be9k","slide":2,"text":"개발 완료 통보보다 운영 결과를 우선하고, 확인하지 못한 수치는 미계측으로 남겼습니다.","textPreview":"개발 완료 통보보다 운영 결과를 우선하고, 확인하지 못한 수치는 미계측으로 남겼습니다.","textChars":48,"textLines":1,"bbox":[218,612,960,27]}
+{"kind":"shape","id":"sh/pkfa1sbm","slide":2,"bbox":[68,676,1140,0]}
+{"kind":"textbox","id":"sh/oj698nu1","slide":2,"text":"포트폴리오 개요 · PM 운영 방식","textPreview":"포트폴리오 개요 · PM 운영 방식","textChars":19,"textLines":1,"bbox":[68,684,965,18]}
+{"kind":"textbox","id":"sh/nixszitg","slide":2,"text":"2 / 17","textPreview":"2 / 17","textChars":6,"textLines":1,"bbox":[1068,684,140,18]}
+{"kind":"notes","id":"nt/3mt4kr","slide":2,"text":""}
+{"kind":"slide","id":"sl/2uu8me","slide":3,"title":"Project 01.","textShapes":17}
+{"kind":"textbox","id":"sh/sny90zu1","slide":3,"text":"Project 01.","textPreview":"Project 01.","textChars":11,"textLines":1,"bbox":[68,57,220,40]}
+{"kind":"textbox","id":"sh/7mps7udg","slide":3,"text":"01 / 07","textPreview":"01 / 07","textChars":7,"textLines":1,"bbox":[1110,61,96,24]}
+{"kind":"textbox","id":"sh/6lgrypcv","slide":3,"text":"관세청 전자상거래\n통관 연동","textPreview":"관세청 전자상거래 | 통관 연동","textChars":15,"textLines":2,"bbox":[68,145,690,102]}
+{"kind":"textbox","id":"sh/5k7a5kva","slide":3,"text":"분산된 주문·인증·출고·통관 데이터를 국내 DB 중심으로 연결하고,\n오류 수정과 재제출 기준을 운영에 반영했습니다.","textPreview":"분산된 주문·인증·출고·통관 데이터를 국내 DB 중심으로 연결하고, | 오류 수정과 재제출 기준을 운영에 반영했습니다.","textChars":64,"textLines":2,"bbox":[68,273,704,68]}
+{"kind":"shape","id":"sh/kje9wzup","slide":3,"bbox":[825,132,380,405]}
+{"kind":"textbox","id":"sh/ji5s3ud4","slide":3,"text":"확정 일정","textPreview":"확정 일정","textChars":5,"textLines":1,"bbox":[860,168,310,28]}
+{"kind":"textbox","id":"sh/ihwrupcj","slide":3,"text":"2026-02","textPreview":"2026-02","textChars":7,"textLines":1,"bbox":[860,218,116,28]}
+{"kind":"textbox","id":"sh/pgrahove","slide":3,"text":"연동 구조와 요구사항 정리","textPreview":"연동 구조와 요구사항 정리","textChars":14,"textLines":1,"bbox":[985,218,182,38]}
+{"kind":"textbox","id":"sh/4fit8jut","slide":3,"text":"2026-08-28","textPreview":"2026-08-28","textChars":10,"textLines":1,"bbox":[860,287,116,28]}
+{"kind":"textbox","id":"sh/e1gn65cv","slide":3,"text":"상용 운영 시작","textPreview":"상용 운영 시작","textChars":8,"textLines":1,"bbox":[985,287,182,38]}
+{"kind":"textbox","id":"sh/z2pozadg","slide":3,"text":"2026-09-15","textPreview":"2026-09-15","textChars":10,"textLines":1,"bbox":[860,356,116,28]}
+{"kind":"textbox","id":"sh/03y58fu1","slide":3,"text":"운영 집계 기준일","textPreview":"운영 집계 기준일","textChars":9,"textLines":1,"bbox":[985,356,182,38]}
+{"kind":"shape","id":"sh/14r610vm","slide":3,"bbox":[68,495,700,0]}
+{"kind":"textbox","id":"sh/qdgn2lcz","slide":3,"text":"담당","textPreview":"담당","textChars":2,"textLines":1,"bbox":[68,522,84,28]}
+{"kind":"textbox","id":"sh/repovqd4","slide":3,"text":"국내 DB 중심 연동 구조, 두 인증 경로, 오류 수정·재제출 정책, 협력사 API 조율","textPreview":"국내 DB 중심 연동 구조, 두 인증 경로, 오류 수정·재제출 정책, 협력사 API 조율","textChars":49,"textLines":1,"bbox":[160,518,608,56]}
+{"kind":"textbox","id":"sh/sfy54vup","slide":3,"text":"산출물","textPreview":"산출물","textChars":3,"textLines":1,"bbox":[68,597,84,28]}
+{"kind":"textbox","id":"sh/dg76x0va","slide":3,"text":"연동 구조도 · 필드 매핑표 · 오류 재제출 기준 · 운영 테스트","textPreview":"연동 구조도 · 필드 매핑표 · 오류 재제출 기준 · 운영 테스트","textChars":36,"textLines":1,"bbox":[160,594,608,42]}
+{"kind":"shape","id":"sh/a907epc3","slide":3,"bbox":[68,676,1140,0]}
+{"kind":"textbox","id":"sh/ba9o7udo","slide":3,"text":"Project 01 · 관세청 통관 연동","textPreview":"Project 01 · 관세청 통관 연동","textChars":22,"textLines":1,"bbox":[68,684,965,18]}
+{"kind":"textbox","id":"sh/7elkzmt0","slide":3,"text":"3 / 17","textPreview":"3 / 17","textChars":6,"textLines":1,"bbox":[1068,684,140,18]}
+{"kind":"notes","id":"nt/2uu8me","slide":3,"text":""}
+{"kind":"slide","id":"sl/ulia0j","slide":4,"title":"분산된 주문 데이터와 책임 범위","textShapes":31}
+{"kind":"textbox","id":"sh/hcja1grq","slide":4,"text":"분산된 주문 데이터와 책임 범위","textPreview":"분산된 주문 데이터와 책임 범위","textChars":17,"textLines":1,"bbox":[68,37,957,44]}
+{"kind":"shape","id":"sh/u98r61sf","slide":4,"bbox":[68,101,1140,0]}
+{"kind":"textbox","id":"sh/vahsz690","slide":4,"text":"자사몰과 외부 채널의 주문 정보를 ERP/WMS와 통관 시스템에 연결해야 했습니다.","textPreview":"자사몰과 외부 채널의 주문 정보를 ERP/WMS와 통관 시스템에 연결해야 했습니다.","textChars":46,"textLines":1,"bbox":[68,117,1140,27]}
+{"kind":"textbox","id":"sh/8nq94ba9","slide":4,"text":"운영 상황","textPreview":"운영 상황","textChars":5,"textLines":1,"bbox":[68,166,300,28]}
+{"kind":"textbox","id":"sh/t8zaxwru","slide":4,"text":"원주문 1건이 여러 포장과 HBL로 나뉘고,\n주문·인증·상품·출고 정보는 서로 다른 시스템에 있었습니다.","textPreview":"원주문 1건이 여러 포장과 HBL로 나뉘고, | 주문·인증·상품·출고 정보는 서로 다른 시스템에 있었습니다.","textChars":58,"textLines":2,"bbox":[68,201,480,68]}
+{"kind":"shape","id":"sh/6l8r21s3","slide":4,"bbox":[68,298,480,62]}
+{"kind":"textbox","id":"sh/7mh8v69o","slide":4,"text":"판매 채널","textPreview":"판매 채널","textChars":5,"textLines":1,"bbox":[88,316,130,26]}
+{"kind":"textbox","id":"sh/kj690rad","slide":4,"text":"주문·수하인·개인통관 정보","textPreview":"주문·수하인·개인통관 정보","textChars":14,"textLines":1,"bbox":[220,316,304,26]}
+{"kind":"shape","id":"sh/lkfqtwri","slide":4,"bbox":[68,376,480,62]}
+{"kind":"textbox","id":"sh/5kji90va","slide":4,"text":"ERP/WMS","textPreview":"ERP/WMS","textChars":7,"textLines":1,"bbox":[88,394,130,26]}
+{"kind":"textbox","id":"sh/4jahgvup","slide":4,"text":"포장·HBL·상품·출고 정보","textPreview":"포장·HBL·상품·출고 정보","textChars":15,"textLines":1,"bbox":[220,394,304,26]}
+{"kind":"shape","id":"sh/3i107qd4","slide":4,"bbox":[68,454,480,62]}
+{"kind":"textbox","id":"sh/ih8zelcj","slide":4,"text":"통관 시스템","textPreview":"통관 시스템","textChars":6,"textLines":1,"bbox":[88,472,130,26]}
+{"kind":"textbox","id":"sh/hgzi5gvy","slide":4,"text":"거래정보 제출·검증·접수 결과","textPreview":"거래정보 제출·검증·접수 결과","textChars":16,"textLines":1,"bbox":[220,472,304,26]}
+{"kind":"shape","id":"sh/gfqhcvud","slide":4,"bbox":[586,165,622,380]}
+{"kind":"textbox","id":"sh/veh03qds","slide":4,"text":"주문과 포장은 1:1이 아니었습니다","textPreview":"주문과 포장은 1:1이 아니었습니다","textChars":19,"textLines":1,"bbox":[616,190,560,34]}
+{"kind":"textbox","id":"sh/ud8zalcn","slide":4,"text":"분할","textPreview":"분할","textChars":2,"textLines":1,"bbox":[612,247,62,25]}
+{"kind":"shape","id":"sh/tczi1gv2","slide":4,"bbox":[684,232,154,56]}
+{"kind":"textbox","id":"sh/8bqh8buh","slide":4,"text":"원주문 A","textPreview":"원주문 A","textChars":5,"textLines":1,"bbox":[698,247,126,25]}
+{"kind":"textbox","id":"sh/kva1ob2d","slide":4,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[844,244,32,28]}
+{"kind":"shape","id":"sh/lw3ihg3y","slide":4,"bbox":[882,222,128,76]}
+{"kind":"textbox","id":"sh/ytszm1k7","slide":4,"text":"포장 A-1","textPreview":"포장 A-1","textChars":6,"textLines":1,"bbox":[892,236,108,23]}
+{"kind":"textbox","id":"sh/zu10f6ls","slide":4,"text":"HBL 1","textPreview":"HBL 1","textChars":5,"textLines":1,"bbox":[892,265,108,20]}
+{"kind":"shape","id":"sh/crahkb21","slide":4,"bbox":[1022,222,128,76]}
+{"kind":"textbox","id":"sh/xsjidg3m","slide":4,"text":"포장 A-2","textPreview":"포장 A-2","textChars":6,"textLines":1,"bbox":[1032,236,108,23]}
+{"kind":"textbox","id":"sh/a5szi1kb","slide":4,"text":"HBL 2","textPreview":"HBL 2","textChars":5,"textLines":1,"bbox":[1032,265,108,20]}
+{"kind":"shape","id":"sh/bq10b6lg","slide":4,"bbox":[612,321,570,0]}
+{"kind":"textbox","id":"sh/wne1wv2l","slide":4,"text":"합배송","textPreview":"합배송","textChars":3,"textLines":1,"bbox":[612,357,62,25]}
+{"kind":"shape","id":"sh/honip03q","slide":4,"bbox":[684,337,112,64]}
+{"kind":"textbox","id":"sh/ru9cby94","slide":4,"text":"원주문 B","textPreview":"원주문 B","textChars":5,"textLines":1,"bbox":[694,357,92,24]}
+{"kind":"textbox","id":"sh/qt0b2t8z","slide":4,"text":"+","textPreview":"+","textChars":1,"textLines":1,"bbox":[800,354,28,28]}
+{"kind":"shape","id":"sh/dwrud8ra","slide":4,"bbox":[832,337,112,64]}
+{"kind":"textbox","id":"sh/svid43qp","slide":4,"text":"원주문 C","textPreview":"원주문 C","textChars":5,"textLines":1,"bbox":[842,357,92,24]}
+{"kind":"textbox","id":"sh/fy9cfy9g","slide":4,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[950,354,32,28]}
+{"kind":"shape","id":"sh/ex0v6t8v","slide":4,"bbox":[988,327,162,84]}
+{"kind":"textbox","id":"sh/10buh8rm","slide":4,"text":"포장 D / HBL 3","textPreview":"포장 D / HBL 3","textChars":12,"textLines":1,"bbox":[998,344,142,24]}
+{"kind":"textbox","id":"sh/0zid83q1","slide":4,"text":"거래정보 2건","textPreview":"거래정보 2건","textChars":7,"textLines":1,"bbox":[998,376,142,20]}
+{"kind":"textbox","id":"sh/v2pc3e9c","slide":4,"text":"쟁점","textPreview":"쟁점","textChars":2,"textLines":1,"bbox":[612,457,70,25]}
+{"kind":"textbox","id":"sh/u1gbu98r","slide":4,"text":"원주문번호와 포장 식별자를 한 필드에 섞으면 추적과 검수가 어려워졌습니다.","textPreview":"원주문번호와 포장 식별자를 한 필드에 섞으면 추적과 검수가 어려워졌습니다.","textChars":41,"textLines":1,"bbox":[682,450,486,43]}
+{"kind":"shape","id":"sh/ml0va90n","slide":4,"bbox":[68,558,1140,86]}
+{"kind":"textbox","id":"sh/7mtcjehs","slide":4,"text":"결정해야 할 것","textPreview":"결정해야 할 것","textChars":8,"textLines":1,"bbox":[94,583,166,28]}
+{"kind":"textbox","id":"sh/872dcjyd","slide":4,"text":"원주문번호와 ERP 포장번호·HBL을 분리해 1:N 관계를 보존","textPreview":"원주문번호와 ERP 포장번호·HBL을 분리해 1:N 관계를 보존","textChars":35,"textLines":1,"bbox":[270,579,904,34]}
+{"kind":"shape","id":"sh/98bulozy","slide":4,"bbox":[68,676,1140,0]}
+{"kind":"textbox","id":"sh/u9kvetgj","slide":4,"text":"관세청 프로젝트 · 문제 정의","textPreview":"관세청 프로젝트 · 문제 정의","textChars":16,"textLines":1,"bbox":[68,684,965,18]}
+{"kind":"textbox","id":"sh/vatcnyh4","slide":4,"text":"4 / 17","textPreview":"4 / 17","textChars":6,"textLines":1,"bbox":[1068,684,140,18]}
+{"kind":"notes","id":"nt/ulia0j","slide":4,"text":""}
+{"kind":"slide","id":"sl/l8qrht","slide":5,"title":"원주문번호와 포장 식별자를 분리","textShapes":30}
+{"kind":"textbox","id":"sh/j65wzapw","slide":5,"text":"원주문번호와 포장 식별자를 분리","textPreview":"원주문번호와 포장 식별자를 분리","textChars":17,"textLines":1,"bbox":[68,37,957,44]}
+{"kind":"shape","id":"sh/k7ex8v6h","slide":5,"bbox":[68,101,1140,0]}
+{"kind":"textbox","id":"sh/l87e1072","slide":5,"text":"고객 주문 추적과 ERP 포장 처리를 한 필드에 섞지 않고 각각의 식별자를 보존했습니다.","textPreview":"고객 주문 추적과 ERP 포장 처리를 한 필드에 섞지 않고 각각의 식별자를 보존했습니다.","textChars":49,"textLines":1,"bbox":[68,117,1140,27]}
+{"kind":"shape","id":"sh/a1wf2lof","slide":5,"bbox":[68,164,1140,86]}
+{"kind":"textbox","id":"sh/b25wvqp0","slide":5,"text":"결정","textPreview":"결정","textChars":2,"textLines":1,"bbox":[93,190,80,28]}
+{"kind":"textbox","id":"sh/w3ex4v6l","slide":5,"text":"외부 orderNo는 원주문번호 유지 · 분할번호는 erpPackageOrderNo로 별도 저장","textPreview":"외부 orderNo는 원주문번호 유지 · 분할번호는 erpPackageOrderNo로 별도 저장","textChars":53,"textLines":1,"bbox":[178,184,995,42]}
+{"kind":"shape","id":"sh/x4nex07q","slide":5,"bbox":[68,271,365,78]}
+{"kind":"textbox","id":"sh/uxgfepoj","slide":5,"text":"주문","textPreview":"주문","textChars":2,"textLines":1,"bbox":[86,293,64,28]}
+{"kind":"textbox","id":"sh/vypg7up4","slide":5,"text":"고도몰·관세청·GGATE에 원주문번호 유지","textPreview":"고도몰·관세청·GGATE에 원주문번호 유지","textChars":23,"textLines":1,"bbox":[152,287,255,40]}
+{"kind":"shape","id":"sh/7ihgjmd8","slide":5,"bbox":[454,271,365,78]}
+{"kind":"textbox","id":"sh/6x8zahcn","slide":5,"text":"포장","textPreview":"포장","textChars":2,"textLines":1,"bbox":[472,293,64,28]}
+{"kind":"textbox","id":"sh/tkzylcve","slide":5,"text":"erpPackageOrderNo와 HBL로 분할 포장 추적","textPreview":"erpPackageOrderNo와 HBL로 분할 포장 추적","textChars":32,"textLines":1,"bbox":[538,287,255,40]}
+{"kind":"shape","id":"sh/sjqhc7ut","slide":5,"bbox":[840,271,365,78]}
+{"kind":"textbox","id":"sh/fmhgnmdk","slide":5,"text":"병합","textPreview":"병합","textChars":2,"textLines":1,"bbox":[858,293,64,28]}
+{"kind":"textbox","id":"sh/el8zehcz","slide":5,"text":"hwbNo와 orderNo를 복합키로 사용","textPreview":"hwbNo와 orderNo를 복합키로 사용","textChars":23,"textLines":1,"bbox":[924,287,255,40]}
+{"kind":"shape","id":"sh/1ojypwva","slide":5,"bbox":[68,379,546,230]}
+{"kind":"textbox","id":"sh/gnqhgru5","slide":5,"text":"분할 주문","textPreview":"분할 주문","textChars":5,"textLines":1,"bbox":[92,400,140,28]}
+{"kind":"textbox","id":"sh/3q1gr6dg","slide":5,"text":"같은 orderNo를 유지하고 포장 식별자만 분리","textPreview":"같은 orderNo를 유지하고 포장 식별자만 분리","textChars":27,"textLines":1,"bbox":[238,400,346,28]}
+{"kind":"shape","id":"sh/2pszi1cv","slide":5,"bbox":[96,451,150,72]}
+{"kind":"textbox","id":"sh/yxwb6p0f","slide":5,"text":"orderNo A","textPreview":"orderNo A","textChars":9,"textLines":1,"bbox":[109,475,124,25]}
+{"kind":"textbox","id":"sh/zi5szu10","slide":5,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[252,472,34,30]}
+{"kind":"shape","id":"sh/kjet8zil","slide":5,"bbox":[292,437,130,100]}
+{"kind":"textbox","id":"sh/lkna14j6","slide":5,"text":"A-1","textPreview":"A-1","textChars":3,"textLines":1,"bbox":[304,453,106,23]}
+{"kind":"textbox","id":"sh/atwr2p0j","slide":5,"text":"ERP 포장번호\nHBL 1","textPreview":"ERP 포장번호 | HBL 1","textChars":14,"textLines":2,"bbox":[304,482,106,40]}
+{"kind":"shape","id":"sh/bu5sva1o","slide":5,"bbox":[438,437,130,100]}
+{"kind":"textbox","id":"sh/cvet4fi9","slide":5,"text":"A-2","textPreview":"A-2","textChars":3,"textLines":1,"bbox":[450,453,106,23]}
+{"kind":"textbox","id":"sh/xwnaxkju","slide":5,"text":"ERP 포장번호\nHBL 2","textPreview":"ERP 포장번호 | HBL 2","textChars":14,"textLines":2,"bbox":[450,482,106,40]}
+{"kind":"textbox","id":"sh/upgbe90n","slide":5,"text":"외부 orderNo는 A로 유지","textPreview":"외부 orderNo는 A로 유지","textChars":17,"textLines":1,"bbox":[96,560,472,24]}
+{"kind":"shape","id":"sh/vqps7e18","slide":5,"bbox":[638,379,570,230]}
+{"kind":"textbox","id":"sh/5kbex83a","slide":5,"text":"합배송","textPreview":"합배송","textChars":3,"textLines":1,"bbox":[662,400,120,28]}
+{"kind":"textbox","id":"sh/4jid432p","slide":5,"text":"한 HBL에 주문 여러 건이면 거래정보도 주문별로 제출","textPreview":"한 HBL에 주문 여러 건이면 거래정보도 주문별로 제출","textChars":30,"textLines":1,"bbox":[790,400,390,28]}
+{"kind":"shape","id":"sh/ji9wvyl4","slide":5,"bbox":[672,451,126,72]}
+{"kind":"textbox","id":"sh/ih0v2dkz","slide":5,"text":"orderNo B","textPreview":"orderNo B","textChars":9,"textLines":1,"bbox":[684,475,102,24]}
+{"kind":"textbox","id":"sh/hgru983e","slide":5,"text":"+","textPreview":"+","textChars":1,"textLines":1,"bbox":[804,472,30,30]}
+{"kind":"shape","id":"sh/wfid032t","slide":5,"bbox":[840,451,126,72]}
+{"kind":"textbox","id":"sh/ve9c7yl8","slide":5,"text":"orderNo C","textPreview":"orderNo C","textChars":9,"textLines":1,"bbox":[852,475,102,24]}
+{"kind":"textbox","id":"sh/ud0vytkn","slide":5,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[972,472,34,30]}
+{"kind":"shape","id":"sh/1cve5s3i","slide":5,"bbox":[1012,437,150,100]}
+{"kind":"textbox","id":"sh/0bmdcn2x","slide":5,"text":"HBL 3","textPreview":"HBL 3","textChars":5,"textLines":1,"bbox":[1024,453,126,23]}
+{"kind":"textbox","id":"sh/ojqdg3yh","slide":5,"text":"TRA001\n거래정보 2건","textPreview":"TRA001 | 거래정보 2건","textChars":14,"textLines":2,"bbox":[1024,482,126,40]}
+{"kind":"textbox","id":"sh/9kzup8z2","slide":5,"text":"HBL은 포장 식별자, orderNo는 거래 추적 식별자","textPreview":"HBL은 포장 식별자, orderNo는 거래 추적 식별자","textChars":31,"textLines":1,"bbox":[662,560,500,24]}
+{"kind":"shape","id":"sh/mhovetgb","slide":5,"bbox":[68,676,1140,0]}
+{"kind":"textbox","id":"sh/nihcnyhw","slide":5,"text":"관세청 프로젝트 · 분할 출고 기준","textPreview":"관세청 프로젝트 · 분할 출고 기준","textChars":19,"textLines":1,"bbox":[68,684,965,18]}
+{"kind":"textbox","id":"sh/w7qdk3yd","slide":5,"text":"5 / 17","textPreview":"5 / 17","textChars":6,"textLines":1,"bbox":[1068,684,140,18]}
+{"kind":"notes","id":"nt/l8qrht","slide":5,"text":""}
+{"kind":"slide","id":"sl/547g8a","slide":6,"title":"데이터 계약을 필드·주체·키·완료 기준으로 명시","textShapes":16}
+{"kind":"textbox","id":"sh/214bet07","slide":6,"text":"데이터 계약을 필드·주체·키·완료 기준으로 명시","textPreview":"데이터 계약을 필드·주체·키·완료 기준으로 명시","textChars":26,"textLines":1,"bbox":[68,37,957,44]}
+{"kind":"shape","id":"sh/p4vapozy","slide":6,"bbox":[68,101,1140,0]}
+{"kind":"textbox","id":"sh/o3mtgjid","slide":6,"text":"연동 참여자가 같은 주문을 같은 상태로 해석하도록 전달 형식과 검증 조건을 한 문서에 묶었습니다.","textPreview":"연동 참여자가 같은 주문을 같은 상태로 해석하도록 전달 형식과 검증 조건을 한 문서에 묶었습니다.","textChars":54,"textLines":1,"bbox":[68,117,1140,27]}
+{"kind":"shape","id":"sh/fytsjehw","slide":6,"bbox":[64,166,788,333]}
+{"kind":"textbox","id":"sh/10baloz2","slide":6,"text":"planning_v7 업무 문서 발췌 · 2026-09-08 기준 · 역할명 일부 치환","textPreview":"planning_v7 업무 문서 발췌 · 2026-09-08 기준 · 역할명 일부 치환","textChars":48,"textLines":1,"bbox":[342,505,506,19]}
+{"kind":"shape","id":"sh/0z2tcjih","slide":6,"bbox":[878,170,330,325]}
+{"kind":"textbox","id":"sh/ratsfehk","slide":6,"text":"데이터 계약의 네 요소","textPreview":"데이터 계약의 네 요소","textChars":12,"textLines":1,"bbox":[904,195,278,30]}
+{"kind":"textbox","id":"sh/q90r690f","slide":6,"text":"주문","textPreview":"주문","textChars":2,"textLines":1,"bbox":[904,242,58,24]}
+{"kind":"textbox","id":"sh/4relc7i9","slide":6,"text":"orderNo는 플랫폼 원주문번호 유지","textPreview":"orderNo는 플랫폼 원주문번호 유지","textChars":21,"textLines":1,"bbox":[968,240,214,38]}
+{"kind":"shape","id":"sh/psnmlszu","slide":6,"bbox":[904,281,278,0]}
+{"kind":"textbox","id":"sh/25w3ax0j","slide":6,"text":"포장","textPreview":"포장","textChars":2,"textLines":1,"bbox":[904,300,58,24]}
+{"kind":"textbox","id":"sh/3654j2h4","slide":6,"text":"erpPackageOrderNo와 HBL을 별도 보존","textPreview":"erpPackageOrderNo와 HBL을 별도 보존","textChars":29,"textLines":1,"bbox":[968,298,214,38]}
+{"kind":"shape","id":"sh/g3el8nid","slide":6,"bbox":[904,339,278,0]}
+{"kind":"textbox","id":"sh/h4nmhsjy","slide":6,"text":"병합","textPreview":"병합","textChars":2,"textLines":1,"bbox":[904,358,58,24]}
+{"kind":"textbox","id":"sh/u1c36d07","slide":6,"text":"hwbNo와 orderNo로 동일 건 식별","textPreview":"hwbNo와 orderNo로 동일 건 식별","textChars":23,"textLines":1,"bbox":[968,356,214,38]}
+{"kind":"shape","id":"sh/f2l4fi1s","slide":6,"bbox":[904,397,278,0]}
+{"kind":"textbox","id":"sh/0zy5krih","slide":6,"text":"제출","textPreview":"제출","textChars":2,"textLines":1,"bbox":[904,416,58,24]}
+{"kind":"textbox","id":"sh/107mtcz2","slide":6,"text":"txif_sbmt_no로 관세청 결과 대사","textPreview":"txif_sbmt_no로 관세청 결과 대사","textChars":23,"textLines":1,"bbox":[968,414,214,38]}
+{"kind":"shape","id":"sh/9g3mdcr6","slide":6,"bbox":[68,544,1140,92]}
+{"kind":"textbox","id":"sh/8ful47al","slide":6,"text":"문서의 역할","textPreview":"문서의 역할","textChars":6,"textLines":1,"bbox":[92,572,132,28]}
+{"kind":"textbox","id":"sh/nel4bm9g","slide":6,"text":"개발사별 구현 지시와 운영팀의 확인 기준을 같은 표에 두어, 누락과 책임 공백을 검수 항목으로 바꿨습니다.","textPreview":"개발사별 구현 지시와 운영팀의 확인 기준을 같은 표에 두어, 누락과 책임 공백을 검수 항목으로 바꿨습니다.","textChars":59,"textLines":1,"bbox":[230,561,942,45]}
+{"kind":"shape","id":"sh/mdc32hsv","slide":6,"bbox":[68,676,1140,0]}
+{"kind":"textbox","id":"sh/lc3m9cra","slide":6,"text":"관세청 프로젝트 · 데이터 계약","textPreview":"관세청 프로젝트 · 데이터 계약","textChars":17,"textLines":1,"bbox":[68,684,965,18]}
+{"kind":"textbox","id":"sh/0rul07ap","slide":6,"text":"6 / 17","textPreview":"6 / 17","textChars":6,"textLines":1,"bbox":[1068,684,140,18]}
+{"kind":"image","id":"im/j6l8r2lw","slide":6,"name":"","alt":"관세청 프로젝트 최신 식별자 계약 업무 문서 발췌","bbox":[68,170,780,325]}
+{"kind":"notes","id":"nt/547g8a","slide":6,"text":""}
+{"kind":"slide","id":"sl/dk1j8g","slide":7,"title":"접수·병합·통관 완료 상태를 분리","textShapes":24}
+{"kind":"textbox","id":"sh/fa1oza18","slide":7,"text":"접수·병합·통관 완료 상태를 분리","textPreview":"접수·병합·통관 완료 상태를 분리","textChars":18,"textLines":1,"bbox":[68,37,957,44]}
+{"kind":"shape","id":"sh/0bupsfit","slide":7,"bbox":[68,101,1140,0]}
+{"kind":"textbox","id":"sh/1c361kje","slide":7,"text":"HTTP 접수와 최종 완료를 같은 상태로 보지 않고, 제공자별 조회 키와 재시도 기준을 나눴습니다.","textPreview":"HTTP 접수와 최종 완료를 같은 상태로 보지 않고, 제공자별 조회 키와 재시도 기준을 나눴습니다.","textChars":55,"textLines":1,"bbox":[68,117,1140,27]}
+{"kind":"shape","id":"sh/65snm50r","slide":7,"bbox":[68,171,250,100]}
+{"kind":"textbox","id":"sh/r61ova1w","slide":7,"text":"판매 채널","textPreview":"판매 채널","textChars":5,"textLines":1,"bbox":[86,191,214,28]}
+{"kind":"textbox","id":"sh/s7a5ovih","slide":7,"text":"주문·수하인·인증","textPreview":"주문·수하인·인증","textChars":9,"textLines":1,"bbox":[86,231,214,24]}
+{"kind":"textbox","id":"sh/d8j6x0j2","slide":7,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[320,205,40,36]}
+{"kind":"shape","id":"sh/a1c7yp0v","slide":7,"bbox":[360,171,250,100]}
+{"kind":"textbox","id":"sh/b25o7uhg","slide":7,"text":"국내 DB","textPreview":"국내 DB","textChars":5,"textLines":1,"bbox":[378,191,214,28]}
+{"kind":"textbox","id":"sh/3i58j6xs","slide":7,"text":"정규화·분기·상태","textPreview":"정규화·분기·상태","textChars":9,"textLines":1,"bbox":[378,231,214,24]}
+{"kind":"textbox","id":"sh/2hw7q1gn","slide":7,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[612,205,40,36]}
+{"kind":"shape","id":"sh/pk7qlgfy","slide":7,"bbox":[652,171,250,100]}
+{"kind":"textbox","id":"sh/ojypsbyd","slide":7,"text":"ERP/WMS","textPreview":"ERP/WMS","textChars":7,"textLines":1,"bbox":[670,191,214,28]}
+{"kind":"textbox","id":"sh/bmp8nqx4","slide":7,"text":"포장·HBL·상품","textPreview":"포장·HBL·상품","textChars":9,"textLines":1,"bbox":[670,231,214,24]}
+{"kind":"textbox","id":"sh/qlg7ulgj","slide":7,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[904,205,40,36]}
+{"kind":"shape","id":"sh/do7qpgfa","slide":7,"bbox":[944,171,250,100]}
+{"kind":"textbox","id":"sh/cnypwvyp","slide":7,"text":"통관 시스템","textPreview":"통관 시스템","textChars":6,"textLines":1,"bbox":[962,191,214,28]}
+{"kind":"textbox","id":"sh/za98rqx0","slide":7,"text":"병합·검증·접수","textPreview":"병합·검증·접수","textChars":8,"textLines":1,"bbox":[962,231,214,24]}
+{"kind":"textbox","id":"sh/y9grylgv","slide":7,"text":"상태와 복구 기준","textPreview":"상태와 복구 기준","textChars":9,"textLines":1,"bbox":[68,304,190,28]}
+{"kind":"shape","id":"sh/a5kbqp03","slide":7,"bbox":[68,345,245,62]}
+{"kind":"textbox","id":"sh/v6tsjuh8","slide":7,"text":"HTTP 202 접수","textPreview":"HTTP 202 접수","textChars":11,"textLines":1,"bbox":[83,364,215,27]}
+{"kind":"textbox","id":"sh/w72tszit","slide":7,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[314,361,40,29]}
+{"kind":"shape","id":"sh/x8bal4ze","slide":7,"bbox":[355,345,245,62]}
+{"kind":"textbox","id":"sh/mh0bmp0r","slide":7,"text":"status/search 확인","textPreview":"status/search 확인","textChars":16,"textLines":1,"bbox":[370,364,215,27]}
+{"kind":"textbox","id":"sh/nitsfuhc","slide":7,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[601,361,40,29]}
+{"kind":"shape","id":"sh/832tofix","slide":7,"bbox":[642,345,245,62]}
+{"kind":"textbox","id":"sh/94bahkzi","slide":7,"text":"원천 수정·재시도","textPreview":"원천 수정·재시도","textChars":9,"textLines":1,"bbox":[657,364,215,27]}
+{"kind":"textbox","id":"sh/6d4by90v","slide":7,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[888,361,40,29]}
+{"kind":"shape","id":"sh/7edcrehg","slide":7,"bbox":[929,345,245,62]}
+{"kind":"textbox","id":"sh/14zmdcnu","slide":7,"text":"merged·통관 결과","textPreview":"merged·통관 결과","textChars":12,"textLines":1,"bbox":[944,364,215,27]}
+{"kind":"shape","id":"sh/0jq54769","slide":7,"bbox":[78,440,1120,186]}
+{"kind":"textbox","id":"sh/eh8n2xoj","slide":7,"text":"planning_v7 업무 문서 발췌 · 2026-09-08 기준 · 역할명 일부 치환","textPreview":"planning_v7 업무 문서 발췌 · 2026-09-08 기준 · 역할명 일부 치환","textChars":48,"textLines":1,"bbox":[654,630,540,19]}
+{"kind":"shape","id":"sh/dgzm9sny","slide":7,"bbox":[68,676,1140,0]}
+{"kind":"textbox","id":"sh/sfq50n6d","slide":7,"text":"관세청 프로젝트 · 역할과 복구 경계","textPreview":"관세청 프로젝트 · 역할과 복구 경계","textChars":20,"textLines":1,"bbox":[68,684,965,18]}
+{"kind":"textbox","id":"sh/rex4725s","slide":7,"text":"7 / 17","textPreview":"7 / 17","textChars":6,"textLines":1,"bbox":[1068,684,140,18]}
+{"kind":"image","id":"im/w7yx8zyl","slide":7,"name":"","alt":"관세청 프로젝트 최신 상태와 재시도 업무 문서 발췌","bbox":[82,444,1112,178]}
+{"kind":"notes","id":"nt/dk1j8g","slide":7,"text":""}
+{"kind":"slide","id":"sl/hp8nqe","slide":8,"title":"정상 접수·의도 오류·수정 재제출을 함께 검증","textShapes":23}
+{"kind":"textbox","id":"sh/axs3i90z","slide":8,"text":"정상 접수·의도 오류·수정 재제출을 함께 검증","textPreview":"정상 접수·의도 오류·수정 재제출을 함께 검증","textChars":25,"textLines":1,"bbox":[68,37,957,44]}
+{"kind":"shape","id":"sh/x032dojq","slide":8,"bbox":[68,101,1140,0]}
+{"kind":"textbox","id":"sh/wzalkji5","slide":8,"text":"정상 경로만 확인하지 않고 오류 반환과 복구 경로까지 운영 환경에서 확인했습니다.","textPreview":"정상 경로만 확인하지 않고 오류 반환과 복구 경로까지 운영 환경에서 확인했습니다.","textChars":45,"textLines":1,"bbox":[68,117,1140,27]}
+{"kind":"shape","id":"sh/na1k7e18","slide":8,"bbox":[68,172,1140,96]}
+{"kind":"shape","id":"sh/m9s3e903","slide":8,"bbox":[88,206,50,28]}
+{"kind":"textbox","id":"sh/9cj294je","slide":8,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[96,210,34,20]}
+{"kind":"textbox","id":"sh/8balgzit","slide":8,"text":"정상 접수","textPreview":"정상 접수","textChars":5,"textLines":1,"bbox":[158,197,170,34]}
+{"kind":"textbox","id":"sh/z6hk3u1c","slide":8,"text":"필수값을 갖춘 거래정보 제출","textPreview":"필수값을 갖춘 거래정보 제출","textChars":15,"textLines":1,"bbox":[350,197,352,40]}
+{"kind":"textbox","id":"sh/y583ap0r","slide":8,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[714,201,52,32]}
+{"kind":"textbox","id":"sh/4zuhkne1","slide":8,"text":"정상 접수 결과 확인","textPreview":"정상 접수 결과 확인","textChars":11,"textLines":1,"bbox":[780,197,390,40]}
+{"kind":"shape","id":"sh/503ytsvm","slide":8,"bbox":[68,288,1140,96]}
+{"kind":"shape","id":"sh/ixczidwv","slide":8,"bbox":[88,322,50,28]}
+{"kind":"textbox","id":"sh/jylgridg","slide":8,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[96,326,34,20]}
+{"kind":"textbox","id":"sh/wvuhg3ep","slide":8,"text":"의도 오류","textPreview":"의도 오류","textChars":5,"textLines":1,"bbox":[158,313,170,34]}
+{"kind":"textbox","id":"sh/hw3yp8fa","slide":8,"text":"필수값을 의도적으로 누락","textPreview":"필수값을 의도적으로 누락","textChars":13,"textLines":1,"bbox":[350,313,352,40]}
+{"kind":"textbox","id":"sh/utczedwz","slide":8,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[714,317,52,32]}
+{"kind":"textbox","id":"sh/vulgnyxk","slide":8,"text":"예상한 오류 응답 확인","textPreview":"예상한 오류 응답 확인","textChars":12,"textLines":1,"bbox":[780,313,390,40]}
+{"kind":"shape","id":"sh/grehs7e9","slide":8,"bbox":[68,404,1140,96]}
+{"kind":"shape","id":"sh/1s7i1cvu","slide":8,"bbox":[88,438,50,28]}
+{"kind":"textbox","id":"sh/p83y5cny","slide":8,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[96,442,34,20]}
+{"kind":"textbox","id":"sh/o7uhc76d","slide":8,"text":"수정 재제출","textPreview":"수정 재제출","textChars":6,"textLines":1,"bbox":[158,429,170,34]}
+{"kind":"textbox","id":"sh/nm1g325s","slide":8,"text":"원천값 수정 후 다시 제출","textPreview":"원천값 수정 후 다시 제출","textChars":14,"textLines":1,"bbox":[350,429,352,40]}
+{"kind":"textbox","id":"sh/2lszaxo7","slide":8,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[714,433,52,32]}
+{"kind":"textbox","id":"sh/1kjy1snm","slide":8,"text":"정상 접수로 전환 확인","textPreview":"정상 접수로 전환 확인","textChars":12,"textLines":1,"bbox":[780,429,390,40]}
+{"kind":"shape","id":"sh/0jah8n61","slide":8,"bbox":[68,536,760,102]}
+{"kind":"textbox","id":"sh/fi1gzi5w","slide":8,"text":"운영 환경 테스트","textPreview":"운영 환경 테스트","textChars":9,"textLines":1,"bbox":[94,557,220,28]}
+{"kind":"textbox","id":"sh/ehsz6dob","slide":8,"text":"30건 검증 · 목적 30/30 통과","textPreview":"30건 검증 · 목적 30/30 통과","textChars":20,"textLines":1,"bbox":[310,551,486,42]}
+{"kind":"shape","id":"sh/dgjyx8nq","slide":8,"bbox":[850,536,358,102]}
+{"kind":"textbox","id":"sh/sfqh4n65","slide":8,"text":"확인 범위","textPreview":"확인 범위","textChars":5,"textLines":1,"bbox":[872,555,100,24]}
+{"kind":"textbox","id":"sh/i94nip0r","slide":8,"text":"세 유형별 개별 건수는 미확인","textPreview":"세 유형별 개별 건수는 미확인","textChars":16,"textLines":1,"bbox":[872,586,310,28]}
+{"kind":"shape","id":"sh/jad4ruhc","slide":8,"bbox":[68,676,1140,0]}
+{"kind":"textbox","id":"sh/4b65kzix","slide":8,"text":"관세청 프로젝트 · 운영 QA","textPreview":"관세청 프로젝트 · 운영 QA","textChars":16,"textLines":1,"bbox":[68,684,965,18]}
+{"kind":"textbox","id":"sh/5cfmt4zi","slide":8,"text":"8 / 17","textPreview":"8 / 17","textChars":6,"textLines":1,"bbox":[1068,684,140,18]}
+{"kind":"notes","id":"nt/hp8nqe","slide":8,"text":""}
+{"kind":"slide","id":"sl/j5lh50","slide":9,"title":"운영 환경 30건 검증 후 상용 운영을 시작","textShapes":23}
+{"kind":"textbox","id":"sh/ulg7ul87","slide":9,"text":"운영 환경 30건 검증 후 상용 운영을 시작","textPreview":"운영 환경 30건 검증 후 상용 운영을 시작","textChars":24,"textLines":1,"bbox":[68,37,957,44]}
+{"kind":"shape","id":"sh/h8rq5g7i","slide":9,"bbox":[68,101,1140,0]}
+{"kind":"textbox","id":"sh/w7ypwbqx","slide":9,"text":"2026-08-28부터 2026-09-15까지의 운영 집계와 측정 경계를 함께 정리했습니다.","textPreview":"2026-08-28부터 2026-09-15까지의 운영 집계와 측정 경계를 함께 정리했습니다.","textChars":51,"textLines":1,"bbox":[68,117,1140,27]}
+{"kind":"shape","id":"sh/ja987qpo","slide":9,"bbox":[68,174,258,112]}
+{"kind":"textbox","id":"sh/i907yl83","slide":9,"text":"30건","textPreview":"30건","textChars":3,"textLines":1,"bbox":[82,191,230,40]}
+{"kind":"textbox","id":"sh/5crq907u","slide":9,"text":"운영 환경 검증 · 목적 30/30 통과","textPreview":"운영 환경 검증 · 목적 30/30 통과","textChars":22,"textLines":1,"bbox":[82,240,230,32]}
+{"kind":"shape","id":"sh/4bip0vq9","slide":9,"bbox":[350,174,258,112]}
+{"kind":"textbox","id":"sh/ze5ovmpk","slide":9,"text":"약 300건","textPreview":"약 300건","textChars":6,"textLines":1,"bbox":[364,191,230,40]}
+{"kind":"textbox","id":"sh/ydw7m18z","slide":9,"text":"일평균 발생 주문 규모","textPreview":"일평균 발생 주문 규모","textChars":12,"textLines":1,"bbox":[364,240,230,32]}
+{"kind":"shape","id":"sh/0bypwfm9","slide":9,"bbox":[632,174,258,112]}
+{"kind":"textbox","id":"sh/lc7q50nu","slide":9,"text":"230 / 70","textPreview":"230 / 70","textChars":8,"textLines":1,"bbox":[646,191,230,40]}
+{"kind":"textbox","id":"sh/y9w7u54j","slide":9,"text":"자사몰 / 기타 주문","textPreview":"자사몰 / 기타 주문","textChars":11,"textLines":1,"bbox":[646,240,230,32]}
+{"kind":"shape","id":"sh/zapo3a54","slide":9,"bbox":[914,174,294,112]}
+{"kind":"textbox","id":"sh/8zyp0fml","slide":9,"text":"전체 완료","textPreview":"전체 완료","textChars":5,"textLines":1,"bbox":[928,191,266,40]}
+{"kind":"textbox","id":"sh/907q9kn6","slide":9,"text":"집계 대상 주문 통관","textPreview":"집계 대상 주문 통관","textChars":11,"textLines":1,"bbox":[928,240,266,32]}
+{"kind":"shape","id":"sh/mdg7y54f","slide":9,"bbox":[68,323,1140,145]}
+{"kind":"textbox","id":"sh/nep87a50","slide":9,"text":"운영 판단","textPreview":"운영 판단","textChars":5,"textLines":1,"bbox":[94,347,124,28]}
+{"kind":"textbox","id":"sh/o3epov6h","slide":9,"text":"신규 연동과 기존 방식을 병행한 상태에서도 집계 대상 주문의 통관 완료를 확인했습니다.","textPreview":"신규 연동과 기존 방식을 병행한 상태에서도 집계 대상 주문의 통관 완료를 확인했습니다.","textChars":48,"textLines":1,"bbox":[226,342,935,36]}
+{"kind":"textbox","id":"sh/p4n6xgnm","slide":9,"text":"운영 환경에서 30건을 검증했고, 설정한 테스트 목적은 30/30 통과했습니다. 자동 처리율·신규 경로 비중·처리 시간은 별도 계측하지 않았습니다.","textPreview":"운영 환경에서 30건을 검증했고, 설정한 테스트 목적은 30/30 통과했습니다. 자동 처리율·신규 경로 비중·처리 시간은 별도 계측하지 않았습니다.","textChars":82,"textLines":1,"bbox":[226,397,935,40]}
+{"kind":"shape","id":"sh/50fm1cfq","slide":9,"bbox":[68,492,1140,146]}
+{"kind":"textbox","id":"sh/4z65s7y5","slide":9,"text":"2026-08-28","textPreview":"2026-08-28","textChars":10,"textLines":1,"bbox":[94,523,170,28]}
+{"kind":"textbox","id":"sh/3yx4z2xk","slide":9,"text":"상용 운영 시작","textPreview":"상용 운영 시작","textChars":8,"textLines":1,"bbox":[94,558,170,25]}
+{"kind":"textbox","id":"sh/ix4nqhgz","slide":9,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[280,538,54,34]}
+{"kind":"textbox","id":"sh/d4fm5wfm","slide":9,"text":"2026-09-15","textPreview":"2026-09-15","textChars":10,"textLines":1,"bbox":[355,523,170,28]}
+{"kind":"textbox","id":"sh/s365wry1","slide":9,"text":"운영 집계 기준일","textPreview":"운영 집계 기준일","textChars":9,"textLines":1,"bbox":[355,558,170,25]}
+{"kind":"textbox","id":"sh/r2x43mxw","slide":9,"text":"확인한 결과","textPreview":"확인한 결과","textChars":6,"textLines":1,"bbox":[603,519,130,28]}
+{"kind":"textbox","id":"sh/q1onuhgb","slide":9,"text":"일평균 약 300건 · 자사몰 230건 · 기타 70건","textPreview":"일평균 약 300건 · 자사몰 230건 · 기타 70건","textChars":30,"textLines":1,"bbox":[742,512,421,42]}
+{"kind":"textbox","id":"sh/1sz69wfy","slide":9,"text":"2026-08-28~2026-09-15 집계","textPreview":"2026-08-28~2026-09-15 집계","textChars":24,"textLines":1,"bbox":[742,562,421,24]}
+{"kind":"shape","id":"sh/07q50ryd","slide":9,"bbox":[68,676,1140,0]}
+{"kind":"textbox","id":"sh/y1gbe9sj","slide":9,"text":"관세청 프로젝트 · 결과와 한계","textPreview":"관세청 프로젝트 · 결과와 한계","textChars":17,"textLines":1,"bbox":[68,684,965,18]}
+{"kind":"textbox","id":"sh/z29s7u94","slide":9,"text":"9 / 17","textPreview":"9 / 17","textChars":6,"textLines":1,"bbox":[1068,684,140,18]}
+{"kind":"notes","id":"nt/j5lh50","slide":9,"text":""}
+{"kind":"slide","id":"sl/urlk0n","slide":10,"title":"Project 02.","textShapes":15}
+{"kind":"textbox","id":"sh/2lgne5wb","slide":10,"text":"Project 02.","textPreview":"Project 02.","textChars":11,"textLines":1,"bbox":[68,57,220,40]}
+{"kind":"textbox","id":"sh/po7690fm","slide":10,"text":"01 / 07","textPreview":"01 / 07","textChars":7,"textLines":1,"bbox":[1110,61,96,24]}
+{"kind":"textbox","id":"sh/4ny5gfeh","slide":10,"text":"산후조리원 전용\nB2B 몰","textPreview":"산후조리원 전용 | B2B 몰","textChars":14,"textLines":2,"bbox":[68,140,620,102]}
+{"kind":"textbox","id":"sh/fip43qxk","slide":10,"text":"4개 계정 유형과 혼합 주문 차단 기준을 설계하고,\n운영 서버에서 직접 확인한 항목만 완료로 처리했습니다.","textPreview":"4개 계정 유형과 혼합 주문 차단 기준을 설계하고, | 운영 서버에서 직접 확인한 항목만 완료로 처리했습니다.","textChars":59,"textLines":2,"bbox":[68,268,630,68]}
+{"kind":"shape","id":"sh/uxwnalwz","slide":10,"bbox":[68,383,615,182]}
+{"kind":"textbox","id":"sh/hk7m50fq","slide":10,"text":"담당","textPreview":"담당","textChars":2,"textLines":1,"bbox":[94,410,70,25]}
+{"kind":"textbox","id":"sh/gjy5cve5","slide":10,"text":"고객사·공급사의 주문, 납기, 출고, 정산 조율","textPreview":"고객사·공급사의 주문, 납기, 출고, 정산 조율","textChars":26,"textLines":1,"bbox":[170,407,476,35]}
+{"kind":"textbox","id":"sh/ze9ofud4","slide":10,"text":"일정","textPreview":"일정","textChars":2,"textLines":1,"bbox":[94,463,70,25]}
+{"kind":"textbox","id":"sh/et0nmpwj","slide":10,"text":"2026-06 기획 · 07-02 개발 착수 · 07-16 핵심 흐름 운영\n08-06~13 운영 고도화·QA · 08-31 최종 검수","textPreview":"2026-06 기획 · 07-02 개발 착수 · 07-16 핵심 흐름 운영 | 08-06~13 운영 고도화·QA · 08-31 최종 검수","textChars":74,"textLines":2,"bbox":[170,452,476,54]}
+{"kind":"textbox","id":"sh/4fy58r6x","slide":10,"text":"산출물","textPreview":"산출물","textChars":3,"textLines":1,"bbox":[94,522,70,25]}
+{"kind":"textbox","id":"sh/pg7mhwni","slide":10,"text":"계정 정책표 · 결제 규칙 · QA 결과 · 운영 화면","textPreview":"계정 정책표 · 결제 규칙 · QA 결과 · 운영 화면","textChars":30,"textLines":1,"bbox":[170,518,476,32]}
+{"kind":"shape","id":"sh/2tgn6hor","slide":10,"bbox":[720,172,488,136]}
+{"kind":"textbox","id":"sh/gry54r6l","slide":10,"text":"실운영 홈 화면 발췌 · 2026-08-28","textPreview":"실운영 홈 화면 발췌 · 2026-08-28","textChars":24,"textLines":1,"bbox":[824,314,380,19]}
+{"kind":"shape","id":"sh/hs7mdcn6","slide":10,"bbox":[724,363,480,202]}
+{"kind":"textbox","id":"sh/upw32hov","slide":10,"text":"화면에 반영한 운영 기준","textPreview":"화면에 반영한 운영 기준","textChars":13,"textLines":1,"bbox":[754,393,420,28]}
+{"kind":"textbox","id":"sh/fq54bm5g","slide":10,"text":"거래명세서 다운로드\n당일 출고 마감 안내\n배송 상태 확인\n정확한 입금 확인","textPreview":"거래명세서 다운로드 | 당일 출고 마감 안내 | 배송 상태 확인 | 정확한 입금 확인","textChars":41,"textLines":4,"bbox":[754,438,420,104]}
+{"kind":"shape","id":"sh/snel076p","slide":10,"bbox":[68,676,1140,0]}
+{"kind":"textbox","id":"sh/tonm9cna","slide":10,"text":"Project 02 · 산후조리원 B2B 몰","textPreview":"Project 02 · 산후조리원 B2B 몰","textChars":24,"textLines":1,"bbox":[68,684,965,18]}
+{"kind":"textbox","id":"sh/98vuh4bm","slide":10,"text":"10 / 17","textPreview":"10 / 17","textChars":7,"textLines":1,"bbox":[1068,684,140,18]}
+{"kind":"image","id":"im/8r29k7a5","slide":10,"name":"","alt":"산후조리원 전용몰 실운영 홈 화면 기능 안내 배너","bbox":[724,176,480,128]}
+{"kind":"notes","id":"nt/urlk0n","slide":10,"text":""}
+{"kind":"slide","id":"sl/hlsxjm","slide":11,"title":"운영 시작 전 반복된 문제와 설계 기준","textShapes":26}
+{"kind":"textbox","id":"sh/o769svud","slide":11,"text":"운영 시작 전 반복된 문제와 설계 기준","textPreview":"운영 시작 전 반복된 문제와 설계 기준","textChars":21,"textLines":1,"bbox":[68,37,957,44]}
+{"kind":"shape","id":"sh/n6x8zqds","slide":11,"bbox":[68,101,1140,0]}
+{"kind":"textbox","id":"sh/25orqlcn","slide":11,"text":"오출고·문의·입금 대조 문제를 실제 운영 화면과 정책에 연결했습니다.","textPreview":"오출고·문의·입금 대조 문제를 실제 운영 화면과 정책에 연결했습니다.","textChars":38,"textLines":1,"bbox":[68,117,1140,27]}
+{"kind":"shape","id":"sh/xwza5kva","slide":11,"bbox":[68,169,252,112]}
+{"kind":"textbox","id":"sh/cv69wfup","slide":11,"text":"월 2~3건","textPreview":"월 2~3건","textChars":6,"textLines":1,"bbox":[82,186,224,40]}
+{"kind":"textbox","id":"sh/buxs3ad4","slide":11,"text":"직전 6개월 평균 오출고","textPreview":"직전 6개월 평균 오출고","textChars":13,"textLines":1,"bbox":[82,235,224,32]}
+{"kind":"shape","id":"sh/atoru5cj","slide":11,"bbox":[68,297,252,112]}
+{"kind":"textbox","id":"sh/d0vqtgvq","slide":11,"text":"32건","textPreview":"32건","textChars":3,"textLines":1,"bbox":[82,314,224,40]}
+{"kind":"textbox","id":"sh/szm9kbu5","slide":11,"text":"2026-01~2026-06의 2주 환산 CS 문의","textPreview":"2026-01~2026-06의 2주 환산 CS 문의","textChars":28,"textLines":1,"bbox":[82,363,224,32]}
+{"kind":"shape","id":"sh/etsn2toz","slide":11,"bbox":[68,425,252,112]}
+{"kind":"textbox","id":"sh/fu14be54","slide":11,"text":"15~30분","textPreview":"15~30분","textChars":6,"textLines":1,"bbox":[82,442,224,40]}
+{"kind":"textbox","id":"sh/0va54j6p","slide":11,"text":"매일 입금 대조 시간","textPreview":"매일 입금 대조 시간","textChars":11,"textLines":1,"bbox":[82,491,224,32]}
+{"kind":"shape","id":"sh/1wjmdona","slide":11,"bbox":[365,169,843,432]}
+{"kind":"textbox","id":"sh/2xsn6tov","slide":11,"text":"관찰한 문제","textPreview":"관찰한 문제","textChars":6,"textLines":1,"bbox":[391,193,188,26]}
+{"kind":"textbox","id":"sh/nyl4fy5g","slide":11,"text":"원인 가설","textPreview":"원인 가설","textChars":5,"textLines":1,"bbox":[634,193,188,26]}
+{"kind":"textbox","id":"sh/ozu583m1","slide":11,"text":"정책·화면 반영","textPreview":"정책·화면 반영","textChars":8,"textLines":1,"bbox":[913,193,245,26]}
+{"kind":"shape","id":"sh/p03mh8nm","slide":11,"bbox":[391,228,791,0]}
+{"kind":"textbox","id":"sh/a1cnad4r","slide":11,"text":"거래명세서 요청","textPreview":"거래명세서 요청","textChars":8,"textLines":1,"bbox":[397,257,176,28]}
+{"kind":"textbox","id":"sh/b2lojy5c","slide":11,"text":"셀프 조회 경로 부재","textPreview":"셀프 조회 경로 부재","textChars":11,"textLines":1,"bbox":[606,255,244,32]}
+{"kind":"textbox","id":"sh/76547ilk","slide":11,"text":"주문 후 직접 다운로드","textPreview":"주문 후 직접 다운로드","textChars":12,"textLines":1,"bbox":[888,254,278,34]}
+{"kind":"shape","id":"sh/65c3ydkz","slide":11,"bbox":[391,306,791,0]}
+{"kind":"textbox","id":"sh/tsnm983q","slide":11,"text":"당일 출고 문의","textPreview":"당일 출고 문의","textChars":8,"textLines":1,"bbox":[397,339,176,28]}
+{"kind":"textbox","id":"sh/8rel0n25","slide":11,"text":"마감 기준 노출 부족","textPreview":"마감 기준 노출 부족","textChars":11,"textLines":1,"bbox":[606,337,244,32]}
+{"kind":"textbox","id":"sh/z2l43ylo","slide":11,"text":"영업일 10시 마감 안내","textPreview":"영업일 10시 마감 안내","textChars":13,"textLines":1,"bbox":[888,336,278,34]}
+{"kind":"shape","id":"sh/y1c3utk3","slide":11,"bbox":[391,388,791,0]}
+{"kind":"textbox","id":"sh/l43m583e","slide":11,"text":"배송 현황 문의","textPreview":"배송 현황 문의","textChars":8,"textLines":1,"bbox":[397,421,176,28]}
+{"kind":"textbox","id":"sh/k3ulw32t","slide":11,"text":"송장과 상태 정보 분산","textPreview":"송장과 상태 정보 분산","textChars":12,"textLines":1,"bbox":[606,419,244,32]}
+{"kind":"textbox","id":"sh/byl4zylc","slide":11,"text":"마이페이지 상태 확인","textPreview":"마이페이지 상태 확인","textChars":11,"textLines":1,"bbox":[888,418,278,34]}
+{"kind":"shape","id":"sh/axs3qtkr","slide":11,"bbox":[391,470,791,0]}
+{"kind":"shape","id":"sh/03q10zip","slide":11,"bbox":[383,486,807,70]}
+{"kind":"textbox","id":"sh/14zi9kja","slide":11,"text":"입금 대조 지연","textPreview":"입금 대조 지연","textChars":8,"textLines":1,"bbox":[397,503,176,28]}
+{"kind":"textbox","id":"sh/e18jyp0j","slide":11,"text":"입금자명·금액 불일치","textPreview":"입금자명·금액 불일치","textChars":11,"textLines":1,"bbox":[606,501,244,32]}
+{"kind":"textbox","id":"sh/f2h07u14","slide":11,"text":"정확한 입금 정보 안내","textPreview":"정확한 입금 정보 안내","textChars":12,"textLines":1,"bbox":[888,500,278,34]}
+{"kind":"textbox","id":"sh/o7a14zil","slide":11,"text":"입금 대조 시간의 개선 후 수치는 미측정","textPreview":"입금 대조 시간의 개선 후 수치는 미측정","textChars":22,"textLines":1,"bbox":[68,572,252,42]}
+{"kind":"shape","id":"sh/p8j2d4j6","slide":11,"bbox":[68,676,1140,0]}
+{"kind":"textbox","id":"sh/258j2p0v","slide":11,"text":"산후조리원 B2B 몰 · 문제와 화면 반영","textPreview":"산후조리원 B2B 몰 · 문제와 화면 반영","textChars":23,"textLines":1,"bbox":[68,684,965,18]}
+{"kind":"textbox","id":"sh/n610bu1g","slide":11,"text":"11 / 17","textPreview":"11 / 17","textChars":7,"textLines":1,"bbox":[1068,684,140,18]}
+{"kind":"notes","id":"nt/hlsxjm","slide":11,"text":""}
+{"kind":"slide","id":"sl/gszkcw","slide":12,"title":"기존 플랫폼에 계정·결제 정책을 추가하는 방식을 선택","textShapes":31}
+{"kind":"textbox","id":"sh/vut0zi9s","slide":12,"text":"기존 플랫폼에 계정·결제 정책을 추가하는 방식을 선택","textPreview":"기존 플랫폼에 계정·결제 정책을 추가하는 방식을 선택","textChars":29,"textLines":1,"bbox":[68,37,957,44]}
+{"kind":"shape","id":"sh/wv21snax","slide":12,"bbox":[68,101,1140,0]}
+{"kind":"textbox","id":"sh/xwbi1sri","slide":12,"text":"운영팀 러닝커브, 기존 인프라 일치, 유지보수 책임범위, 구축비용 순서로 판단했습니다.","textPreview":"운영팀 러닝커브, 기존 인프라 일치, 유지보수 책임범위, 구축비용 순서로 판단했습니다.","textChars":48,"textLines":1,"bbox":[68,117,1140,27]}
+{"kind":"textbox","id":"sh/mp0zmdsv","slide":12,"text":"판단 기준","textPreview":"판단 기준","textChars":5,"textLines":1,"bbox":[68,163,100,25]}
+{"kind":"shape","id":"sh/nq90vi9g","slide":12,"bbox":[180,154,238,42]}
+{"kind":"textbox","id":"sh/8riho3a1","slide":12,"text":"① 운영팀 러닝커브","textPreview":"① 운영팀 러닝커브","textChars":10,"textLines":1,"bbox":[190,164,218,23]}
+{"kind":"shape","id":"sh/9srix8rm","slide":12,"bbox":[436,154,238,42]}
+{"kind":"textbox","id":"sh/6l4jyxsf","slide":12,"text":"② 기존 인프라 일치","textPreview":"② 기존 인프라 일치","textChars":11,"textLines":1,"bbox":[446,164,218,23]}
+{"kind":"shape","id":"sh/7md07290","slide":12,"bbox":[692,154,238,42]}
+{"kind":"textbox","id":"sh/bedgzad4","slide":12,"text":"③ 유지보수 책임범위","textPreview":"③ 유지보수 책임범위","textChars":11,"textLines":1,"bbox":[702,164,218,23]}
+{"kind":"shape","id":"sh/ad4fq5cj","slide":12,"bbox":[948,154,238,42]}
+{"kind":"textbox","id":"sh/xgvy1kvu","slide":12,"text":"④ 구축비용 · 금액 비공개","textPreview":"④ 구축비용 · 금액 비공개","textChars":15,"textLines":1,"bbox":[958,164,218,23]}
+{"kind":"textbox","id":"sh/cfmhsfu9","slide":12,"text":"대안","textPreview":"대안","textChars":2,"textLines":1,"bbox":[68,217,320,25]}
+{"kind":"textbox","id":"sh/jixg3ud0","slide":12,"text":"확인한 핵심","textPreview":"확인한 핵심","textChars":6,"textLines":1,"bbox":[420,217,560,25]}
+{"kind":"textbox","id":"sh/yhozupcf","slide":12,"text":"판단","textPreview":"판단","textChars":2,"textLines":1,"bbox":[1028,217,180,25]}
+{"kind":"shape","id":"sh/l4fy54v6","slide":12,"bbox":[68,248,1140,0]}
+{"kind":"shape","id":"sh/k36hwzul","slide":12,"bbox":[68,262,1140,52]}
+{"kind":"textbox","id":"sh/76xg7udc","slide":12,"text":"맞춤형 웹서비스 직접 개발","textPreview":"맞춤형 웹서비스 직접 개발","textChars":14,"textLines":1,"bbox":[84,277,330,27]}
+{"kind":"textbox","id":"sh/65ozypcr","slide":12,"text":"유지보수 책임이 내부로 확대","textPreview":"유지보수 책임이 내부로 확대","textChars":15,"textLines":1,"bbox":[420,277,560,27]}
+{"kind":"textbox","id":"sh/i1sjqtwz","slide":12,"text":"제외","textPreview":"제외","textChars":2,"textLines":1,"bbox":[1028,275,180,28]}
+{"kind":"textbox","id":"sh/321kzyxk","slide":12,"text":"다른 쇼핑몰 솔루션 전환","textPreview":"다른 쇼핑몰 솔루션 전환","textChars":13,"textLines":1,"bbox":[84,341,330,27]}
+{"kind":"textbox","id":"sh/43a1s3ep","slide":12,"text":"운영팀이 새 솔루션을 다시 학습","textPreview":"운영팀이 새 솔루션을 다시 학습","textChars":17,"textLines":1,"bbox":[420,341,560,27]}
+{"kind":"textbox","id":"sh/54j218fa","slide":12,"text":"제외","textPreview":"제외","textChars":2,"textLines":1,"bbox":[1028,339,180,28]}
+{"kind":"shape","id":"sh/ux8jmtwn","slide":12,"bbox":[68,390,1140,52]}
+{"kind":"textbox","id":"sh/vyh0vyx8","slide":12,"text":"기존 커머스 솔루션 + 정책 맞춤","textPreview":"기존 커머스 솔루션 + 정책 맞춤","textChars":18,"textLines":1,"bbox":[84,405,330,27]}
+{"kind":"textbox","id":"sh/gzq1o3et","slide":12,"text":"기존 인프라와 운영 방식을 유지","textPreview":"기존 인프라와 운영 방식을 유지","textChars":17,"textLines":1,"bbox":[420,405,560,27]}
+{"kind":"textbox","id":"sh/h0jix8fe","slide":12,"text":"채택","textPreview":"채택","textChars":2,"textLines":1,"bbox":[1028,403,180,28]}
+{"kind":"textbox","id":"sh/etcjydw7","slide":12,"text":"범위에서 제외한 기능과 이유","textPreview":"범위에서 제외한 기능과 이유","textChars":15,"textLines":1,"bbox":[68,468,300,28]}
+{"kind":"shape","id":"sh/fulk7ixc","slide":12,"bbox":[68,509,365,108]}
+{"kind":"shape","id":"sh/ponmxczu","slide":12,"bbox":[82,522,36,28]}
+{"kind":"textbox","id":"sh/onelory9","slide":12,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[90,526,20,20]}
+{"kind":"textbox","id":"sh/n254vmho","slide":12,"text":"PG 결제","textPreview":"PG 결제","textChars":5,"textLines":1,"bbox":[128,523,289,27]}
+{"kind":"textbox","id":"sh/21w3mhg3","slide":12,"text":"B2B 마진 대비 수수료 부담","textPreview":"B2B 마진 대비 수수료 부담","textChars":16,"textLines":1,"bbox":[86,562,329,42]}
+{"kind":"shape","id":"sh/10nmtczi","slide":12,"bbox":[454,509,365,108]}
+{"kind":"shape","id":"sh/0zelk7yx","slide":12,"bbox":[468,522,36,28]}
+{"kind":"textbox","id":"sh/fyl4r2hs","slide":12,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[476,526,20,20]}
+{"kind":"textbox","id":"sh/exc3ixg7","slide":12,"text":"견적서 신규 개발","textPreview":"견적서 신규 개발","textChars":9,"textLines":1,"bbox":[514,523,289,27]}
+{"kind":"textbox","id":"sh/lw7m5wz2","slide":12,"text":"기본 거래명세서로 대체","textPreview":"기본 거래명세서로 대체","textChars":12,"textLines":1,"bbox":[472,562,329,42]}
+{"kind":"shape","id":"sh/kvy5wbyh","slide":12,"bbox":[840,509,365,108]}
+{"kind":"shape","id":"sh/szmdwbyx","slide":12,"bbox":[854,522,36,28]}
+{"kind":"textbox","id":"sh/t0vupgzi","slide":12,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[862,526,20,20]}
+{"kind":"textbox","id":"sh/6x4vu1g7","slide":12,"text":"포인트 완전 자동화","textPreview":"포인트 완전 자동화","textChars":10,"textLines":1,"bbox":[900,523,289,27]}
+{"kind":"textbox","id":"sh/rydcn6hc","slide":12,"text":"계약 상태 변경 시 지급 번복 위험","textPreview":"계약 상태 변경 시 지급 번복 위험","textChars":19,"textLines":1,"bbox":[858,562,329,42]}
+{"kind":"shape","id":"sh/g36d0by9","slide":12,"bbox":[68,676,1140,0]}
+{"kind":"textbox","id":"sh/14futgzu","slide":12,"text":"산후조리원 B2B 몰 · 대안과 범위 결정","textPreview":"산후조리원 B2B 몰 · 대안과 범위 결정","textChars":23,"textLines":1,"bbox":[68,684,965,18]}
+{"kind":"textbox","id":"sh/e14vy1g3","slide":12,"text":"12 / 17","textPreview":"12 / 17","textChars":7,"textLines":1,"bbox":[1068,684,140,18]}
+{"kind":"notes","id":"nt/gszkcw","slide":12,"text":""}
+{"kind":"slide","id":"sl/ccac6k","slide":13,"title":"요구사항을 계약 범위와 검수 상태로 분리","textShapes":19}
+{"kind":"textbox","id":"sh/187apsv6","slide":13,"text":"요구사항을 계약 범위와 검수 상태로 분리","textPreview":"요구사항을 계약 범위와 검수 상태로 분리","textChars":22,"textLines":1,"bbox":[68,37,957,44]}
+{"kind":"shape","id":"sh/e5gredcv","slide":13,"bbox":[68,101,1140,0]}
+{"kind":"textbox","id":"sh/z6psnidg","slide":13,"text":"요청의 성격을 먼저 구분하고, 개발사 반영 통보와 운영 완료를 다른 상태로 관리했습니다.","textPreview":"요청의 성격을 먼저 구분하고, 개발사 반영 통보와 운영 완료를 다른 상태로 관리했습니다.","textChars":49,"textLines":1,"bbox":[68,117,1140,27]}
+{"kind":"textbox","id":"sh/obi9knux","slide":13,"text":"요구사항 분류","textPreview":"요구사항 분류","textChars":7,"textLines":1,"bbox":[68,160,250,28]}
+{"kind":"shape","id":"sh/m90ridcr","slide":13,"bbox":[814,160,394,394]}
+{"kind":"textbox","id":"sh/na9sridc","slide":13,"text":"BR 22건 검수 현황","textPreview":"BR 22건 검수 현황","textChars":12,"textLines":1,"bbox":[840,186,342,29]}
+{"kind":"textbox","id":"sh/wzito7ut","slide":13,"text":"기준일 2026-08-13","textPreview":"기준일 2026-08-13","textChars":14,"textLines":1,"bbox":[840,221,342,23]}
+{"kind":"textbox","id":"sh/x0raxcbe","slide":13,"text":"17건","textPreview":"17건","textChars":3,"textLines":1,"bbox":[840,266,72,28]}
+{"kind":"textbox","id":"sh/5kze1wbi","slide":13,"text":"배포·QA 필요","textPreview":"배포·QA 필요","textChars":8,"textLines":1,"bbox":[930,267,238,27]}
+{"kind":"shape","id":"sh/4jqxsrux","slide":13,"bbox":[840,303,328,0]}
+{"kind":"textbox","id":"sh/jihwzmtc","slide":13,"text":"1건","textPreview":"1건","textChars":2,"textLines":1,"bbox":[840,316,72,28]}
+{"kind":"textbox","id":"sh/ih8vqhcr","slide":13,"text":"부분완료·QA 필요","textPreview":"부분완료·QA 필요","textChars":10,"textLines":1,"bbox":[930,317,238,27]}
+{"kind":"shape","id":"sh/toje5wbe","slide":13,"bbox":[840,353,328,0]}
+{"kind":"textbox","id":"sh/snqxwbut","slide":13,"text":"1건","textPreview":"1건","textChars":2,"textLines":1,"bbox":[840,366,72,28]}
+{"kind":"textbox","id":"sh/rmhw36t8","slide":13,"text":"수정완료·회귀 QA","textPreview":"수정완료·회귀 QA","textChars":10,"textLines":1,"bbox":[930,367,238,27]}
+{"kind":"shape","id":"sh/6l8fu1c3","slide":13,"bbox":[840,403,328,0]}
+{"kind":"textbox","id":"sh/9sfetcba","slide":13,"text":"1건","textPreview":"1건","textChars":2,"textLines":1,"bbox":[840,416,72,28]}
+{"kind":"textbox","id":"sh/8r6dk7up","slide":13,"text":"구현변경·QA 필요","textPreview":"구현변경·QA 필요","textChars":10,"textLines":1,"bbox":[930,417,238,27]}
+{"kind":"shape","id":"sh/0vaxg72l","slide":13,"bbox":[840,453,328,0]}
+{"kind":"textbox","id":"sh/lwje9cj6","slide":13,"text":"2건","textPreview":"2건","textChars":2,"textLines":1,"bbox":[840,466,72,28]}
+{"kind":"textbox","id":"sh/yt8fexkf","slide":13,"text":"진행 중인 계약 항목","textPreview":"진행 중인 계약 항목","textChars":11,"textLines":1,"bbox":[930,467,238,27]}
+{"kind":"shape","id":"sh/zu1w7210","slide":13,"bbox":[68,582,1140,56]}
+{"kind":"textbox","id":"sh/8zaxkr2h","slide":13,"text":"성과와 검수","textPreview":"성과와 검수","textChars":6,"textLines":1,"bbox":[92,598,126,25]}
+{"kind":"textbox","id":"sh/90jedwj2","slide":13,"text":"핵심 흐름은 07-16 전체 가동 후 약 1개월 관찰 · 기본 개발요구 22건은 08-31 최종검수까지 운영 QA 지속","textPreview":"핵심 흐름은 07-16 전체 가동 후 약 1개월 관찰 · 기본 개발요구 22건은 08-31 최종검수까지 운영 QA 지속","textChars":66,"textLines":1,"bbox":[224,590,950,36]}
+{"kind":"shape","id":"sh/mxsfihkr","slide":13,"bbox":[68,676,1140,0]}
+{"kind":"textbox","id":"sh/ny1wbm1w","slide":13,"text":"산후조리원 B2B 몰 · 요구사항과 완료 정의","textPreview":"산후조리원 B2B 몰 · 요구사항과 완료 정의","textChars":25,"textLines":1,"bbox":[68,684,965,18]}
+{"kind":"textbox","id":"sh/w3uxor2t","slide":13,"text":"13 / 17","textPreview":"13 / 17","textChars":7,"textLines":1,"bbox":[1068,684,140,18]}
+{"kind":"table","id":"tb/gfilkbed","slide":13,"name":"","rows":6,"cols":3,"preview":"구분 | 정의 | 처리 기준","bbox":[68,198,710,356]}
+{"kind":"notes","id":"nt/ccac6k","slide":13,"text":""}
+{"kind":"slide","id":"sl/gttv3u","slide":14,"title":"개발 완료 통보 뒤에도 마이페이지 진입이 되지 않았습니다","textShapes":20}
+{"kind":"textbox","id":"sh/h0ryx472","slide":14,"text":"개발 완료 통보 뒤에도 마이페이지 진입이 되지 않았습니다","textPreview":"개발 완료 통보 뒤에도 마이페이지 진입이 되지 않았습니다","textChars":31,"textLines":1,"bbox":[68,37,957,44]}
+{"kind":"shape","id":"sh/udgfm98r","slide":14,"bbox":[68,101,1140,0]}
+{"kind":"textbox","id":"sh/ve9gvupw","slide":14,"text":"완료의 기준을 개발사 회신에서 운영 서버 직접 확인으로 바꾼 사례입니다.","textPreview":"완료의 기준을 개발사 회신에서 운영 서버 직접 확인으로 바꾼 사례입니다.","textChars":40,"textLines":1,"bbox":[68,117,1140,27]}
+{"kind":"shape","id":"sh/8byxkzql","slide":14,"bbox":[68,166,558,448]}
+{"kind":"shape","id":"sh/9c7yt476","slide":14,"bbox":[90,190,48,28]}
+{"kind":"textbox","id":"sh/m9gfip8f","slide":14,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[98,194,32,20]}
+{"kind":"textbox","id":"sh/7apwrup0","slide":14,"text":"현상","textPreview":"현상","textChars":2,"textLines":1,"bbox":[154,192,90,28]}
+{"kind":"textbox","id":"sh/k7yxgfq9","slide":14,"text":"마이페이지 ‘정보 수정’ 진입 실패","textPreview":"마이페이지 ‘정보 수정’ 진입 실패","textChars":19,"textLines":1,"bbox":[248,188,344,46]}
+{"kind":"shape","id":"sh/l87epk7u","slide":14,"bbox":[90,250,500,0]}
+{"kind":"shape","id":"sh/ls7yxsv2","slide":14,"bbox":[90,282,48,28]}
+{"kind":"textbox","id":"sh/0reh4neh","slide":14,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[98,286,32,20]}
+{"kind":"textbox","id":"sh/z65gvidw","slide":14,"text":"확인","textPreview":"확인","textChars":2,"textLines":1,"bbox":[154,284,90,28]}
+{"kind":"textbox","id":"sh/y5wf2dwb","slide":14,"text":"운영 서버 미반영과 기존 차단 로직 잔존","textPreview":"운영 서버 미반영과 기존 차단 로직 잔존","textChars":22,"textLines":1,"bbox":[248,280,344,46]}
+{"kind":"shape","id":"sh/d4nytsvq","slide":14,"bbox":[90,342,500,0]}
+{"kind":"shape","id":"sh/c3ex0nel","slide":14,"bbox":[90,374,48,28]}
+{"kind":"textbox","id":"sh/b25grix0","slide":14,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[98,378,32,20]}
+{"kind":"textbox","id":"sh/q1wfydwf","slide":14,"text":"분리 점검","textPreview":"분리 점검","textChars":5,"textLines":1,"bbox":[154,376,90,28]}
+{"kind":"textbox","id":"sh/p03yp8fu","slide":14,"text":"배포 여부와 차단 조건을 각각 확인","textPreview":"배포 여부와 차단 조건을 각각 확인","textChars":19,"textLines":1,"bbox":[248,372,344,46]}
+{"kind":"shape","id":"sh/ozuxw3e9","slide":14,"bbox":[90,434,500,0]}
+{"kind":"shape","id":"sh/gvips7qh","slide":14,"bbox":[90,466,48,28]}
+{"kind":"textbox","id":"sh/1wrq1cr2","slide":14,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[98,470,32,20]}
+{"kind":"textbox","id":"sh/et07qx8b","slide":14,"text":"결정","textPreview":"결정","textChars":2,"textLines":1,"bbox":[154,468,90,28]}
+{"kind":"textbox","id":"sh/fu98z29w","slide":14,"text":"운영 서버에서 기대 결과를 직접 확인한 경우만 완료","textPreview":"운영 서버에서 기대 결과를 직접 확인한 경우만 완료","textChars":28,"textLines":1,"bbox":[248,464,344,46]}
+{"kind":"shape","id":"sh/sriponq5","slide":14,"bbox":[650,166,558,448]}
+{"kind":"textbox","id":"sh/tsrqxsrq","slide":14,"text":"사례가 발생한 실제 화면","textPreview":"사례가 발생한 실제 화면","textChars":13,"textLines":1,"bbox":[676,191,506,28]}
+{"kind":"shape","id":"sh/6pg7mx8f","slide":14,"bbox":[720,231,260,308]}
+{"kind":"shape","id":"sh/cn2p0rqp","slide":14,"bbox":[1002,235,166,300]}
+{"kind":"textbox","id":"sh/dobq9w7u","slide":14,"text":"확인 항목","textPreview":"확인 항목","textChars":5,"textLines":1,"bbox":[1021,257,128,25]}
+{"kind":"textbox","id":"sh/nixszqtc","slide":14,"text":"정보 수정\n메뉴 노출\n\n진입 가능 여부\n\n운영 배포 여부\n\n차단 조건 잔존","textPreview":"정보 수정 | 메뉴 노출 |  | 진입 가능 여부 |  | 운영 배포 여부 |  | 차단 조건 잔존","textChars":41,"textLines":8,"bbox":[1021,302,128,196]}
+{"kind":"textbox","id":"sh/mh4b6lsr","slide":14,"text":"실운영 마이페이지 발췌 · 2026-08-28","textPreview":"실운영 마이페이지 발췌 · 2026-08-28","textChars":25,"textLines":1,"bbox":[792,555,376,19]}
+{"kind":"shape","id":"sh/9kfa10bi","slide":14,"bbox":[68,676,1140,0]}
+{"kind":"textbox","id":"sh/8j6t8vax","slide":14,"text":"산후조리원 B2B 몰 · 운영 서버 QA 사례","textPreview":"산후조리원 B2B 몰 · 운영 서버 QA 사례","textChars":25,"textLines":1,"bbox":[68,684,965,18]}
+{"kind":"textbox","id":"sh/vmxs3a98","slide":14,"text":"14 / 17","textPreview":"14 / 17","textChars":7,"textLines":1,"bbox":[1068,684,140,18]}
+{"kind":"image","id":"im/s3mxkrqt","slide":14,"name":"","alt":"산후조리원 전용몰 실운영 마이페이지 메뉴","bbox":[724,235,252,300]}
+{"kind":"notes","id":"nt/gttv3u","slide":14,"text":""}
+{"kind":"slide","id":"sl/voqhcw","slide":15,"title":"4개 계정 유형의 상품·결제 정책을 한 표로 고정","textShapes":10}
+{"kind":"textbox","id":"sh/mt0725o3","slide":15,"text":"4개 계정 유형의 상품·결제 정책을 한 표로 고정","textPreview":"4개 계정 유형의 상품·결제 정책을 한 표로 고정","textChars":27,"textLines":1,"bbox":[68,37,957,44]}
+{"kind":"shape","id":"sh/9gr6d0nu","slide":15,"bbox":[68,101,1140,0]}
+{"kind":"textbox","id":"sh/8fip4vm9","slide":15,"text":"등급과 카테고리 조합으로 결제 방식을 정하고, 결제 방식이 다른 혼합 주문을 차단했습니다.","textPreview":"등급과 카테고리 조합으로 결제 방식을 정하고, 결제 방식이 다른 혼합 주문을 차단했습니다.","textChars":50,"textLines":1,"bbox":[68,117,1140,27]}
+{"kind":"shape","id":"sh/vi9ofa5k","slide":15,"bbox":[64,162,814,326]}
+{"kind":"textbox","id":"sh/hkb6hknq","slide":15,"text":"업무 문서 발췌 · 원문 ‘선불입금/후불입금’은 현행 ‘분유(선불/후불)’로 정리","textPreview":"업무 문서 발췌 · 원문 ‘선불입금/후불입금’은 현행 ‘분유(선불/후불)’로 정리","textChars":45,"textLines":1,"bbox":[292,493,582,19]}
+{"kind":"shape","id":"sh/wj2p8fm5","slide":15,"bbox":[906,166,302,318]}
+{"kind":"textbox","id":"sh/jmtoju5w","slide":15,"text":"결정한 정책","textPreview":"결정한 정책","textChars":6,"textLines":1,"bbox":[932,193,250,28]}
+{"kind":"textbox","id":"sh/ilk7ap4b","slide":15,"text":"물품계약(선불)\n물품계약(후불)\n분유(선불)\n분유(후불)","textPreview":"물품계약(선불) | 물품계약(후불) | 분유(선불) | 분유(후불)","textChars":31,"textLines":4,"bbox":[932,240,250,116]}
+{"kind":"shape","id":"sh/4n2lojm1","slide":15,"bbox":[932,374,250,0]}
+{"kind":"textbox","id":"sh/pob2hon6","slide":15,"text":"관리자가 등급 × 카테고리 표에서\n결제 방식을 설정","textPreview":"관리자가 등급 × 카테고리 표에서 | 결제 방식을 설정","textChars":28,"textLines":2,"bbox":[932,397,250,57]}
+{"kind":"shape","id":"sh/2lk3m94v","slide":15,"bbox":[68,533,1140,105]}
+{"kind":"textbox","id":"sh/3mtkfe5g","slide":15,"text":"혼합 주문 차단","textPreview":"혼합 주문 차단","textChars":8,"textLines":1,"bbox":[94,559,190,28]}
+{"kind":"textbox","id":"sh/crmlsjmx","slide":15,"text":"선불 상품과 후불 상품을 한 주문에 담는 경우 양방향으로 차단","textPreview":"선불 상품과 후불 상품을 한 주문에 담는 경우 양방향으로 차단","textChars":34,"textLines":1,"bbox":[290,551,884,42]}
+{"kind":"shape","id":"sh/dsv2loni","slide":15,"bbox":[68,676,1140,0]}
+{"kind":"textbox","id":"sh/qpk3qt4r","slide":15,"text":"산후조리원 B2B 몰 · 계정·결제 정책","textPreview":"산후조리원 B2B 몰 · 계정·결제 정책","textChars":22,"textLines":1,"bbox":[68,684,965,18]}
+{"kind":"textbox","id":"sh/rqtkje5c","slide":15,"text":"15 / 17","textPreview":"15 / 17","textChars":7,"textLines":1,"bbox":[1068,684,140,18]}
+{"kind":"image","id":"im/ji1o76tw","slide":15,"name":"","alt":"실제 산후조리원몰 과업 처리 결과의 회원 등급별 상품 결제 정책표","bbox":[68,166,806,318]}
+{"kind":"notes","id":"nt/voqhcw","slide":15,"text":""}
+{"kind":"slide","id":"sl/8alk1m","slide":16,"title":"핵심 흐름 가동 후 오출고와 CS 문의 변화를 관찰","textShapes":18}
+{"kind":"textbox","id":"sh/ep0361or","slide":16,"text":"핵심 흐름 가동 후 오출고와 CS 문의 변화를 관찰","textPreview":"핵심 흐름 가동 후 오출고와 CS 문의 변화를 관찰","textChars":28,"textLines":1,"bbox":[68,37,957,44]}
+{"kind":"shape","id":"sh/1cbm1g7i","slide":16,"bbox":[68,101,1140,0]}
+{"kind":"textbox","id":"sh/gb2l8b6x","slide":16,"text":"운영 초기 결과와 측정하지 못한 항목을 함께 표기했습니다.","textPreview":"운영 초기 결과와 측정하지 못한 항목을 함께 표기했습니다.","textChars":32,"textLines":1,"bbox":[68,117,1140,27]}
+{"kind":"shape","id":"sh/rm94vmpg","slide":16,"bbox":[68,167,385,178]}
+{"kind":"textbox","id":"sh/6l0321ov","slide":16,"text":"오출고","textPreview":"오출고","textChars":3,"textLines":1,"bbox":[94,190,126,28]}
+{"kind":"textbox","id":"sh/tormxw76","slide":16,"text":"월평균 2~3건  →  0건","textPreview":"월평균 2~3건  →  0건","textChars":15,"textLines":1,"bbox":[94,233,333,45]}
+{"kind":"textbox","id":"sh/snil4r61","slide":16,"text":"직전 6개월 평균과 2026-07-16 이후 약 1개월 전체 측정 비교","textPreview":"직전 6개월 평균과 2026-07-16 이후 약 1개월 전체 측정 비교","textChars":39,"textLines":1,"bbox":[94,295,333,38]}
+{"kind":"shape","id":"sh/bid47q5k","slide":16,"bbox":[68,363,385,178]}
+{"kind":"textbox","id":"sh/qhkneloz","slide":16,"text":"CS 문의","textPreview":"CS 문의","textChars":5,"textLines":1,"bbox":[94,386,126,28]}
+{"kind":"textbox","id":"sh/0jylo3ip","slide":16,"text":"32건  →  19건","textPreview":"32건  →  19건","textChars":11,"textLines":1,"bbox":[94,429,333,45]}
+{"kind":"textbox","id":"sh/1k7mh8zu","slide":16,"text":"2026-01~2026-06의 2주 환산치와 2026-07~2026-08 배포 구간 2주 집계 비교","textPreview":"2026-01~2026-06의 2주 환산치와 2026-07~2026-08 배포 구간 2주 집계 비교","textChars":55,"textLines":1,"bbox":[94,491,333,38]}
+{"kind":"shape","id":"sh/ehw3md0j","slide":16,"bbox":[490,167,718,374]}
+{"kind":"textbox","id":"sh/zip4fih4","slide":16,"text":"운영 상태를 확인한 실제 화면","textPreview":"운영 상태를 확인한 실제 화면","textChars":16,"textLines":1,"bbox":[516,192,666,28]}
+{"kind":"shape","id":"sh/cfelk3id","slide":16,"bbox":[512,234,674,145]}
+{"kind":"textbox","id":"sh/qdw3it07","slide":16,"text":"실운영 마이페이지 발췌 · 주문 현황은 운영 화면 구조 확인용","textPreview":"실운영 마이페이지 발췌 · 주문 현황은 운영 화면 구조 확인용","textChars":34,"textLines":1,"bbox":[694,385,488,19]}
+{"kind":"textbox","id":"sh/re54byhs","slide":16,"text":"확인한 변화","textPreview":"확인한 변화","textChars":6,"textLines":1,"bbox":[516,429,130,25]}
+{"kind":"textbox","id":"sh/4belgjih","slide":16,"text":"주문 상태를 직접 확인할 수 있는 흐름과 운영 안내가 가동되었습니다.","textPreview":"주문 상태를 직접 확인할 수 있는 흐름과 운영 안내가 가동되었습니다.","textChars":38,"textLines":1,"bbox":[648,424,516,36]}
+{"kind":"textbox","id":"sh/pcnm9ozm","slide":16,"text":"관찰 범위","textPreview":"관찰 범위","textChars":5,"textLines":1,"bbox":[516,478,130,25]}
+{"kind":"textbox","id":"sh/58f2dkrq","slide":16,"text":"초기 운영 약 1개월. 입금 대조 시간과 장기 지속 효과는 미측정입니다.","textPreview":"초기 운영 약 1개월. 입금 대조 시간과 장기 지속 효과는 미측정입니다.","textChars":40,"textLines":1,"bbox":[648,473,516,38]}
+{"kind":"shape","id":"sh/4761kfa5","slide":16,"bbox":[68,574,1140,64]}
+{"kind":"textbox","id":"sh/j6dkba9k","slide":16,"text":"결과 해석","textPreview":"결과 해석","textChars":5,"textLines":1,"bbox":[94,593,130,25]}
+{"kind":"textbox","id":"sh/i54ji5sz","slide":16,"text":"초기 운영 결과는 오출고와 CS 문의로 확인했습니다. 입금 대조 시간과 장기 지속 효과는 후속 측정 항목입니다.","textPreview":"초기 운영 결과는 오출고와 CS 문의로 확인했습니다. 입금 대조 시간과 장기 지속 효과는 후속 측정 항목입니다.","textChars":62,"textLines":1,"bbox":[230,586,944,34]}
+{"kind":"shape","id":"sh/h4v29kre","slide":16,"bbox":[68,676,1140,0]}
+{"kind":"textbox","id":"sh/w3m1gfa9","slide":16,"text":"산후조리원 B2B 몰 · 결과와 측정 경계","textPreview":"산후조리원 B2B 몰 · 결과와 측정 경계","textChars":23,"textLines":1,"bbox":[68,684,965,18]}
+{"kind":"textbox","id":"sh/vidk7ato","slide":16,"text":"16 / 17","textPreview":"16 / 17","textChars":7,"textLines":1,"bbox":[1068,684,140,18]}
+{"kind":"image","id":"im/ilwv2x4n","slide":16,"name":"","alt":"산후조리원 전용몰 실운영 마이페이지 주문 상태 영역","bbox":[516,238,666,137]}
+{"kind":"notes","id":"nt/8alk1m","slide":16,"text":""}
+{"kind":"slide","id":"sl/39thut","slide":17,"title":"두 프로젝트가 보여준 PM 역할","textShapes":27}
+{"kind":"textbox","id":"sh/pobe507m","slide":17,"text":"두 프로젝트가 보여준 PM 역할","textPreview":"두 프로젝트가 보여준 PM 역할","textChars":17,"textLines":1,"bbox":[68,37,957,44]}
+{"kind":"shape","id":"sh/2lkvalov","slide":17,"bbox":[68,101,1140,0]}
+{"kind":"textbox","id":"sh/3mtc3qpg","slide":17,"text":"문제 정의에서 멈추지 않고 정책과 데이터 계약을 만들고 운영 환경에서 결과를 확인했습니다.","textPreview":"문제 정의에서 멈추지 않고 정책과 데이터 계약을 만들고 운영 환경에서 결과를 확인했습니다.","textChars":50,"textLines":1,"bbox":[68,117,1140,27]}
+{"kind":"shape","id":"sh/cr2dgv6x","slide":17,"bbox":[68,171,552,332]}
+{"kind":"textbox","id":"sh/dsbe907i","slide":17,"text":"관세청 통관 연동","textPreview":"관세청 통관 연동","textChars":9,"textLines":1,"bbox":[96,199,496,31]}
+{"kind":"textbox","id":"sh/qpkve5o7","slide":17,"text":"문제","textPreview":"문제","textChars":2,"textLines":1,"bbox":[96,252,72,25]}
+{"kind":"textbox","id":"sh/rqtw7qpc","slide":17,"text":"분할·합배송과 시스템별 식별자 불일치","textPreview":"분할·합배송과 시스템별 식별자 불일치","textChars":20,"textLines":1,"bbox":[174,250,418,36]}
+{"kind":"shape","id":"sh/0fmdkf69","slide":17,"bbox":[96,291,496,0]}
+{"kind":"textbox","id":"sh/1gvedk7u","slide":17,"text":"판단","textPreview":"판단","textChars":2,"textLines":1,"bbox":[96,309,72,25]}
+{"kind":"textbox","id":"sh/don2l4f6","slide":17,"text":"원주문번호·ERP 포장번호·HBL을 분리","textPreview":"원주문번호·ERP 포장번호·HBL을 분리","textChars":22,"textLines":1,"bbox":[174,307,418,36]}
+{"kind":"shape","id":"sh/cne1szyl","slide":17,"bbox":[96,348,496,0]}
+{"kind":"textbox","id":"sh/rm5kjux0","slide":17,"text":"산출물","textPreview":"산출물","textChars":3,"textLines":1,"bbox":[96,366,72,25]}
+{"kind":"textbox","id":"sh/qlwjqpgf","slide":17,"text":"필드 매핑, 복합키, 상태·재시도 기준","textPreview":"필드 매핑, 복합키, 상태·재시도 기준","textChars":21,"textLines":1,"bbox":[174,364,418,36]}
+{"kind":"shape","id":"sh/1c72pof2","slide":17,"bbox":[96,405,496,0]}
+{"kind":"textbox","id":"sh/0be1wjyx","slide":17,"text":"확인","textPreview":"확인","textChars":2,"textLines":1,"bbox":[96,423,72,25]}
+{"kind":"textbox","id":"sh/za5knexc","slide":17,"text":"운영 환경 30건 목적 30/30 통과","textPreview":"운영 환경 30건 목적 30/30 통과","textChars":21,"textLines":1,"bbox":[174,421,418,36]}
+{"kind":"shape","id":"sh/epwju9gr","slide":17,"bbox":[656,171,552,332]}
+{"kind":"textbox","id":"sh/hg3idkfy","slide":17,"text":"산후조리원 B2B 몰","textPreview":"산후조리원 B2B 몰","textChars":11,"textLines":1,"bbox":[684,199,496,31]}
+{"kind":"textbox","id":"sh/gfu1kfyd","slide":17,"text":"문제","textPreview":"문제","textChars":2,"textLines":1,"bbox":[684,252,72,25]}
+{"kind":"textbox","id":"sh/8zy10f69","slide":17,"text":"오출고, 반복 문의, 수기 입금 대조","textPreview":"오출고, 반복 문의, 수기 입금 대조","textChars":20,"textLines":1,"bbox":[762,250,418,36]}
+{"kind":"shape","id":"sh/t0729knu","slide":17,"bbox":[684,291,496,0]}
+{"kind":"textbox","id":"sh/mxwjypo3","slide":17,"text":"판단","textPreview":"판단","textChars":2,"textLines":1,"bbox":[684,309,72,25]}
+{"kind":"textbox","id":"sh/7ypk7a5o","slide":17,"text":"기존 플랫폼을 유지하고 정책을 맞춤","textPreview":"기존 플랫폼을 유지하고 정책을 맞춤","textChars":19,"textLines":1,"bbox":[762,307,418,36]}
+{"kind":"shape","id":"sh/g3y14z6l","slide":17,"bbox":[684,348,496,0]}
+{"kind":"textbox","id":"sh/h472d4nq","slide":17,"text":"산출물","textPreview":"산출물","textChars":3,"textLines":1,"bbox":[684,366,72,25]}
+{"kind":"textbox","id":"sh/u1gj2pof","slide":17,"text":"계정·결제 정책, 요구사항 상태, 운영 QA","textPreview":"계정·결제 정책, 요구사항 상태, 운영 QA","textChars":24,"textLines":1,"bbox":[762,364,418,36]}
+{"kind":"shape","id":"sh/v2pkbu50","slide":17,"bbox":[684,405,496,0]}
+{"kind":"textbox","id":"sh/4ril8z6h","slide":17,"text":"확인","textPreview":"확인","textChars":2,"textLines":1,"bbox":[684,423,72,25]}
+{"kind":"textbox","id":"sh/5sr2h4n2","slide":17,"text":"오출고 0건과 CS 문의 초기 감소 관찰","textPreview":"오출고 0건과 CS 문의 초기 감소 관찰","textChars":22,"textLines":1,"bbox":[762,421,418,36]}
+{"kind":"textbox","id":"sh/fmt47yp4","slide":17,"text":"후속 측정","textPreview":"후속 측정","textChars":5,"textLines":1,"bbox":[68,538,132,28]}
+{"kind":"shape","id":"sh/elknyd8j","slide":17,"bbox":[68,575,1140,64]}
+{"kind":"textbox","id":"sh/1obm987a","slide":17,"text":"관세청","textPreview":"관세청","textChars":3,"textLines":1,"bbox":[92,594,96,25]}
+{"kind":"textbox","id":"sh/0n2503qp","slide":17,"text":"자동 처리율 · 신규 경로 비중 · 처리 시간","textPreview":"자동 처리율 · 신규 경로 비중 · 처리 시간","textChars":25,"textLines":1,"bbox":[188,590,390,32]}
+{"kind":"textbox","id":"sh/ryt43yp8","slide":17,"text":"B2B 몰","textPreview":"B2B 몰","textChars":5,"textLines":1,"bbox":[630,594,96,25]}
+{"kind":"textbox","id":"sh/qxknut8n","slide":17,"text":"입금 대조 시간 · 오출고와 CS 문의의 장기 추이","textPreview":"입금 대조 시간 · 오출고와 CS 문의의 장기 추이","textChars":28,"textLines":1,"bbox":[726,590,456,32]}
+{"kind":"shape","id":"sh/dkbm587y","slide":17,"bbox":[68,676,1140,0]}
+{"kind":"textbox","id":"sh/sz25w3qt","slide":17,"text":"박종혁 PM 포트폴리오 · 요약","textPreview":"박종혁 PM 포트폴리오 · 요약","textChars":17,"textLines":1,"bbox":[68,684,965,18]}
+{"kind":"textbox","id":"sh/budofipc","slide":17,"text":"17 / 17","textPreview":"17 / 17","textChars":7,"textLines":1,"bbox":[1068,684,140,18]}
+{"kind":"notes","id":"nt/39thut","slide":17,"text":""}

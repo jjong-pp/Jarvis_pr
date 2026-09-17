@@ -1,0 +1,206 @@
+{
+  "source": "C:/MyMain/산후조리원/산후조리원몰_과업내역_처리결과.html",
+  "label": "개발사 처리결과 문서의 기능 화면 발췌",
+  "crops": [
+    {
+      "index": 6,
+      "name": "policy-matrix",
+      "left": 225,
+      "top": 382,
+      "width": 1245,
+      "height": 363,
+      "note": "Grade-by-category policy table; excludes authenticated admin header and older explanatory footer.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-policy-matrix.png"
+    },
+    {
+      "index": 6,
+      "name": "policy-details",
+      "left": 225,
+      "top": 453,
+      "width": 1245,
+      "height": 190,
+      "note": "First two grade rows enlarged; member and product counts redacted below.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-policy-details.png"
+    },
+    {
+      "index": 10,
+      "name": "fixed-address",
+      "left": 15,
+      "top": 90,
+      "width": 590,
+      "height": 285,
+      "note": "Fixed delivery address notice and masked phone; excludes obsolete message field.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-fixed-address.png"
+    },
+    {
+      "index": 15,
+      "name": "point-insufficient",
+      "left": 15,
+      "top": 58,
+      "width": 590,
+      "height": 246,
+      "note": "Insufficient point warning and disabled payment button; excludes point amount.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-point-insufficient.png"
+    },
+    {
+      "index": 18,
+      "name": "cart-categories",
+      "left": 30,
+      "top": 413,
+      "width": 805,
+      "height": 320,
+      "note": "Category grouping and test products only; excludes amount columns. Source includes uncategorized test product.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-cart-categories.png"
+    },
+    {
+      "index": 19,
+      "name": "mixed-order-modal",
+      "left": 542,
+      "top": 411,
+      "width": 416,
+      "height": 271,
+      "note": "Mixed-category order blocking modal only; source includes category-unspecified fallback.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-mixed-order-modal.png"
+    },
+    {
+      "index": 20,
+      "name": "mypage-menu-before",
+      "left": 25,
+      "top": 200,
+      "width": 280,
+      "height": 550,
+      "note": "Left menu only; no test account banner or balance.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-mypage-menu-before.png"
+    },
+    {
+      "index": 21,
+      "name": "mypage-menu-after",
+      "left": 25,
+      "top": 276,
+      "width": 280,
+      "height": 550,
+      "note": "Left menu only; no test account banner or balance.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-mypage-menu-after.png"
+    },
+    {
+      "index": 20,
+      "name": "mypage-detail-before",
+      "left": 25,
+      "top": 506,
+      "width": 280,
+      "height": 244,
+      "note": "Benefit and member-info menu area; no test account banner or balance.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-mypage-detail-before.png"
+    },
+    {
+      "index": 21,
+      "name": "mypage-detail-after",
+      "left": 25,
+      "top": 582,
+      "width": 280,
+      "height": 244,
+      "note": "Benefit and member-info menu area; no test account banner or balance.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-mypage-detail-after.png"
+    },
+    {
+      "index": 38,
+      "name": "point-safety-note",
+      "left": 225,
+      "top": 1040,
+      "width": 1245,
+      "height": 65,
+      "note": "Execution caution and repeat-run safeguard text only; excludes all account and balance rows.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-point-safety-note.png"
+    },
+    {
+      "index": 63,
+      "name": "statement-before",
+      "left": 1085,
+      "top": 56,
+      "width": 342,
+      "height": 297,
+      "note": "Order status and former confirmation/review area only; prices and order IDs excluded.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-statement-before.png"
+    },
+    {
+      "index": 64,
+      "name": "statement-after",
+      "left": 1085,
+      "top": 56,
+      "width": 342,
+      "height": 297,
+      "note": "Order status and statement action area only; cancelled orders have no statement button.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-statement-after.png"
+    },
+    {
+      "index": 65,
+      "name": "shipping-message-before",
+      "left": 0,
+      "top": 45,
+      "width": 1380,
+      "height": 344,
+      "note": "Shipping section including masked phone; pricing section excluded.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-shipping-message-before.png"
+    },
+    {
+      "index": 66,
+      "name": "shipping-message-after",
+      "left": 0,
+      "top": 45,
+      "width": 1380,
+      "height": 344,
+      "note": "Shipping section including masked phone and restored message field; pricing excluded.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-shipping-message-after.png"
+    },
+    {
+      "index": 72,
+      "name": "home-desktop-safe",
+      "left": 0,
+      "top": 0,
+      "width": 1500,
+      "height": 953,
+      "note": "Safe top portion. Do not use as hero: carousel is mid-transition.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-home-desktop-safe.png"
+    },
+    {
+      "index": 73,
+      "name": "home-mobile-safe",
+      "left": 0,
+      "top": 0,
+      "width": 620,
+      "height": 1040,
+      "note": "Safe top portion. Do not use as hero: carousel is mid-transition.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-home-mobile-safe.png"
+    },
+    {
+      "index": 75,
+      "name": "report-filter-all",
+      "left": 218,
+      "top": 27,
+      "width": 1258,
+      "height": 287,
+      "note": "Filters and report title only; contains test-inclusive source counts, not achievement metrics.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-report-filter-all.png"
+    },
+    {
+      "index": 76,
+      "name": "report-filter-selected",
+      "left": 243,
+      "top": 20,
+      "width": 1247,
+      "height": 236,
+      "note": "Filters and explanatory labels only; excludes customer rows and prices. Counts are test-inclusive.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-report-filter-selected.png"
+    },
+    {
+      "index": 80,
+      "name": "postpaid-status",
+      "left": 1052,
+      "top": 73,
+      "width": 128,
+      "height": 205,
+      "note": "Payment-method and payment-state columns only; prices, customer names and order IDs excluded.",
+      "path": "C:\\MyMain\\resume\\포트폴리오\\.build\\v4_3\\b2b_raw\\safe-postpaid-status.png"
+    }
+  ]
+}
