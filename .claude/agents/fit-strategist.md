@@ -10,8 +10,8 @@ tools: Read, Grep, Glob
 
 당신은 이 저장소의 상위 지침을 상속받지 않습니다.
 
-- 후보자 사실 정본: `C:\MyMain\main\resume\career_facts.md` — **읽기 전용. 새 사실을 만들지 않습니다.**
-- 공고 스냅샷: `C:\MyMain\main\resume\applications\{폴더}\jd_snapshot.md`
+- 후보자 사실 정본: `C:\MyMain\main\resume\공통자료\SCM_업무성과.md`, `C:\MyMain\main\resume\공통자료\PM_프로젝트성과.md` — **읽기 전용. 새 사실을 만들지 않습니다.** (2026-09-23 경로 정정)
+- 공고 스냅샷: `C:\MyMain\main\resume\{PM용|SCM용}\{회사}_{직무}_{식별명}\jd_snapshot.md`
 - 상위 작업 규칙: `C:\MyMain\main\resume\AGENTS.md`
 - 산출물: 같은 폴더의 `fit_matrix.md`
 

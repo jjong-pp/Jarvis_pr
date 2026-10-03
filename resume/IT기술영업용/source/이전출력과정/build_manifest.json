@@ -1,0 +1,22 @@
+{
+  "built_at": "2026-09-18T00:57:20",
+  "source": "source/이력서.md",
+  "source_sha256": "2a4ee006670bcf5cf51d0375acd737efc319fe236b6ca3288576368484883023",
+  "facts": "../공통자료/career_facts.md",
+  "facts_sha256": "749cde1232c6635256bc4e71781c385aa80a090b77989c9a313af52a1b83ab53",
+  "contact_values_logged": false,
+  "outputs": [
+    "박종혁_기술영업_이력서.docx",
+    "박종혁_기술영업_이력서.pdf"
+  ],
+  "pdf_status": "verified",
+  "pages": 2,
+  "verified_on": "2026-09-18",
+  "review": {
+    "pages": 2,
+    "body_units_checked": 36,
+    "source_docx_pdf_omissions": 0,
+    "placeholders_remaining": 0,
+    "visual_review": "author and independent reviewer passed"
+  }
+}

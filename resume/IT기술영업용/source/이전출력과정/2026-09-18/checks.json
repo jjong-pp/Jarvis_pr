@@ -1,0 +1,11 @@
+{
+  "local_links_checked": 35,
+  "broken_links": [],
+  "pdf_pages": 2,
+  "unresolved_placeholders": false,
+  "source_sha256": "2a4ee006670bcf5cf51d0375acd737efc319fe236b6ca3288576368484883023",
+  "pdf_sha256": "2f554313d8b183117fd0c2fa725eee54ee0cd522e35e32bb83814bee2dfcc4e3",
+  "renderer": "Microsoft Word PDF export + Poppler",
+  "packaged_renderer": "attempted; LibreOffice executable unavailable",
+  "visual_check": "Both final pages opened by author; no clipped text or broken paragraphs observed"
+}

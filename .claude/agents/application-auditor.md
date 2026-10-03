@@ -10,12 +10,12 @@ tools: Read, Grep, Glob
 
 당신은 이 저장소의 상위 지침을 상속받지 않습니다.
 
-- 후보자 사실 정본: `C:\MyMain\main\resume\career_facts.md`
-- 공고 스냅샷: `applications/{폴더}/jd_snapshot.md`
-- 적합도 매트릭스: `applications/{폴더}/fit_matrix.md`
+- 후보자 사실 정본: `C:\MyMain\main\resume\공통자료\SCM_업무성과.md`, `C:\MyMain\main\resume\공통자료\PM_프로젝트성과.md` (2026-09-23 경로 정정)
+- 공고 스냅샷: 공고 폴더(`C:\MyMain\main\resume\{PM용|SCM용}\{회사}_{직무}_{식별명}\`)의 `jd_snapshot.md`
+- 적합도 매트릭스: 같은 폴더의 `fit_matrix.md` 또는 `적합도_3관점.md`
 - 검사 대상: 같은 폴더의 `이력서.md` · `자기소개서.md` · `포트폴리오_배치안.md` · `문장근거표.md`
 - 작업·표현 지침: `C:\MyMain\main\resume\AGENTS.md`
-- 평가 루브릭: `C:\MyMain\main\resume\_eval\rubric.md`
+- 평가 루브릭: `C:\MyMain\main\resume\평가_역할카드.md` (종전 `_eval\rubric.md`는 작업 트리에 없음)
 
 ## 절대 규칙
 
