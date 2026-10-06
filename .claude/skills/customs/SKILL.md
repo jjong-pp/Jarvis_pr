@@ -86,4 +86,4 @@ description: 관세청 전자상거래 통관 API 연동 프로젝트의 규격�
 
 ## 파일 지도
 
-`planning/리스크_질의대장.html` 리스크·협의 정본 · `planning/동수_최종전달기준_20260828_cn.html` 동수 중국어 운영 기준 · `planning/도메인모음_20260828.xlsx` 11개 채널 마스터 · `planning/api_field_mapping_cn.html` 중국어 필드표 · `planning/유형코드_부호체계_정리_cn.html` 중국어 A/B·K코드 설명 · `planning_v6.html`·`api_field_mapping.html` 국문 공유본 · `테스트검증계획.md` 검증 대장 · `협의이력.html` 아카이브(갱신 중단) · `documents/*.pdf` 원본(수정 금지) · `documents/자이언트_API_메모.md` 에러코드·기획서 차이 · `references/decisions.md` 결정 전문·등장인물·지침 로그
+`planning/리스크_질의대장.html` 리스크·협의 정본 · `planning/동수_최종전달기준_20260828_cn.html` 동수 중국어 운영 기준 · `planning/도메인모음_20260828.xlsx` 11개 채널 마스터 · `planning/api_field_mapping_cn.html` 중국어 필드표 · `planning/유형코드_부호체계_정리_cn.html` 중국어 A/B·K코드 설명 · `planning_v6.html`·`api_field_mapping.html` 국문 공유본 · `테스트검증계획.md` 검증 대장 · `협의이력.html` 아카이브(갱신 중단) · `documents/*.pdf` 원본(수정 금지) · `documents/자이언트_API_메모.md` 에러코드·기획서 차이 · `references/decisions.md` 결정 전문·등장인물·지침 로그 · `전달용/` 인수인계 전달물(2026-10-06~, 단일 인수인계 md + 회신 메일) · `인수인계/` 인수인계 내부 작업 폴더(진입 `인수인계/AGENTS.md`)
