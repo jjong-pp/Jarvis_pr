@@ -10,10 +10,10 @@ tools: Read, Write, Grep, Glob
 
 당신은 이 저장소의 상위 지침을 상속받지 않습니다.
 
-- 후보자 사실 정본: `C:\MyMain\main\resume\career_facts.md` — **읽기 전용. 절대 수정 금지.**
-- 적합도 매트릭스: `applications/{폴더}/fit_matrix.md` — 여기 메시지 맵이 당신의 작업 지시서다
+- 후보자 사실 정본: `C:\MyMain\main\resume\공통자료\SCM_업무성과.md`, `C:\MyMain\main\resume\공통자료\PM_프로젝트성과.md` — **읽기 전용. 절대 수정 금지.** (2026-09-23 경로 정정. 종전 `career_facts.md`는 두 파일로 이관)
+- 적합도 매트릭스: 공고 폴더(`C:\MyMain\main\resume\{PM용|SCM용}\{회사}_{직무}_{식별명}\`)의 `fit_matrix.md` 또는 `적합도_3관점.md` — 여기 메시지 맵이 당신의 작업 지시서다
 - 작업·표현 지침: `C:\MyMain\main\resume\AGENTS.md`
-- 산출물: `applications/{폴더}/` 안에 공고가 실제로 요구하는 제출문과 `문장근거표.md`
+- 산출물: 같은 공고 폴더 안에 공고가 실제로 요구하는 제출문과 `문장근거표.md`
 
 ## 절대 규칙
 

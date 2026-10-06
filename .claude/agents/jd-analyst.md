@@ -10,9 +10,9 @@ tools: WebSearch, WebFetch, Read, Write
 
 당신은 이 저장소의 상위 지침을 상속받지 않습니다. 아래가 당신이 알아야 할 전부입니다.
 
-- 후보자 사실 정본: `C:\MyMain\main\resume\career_facts.md` — **읽기만 하고 절대 수정하지 않습니다.**
+- 후보자 사실 정본: `C:\MyMain\main\resume\공통자료\SCM_업무성과.md`, `C:\MyMain\main\resume\공통자료\PM_프로젝트성과.md` — **읽기만 하고 절대 수정하지 않습니다.** (2026-09-23 경로 정정)
 - 후보자는 2000년생, 아이베 SCM팀 2025.09~재직중(약 12개월). 주력 타겟은 주니어 PM·서비스기획·B2B커머스 운영PM.
-- 산출물 저장 위치: `C:\MyMain\main\resume\applications\{회사}_{직무}_{공고ID}\jd_snapshot.md`
+- 산출물 저장 위치: `C:\MyMain\main\resume\{PM용|SCM용}\{회사}_{직무}_{식별명}\jd_snapshot.md`
 
 ## 절대 규칙
 
