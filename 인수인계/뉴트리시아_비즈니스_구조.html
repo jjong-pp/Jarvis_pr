@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>뉴트리시아 인수인계</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<style>
+  :root{
+    --bg:#f5f5f7;
+    --card:#ffffff;
+    --ink:#1d1d1f;
+    --ink2:#5f5f66;
+    --ink3:#8a8a90;
+    --line:#e7e7ea;
+    --line2:#d6d6db;
+    --dom:#0071e3;      --dom-soft:rgba(0,113,227,.07);
+    --cbd:#0f7b6c;      --cbd-soft:rgba(15,123,108,.07);
+    --med:#a2541a;      --med-soft:rgba(162,84,26,.07);
+    --r:18px;
+    --shadow:0 1px 1px rgba(0,0,0,.02), 0 12px 30px -16px rgba(0,0,0,.18);
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none !important}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Segoe UI",sans-serif;
+    font-size:14px;
+    line-height:1.55;
+    letter-spacing:-.01em;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{width:90%;max-width:1760px;margin:0 auto;padding:22px 0 26px;display:flex;flex-direction:column;height:100vh}
+
+  /* ── top bar ───────────────────────────── */
+  .topbar{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:0 4px 16px}
+  .topbar h1{margin:0;font-size:25px;font-weight:650;letter-spacing:-.033em}
+  .topbar p{margin:4px 0 0;font-size:13px;color:var(--ink2)}
+  .doc-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink2);font-size:11.5px;white-space:nowrap}
+  .doc-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:#30a46c}
+
+  /* ── primary navigation ─────────────────── */
+  .primary-tabs{display:flex;gap:7px;padding:6px;margin:0 0 16px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 24px -20px rgba(0,0,0,.38);overflow-x:auto;scrollbar-width:none;flex:none}
+  .primary-tabs::-webkit-scrollbar{display:none}
+  .primary-tab{appearance:none;border:1px solid transparent;background:#f5f5f7;color:var(--ink2);font:inherit;font-size:13px;font-weight:600;padding:9px 15px;border-radius:9px;cursor:pointer;white-space:nowrap;transition:all .18s ease;display:flex;align-items:center;gap:8px}
+  .primary-tab::after{content:"›";font-size:17px;line-height:1;color:var(--ink3);transition:transform .18s ease}
+  .primary-tab:hover{color:var(--ink);border-color:var(--line2);background:#fff;transform:translateY(-1px)}
+  .primary-tab:hover::after{transform:translateX(2px)}
+  .primary-tab:focus-visible{outline:3px solid var(--dom-soft);outline-offset:2px;border-color:var(--dom)}
+  .primary-tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:650;box-shadow:0 5px 12px -8px rgba(0,0,0,.6)}
+  .primary-tab[aria-selected="true"]::after{color:#fff}
+  .tab-index{display:grid;place-items:center;width:20px;height:20px;border-radius:6px;background:rgba(0,0,0,.06);font-size:9.5px;font-weight:750;letter-spacing:.03em}
+  .primary-tab[aria-selected="true"] .tab-index{background:rgba(255,255,255,.17)}
+  .tab-panel{flex:1;min-height:0}
+  .tab-panel:not([hidden]){display:flex;flex-direction:column}
+  .business-toolbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:0 2px 12px;flex:none}
+  .business-toolbar p{margin:0;color:var(--ink2);font-size:12.5px}
+  .business-toolbar p b{color:var(--ink);font-weight:700}
+  .seg{display:inline-flex;gap:2px;padding:3px;background:#ececef;border-radius:10px;flex:none}
+  .seg-btn{
+    appearance:none;border:0;background:transparent;cursor:pointer;
+    font:inherit;font-size:13px;font-weight:500;color:var(--ink2);
+    padding:6px 15px;border-radius:8px;transition:all .18s cubic-bezier(.2,.8,.2,1);white-space:nowrap;
+  }
+  .seg-btn:hover{color:var(--ink)}
+  .seg-btn.is-on{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+
+  /* ── layout ────────────────────────────── */
+  .grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:20px;flex:1;min-height:0}
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    box-shadow:var(--shadow);display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden;
+  }
+  .panel-head{
+    padding:15px 22px 13px;border-bottom:1px solid var(--line);
+    display:flex;align-items:baseline;gap:10px;flex:none;background:rgba(255,255,255,.9)
+  }
+  .panel-head h2{margin:0;font-size:14.5px;font-weight:650;letter-spacing:-.02em}
+  .panel-head span{font-size:12px;color:var(--ink3)}
+  .panel-body{overflow-y:auto;padding:22px;scrollbar-width:thin}
+  .panel-body::-webkit-scrollbar{width:9px}
+  .panel-body::-webkit-scrollbar-thumb{background:#dcdce0;border-radius:9px;border:3px solid #fff}
+
+  /* ── onboarding content ─────────────────── */
+  .intro{border:1px solid var(--line);border-radius:14px;padding:15px 16px;background:linear-gradient(135deg,#fbfbfc,#f5f7fb);margin-bottom:20px}
+  .intro-label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--dom);margin-bottom:6px}
+  .intro strong{display:block;font-size:15px;line-height:1.45;letter-spacing:-.025em}
+  .intro p{margin:7px 0 0;color:var(--ink2);font-size:12.5px}
+  .route-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+  .route-summary div{padding:10px 11px;background:#fff;border:1px solid var(--line);border-radius:10px}
+  .route-summary b{display:block;font-size:11.5px;margin-bottom:2px}
+  .route-summary span{display:block;color:var(--ink2);font-size:11.5px}
+
+  .content-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr);gap:18px;min-height:0;flex:1}
+  .content-grid > .panel{min-height:0}
+  .stack{display:flex;flex-direction:column;gap:18px}
+  .stack > .panel{overflow:visible}
+  .stack .panel-body{overflow:visible}
+
+  .searchbar{position:relative;margin-bottom:16px}
+  .searchbar input{width:100%;height:40px;border:1px solid var(--line2);border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:13px;padding:0 13px 0 38px;outline:none;transition:all .15s ease}
+  .searchbar input:focus{border-color:var(--dom);box-shadow:0 0 0 3px var(--dom-soft)}
+  .searchbar::before{content:"⌕";position:absolute;left:14px;top:7px;font-size:19px;color:var(--ink3);z-index:1}
+  .term-sections{display:flex;flex-direction:column;gap:20px}
+  .term-section{border:1px solid var(--line);border-radius:14px;padding:15px;background:#fff}
+  .term-section-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:0 1px 11px;margin-bottom:11px;border-bottom:1px solid var(--line)}
+  .term-section-head h3{margin:0;font-size:14px}
+  .term-section-head p{margin:0;font-size:11.5px;color:var(--ink3)}
+  .term-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .term-card{border:1px solid var(--line);border-radius:12px;padding:13px 14px;background:#fcfcfd}
+  .term-card b{display:flex;align-items:center;gap:6px;font-size:13px;margin-bottom:5px}
+  .term-card b em{font-style:normal;font-size:9.5px;color:var(--ink3);background:#efeff2;border-radius:4px;padding:1px 5px}
+  .term-card p{margin:0;font-size:12px;color:var(--ink2)}
+  .term-card[hidden]{display:none}
+  .empty-state{display:none;text-align:center;color:var(--ink3);font-size:13px;padding:30px 0}
+
+  .entity-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .entity-card{border:1px solid var(--line);border-radius:13px;padding:15px;background:#fcfcfd;position:relative}
+  .entity-card::before{content:"";position:absolute;left:-1px;top:13px;bottom:13px;width:3px;border-radius:0 3px 3px 0;background:var(--entity,#777)}
+  .entity-card .entity-type{font-size:10.5px;color:var(--ink3);font-weight:650;letter-spacing:.05em}
+  .entity-card b{display:block;font-size:14px;margin:4px 0 6px}
+  .entity-card p{font-size:12px;color:var(--ink2);margin:0}
+  .change-compare{display:grid;grid-template-columns:1fr 44px 1fr;align-items:stretch;gap:10px}
+  .change-side{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fcfcfd}
+  .change-side.is-now{border-color:rgba(0,113,227,.25);background:var(--dom-soft)}
+  .change-side .change-label{display:inline-block;font-size:10px;font-weight:750;letter-spacing:.07em;color:var(--ink3);margin-bottom:8px}
+  .change-side.is-now .change-label{color:var(--dom)}
+  .change-side h4{margin:0 0 10px;font-size:15px}
+  .change-route{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:12.5px;font-weight:650}
+  .change-route span{padding:6px 8px;border:1px solid var(--line);border-radius:7px;background:#fff}
+  .change-route i{font-style:normal;color:var(--ink3)}
+  .change-side p{margin:11px 0 0;color:var(--ink2);font-size:12.5px}
+  .change-arrow{display:grid;place-items:center;color:var(--dom);font-size:24px;font-weight:300}
+  .change-table{border:1px solid var(--line);border-radius:13px;overflow:hidden}
+  .change-row{display:grid;grid-template-columns:150px 1fr 1fr}
+  .change-row + .change-row{border-top:1px solid var(--line)}
+  .change-row > *{padding:11px 13px;font-size:12.5px}
+  .change-row .label{background:#f5f5f7;font-weight:650;color:var(--ink)}
+  .change-row .before{color:var(--ink3)}
+  .change-row .after{color:var(--ink);font-weight:550;border-left:1px solid var(--line)}
+  .transition-banner{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;border:1px solid rgba(0,113,227,.24);border-radius:13px;padding:14px 16px;background:var(--dom-soft)}
+  .transition-date{background:var(--dom);color:#fff;border-radius:9px;padding:7px 10px;font-size:11px;font-weight:700;white-space:nowrap}
+  .transition-banner b{display:block;font-size:13.5px;margin-bottom:2px}
+  .transition-banner p{margin:0;font-size:12.5px;color:var(--ink2)}
+
+  .partner-groups{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;align-items:start}
+  .partner-group{--group-accent:var(--dom);border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+  .partner-group[data-kind="domestic"]{--group-accent:var(--dom)}
+  .partner-group[data-kind="crossborder"]{--group-accent:var(--cbd)}
+  .partner-group[data-kind="medical"]{--group-accent:var(--med)}
+  .partner-group-head{display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:center;padding:14px 15px;background:#f6f6f8;border-bottom:1px solid var(--line)}
+  .partner-group-no{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--group-accent);color:#fff;font-size:10px;font-weight:750}
+  .partner-group-head h3{margin:0 0 2px;font-size:14px}
+  .partner-group-head p{margin:0;font-size:11.5px;color:var(--ink3)}
+  .partner-item{display:grid;grid-template-columns:minmax(145px,.42fr) 1fr;padding:0;border-top:1px solid var(--line)}
+  .partner-group-head + .partner-item{border-top:0}
+  .partner-item b{grid-row:1 / 3;display:flex;align-items:center;padding:13px 14px;border-right:1px solid var(--line);font-size:12.5px;background:#fcfcfd}
+  .partner-item > span:not(.partner-meta){display:block;padding:11px 13px 3px;font-size:11.8px;color:var(--ink2)}
+  .partner-item.flash{animation:flash 1.5s ease-out}
+  .partner-meta{padding:1px 13px 11px !important;font-size:10.5px !important;color:var(--group-accent) !important;font-weight:600}
+
+  /* ── flow ──────────────────────────────── */
+  .flow{padding:2px 6px 4px}
+  .flow + .flow{margin-top:30px;padding-top:28px;border-top:1px solid var(--line)}
+  .flow[data-track="domestic"]{--accent:var(--dom);--accent-soft:var(--dom-soft)}
+  .flow[data-track="crossborder"]{--accent:var(--cbd);--accent-soft:var(--cbd-soft)}
+  .flow[data-track="medical"]{--accent:var(--med);--accent-soft:var(--med-soft)}
+  .flow-head{display:flex;align-items:center;gap:9px;min-width:0;margin-bottom:16px}
+  .flow-head h3{margin:0;font-size:15px;font-weight:650;letter-spacing:-.02em}
+  .flow-head .code{font-size:11px;font-weight:600;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:1.5px 7px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none}
+  .flow-note{margin-left:auto;min-width:0;font-size:12px;color:var(--ink3);text-align:right}
+
+  .node{
+    display:block;width:100%;text-align:left;font:inherit;
+    background:#fff;border:1px solid var(--line2);border-radius:12px;
+    padding:11px 15px;transition:all .18s cubic-bezier(.2,.8,.2,1);
+  }
+  .node .kicker{display:block;font-size:10.5px;font-weight:600;letter-spacing:.055em;color:var(--ink3)}
+  .node .title{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.02em;margin-top:2px}
+  .node .desc{display:block;font-size:12.5px;color:var(--ink2);margin-top:2px}
+  .node.is-key{background:var(--accent-soft);border-color:transparent;box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}
+  .node.is-key .kicker{color:var(--accent)}
+  .node.is-linked{cursor:pointer;position:relative;padding-right:44px;box-shadow:inset 3px 0 0 var(--accent)}
+  .node.is-linked::after{content:"›";position:absolute;right:13px;top:50%;display:grid;place-items:center;width:22px;height:22px;margin-top:-11px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:17px;font-weight:700;transition:transform .18s ease}
+  .node.is-linked:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:inset 3px 0 0 var(--accent),0 6px 16px -10px rgba(0,0,0,.4)}
+  .node.is-linked:hover::after{transform:translateX(2px)}
+  .node.is-active{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+
+  .link{position:relative;width:1px;height:24px;margin:0 auto;background:var(--line2)}
+  .link::after{
+    content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+    border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid var(--line2);
+  }
+
+  /* 분기 */
+  .branch{position:relative;padding-top:40px}
+  .branch::before{content:"";position:absolute;top:0;left:50%;width:1px;height:20px;background:var(--line2);transform:translateX(-.5px)}
+  .branch::after{content:"";position:absolute;top:20px;left:12.5%;right:12.5%;height:1px;background:var(--line2)}
+  .channels{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:start}
+  .channel{position:relative}
+  .channel::before{content:"";position:absolute;top:-20px;left:50%;width:1px;height:20px;background:var(--line2);transform:translateX(-.5px)}
+  .chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:9px}
+  .chip{font-size:11.5px;color:var(--ink2);background:#f4f4f6;border-radius:6px;padding:2.5px 7px;white-space:nowrap}
+  .sub{display:block;margin-top:9px;padding-top:8px;border-top:1px solid var(--line)}
+  .sub-item{display:block;font-size:11.5px;color:var(--ink2);padding:2px 0}
+  .sub-item b{color:var(--ink);font-weight:600;margin-right:6px}
+  .own{display:inline-block;margin-top:8px;font-size:10.5px;font-weight:600;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:1.5px 6px}
+  .own.warn{color:#9a6a00;background:rgba(154,106,0,.09)}
+
+  /* 묶음 구간 */
+  .phase{border:1px dashed var(--line2);border-radius:14px;padding:13px 14px 12px;background:#fcfcfd}
+  .phase-label{font-size:10.5px;font-weight:600;letter-spacing:.055em;color:var(--ink3);margin-bottom:10px}
+  .phase-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .step{background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 10px;position:relative;transition:all .18s cubic-bezier(.2,.8,.2,1)}
+  .step + .step::before{content:"";position:absolute;left:-6px;top:50%;width:4px;height:4px;margin-top:-2px;border-top:1px solid var(--line2);border-right:1px solid var(--line2);transform:rotate(45deg)}
+  .step .s-no{font-size:10px;font-weight:600;color:var(--ink3);letter-spacing:.05em}
+  .step .s-title{display:block;font-size:13px;font-weight:600;letter-spacing:-.02em;margin-top:1px}
+  .step .s-desc{display:block;font-size:11.5px;color:var(--ink2);margin-top:1px}
+  .step.is-linked{cursor:pointer;padding-right:30px;box-shadow:inset 2px 0 0 var(--accent)}
+  .step.is-linked::after{content:"›";position:absolute;right:9px;top:9px;color:var(--accent);font-size:16px;font-weight:700}
+  .step.is-linked:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .step.is-active{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .phase-foot{margin-top:10px;padding-top:9px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink2)}
+  .tag{display:inline-block;font-size:10.5px;font-weight:600;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:1.5px 6px;margin-right:6px}
+
+  /* 공급가 코드 */
+  .codes{margin-top:18px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fcfcfd;transition:all .18s cubic-bezier(.2,.8,.2,1)}
+  .codes.is-linked{cursor:pointer;position:relative;padding-right:42px;box-shadow:inset 3px 0 0 var(--accent)}
+  .codes.is-linked::after{content:"›";position:absolute;right:14px;top:14px;color:var(--accent);font-size:18px;font-weight:700}
+  .codes.is-linked:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .codes.is-active{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .codes-label{font-size:10.5px;font-weight:600;letter-spacing:.055em;color:var(--ink3);margin-bottom:9px}
+  .codes-label span{letter-spacing:0;font-weight:450}
+  .codes-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .code{background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 10px}
+  .code b{display:block;font-size:12.5px;font-weight:700;color:var(--accent);letter-spacing:-.01em}
+  .code span{display:block;font-size:11.5px;color:var(--ink2);margin-top:1px}
+
+  /* ── doc ───────────────────────────────── */
+  .sec + .sec{margin-top:26px;padding-top:24px;border-top:1px solid var(--line)}
+  .sec h3{margin:0 0 12px;font-size:14.5px;font-weight:650;letter-spacing:-.022em}
+  .sec h3 small{font-weight:450;color:var(--ink3);font-size:12px;margin-left:7px;letter-spacing:0}
+  .lede{font-size:13.5px;color:var(--ink2);margin:0 0 14px}
+  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .mini{border:1px solid var(--line);border-radius:12px;padding:13px 14px;background:#fcfcfd}
+  .mini b{display:block;font-size:13px;letter-spacing:-.02em;margin-bottom:5px}
+  .mini b em{font-style:normal;font-size:10.5px;font-weight:600;background:#f0f0f2;color:var(--ink2);border-radius:5px;padding:1.5px 6px;margin-left:6px;vertical-align:1px}
+  .mini.dom b{color:var(--dom)} .mini.cbd b{color:var(--cbd)} .mini.med b{color:var(--med)}
+  .mini p{margin:0;font-size:12.5px;color:var(--ink2)}
+
+  dl.rows{margin:0}
+  dl.rows > div{display:grid;grid-template-columns:104px 1fr;gap:14px;padding:9px 0;border-top:1px solid var(--line)}
+  dl.rows > div:first-child{border-top:0;padding-top:0}
+  dl.rows dt{font-size:12.5px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+  dl.rows dd{margin:0;font-size:13px;color:var(--ink2)}
+  dl.rows dd b{color:var(--ink);font-weight:600}
+
+  table{width:100%;border-collapse:collapse}
+  th,td{text-align:left;padding:9px 10px;font-size:12.5px;border-top:1px solid var(--line);vertical-align:top}
+  thead th{border-top:0;font-size:10.5px;font-weight:600;letter-spacing:.055em;color:var(--ink3);padding-bottom:7px}
+  tbody th{font-weight:600;color:var(--ink);white-space:nowrap;width:1%}
+  td{color:var(--ink2)}
+  td.role{color:var(--ink3);white-space:nowrap}
+  tr.flash > *{animation:flash 1.5s ease-out}
+  .flash{animation:flash 1.5s ease-out}
+  @keyframes flash{0%,35%{background:rgba(0,113,227,.10)}100%{background:transparent}}
+
+  .week{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:4px}
+  .day{border:1px solid var(--line);border-radius:10px;padding:10px;background:#fcfcfd}
+  .day b{display:block;font-size:12px;margin-bottom:6px}
+  .day ul{margin:0;padding:0;list-style:none}
+  .day li{font-size:11.5px;color:var(--ink2);padding:1.5px 0}
+  ul.bullets{margin:0;padding:0;list-style:none}
+  ul.bullets li{position:relative;padding:5px 0 5px 15px;font-size:13px;color:var(--ink2)}
+  ul.bullets li::before{content:"";position:absolute;left:2px;top:12px;width:4px;height:4px;border-radius:50%;background:var(--line2)}
+  ul.bullets li b{color:var(--ink);font-weight:600}
+
+  .notice{border:1px solid rgba(154,106,0,.25);background:rgba(154,106,0,.05);border-radius:12px;padding:14px 16px}
+  .notice .when{display:inline-block;font-size:10.5px;font-weight:700;color:#8a5f00;background:rgba(154,106,0,.12);border-radius:5px;padding:2px 7px;margin-bottom:7px}
+  .notice p{margin:0;font-size:13px;color:var(--ink2)}
+  .notice p + p{margin-top:6px}
+
+  footer{flex:none;padding:12px 6px 0;font-size:11.5px;color:var(--ink3);display:flex;justify-content:space-between;gap:16px}
+
+  @media (max-width:1499px){
+    .channels{grid-template-columns:repeat(2,1fr)}
+    .branch::after{left:25%;right:25%}
+    .channel:nth-child(n+3)::before{display:none}
+    .term-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:1180px){
+    .wrap{height:auto}
+    .grid,.content-grid{grid-template-columns:1fr}
+    .panel-body{overflow:visible}
+    .phase-row,.codes-row,.trio{grid-template-columns:repeat(2,1fr)}
+    .phase-row .step:nth-child(3)::before{display:none}
+    .week{grid-template-columns:repeat(2,1fr)}
+    .topbar{flex-direction:column;align-items:flex-start;gap:12px}
+    .business-toolbar{align-items:flex-start;flex-direction:column}
+  }
+  @media (max-width:720px){
+    .wrap{width:94%;padding-top:14px}
+    .topbar h1{font-size:22px}
+    .primary-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible}
+    .primary-tab{width:100%;padding:8px 11px}
+    .primary-tab::after{display:none}
+    .business-toolbar,.seg{max-width:100%}
+    .seg{overflow-x:auto;scrollbar-width:none}
+    .seg::-webkit-scrollbar{display:none}
+    .term-grid,.partner-groups,.entity-grid,.route-summary{grid-template-columns:1fr}
+    .term-section-head{align-items:flex-start;flex-direction:column;gap:2px}
+    .change-compare{grid-template-columns:1fr}
+    .change-arrow{transform:rotate(90deg);height:28px}
+    .change-row{grid-template-columns:1fr}
+    .change-row .before,.change-row .after{padding-left:13px}
+    .change-row .after{border-left:0;border-top:1px dashed var(--line)}
+    .transition-banner{grid-template-columns:1fr}
+    .transition-date{width:max-content}
+    .partner-item{grid-template-columns:1fr}
+    .partner-item b{grid-row:auto;padding:11px 13px;border-right:0;border-bottom:1px solid var(--line)}
+    .channels{grid-template-columns:1fr}
+    .branch::after,.channel::before{display:none}
+    .phase-row,.codes-row,.trio,.week{grid-template-columns:1fr}
+    .step + .step::before{display:none}
+    .panel-body{padding:17px}
+    .flow-head{flex-wrap:wrap}
+    .flow-note{flex:1 0 100%;margin-left:17px;text-align:left}
+    table{display:block;max-width:100%;overflow-x:auto}
+  }
+  @media print{
+    body{background:#fff}
+    .wrap{width:100%;height:auto}.grid{grid-template-columns:1fr}
+    .panel{box-shadow:none;break-inside:avoid}.panel-body{overflow:visible}.seg,.primary-tabs{display:none}
+    .tab-panel[hidden]{display:flex !important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="topbar">
+    <div>
+      <h1>뉴트리시아 인수인계</h1>
+      <p>비즈니스 흐름부터 회사 관계와 파트너 역할까지, 처음 맡는 사람이 알아야 할 전체 구조 안내</p>
+    </div>
+    <span class="doc-badge">인수인계용 · 사내 한정</span>
+  </header>
+
+  <nav class="primary-tabs" role="tablist" aria-label="인수인계 문서 목차">
+    <button class="primary-tab" type="button" role="tab" id="tab-button-business" aria-controls="tab-business" aria-selected="true" data-tab="business"><span class="tab-index">01</span><span>비즈니스 구조</span></button>
+    <button class="primary-tab" type="button" role="tab" id="tab-button-terms" aria-controls="tab-terms" aria-selected="false" data-tab="terms"><span class="tab-index">02</span><span>용어</span></button>
+    <button class="primary-tab" type="button" role="tab" id="tab-button-internal" aria-controls="tab-internal" aria-selected="false" data-tab="internal"><span class="tab-index">03</span><span>회사 내부 구조</span></button>
+    <button class="primary-tab" type="button" role="tab" id="tab-button-partners" aria-controls="tab-partners" aria-selected="false" data-tab="partners"><span class="tab-index">04</span><span>협력사(파트너사)</span></button>
+  </nav>
+
+  <section class="tab-panel" id="tab-business" role="tabpanel" aria-labelledby="tab-button-business">
+    <div class="business-toolbar">
+      <p><b>사업 구분</b> · 세 구조를 비교하거나 하나만 선택해 볼 수 있습니다.</p>
+      <div class="seg" aria-label="비즈니스 구분 필터">
+      <button class="seg-btn is-on" data-filter="all">전체</button>
+      <button class="seg-btn" data-filter="domestic">내수 ELN</button>
+      <button class="seg-btn" data-filter="crossborder">직구 Krone</button>
+      <button class="seg-btn" data-filter="medical">메디컬 AMN</button>
+      </div>
+    </div>
+
+    <div class="grid">
+
+    <!-- ══ LEFT : FLOW ══ -->
+    <section class="panel">
+      <div class="panel-head">
+        <h2>흐름도</h2><span>노드를 클릭하면 관련 설명 또는 파트너 정보로 이동합니다</span>
+      </div>
+      <div class="panel-body">
+
+        <!-- 내수 -->
+        <div class="flow" data-track="domestic">
+          <div class="flow-head">
+            <span class="dot"></span><h3>내수</h3><span class="code">ELN</span>
+            <span class="flow-note">한국 수입·정식 통관 &rarr; 국내 재고 &rarr; 채널 출고</span>
+          </div>
+
+          <div class="node is-key is-linked" data-key="nutricia-korea">
+            <span class="kicker">01 발주</span>
+            <span class="title">뉴트리시아 코리아</span>
+            <span class="desc">아이베 발주 정보 접수 &rarr; 실제 공장 발주 진행</span>
+            <span class="own warn">수입자 아이베 &rarr; 뉴트리시아 코리아 전환</span>
+          </div>
+          <div class="link"></div>
+          <div class="node is-linked" data-key="tywa">
+            <span class="kicker">02 수입 통관</span>
+            <span class="title">티와이</span>
+            <span class="desc">수입자 아이베 &rarr; 뉴트리시아 코리아 전환 &middot; 티와이 통관 지원</span>
+          </div>
+          <div class="link"></div>
+          <div class="node is-linked" data-key="yongin">
+            <span class="kicker">03 입고</span>
+            <span class="title">용인 메인 허브</span>
+            <span class="desc">국내 재고 보관 &middot; 전 채널 출고 기점</span>
+          </div>
+
+          <div class="branch">
+            <div class="channels">
+              <div class="node channel is-linked" data-key="care">
+                <span class="kicker">04 채널</span>
+                <span class="title">산후조리원</span>
+                <span class="desc">국내 재고 기반 직거래 출고</span>
+              </div>
+              <div class="node channel is-linked" data-key="b2b">
+                <span class="kicker">04 채널 · 사입</span>
+                <span class="title">B2B</span>
+                <span class="desc">메인 허브에서 바로 사입 출고</span>
+                <span class="chips">
+                  <span class="chip">쿠팡</span><span class="chip">면세점</span>
+                  <span class="chip">베이비 하우스</span><span class="chip">기타</span>
+                </span>
+                <span class="own">출고 시 소유권 이전</span>
+              </div>
+              <div class="node channel is-linked" data-key="pl3">
+                <span class="kicker">04 채널 · 3PL</span>
+                <span class="title">3PL</span>
+                <span class="desc">품고 · 디앤비 (2개사)</span>
+                <span class="sub">
+                  <span class="sub-item"><b>품고</b>네이버 스토어 B2C</span>
+                  <span class="sub-item"><b>디앤비</b>이마트 · 롯데마트 점포 납품</span>
+                </span>
+                <span class="own">재고 자사 소유</span>
+              </div>
+              <div class="node channel is-linked" data-key="dtc">
+                <span class="kicker">04 채널 · DTC</span>
+                <span class="title">자사몰</span>
+                <span class="desc">사내 호칭 DTC</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="codes is-linked" data-key="codes">
+            <div class="codes-label">공급가 코드 <span>프로누트라 · 프로푸트라 공통</span></div>
+            <div class="codes-row">
+              <div class="code"><b>D 코드</b><span>사입 (풀필 공급가 등) — 쿠팡 · 면세점</span></div>
+              <div class="code"><b>G 코드</b><span>오프라인 · 베이비 하우스</span></div>
+              <div class="code"><b>일반</b><span>그 외 — 산후조리원 · 품고 · DTC</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 직구 -->
+        <div class="flow" data-track="crossborder">
+          <div class="flow-head">
+            <span class="dot"></span><h3>직구</h3><span class="code">Krone</span>
+            <span class="flow-note">유럽 &rarr; 중국 전진물류 &rarr; 주문 발생 &rarr; 개인직구통관 &rarr; 한국 소비자</span>
+          </div>
+
+          <div class="node is-key is-linked" data-key="nutricia-korea">
+            <span class="kicker">01 발주</span>
+            <span class="title">뉴트리시아 코리아</span>
+            <span class="desc">실제 공장 발주 &rarr; 유럽 물량을 중국 동수 창고로 이동</span>
+            <span class="own warn">발주 창구·수입자 전환 반영</span>
+          </div>
+          <div class="link"></div>
+          <div class="node is-key is-linked" data-key="dongsu">
+            <span class="kicker">02 중국 전진물류창고 · 3PL</span>
+            <span class="title">동수</span>
+            <span class="desc">유럽 물량 선입고 · 보관 &nbsp;|&nbsp; 고객 주문 발생 시 출고</span>
+            <span class="own">재고 자사 소유</span>
+          </div>
+          <div class="link"></div>
+          <div class="node is-key">
+            <span class="kicker">03 판매 트리거</span>
+            <span class="title">한국 고객의 직구 주문 발생</span>
+            <span class="desc">주문 단위로 동수 창고에서 출고 &middot; 한국 B2C 판매 시작</span>
+          </div>
+          <div class="link"></div>
+
+          <div class="phase">
+            <div class="phase-label">04 국제 운송 · 개인직구통관</div>
+            <div class="phase-row">
+              <div class="step is-linked" data-key="cncustoms">
+                <span class="s-no">04-1</span><span class="s-title">중국 세관 신고</span>
+                <span class="s-desc">동수 출고 건 신고</span>
+              </div>
+              <div class="step is-linked" data-key="ilyang">
+                <span class="s-no">04-2</span><span class="s-title">일양 글로벌 로지스</span>
+                <span class="s-desc">에어 부킹 · 항공 운송</span>
+              </div>
+              <div class="step">
+                <span class="s-no">04-3</span><span class="s-title">한국 도착</span>
+                <span class="s-desc">공항 반입</span>
+              </div>
+              <div class="step is-linked" data-key="giant">
+                <span class="s-no">04-4</span><span class="s-title">자이언트 통관</span>
+                <span class="s-desc">개인통관고유부호 기준 개인직구통관</span>
+              </div>
+            </div>
+            <div class="phase-foot"><span class="tag">B2C</span>고객 주문 단위로 중국 출고부터 한국 통관·배송까지 연결</div>
+          </div>
+
+          <div class="link"></div>
+          <div class="node is-linked" data-key="lotte">
+            <span class="kicker">05 배송</span>
+            <span class="title">롯데택배</span>
+            <span class="desc">통관 완료 후 국내 라스트마일 배송</span>
+          </div>
+          <div class="link"></div>
+          <div class="node">
+            <span class="kicker">06 B2C 판매 완료</span>
+            <span class="title">소비자 (직구 주문자)</span>
+            <span class="desc">개인직구통관 후 한국에서 최종 수취</span>
+          </div>
+        </div>
+
+        <!-- 메디컬 -->
+        <div class="flow" data-track="medical">
+          <div class="flow-head">
+            <span class="dot"></span><h3>메디컬 (특수분유)</h3><span class="code">AMN</span>
+            <span class="flow-note">한국 수입·정식 통관 &rarr; 국내 재고 &rarr; 쿠팡 사입 / 나머지 B2C</span>
+          </div>
+
+          <div class="node is-key is-linked" data-key="nutricia-korea">
+            <span class="kicker">01 발주</span>
+            <span class="title">뉴트리시아 코리아</span>
+            <span class="desc">AMN 특수분유 16종 &middot; 실제 공장 발주 진행</span>
+            <span class="chips">
+              <span class="chip">펩티 시네오</span><span class="chip">네오케이트</span>
+              <span class="chip">인파트리니</span><span class="chip">듀오칼</span>
+              <span class="chip">주요 4종</span>
+            </span>
+          </div>
+          <div class="link"></div>
+          <div class="node is-linked" data-key="yongin">
+            <span class="kicker">02 통관 · 입고</span>
+            <span class="title">내수와 동일 경로</span>
+            <span class="desc">수입자 뉴트리시아 코리아 전환 &rarr; 정식 수입통관 &rarr; 용인 메인 허브</span>
+          </div>
+
+          <div class="branch">
+            <div class="channels">
+              <div class="node channel is-linked" data-key="medcoupang">
+                <span class="kicker">03 채널 · 사입</span>
+                <span class="title">쿠팡</span>
+                <span class="desc">외부 사입은 이 채널뿐</span>
+                <span class="own">출고 시 소유권 이전</span>
+              </div>
+              <div class="node channel is-linked" data-key="rx">
+                <span class="kicker">03 채널 · B2C</span>
+                <span class="title">Rx 채널</span>
+                <span class="desc">메디컬 주요 B2C 채널</span>
+              </div>
+              <div class="node channel is-linked" data-key="inbo">
+                <span class="kicker">03 채널 · B2C</span>
+                <span class="title">인구보건협회</span>
+                <span class="desc">약칭 인보협 &middot; 메디컬 주요 B2C 채널</span>
+              </div>
+              <div class="node channel is-linked" data-key="dtc">
+                <span class="kicker">03 채널 · B2C</span>
+                <span class="title">DTC</span>
+                <span class="desc">위 채널 외 나머지 전량</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══ RIGHT : BRIEF ══ -->
+    <section class="panel">
+      <div class="panel-head">
+        <h2>비즈니스 개요</h2><span>재고 위치 · 통관 방식 · 판매 경로</span>
+      </div>
+      <div class="panel-body">
+
+        <div class="intro" data-track="common">
+          <span class="intro-label">30초 요약</span>
+          <strong>세 사업의 가장 큰 차이는 “재고를 어디에 두고, 어떤 방식으로 한국 고객에게 전달하느냐”입니다.</strong>
+          <p>내수와 메디컬은 한국 정식 수입통관 후 국내 재고로 판매하며, 수입자는 아이베에서 뉴트리시아 코리아로 전환 중입니다. 직구는 유럽 물량을 중국에 선배치한 뒤 고객 주문별로 개인직구통관합니다.</p>
+          <div class="route-summary">
+            <div><b>내수 · ELN</b><span>한국 수입통관 → 국내 재고 → 다채널 출고</span></div>
+            <div><b>직구 · Krone</b><span>유럽 → 중국 전진물류 → 주문별 한국 B2C</span></div>
+            <div><b>메디컬 · AMN</b><span>한국 수입통관 → 국내 재고 → 쿠팡 사입 / B2C</span></div>
+          </div>
+        </div>
+
+        <div class="sec" data-track="common">
+          <h3>한눈에<small>SKU는 이 세 가지로 분류해 발주</small></h3>
+          <p class="lede"><b>내수·메디컬은 한국 정식 수입통관 후 국내 재고로 판매</b>하며, 수입자는 아이베에서 뉴트리시아 코리아로 전환 중입니다. 직구는 <b>유럽 물량을 중국 동수 전진물류창고에 미리 배치</b>하고, 한국 고객의 주문이 발생하면 주문 단위로 개인직구통관하여 B2C 판매합니다.</p>
+          <div class="trio">
+            <div class="mini dom">
+              <b>내수<em>ELN</em></b>
+              <p>뉴트리시아 코리아를 통한 공장 발주와 수입자 전환 후 정식 수입통관. 용인 메인 허브에 국내 재고를 두고 각 채널로 출고.</p>
+            </div>
+            <div class="mini cbd">
+              <b>직구<em>Krone</em></b>
+              <p>유럽 물량을 중국 동수 전진물류창고에 미리 이동·보관. 한국 고객 주문 시 개인직구통관 후 B2C로 항공 직배송.</p>
+            </div>
+            <div class="mini med">
+              <b>메디컬<em>AMN</em></b>
+              <p>뉴트리시아 코리아를 통한 공장 발주와 수입자 전환 후 내수와 같은 정식 수입통관·국내 입고 경로를 사용.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec" data-track="domestic">
+          <h3>내수 상세<small>ELN</small></h3>
+          <dl class="rows">
+            <div><dt>발주 · 구매</dt><dd>아이베가 발주 정보를 <b>뉴트리시아 코리아</b>에 전달하고, 뉴트리시아 코리아가 실제 공장 발주를 진행합니다.</dd></div>
+            <div><dt>수입 통관</dt><dd>한국 수입자가 <b>아이베에서 뉴트리시아 코리아로 전환</b>됩니다. <b>티와이</b>는 정식 수입통관 대행과 컨설팅을 담당합니다.</dd></div>
+            <div><dt>입고</dt><dd><b>용인 메인 허브</b>로 입고되어 모든 내수 채널의 단일 출고 거점이 됩니다.</dd></div>
+            <div><dt>산후조리원</dt><dd>용인 메인 허브의 국내 재고에서 출고되는 직거래 채널입니다.</dd></div>
+            <div><dt>B2B (사입)</dt><dd><b>쿠팡 · 면세점 · 베이비 하우스 등</b>은 3PL을 거치지 않고 <b>메인 허브에서 바로 사입 형태로 출고</b>됩니다. 출고 시점에 재고 소유권이 거래처로 넘어갑니다.</dd></div>
+            <div><dt>3PL</dt><dd>3PL은 <b>품고 · 디앤비 2개사뿐</b>이며, 3PL 구조이므로 <b>보관 중인 재고의 소유권은 자사에 남습니다.</b><br>&middot; <b>품고</b> — 네이버 스토어를 통한 B2C<br>&middot; <b>디앤비</b> — 오프라인 마트 점포 납품 (이마트 · 롯데마트)</dd></div>
+            <div><dt>자사몰 (DTC)</dt><dd>자사몰을 통한 직접 판매. 마케팅 · 세일즈 커뮤니케이션에서는 <b>DTC</b>라는 명칭을 사용합니다.</dd></div>
+          </dl>
+        </div>
+
+        <div class="sec" data-track="crossborder">
+          <h3>직구 상세<small>Krone</small></h3>
+          <dl class="rows">
+            <div><dt>유럽 → 중국</dt><dd>유럽에서 출발한 물량을 한국으로 바로 들여오지 않고, <b>중국 동수 창고로 먼저 이동</b>시켜 재고를 선배치합니다.</dd></div>
+            <div><dt>동수</dt><dd>한국 주문에 대응하기 위한 <b>중국 전진물류창고이자 3PL</b>입니다. 중국 창고 재고의 소유권은 자사에 있습니다.</dd></div>
+            <div><dt>주문 · B2C</dt><dd><b>한국 고객의 직구 주문이 발생한 시점</b>에 동수 창고에서 주문 단위로 출고하며, 국내 재고 판매가 아닌 <b>개인직구 방식의 한국 B2C 판매</b>로 처리합니다.</dd></div>
+            <div><dt>운송 · 통관</dt><dd>동수 출고 → <b>중국 세관 신고</b> → <b>일양 글로벌 로지스</b> 에어 부킹 → 한국 도착 → <b>자이언트</b> 통관대행. 주문자 <b>개인통관고유부호</b>를 기준으로 개인직구통관합니다.</dd></div>
+            <div><dt>배송</dt><dd>개인직구통관이 끝난 상품은 <b>롯데택배</b>를 통해 한국 고객에게 배송됩니다.</dd></div>
+          </dl>
+        </div>
+
+        <div class="sec" data-track="medical">
+          <h3>메디컬 상세<small>AMN · 특수분유</small></h3>
+          <dl class="rows">
+            <div><dt>제품</dt><dd>특수분유(메디컬 분유) <b>총 16종</b>. 이 중 <b>펩티 시네오 · 네오케이트 · 인파트리니 · 듀오칼</b> 4종이 주요 품목입니다.</dd></div>
+            <div><dt>발주 · 입고</dt><dd><b>AMN으로 별도 분류</b>하며, 뉴트리시아 코리아가 실제 공장 발주를 진행합니다. 수입자 전환 후에도 <b>정식 수입통관 → 용인 메인 허브 입고</b> 경로를 사용합니다.</dd></div>
+            <div><dt>사입 채널</dt><dd><b>쿠팡 사입 건만 외부로 나갑니다.</b> 그 외 채널은 전부 B2C 형태입니다.</dd></div>
+            <div><dt>Rx 채널</dt><dd>메디컬 제품을 판매하는 주요 B2C 채널입니다.</dd></div>
+            <div><dt>인구보건협회</dt><dd>약칭 <b>인보협</b>. 메디컬 제품을 판매하는 주요 B2C 채널입니다.</dd></div>
+            <div><dt>DTC</dt><dd>위 채널을 제외한 나머지는 <b>DTC 채널에서 B2C 형태로 판매</b>됩니다.</dd></div>
+          </dl>
+        </div>
+
+        <div class="sec" data-track="common" id="k-codes">
+          <h3>공급가 코드 구분<small>프로누트라 · 프로푸트라 공통 (SKU는 별개)</small></h3>
+          <p class="lede">같은 제품이라도 <b>거래 형태에 따라 공급가 코드가 갈립니다.</b> 주문 등록·정산 시 어느 코드에 해당하는지에 따라 단가가 달라집니다.</p>
+          <table>
+            <thead><tr><th>코드</th><th>적용 대상</th><th>해당 채널</th></tr></thead>
+            <tbody>
+              <tr><th>D 코드</th><td><b>사입</b> (풀필 공급가 등)</td><td class="role">쿠팡 · 면세점</td></tr>
+              <tr><th>G 코드</th><td><b>오프라인</b> · 베이비 하우스</td><td class="role">디앤비 마트 납품 · 베이비 하우스</td></tr>
+              <tr><th>일반</th><td>위 두 가지를 제외한 <b>그 외</b> 전 건</td><td class="role">산후조리원 · 품고 · DTC</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="tab-terms" role="tabpanel" aria-labelledby="tab-button-terms" hidden>
+    <section class="panel">
+      <div class="panel-head">
+        <h2>용어</h2><span>이 문서와 실무 대화에서 사용하는 의미</span>
+      </div>
+      <div class="panel-body">
+        <div class="intro">
+          <span class="intro-label">읽는 방법</span>
+          <strong>모르는 약어와 업무 표현을 여기서 먼저 확인하세요.</strong>
+          <p>일반적인 사전 정의보다 뉴트리시아 인수인계 업무에서 실제로 쓰이는 맥락을 우선했습니다.</p>
+        </div>
+        <div class="searchbar"><input id="term-search" type="search" placeholder="용어 검색: ELN, 전진물류, 수입자, D 코드…" autocomplete="off" aria-label="용어 검색"></div>
+        <div class="term-sections" id="term-sections">
+          <section class="term-section">
+            <div class="term-section-head"><h3>사업 분류</h3><p>제품과 판매 구조를 나누는 기준</p></div>
+            <div class="term-grid">
+              <article class="term-card" data-term="eln 내수"><b>ELN <em>내수</em></b><p>국내 판매용 일반 제품 발주 분류. 한국 정식 수입통관 후 용인 메인 허브 재고로 운영합니다.</p></article>
+              <article class="term-card" data-term="krone 크로네 직구"><b>Krone <em>직구</em></b><p>중국 동수 전진물류창고 재고를 기반으로 한국 고객 주문별 개인직구통관하는 분류입니다.</p></article>
+              <article class="term-card" data-term="amn 메디컬 특수분유" id="k-amn"><b>AMN <em>메디컬</em></b><p>특수분유 발주 분류. 내수와 같은 한국 수입통관·입고 경로를 사용하지만 별도로 발주합니다.</p></article>
+              <article class="term-card" data-term="sku 재고관리단위"><b>SKU</b><p>제품과 규격을 구분하는 재고 관리 단위입니다.</p></article>
+            </div>
+          </section>
+
+          <section class="term-section">
+            <div class="term-section-head"><h3>발주 · 물류 · 통관</h3><p>상품이 공장에서 한국 고객까지 이동하는 구조</p></div>
+            <div class="term-grid">
+              <article class="term-card" data-term="수입자 아이베 뉴트리시아 코리아"><b>수입자</b><p>해외 상품을 한국으로 수입하는 주체. 아이베에서 뉴트리시아 코리아로 변경 중입니다.</p></article>
+              <article class="term-card" data-term="공장 발주 뉴트리시아 코리아 월드와이드"><b>실제 공장 발주</b><p>생산·공급을 위해 공장에 전달되는 발주. 현재 뉴트리시아 코리아를 통해 진행합니다.</p></article>
+              <article class="term-card" data-term="3pl 물류대행 품고 디앤비 동수"><b>3PL</b><p>외부 물류사가 보관·출고를 수행하는 구조. 보관 중 재고 소유권은 당사에 남습니다.</p></article>
+              <article class="term-card" data-term="전진물류창고 중국 동수"><b>전진물류창고</b><p>주문 전에 상품을 수요지와 가까운 거점에 미리 배치하는 창고. 직구에서는 중국 동수가 이 역할을 합니다.</p></article>
+              <article class="term-card" data-term="수입통관 정식통관 내수 메디컬"><b>정식 수입통관</b><p>내수·메디컬 상품을 한국으로 수입·통관한 뒤 국내 재고로 판매하는 방식입니다.</p></article>
+              <article class="term-card" data-term="개인직구통관 개인통관고유부호"><b>개인직구통관</b><p>해외 재고를 한국 고객의 주문 단위로 반입하는 방식. 주문자의 개인통관고유부호를 사용합니다.</p></article>
+              <article class="term-card" data-term="메인 허브 용인 창고"><b>용인 메인 허브</b><p>수입통관이 끝난 내수·메디컬 재고의 국내 보관 및 채널 출고 기점입니다.</p></article>
+            </div>
+          </section>
+
+          <section class="term-section">
+            <div class="term-section-head"><h3>판매 · 거래</h3><p>고객과 거래처에 상품을 판매하는 방식</p></div>
+            <div class="term-grid">
+              <article class="term-card" data-term="b2b 기업간거래 사입"><b>B2B</b><p>기업 간 거래. 쿠팡·면세점·베이비 하우스 등 사입 채널이 해당합니다.</p></article>
+              <article class="term-card" data-term="b2c 소비자 판매 직구"><b>B2C</b><p>소비자 대상 판매. 자사몰, 네이버 스토어, 메디컬 주요 채널과 직구 주문이 해당합니다.</p></article>
+              <article class="term-card" data-term="dtc 자사몰 직접판매"><b>DTC</b><p>자사몰을 통한 소비자 직접 판매를 뜻하는 사내 호칭입니다.</p></article>
+              <article class="term-card" data-term="사입 소유권 이전"><b>사입</b><p>거래처가 상품을 매입하는 방식. 출고 시 재고 소유권이 거래처로 이전됩니다.</p></article>
+              <article class="term-card" data-term="공급가 코드 d g 일반"><b>D / G / 일반 코드</b><p>D는 사입, G는 오프라인·베이비 하우스, 일반은 그 외 거래에 쓰는 공급가 구분입니다.</p></article>
+            </div>
+          </section>
+        </div>
+        <div class="empty-state" id="term-empty">일치하는 용어가 없습니다.</div>
+      </div>
+    </section>
+  </section>
+
+  <section class="tab-panel" id="tab-internal" role="tabpanel" aria-labelledby="tab-button-internal" hidden>
+    <section class="panel">
+      <div class="panel-head">
+        <h2>회사 내부 구조</h2><span>아이베 · 뉴트리시아 코리아 · 뉴트리시아 월드와이드 관계</span>
+      </div>
+      <div class="panel-body">
+        <div class="intro">
+          <span class="intro-label">핵심 변화</span>
+          <strong>수입자와 실제 공장 발주 창구가 아이베에서 뉴트리시아 코리아 중심으로 바뀌고 있습니다.</strong>
+          <p>과거에는 아이베가 뉴트리시아 월드와이드와 발주 내용을 직접 주고받았지만, 현재는 아이베가 뉴트리시아 코리아를 통해 발주 정보를 전달하고 뉴트리시아 코리아가 실제 공장 발주를 진행합니다.</p>
+        </div>
+
+        <div class="sec">
+          <h3>전환 시점</h3>
+          <div class="transition-banner">
+            <span class="transition-date">2026-10 말 예정</span>
+            <div><b>수입자 변경 제품의 부산항 도착을 시작으로 실제 전환</b><p>정확한 입항일은 아직 미확인입니다. 한국 정식 수입통관을 거치는 내수·메디컬 제품의 수입자 표기가 아이베에서 뉴트리시아 코리아로 바뀝니다.</p></div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h3>회사별 역할<small>현재 전환 구조 기준</small></h3>
+          <div class="entity-grid">
+            <article class="entity-card" style="--entity:#5f5f66"><span class="entity-type">기존 수입자 · 국내 사업 운영</span><b>아이베</b><p>기존에는 수입자이자 월드와이드와 직접 발주 내용을 주고받는 주체였습니다. 현재는 발주 정보를 뉴트리시아 코리아에 전달하는 구조로 전환 중입니다.</p></article>
+            <article class="entity-card" style="--entity:#0071e3" id="k-nutricia-korea"><span class="entity-type">신규 수입자 · 공장 발주 창구</span><b>뉴트리시아 코리아</b><p>변경 후 한국 수입자가 되며, 아이베에서 받은 발주 정보를 바탕으로 실제 공장 발주를 진행합니다.</p></article>
+            <article class="entity-card" style="--entity:#0f7b6c" id="k-hq"><span class="entity-type">글로벌 공급 구조</span><b>뉴트리시아 월드와이드</b><p>제품의 글로벌 공급 및 공장 체계를 담당합니다. 아이베와 직접 소통하던 발주 구조가 뉴트리시아 코리아 경유 구조로 바뀌었습니다.</p></article>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h3>발주 구조 변경<small>이전과 현재 비교</small></h3>
+          <div class="change-compare">
+            <article class="change-side">
+              <span class="change-label">BEFORE · 기존</span>
+              <h4>아이베가 월드와이드와 직접 발주 소통</h4>
+              <div class="change-route"><span>아이베</span><i>↔</i><span>뉴트리시아 월드와이드</span></div>
+              <p>아이베가 수입자 역할을 맡고 발주 내용을 월드와이드와 직접 주고받았습니다.</p>
+            </article>
+            <div class="change-arrow" aria-hidden="true">→</div>
+            <article class="change-side is-now">
+              <span class="change-label">NOW · 변경 중</span>
+              <h4>뉴트리시아 코리아가 실제 공장 발주 진행</h4>
+              <div class="change-route"><span>아이베</span><i>→</i><span>뉴트리시아 코리아</span><i>→</i><span>공장</span></div>
+              <p>아이베는 뉴트리시아 코리아와 발주 정보를 주고받고, 뉴트리시아 코리아가 실제 공장 발주와 수입자 역할을 맡습니다.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h3>무엇이 바뀌는가</h3>
+          <div class="change-table">
+            <div class="change-row"><div class="label">구분</div><div class="before">기존 구조</div><div class="after">변경 구조</div></div>
+            <div class="change-row"><div class="label">발주 소통</div><div class="before">아이베 ↔ 월드와이드 직접 소통</div><div class="after">아이베 → 뉴트리시아 코리아 → 공장</div></div>
+            <div class="change-row"><div class="label">실제 공장 발주</div><div class="before">월드와이드와 직접 진행</div><div class="after">뉴트리시아 코리아를 통해 진행</div></div>
+            <div class="change-row"><div class="label">한국 수입자</div><div class="before">아이베</div><div class="after">뉴트리시아 코리아</div></div>
+            <div class="change-row"><div class="label">직접 영향 범위</div><div class="before">아이베 명의 한국 수입통관</div><div class="after">뉴트리시아 코리아 명의 한국 수입통관 제품</div></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </section>
+
+  <section class="tab-panel" id="tab-partners" role="tabpanel" aria-labelledby="tab-button-partners" hidden>
+    <section class="panel">
+      <div class="panel-head">
+        <h2>협력사(파트너사)</h2><span>어느 구간에서 무엇을 맡는지 기준으로 정리</span>
+      </div>
+      <div class="panel-body">
+        <div class="intro">
+          <span class="intro-label">협업 기준</span>
+          <strong>연락처를 외우기보다 각 파트너가 담당하는 흐름과 책임 경계를 먼저 이해하세요.</strong>
+          <p>변경 가능성이 큰 개인 담당자와 세부 업무 주기는 제외하고, 각 회사·채널의 구조적 역할만 정리했습니다.</p>
+        </div>
+        <div class="partner-groups">
+          <section class="partner-group" data-kind="domestic">
+            <div class="partner-group-head"><span class="partner-group-no">01</span><div><h3>수입통관 · 국내 입고</h3><p>내수와 메디컬이 한국 재고가 되는 구간</p></div></div>
+            <div class="partner-item" id="k-tywa"><b>티와이</b><span>한국으로 수입하는 내수·메디컬 상품의 정식 수입통관 대행 및 컨설팅.</span><span class="partner-meta">내수 · 메디컬 / 수입통관</span></div>
+            <div class="partner-item" id="k-yongin"><b>용인 메인 허브</b><span>통관 완료 후 국내 재고 보관 및 전 채널 출고 기점.</span><span class="partner-meta">내수 · 메디컬 / 보관·출고</span></div>
+          </section>
+
+          <section class="partner-group" data-kind="domestic">
+            <div class="partner-group-head"><span class="partner-group-no">02</span><div><h3>내수 판매 · 물류</h3><p>국내 재고가 거래처와 소비자에게 가는 구간</p></div></div>
+            <div class="partner-item" id="k-care"><b>산후조리원</b><span>용인 메인 허브에서 출고되는 직거래 채널.</span><span class="partner-meta">내수 / 직거래</span></div>
+            <div class="partner-item" id="k-b2b"><b>쿠팡 · 면세점 · 베이비 하우스</b><span>메인 허브에서 바로 출고하는 B2B 사입 채널. 출고 시 소유권이 이전됩니다.</span><span class="partner-meta">내수 · 사입</span></div>
+            <div class="partner-item" id="k-pl3"><b>품고 · 디앤비</b><span>내수 3PL. 품고는 네이버 스토어 B2C, 디앤비는 이마트·롯데마트 점포 납품을 담당합니다.</span><span class="partner-meta">내수 · 3PL · 재고는 자사 소유</span></div>
+            <div class="partner-item" id="k-dtc"><b>자사몰(DTC)</b><span>소비자 직접 판매 채널. 마케팅·세일즈에서는 DTC로 부릅니다.</span><span class="partner-meta">내수 · 메디컬 · B2C</span></div>
+          </section>
+
+          <section class="partner-group" data-kind="crossborder">
+            <div class="partner-group-head"><span class="partner-group-no">03</span><div><h3>직구 물류 · 통관</h3><p>유럽에서 중국을 거쳐 한국 소비자에게 가는 구간</p></div></div>
+            <div class="partner-item" id="k-dongsu"><b>동수</b><span>유럽 물량을 선배치하는 중국 전진물류창고이자 3PL. 자사 ERP 개발·운영도 담당합니다.</span><span class="partner-meta">직구 · 중국 보관/출고</span></div>
+            <div class="partner-item" id="k-cncustoms"><b>중국 세관</b><span>동수 창고에서 출고되는 주문 건의 수출 신고 구간.</span><span class="partner-meta">직구 · 수출 신고</span></div>
+            <div class="partner-item" id="k-ilyang"><b>일양 글로벌 로지스</b><span>중국 출고 상품의 에어 부킹과 한국까지의 항공 운송을 담당합니다.</span><span class="partner-meta">직구 / 국제 운송</span></div>
+            <div class="partner-item" id="k-giant"><b>자이언트</b><span>주문자의 개인통관고유부호를 기준으로 개인직구통관을 대행합니다.</span><span class="partner-meta">직구 · 한국 통관</span></div>
+            <div class="partner-item" id="k-lotte"><b>롯데택배</b><span>통관 완료 후 한국 내 라스트마일 배송을 담당합니다.</span><span class="partner-meta">직구 · 국내 배송</span></div>
+          </section>
+
+          <section class="partner-group" data-kind="medical">
+            <div class="partner-group-head"><span class="partner-group-no">04</span><div><h3>메디컬 · 기타 외부 접점</h3><p>메디컬 판매 채널과 기타 연계 회사</p></div></div>
+            <div class="partner-item" id="k-medcoupang"><b>쿠팡(메디컬)</b><span>메디컬에서 유일한 외부 사입 채널.</span><span class="partner-meta">메디컬 · 사입</span></div>
+            <div class="partner-item" id="k-rx"><b>Rx 채널</b><span>메디컬 제품의 주요 B2C 판매 채널.</span><span class="partner-meta">메디컬 / B2C</span></div>
+            <div class="partner-item" id="k-inbo"><b>인구보건협회(인보협)</b><span>메디컬 제품의 주요 B2C 판매 채널.</span><span class="partner-meta">메디컬 / B2C</span></div>
+            <div class="partner-item"><b>롯데칠성 · 신세계</b><span>에비앙 관련 거래처.</span><span class="partner-meta">기타 / 거래처</span></div>
+            <div class="partner-item"><b>랄츠 · 아인병원</b><span>내수 제품 출고 거래처.</span><span class="partner-meta">내수 / 거래처</span></div>
+            <div class="partner-item"><b>우림 · 뉴비즈원</b><span>기타 업무 연계 외부사.</span><span class="partner-meta">기타 / 외부사</span></div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </section>
+</div>
+
+<script>
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.primary-tab'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.tab-panel'));
+  var segs = Array.prototype.slice.call(document.querySelectorAll('.seg-btn'));
+  var tracked = Array.prototype.slice.call(document.querySelectorAll('#tab-business [data-track]'));
+
+  function activateTab(name, moveFocus, syncHash){
+    tabs.forEach(function(tab){
+      var active = tab.dataset.tab === name;
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+      tab.tabIndex = active ? 0 : -1;
+      if(active && moveFocus) tab.focus();
+    });
+    panels.forEach(function(panel){ panel.hidden = panel.id !== 'tab-' + name; });
+    if(syncHash && window.history && window.history.replaceState){
+      window.history.replaceState(null, '', '#' + name);
+    }
+  }
+
+  tabs.forEach(function(tab, index){
+    tab.addEventListener('click', function(){ activateTab(tab.dataset.tab, false, true); });
+    tab.addEventListener('keydown', function(event){
+      var next = null;
+      if(event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+      if(event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+      if(event.key === 'Home') next = 0;
+      if(event.key === 'End') next = tabs.length - 1;
+      if(next !== null){ event.preventDefault(); activateTab(tabs[next].dataset.tab, true, true); }
+    });
+  });
+
+  function applyFilter(f){
+    segs.forEach(function(b){ b.classList.toggle('is-on', b.dataset.filter === f); });
+    tracked.forEach(function(el){
+      var t = el.dataset.track;
+      el.hidden = !(f === 'all' || t === 'common' || t === f);
+    });
+  }
+  segs.forEach(function(b){ b.addEventListener('click', function(){ applyFilter(b.dataset.filter); }); });
+
+  var termSearch = document.getElementById('term-search');
+  var termCards = Array.prototype.slice.call(document.querySelectorAll('.term-card'));
+  var termSections = Array.prototype.slice.call(document.querySelectorAll('.term-section'));
+  var termEmpty = document.getElementById('term-empty');
+  if(termSearch){
+    termSearch.addEventListener('input', function(){
+      var query = termSearch.value.trim().toLocaleLowerCase('ko-KR');
+      var visible = 0;
+      termCards.forEach(function(card){
+        var haystack = (card.dataset.term + ' ' + card.textContent).toLocaleLowerCase('ko-KR');
+        var match = !query || haystack.indexOf(query) !== -1;
+        card.hidden = !match;
+        if(match) visible += 1;
+      });
+      termSections.forEach(function(section){
+        section.hidden = !Array.prototype.some.call(section.querySelectorAll('.term-card'), function(card){ return !card.hidden; });
+      });
+      termEmpty.style.display = visible ? 'none' : 'block';
+    });
+  }
+
+  document.querySelectorAll('[data-key]').forEach(function(n){
+    var target = document.getElementById('k-' + n.dataset.key);
+    if(!target) { n.classList.remove('is-linked'); return; }
+    n.addEventListener('click', function(){
+      document.querySelectorAll('.flash').forEach(function(e){ e.classList.remove('flash'); });
+      document.querySelectorAll('.is-active').forEach(function(e){ e.classList.remove('is-active'); });
+      n.classList.add('is-active');
+      var targetPanel = target.closest('.tab-panel');
+      if(targetPanel) activateTab(targetPanel.id.replace('tab-', ''), false, true);
+      window.requestAnimationFrame(function(){
+        void target.offsetWidth;
+        target.classList.add('flash');
+        target.scrollIntoView({ block:'center', behavior:'smooth' });
+      });
+    });
+  });
+
+  var initialTab = window.location.hash.replace('#', '');
+  if(tabs.some(function(tab){ return tab.dataset.tab === initialTab; })){
+    activateTab(initialTab, false, false);
+  }
+})();
+</script>
+</body>
+</html>
