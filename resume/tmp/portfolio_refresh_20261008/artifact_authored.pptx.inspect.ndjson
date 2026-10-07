@@ -1,0 +1,607 @@
+{"kind":"deck","id":"pr/d2dzaj","name":"Deck"}
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster1.xml","name":"","type":"master","placeholders":[{"name":"title","type":"title","textPreview":"마스터 제목 스타일 편집"},{"name":"body","type":"body","textPreview":"마스터 텍스트 스타일을 편집하려면 클릭 | 두 번째 수준 | 세 번째 수준 | 네 번째 수준 | 다섯 번째 수준"},{"name":"dateTime","type":"dateTime","textPreview":"2026-10-08"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout1.xml","name":"제목 슬라이드","type":"title","placeholders":[{"name":"title","type":"title","textPreview":"마스터 제목 스타일 편집"},{"name":"subtitle","type":"subtitle","textPreview":"클릭하여 마스터 부제목 스타일 편집"},{"name":"dateTime","type":"dateTime","textPreview":"2026-10-08"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout2.xml","name":"제목 및 내용","type":"obj","placeholders":[{"name":"title","type":"title","textPreview":"마스터 제목 스타일 편집"},{"name":"2","textPreview":"마스터 텍스트 스타일을 편집하려면 클릭 | 두 번째 수준 | 세 번째 수준 | 네 번째 수준 | 다섯 번째 수준"},{"name":"dateTime","type":"dateTime","textPreview":"2026-10-08"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout3.xml","name":"구역 머리글","type":"secHead","placeholders":[{"name":"title","type":"title","textPreview":"마스터 제목 스타일 편집"},{"name":"body","type":"body","textPreview":"마스터 텍스트 스타일을 편집하려면 클릭"},{"name":"dateTime","type":"dateTime","textPreview":"2026-10-08"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout4.xml","name":"콘텐츠 2개","type":"twoObj","placeholders":[{"name":"title","type":"title","textPreview":"마스터 제목 스타일 편집"},{"name":"2","textPreview":"마스터 텍스트 스타일을 편집하려면 클릭 | 두 번째 수준 | 세 번째 수준 | 네 번째 수준 | 다섯 번째 수준"},{"name":"3","textPreview":"마스터 텍스트 스타일을 편집하려면 클릭 | 두 번째 수준 | 세 번째 수준 | 네 번째 수준 | 다섯 번째 수준"},{"name":"dateTime","type":"dateTime","textPreview":"2026-10-08"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout5.xml","name":"비교","type":"twoTxTwoObj","placeholders":[{"name":"title","type":"title","textPreview":"마스터 제목 스타일 편집"},{"name":"body","type":"body","textPreview":"마스터 텍스트 스타일을 편집하려면 클릭"},{"name":"3","textPreview":"마스터 텍스트 스타일을 편집하려면 클릭 | 두 번째 수준 | 세 번째 수준 | 네 번째 수준 | 다섯 번째 수준"},{"name":"body","type":"body","textPreview":"마스터 텍스트 스타일을 편집하려면 클릭"},{"name":"5","textPreview":"마스터 텍스트 스타일을 편집하려면 클릭 | 두 번째 수준 | 세 번째 수준 | 네 번째 수준 | 다섯 번째 수준"},{"name":"dateTime","type":"dateTime","textPreview":"2026-10-08"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout6.xml","name":"제목만","type":"titleOnly","placeholders":[{"name":"title","type":"title","textPreview":"마스터 제목 스타일 편집"},{"name":"dateTime","type":"dateTime","textPreview":"2026-10-08"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout7.xml","name":"빈 화면","type":"blank","placeholders":[{"name":"dateTime","type":"dateTime","textPreview":"2026-10-08"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout8.xml","name":"캡션 있는 콘텐츠","type":"objTx","placeholders":[{"name":"title","type":"title","textPreview":"마스터 제목 스타일 편집"},{"name":"2","textPreview":"마스터 텍스트 스타일을 편집하려면 클릭 | 두 번째 수준 | 세 번째 수준 | 네 번째 수준 | 다섯 번째 수준"},{"name":"body","type":"body","textPreview":"마스터 텍스트 스타일을 편집하려면 클릭"},{"name":"dateTime","type":"dateTime","textPreview":"2026-10-08"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout9.xml","name":"캡션 있는 그림","type":"picTx","placeholders":[{"name":"title","type":"title","textPreview":"마스터 제목 스타일 편집"},{"name":"picture","type":"picture"},{"name":"body","type":"body","textPreview":"마스터 텍스트 스타일을 편집하려면 클릭"},{"name":"dateTime","type":"dateTime","textPreview":"2026-10-08"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout10.xml","name":"제목 및 세로 텍스트","type":"vertTx","placeholders":[{"name":"title","type":"title","textPreview":"마스터 제목 스타일 편집"},{"name":"body","type":"body","textPreview":"마스터 텍스트 스타일을 편집하려면 클릭 | 두 번째 수준 | 세 번째 수준 | 네 번째 수준 | 다섯 번째 수준"},{"name":"dateTime","type":"dateTime","textPreview":"2026-10-08"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout11.xml","name":"세로 제목 및 텍스트","type":"vertTitleAndTx","placeholders":[{"name":"title","type":"title","textPreview":"마스터 제목 스타일 편집"},{"name":"body","type":"body","textPreview":"마스터 텍스트 스타일을 편집하려면 클릭 | 두 번째 수준 | 세 번째 수준 | 네 번째 수준 | 다섯 번째 수준"},{"name":"dateTime","type":"dateTime","textPreview":"2026-10-08"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout12.xml","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/y90nupkv","slide":1,"title":"현장에서 발견한 문제를","textShapes":32}
+{"kind":"shape","id":"sh/j2pkne14","slide":1,"name":"직사각형 34","bbox":[812,0,468,720]}
+{"kind":"textbox","id":"sh/547294r6","slide":1,"name":"text-1","text":"현장에서 발견한 문제를\n제품의 기준으로 정하고, 운영에서 확인합니다.","textPreview":"현장에서 발견한 문제를 | 제품의 기준으로 정하고, 운영에서 확인합니다.","textChars":38,"textLines":2,"bbox":[54,70,720,82]}
+{"kind":"textbox","id":"sh/k3yl0zql","slide":1,"name":"text-2","text":"컴퓨터소프트웨어를 전공하고 아이베 SCM팀에서 운영 실무를 맡았습니다.\n계약별 주문 오류를 시스템 규칙으로 바꾸고, 통관 연동의 오류 복구를 설계했습니다.\n발주 검토 자료를 모으는 반복 업무는 직접 대시보드로 구현하고,\n기존 시트와 병행 검증하며 팀원들의 사용 의견을 반영했습니다.","textPreview":"컴퓨터소프트웨어를 전공하고 아이베 SCM팀에서 운영 실무를 맡았습니다. | 계약별 주문 오류를 시스템 규칙으로 바꾸고, 통관 연동의 오류 복구를 설계했습니다. | 발주 검토 자료를 모으는 반복 업무는 직접 대시보드로 구현하고, | 기존 시트와 병...","textChars":157,"textLines":4,"bbox":[54,175,718,135]}
+{"kind":"textbox","id":"sh/7qp4be9c","slide":1,"name":"text-3","text":"박종혁  /  PM 포트폴리오","textPreview":"박종혁  /  PM 포트폴리오","textChars":16,"textLines":1,"bbox":[54,323,700,27]}
+{"kind":"textbox","id":"sh/65g3298r","slide":1,"name":"text-4","text":"일하는 방식","textPreview":"일하는 방식","textChars":6,"textLines":1,"bbox":[64,383,650,22]}
+{"kind":"textbox","id":"sh/ts7md4r2","slide":1,"name":"text-5","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[64,418,200,22]}
+{"kind":"textbox","id":"sh/sryl4zqx","slide":1,"name":"text-6","text":"문제와 범위","textPreview":"문제와 범위","textChars":6,"textLines":1,"bbox":[64,451,218,30]}
+{"kind":"textbox","id":"sh/fu94fe98","slide":1,"name":"text-7","text":"반복되는 업무에서\n먼저 바꿀 부분을 정함","textPreview":"반복되는 업무에서 | 먼저 바꿀 부분을 정함","textChars":22,"textLines":2,"bbox":[64,492,218,55]}
+{"kind":"textbox","id":"sh/utg3698n","slide":1,"name":"text-8","text":"B2B · 솔루션과 제외 범위","textPreview":"B2B · 솔루션과 제외 범위","textChars":16,"textLines":1,"bbox":[64,551,218,27]}
+{"kind":"textbox","id":"sh/wn6dc7eh","slide":1,"name":"text-9","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[312,418,200,22]}
+{"kind":"textbox","id":"sh/hofulsf2","slide":1,"name":"text-10","text":"정책과 예외","textPreview":"정책과 예외","textChars":6,"textLines":1,"bbox":[312,451,218,30]}
+{"kind":"textbox","id":"sh/ul4vaxgb","slide":1,"name":"text-11","text":"판단 기준을 사용자 흐름과\n개발 요구사항으로 구체화","textPreview":"판단 기준을 사용자 흐름과 | 개발 요구사항으로 구체화","textChars":28,"textLines":2,"bbox":[312,492,218,55]}
+{"kind":"textbox","id":"sh/vmdcj2xw","slide":1,"name":"text-12","text":"관세청 · 주문과 포장 분리","textPreview":"관세청 · 주문과 포장 분리","textChars":15,"textLines":1,"bbox":[312,551,218,27]}
+{"kind":"textbox","id":"sh/4r6dg7et","slide":1,"name":"text-13","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[560,418,200,22]}
+{"kind":"textbox","id":"sh/5sfepcfe","slide":1,"name":"text-14","text":"검증과 다음 판단","textPreview":"검증과 다음 판단","textChars":9,"textLines":1,"bbox":[560,451,218,30]}
+{"kind":"textbox","id":"sh/ipovexwn","slide":1,"name":"text-15","text":"확인한 결과와 가설을 나눠\n다음 검증 기준을 정함","textPreview":"확인한 결과와 가설을 나눠 | 다음 검증 기준을 정함","textChars":27,"textLines":2,"bbox":[560,492,218,55]}
+{"kind":"textbox","id":"sh/3qxwn2x8","slide":1,"name":"text-16","text":"SCM · 병행 검증과 운영 개선","textPreview":"SCM · 병행 검증과 운영 개선","textChars":18,"textLines":1,"bbox":[560,551,218,27]}
+{"kind":"textbox","id":"sh/sfqdkrep","slide":1,"name":"사각형: 둥근 모서리 17","text":"B2B 전용몰\n운영 정책·실행","textPreview":"B2B 전용몰 | 운영 정책·실행","textChars":16,"textLines":2,"bbox":[64,610,224,64]}
+{"kind":"textbox","id":"sh/dgzetcfa","slide":1,"name":"사각형: 둥근 모서리 18","text":"SCM 대시보드\n자료 취합·운영 검증","textPreview":"SCM 대시보드 | 자료 취합·운영 검증","textChars":20,"textLines":2,"bbox":[305,610,224,64]}
+{"kind":"textbox","id":"sh/1cvuxc7e","slide":1,"name":"사각형: 둥근 모서리 19","text":"관세청 연동\n데이터·오류 복구","textPreview":"관세청 연동 | 데이터·오류 복구","textChars":16,"textLines":2,"bbox":[546,610,224,64]}
+{"kind":"textbox","id":"sh/zadcv2p8","slide":1,"name":"text-20","text":"경력","textPreview":"경력","textChars":2,"textLines":1,"bbox":[1060,97,166,22]}
+{"kind":"textbox","id":"sh/e94v2hon","slide":1,"name":"text-21","text":"아이베 SCM팀","textPreview":"아이베 SCM팀","textChars":8,"textLines":1,"bbox":[1060,126,166,24]}
+{"kind":"textbox","id":"sh/90ve1w7q","slide":1,"name":"text-22","text":"2025-09-08 ~ 재직 중\nSCM 실무·프로젝트 PM","textPreview":"2025-09-08 ~ 재직 중 | SCM 실무·프로젝트 PM","textChars":32,"textLines":2,"bbox":[1060,154,166,51]}
+{"kind":"textbox","id":"sh/ozmd8r65","slide":1,"name":"text-23","text":"학력","textPreview":"학력","textChars":2,"textLines":1,"bbox":[1060,221,165,22]}
+{"kind":"textbox","id":"sh/nydczmpk","slide":1,"name":"text-24","text":"고려사이버대학교\nAI·데이터과학부 재학\n2027-02 졸업 예정","textPreview":"고려사이버대학교 | AI·데이터과학부 재학 | 2027-02 졸업 예정","textChars":35,"textLines":3,"bbox":[1060,250,166,64]}
+{"kind":"textbox","id":"sh/mx4v6hoz","slide":1,"name":"text-25","text":"부천대 컴퓨터소프트웨어과\n2019-03 ~ 2024-02 졸업","textPreview":"부천대 컴퓨터소프트웨어과 | 2019-03 ~ 2024-02 졸업","textChars":34,"textLines":2,"bbox":[1060,326,166,48]}
+{"kind":"textbox","id":"sh/p4bu5s76","slide":1,"name":"text-26","text":"SKILL","textPreview":"SKILL","textChars":5,"textLines":1,"bbox":[859,404,334,30]}
+{"kind":"textbox","id":"sh/432dwn6l","slide":1,"name":"사각형: 둥근 모서리 28","text":"기획","textPreview":"기획","textChars":2,"textLines":1,"bbox":[859,447,66,24]}
+{"kind":"textbox","id":"sh/uxgjq907","slide":1,"name":"text-28","text":"요구사항 정의, 정책 설계, 데이터 흐름, QA","textPreview":"요구사항 정의, 정책 설계, 데이터 흐름, QA","textChars":26,"textLines":1,"bbox":[859,485,345,45]}
+{"kind":"textbox","id":"sh/vyp0je1s","slide":1,"name":"사각형: 둥근 모서리 30","text":"기술","textPreview":"기술","textChars":2,"textLines":1,"bbox":[859,539,66,24]}
+{"kind":"textbox","id":"sh/wzy1szid","slide":1,"name":"text-30","text":"Python, SQL, REST API, Git","textPreview":"Python, SQL, REST API, Git","textChars":26,"textLines":1,"bbox":[859,577,345,28]}
+{"kind":"textbox","id":"sh/h072l4jy","slide":1,"name":"사각형: 둥근 모서리 32","text":"운영","textPreview":"운영","textChars":2,"textLines":1,"bbox":[859,624,66,24]}
+{"kind":"textbox","id":"sh/i1gje90j","slide":1,"name":"text-32","text":"개발사 조율, 운영 피드백, 지표와 검수 기준","textPreview":"개발사 조율, 운영 피드백, 지표와 검수 기준","textChars":25,"textLines":1,"bbox":[859,661,345,29]}
+{"kind":"image","id":"im/jih0bmhk","slide":1,"name":"그림 54","bbox":[853.21,87,156.57,223]}
+{"kind":"notes","id":"nt/y90nupkv","slide":1,"text":"근거: career_facts.md C-002·003·010a·025·039·050·055·058·059·078·086.\nBIGSEE는 별도 공동 서비스. 개발 구현은 동료 담당."}
+{"kind":"slide","id":"sl/hwbqtkby","slide":2,"title":"02 / 24","textShapes":21}
+{"kind":"textbox","id":"sh/gbmxszmt","slide":2,"name":"text-0","text":"02 / 24","textPreview":"02 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/9072xkry","slide":2,"name":"text-1","text":"Portfolio","textPreview":"Portfolio","textChars":9,"textLines":1,"bbox":[64,278,300,25]}
+{"kind":"textbox","id":"sh/ozy1ofad","slide":2,"name":"text-2","text":"Project","textPreview":"Project","textChars":7,"textLines":1,"bbox":[64,313,340,70]}
+{"kind":"textbox","id":"sh/b29kza94","slide":2,"name":"text-3","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[452,123,91,69]}
+{"kind":"shape","id":"sh/a10jqpsj","slide":2,"name":"사각형: 둥근 모서리 4","bbox":[551,130,10,10]}
+{"kind":"textbox","id":"sh/x4r21kru","slide":2,"name":"text-5","text":"운영 디지털화","textPreview":"운영 디지털화","textChars":7,"textLines":1,"bbox":[589,120,600,25]}
+{"kind":"textbox","id":"sh/w3i1sfa9","slide":2,"name":"text-6","text":"산후조리원 전용 B2B 몰","textPreview":"산후조리원 전용 B2B 몰","textChars":14,"textLines":1,"bbox":[589,150,609,38]}
+{"kind":"textbox","id":"sh/r65knqtk","slide":2,"name":"text-7","text":"p 03–10   계약 조건을 주문 규칙으로 바꾸고 운영에서 검수","textPreview":"p 03–10   계약 조건을 주문 규칙으로 바꾸고 운영에서 검수","textChars":36,"textLines":1,"bbox":[589,197,609,38]}
+{"kind":"textbox","id":"sh/q5wjelsz","slide":2,"name":"text-8","text":"핵심 흐름 운영 · 초기 결과 관찰","textPreview":"핵심 흐름 운영 · 초기 결과 관찰","textChars":19,"textLines":1,"bbox":[589,240,609,24]}
+{"kind":"textbox","id":"sh/ove9o7yd","slide":2,"name":"text-9","text":"문제 정의 · 범위 결정 · 예외 정책 · QA","textPreview":"문제 정의 · 범위 결정 · 예외 정책 · QA","textChars":26,"textLines":1,"bbox":[589,272,609,25]}
+{"kind":"textbox","id":"sh/9wnqhczy","slide":2,"name":"text-10","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[452,315,91,69]}
+{"kind":"shape","id":"sh/mtwrmxg7","slide":2,"name":"사각형: 둥근 모서리 11","bbox":[551,322,10,10]}
+{"kind":"textbox","id":"sh/nu58f2hs","slide":2,"name":"text-12","text":"발주 검토 자료 자동취합","textPreview":"발주 검토 자료 자동취합","textChars":13,"textLines":1,"bbox":[589,312,600,25]}
+{"kind":"textbox","id":"sh/wjy9sry9","slide":2,"name":"text-13","text":"SCM 대시보드","textPreview":"SCM 대시보드","textChars":8,"textLines":1,"bbox":[589,342,609,38]}
+{"kind":"textbox","id":"sh/xk7qlczu","slide":2,"name":"text-14","text":"p 11–17   데이터의 의미를 구분하고 월간 검토 자료로 검증","textPreview":"p 11–17   데이터의 의미를 구분하고 월간 검토 자료로 검증","textChars":36,"textLines":1,"bbox":[589,389,609,38]}
+{"kind":"textbox","id":"sh/ahwrqhgj","slide":2,"name":"text-15","text":"2026-04 시범 배포 · 06월부터 기준 자료로 사용","textPreview":"2026-04 시범 배포 · 06월부터 기준 자료로 사용","textChars":31,"textLines":1,"bbox":[589,432,609,24]}
+{"kind":"textbox","id":"sh/bip8jmho","slide":2,"name":"text-16","text":"데이터 설계 · 직접 구현 · 병행 검증 · 운영 개선","textPreview":"데이터 설계 · 직접 구현 · 병행 검증 · 운영 개선","textChars":30,"textLines":1,"bbox":[589,464,609,25]}
+{"kind":"textbox","id":"sh/cnupgny5","slide":2,"name":"text-17","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[452,507,91,69]}
+{"kind":"shape","id":"sh/do3q9szq","slide":2,"name":"사각형: 둥근 모서리 18","bbox":[551,514,10,10]}
+{"kind":"textbox","id":"sh/t8byxkn2","slide":2,"name":"text-19","text":"데이터 연동","textPreview":"데이터 연동","textChars":6,"textLines":1,"bbox":[589,504,600,25]}
+{"kind":"textbox","id":"sh/s72xofmh","slide":2,"name":"text-20","text":"관세청 통관 연동","textPreview":"관세청 통관 연동","textChars":9,"textLines":1,"bbox":[589,534,609,38]}
+{"kind":"textbox","id":"sh/76twva5c","slide":2,"name":"text-21","text":"p 18–23   주문·포장 기준과 오류 수정·재제출 책임을 조율","textPreview":"p 18–23   주문·포장 기준과 오류 수정·재제출 책임을 조율","textChars":36,"textLines":1,"bbox":[589,581,609,38]}
+{"kind":"textbox","id":"sh/65kfmpor","slide":2,"name":"text-22","text":"신규·기존 방식 병행 · 시나리오 30건 검증","textPreview":"신규·기존 방식 병행 · 시나리오 30건 검증","textChars":25,"textLines":1,"bbox":[589,624,609,24]}
+{"kind":"textbox","id":"sh/hcvy14ne","slide":2,"name":"text-23","text":"데이터 구조 · 의사결정 · 오류 복구 · 운영 검증","textPreview":"데이터 구조 · 의사결정 · 오류 복구 · 운영 검증","textChars":29,"textLines":1,"bbox":[589,656,609,25]}
+{"kind":"notes","id":"nt/hwbqtkby","slide":2,"text":"근거: career_facts.md C-027·031·039·040·050·055·058·059.\n포함판은 일반 주니어 PM용. 최신 resume/AGENTS.md의 B2B 우선 원칙 적용."}
+{"kind":"slide","id":"sl/ofy9wn61","slide":3,"title":"03 / 24","textShapes":28}
+{"kind":"textbox","id":"sh/ax4zax0n","slide":3,"name":"text-0","text":"03 / 24","textPreview":"03 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/cza94vmx","slide":3,"name":"text-1","text":"Project 01.  운영 디지털화","textPreview":"Project 01.  운영 디지털화","textChars":20,"textLines":1,"bbox":[64,76,1130,34]}
+{"kind":"textbox","id":"sh/d0jax03i","slide":3,"name":"사각형: 둥근 모서리 2","text":"B2B","textPreview":"B2B","textChars":3,"textLines":1,"bbox":[64,168,93,92]}
+{"kind":"textbox","id":"sh/298ryl4v","slide":3,"name":"text-3","text":"산후조리원 전용 B2B 몰 구축","textPreview":"산후조리원 전용 B2B 몰 구축","textChars":17,"textLines":1,"bbox":[184,176,601,46]}
+{"kind":"textbox","id":"sh/3ah8rqlg","slide":3,"name":"text-4","text":"계약별 주문·결제·포인트 규칙을\n운영자가 설정하고 확인하는 구조로 바꿨습니다.","textPreview":"계약별 주문·결제·포인트 규칙을 | 운영자가 설정하고 확인하는 구조로 바꿨습니다.","textChars":43,"textLines":2,"bbox":[184,225,597,71]}
+{"kind":"textbox","id":"sh/obq90bml","slide":3,"name":"text-5","text":"문제","textPreview":"문제","textChars":2,"textLines":1,"bbox":[184,318,90,24]}
+{"kind":"textbox","id":"sh/pcjqtg36","slide":3,"name":"text-6","text":"계정별 상품·결제 조건을 사람이 매번 다시 판단","textPreview":"계정별 상품·결제 조건을 사람이 매번 다시 판단","textChars":26,"textLines":1,"bbox":[184,348,604,37]}
+{"kind":"textbox","id":"sh/m5cra54z","slide":3,"name":"text-7","text":"대상","textPreview":"대상","textChars":2,"textLines":1,"bbox":[184,397,90,24]}
+{"kind":"textbox","id":"sh/n6ls3alk","slide":3,"name":"text-8","text":"계약 조리원 담당자, 내부 운영팀, 공급사","textPreview":"계약 조리원 담당자, 내부 운영팀, 공급사","textChars":23,"textLines":1,"bbox":[184,427,604,37]}
+{"kind":"textbox","id":"sh/n2l4fq98","slide":3,"name":"text-9","text":"목표","textPreview":"목표","textChars":2,"textLines":1,"bbox":[184,476,90,24]}
+{"kind":"textbox","id":"sh/m1c3mlsn","slide":3,"name":"text-10","text":"오출고 예방과 주문 확인 부담 감소","textPreview":"오출고 예방과 주문 확인 부담 감소","textChars":19,"textLines":1,"bbox":[184,506,604,37]}
+{"kind":"shape","id":"sh/943mhgre","slide":3,"name":"사각형: 둥근 모서리 11","bbox":[812,168,404,319]}
+{"kind":"textbox","id":"sh/83ulovat","slide":3,"name":"text-12","text":"운영 예외를 정책으로 정리","textPreview":"운영 예외를 정책으로 정리","textChars":14,"textLines":1,"bbox":[842,193,343,25]}
+{"kind":"shape","id":"sh/v6l4jq94","slide":3,"name":"사각형: 둥근 모서리 13","bbox":[844,230,340,54]}
+{"kind":"textbox","id":"sh/a5c3ql8z","slide":3,"name":"text-14","text":"회원 등급","textPreview":"회원 등급","textChars":5,"textLines":1,"bbox":[864,236,298,22]}
+{"kind":"textbox","id":"sh/x8nml0ra","slide":3,"name":"text-15","text":"상품·결제수단 분기","textPreview":"상품·결제수단 분기","textChars":10,"textLines":1,"bbox":[864,259,298,18]}
+{"kind":"shape","id":"sh/w7ulsvqp","slide":3,"name":"사각형: 둥근 모서리 16","bbox":[844,290,340,54]}
+{"kind":"textbox","id":"sh/ja54na9g","slide":3,"name":"text-17","text":"혼합주문","textPreview":"혼합주문","textChars":4,"textLines":1,"bbox":[864,296,298,22]}
+{"kind":"textbox","id":"sh/i9w3u58v","slide":3,"name":"text-18","text":"분유와 물품 분리 주문","textPreview":"분유와 물품 분리 주문","textChars":12,"textLines":1,"bbox":[864,319,298,18]}
+{"kind":"shape","id":"sh/e10f2twf","slide":3,"name":"사각형: 둥근 모서리 19","bbox":[844,350,340,54]}
+{"kind":"textbox","id":"sh/f29gbyx0","slide":3,"name":"text-20","text":"포인트 정리","textPreview":"포인트 정리","textChars":6,"textLines":1,"bbox":[864,356,298,22]}
+{"kind":"textbox","id":"sh/03ix43e5","slide":3,"name":"text-21","text":"담당자 확인 후 실행","textPreview":"담당자 확인 후 실행","textChars":11,"textLines":1,"bbox":[864,379,298,18]}
+{"kind":"shape","id":"sh/14ryd8fq","slide":3,"name":"사각형: 둥근 모서리 22","bbox":[844,410,340,54]}
+{"kind":"textbox","id":"sh/6d0fytg3","slide":3,"name":"text-23","text":"운영 QA","textPreview":"운영 QA","textChars":5,"textLines":1,"bbox":[864,416,298,22]}
+{"kind":"textbox","id":"sh/re9g7yxo","slide":3,"name":"text-24","text":"고객 화면에서 기대 결과 확인","textPreview":"고객 화면에서 기대 결과 확인","textChars":16,"textLines":1,"bbox":[864,439,298,18]}
+{"kind":"shape","id":"sh/sfix03y9","slide":3,"name":"직선 연결선 25","bbox":[64,542,1152,0]}
+{"kind":"textbox","id":"sh/tgry9ofu","slide":3,"name":"text-26","text":"기간","textPreview":"기간","textChars":2,"textLines":1,"bbox":[64,566,75,24]}
+{"kind":"textbox","id":"sh/a9kfadwn","slide":3,"name":"text-27","text":"2026-06 기획 / 07-02 개발 착수 / 07-16 핵심 흐름 가동 / 08-31 최종 검수","textPreview":"2026-06 기획 / 07-02 개발 착수 / 07-16 핵심 흐름 가동 / 08-31 최종 검수","textChars":55,"textLines":1,"bbox":[149,566,1058,25]}
+{"kind":"textbox","id":"sh/batgjixs","slide":3,"name":"text-28","text":"역할","textPreview":"역할","textChars":2,"textLines":1,"bbox":[64,595,75,24]}
+{"kind":"textbox","id":"sh/l4fi9cza","slide":3,"name":"text-29","text":"문제 정의, 정책·요구사항 작성, 외주 개발사 조율, 운영 QA","textPreview":"문제 정의, 정책·요구사항 작성, 외주 개발사 조율, 운영 QA","textChars":35,"textLines":1,"bbox":[149,595,1058,25]}
+{"kind":"textbox","id":"sh/k3m1g7yp","slide":3,"name":"text-30","text":"협업","textPreview":"협업","textChars":2,"textLines":1,"bbox":[64,624,75,24]}
+{"kind":"textbox","id":"sh/z2d07mh4","slide":3,"name":"text-31","text":"커머스 솔루션 개발사, 내부 운영팀, 영업매니저, 공급사","textPreview":"커머스 솔루션 개발사, 내부 운영팀, 영업매니저, 공급사","textChars":31,"textLines":1,"bbox":[149,624,1058,25]}
+{"kind":"textbox","id":"sh/czmhc7id","slide":3,"name":"text-34","text":"규모","textPreview":"규모","textChars":2,"textLines":1,"bbox":[64,652.67,75,24]}
+{"kind":"textbox","id":"sh/byd032h8","slide":3,"name":"text-35","text":"계약 조리원 약 140개소 / 물품 지원 계약 약 77개소 / 공급사 협업","textPreview":"계약 조리원 약 140개소 / 물품 지원 계약 약 77개소 / 공급사 협업","textChars":41,"textLines":1,"bbox":[149,652.67,1058,25]}
+{"kind":"notes","id":"nt/ofy9wn61","slide":3,"text":"근거: 경력 사실 원장 C-030~039·076. 사업 규모와 확정 일정. 계약 항목 전체 완료와 핵심 서비스 가동을 구분.\n"}
+{"kind":"slide","id":"sl/jyx0ra1s","slide":4,"title":"04 / 24","textShapes":39}
+{"kind":"textbox","id":"sh/8jq9c72t","slide":4,"name":"text-0","text":"04 / 24","textPreview":"04 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/1cj2d8b6","slide":4,"name":"text-1","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/0ba143al","slide":4,"name":"text-2","text":"배경과 AS-IS 업무 흐름","textPreview":"배경과 AS-IS 업무 흐름","textChars":15,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/rm1k7yt4","slide":4,"name":"text-3","text":"같은 주문을 여러 곳에 옮겨 적고, 계약 조건을 사람이 다시 확인하는 일이 반복됐습니다.","textPreview":"같은 주문을 여러 곳에 옮겨 적고, 계약 조건을 사람이 다시 확인하는 일이 반복됐습니다.","textChars":49,"textLines":1,"bbox":[64,125,1152,31]}
+{"kind":"shape","id":"sh/ql8jytsj","slide":4,"name":"사각형: 둥근 모서리 4","bbox":[64,179,181,74]}
+{"kind":"textbox","id":"sh/doj29oba","slide":4,"name":"text-5","text":"구글 폼 주문","textPreview":"구글 폼 주문","textChars":7,"textLines":1,"bbox":[78,191,153,25]}
+{"kind":"textbox","id":"sh/sna103ap","slide":4,"name":"text-6","text":"조리원 담당자 작성","textPreview":"조리원 담당자 작성","textChars":10,"textLines":1,"bbox":[78,219,153,25]}
+{"kind":"textbox","id":"sh/3ihk3et8","slide":4,"name":"text-7","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[245,202,13,28]}
+{"kind":"shape","id":"sh/ih8ju9sn","slide":4,"name":"사각형: 둥근 모서리 8","bbox":[259,179,181,74]}
+{"kind":"textbox","id":"sh/kbm987y5","slide":4,"name":"text-9","text":"시트 취합","textPreview":"시트 취합","textChars":5,"textLines":1,"bbox":[273,191,153,25]}
+{"kind":"textbox","id":"sh/5cva1cfq","slide":4,"name":"text-10","text":"운영팀 수기 정리","textPreview":"운영팀 수기 정리","textChars":9,"textLines":1,"bbox":[273,219,153,25]}
+{"kind":"textbox","id":"sh/i94r6xgz","slide":4,"name":"text-11","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[440,202,13,28]}
+{"kind":"shape","id":"sh/jadsz2xk","slide":4,"name":"사각형: 둥근 모서리 12","bbox":[454,179,181,74]}
+{"kind":"textbox","id":"sh/w72947yt","slide":4,"name":"text-13","text":"입금 대조","textPreview":"입금 대조","textChars":5,"textLines":1,"bbox":[468,191,153,25]}
+{"kind":"textbox","id":"sh/x8vaxsfe","slide":4,"name":"text-14","text":"계좌와 주문 확인","textPreview":"계좌와 주문 확인","textChars":9,"textLines":1,"bbox":[468,219,153,25]}
+{"kind":"textbox","id":"sh/a5kr2xg3","slide":4,"name":"text-15","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[635,202,13,28]}
+{"kind":"shape","id":"sh/v6tsv2xo","slide":4,"name":"사각형: 둥근 모서리 16","bbox":[649,179,181,74]}
+{"kind":"textbox","id":"sh/g36tgryd","slide":4,"name":"text-17","text":"거래명세서","textPreview":"거래명세서","textChars":5,"textLines":1,"bbox":[663,191,153,25]}
+{"kind":"textbox","id":"sh/h4fa9wfy","slide":4,"name":"text-18","text":"건별 메일 발송","textPreview":"건별 메일 발송","textChars":8,"textLines":1,"bbox":[663,219,153,25]}
+{"kind":"textbox","id":"sh/p0batw72","slide":4,"name":"text-19","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[830,202,13,28]}
+{"kind":"shape","id":"sh/oz29krqh","slide":4,"name":"사각형: 둥근 모서리 20","bbox":[844,179,181,74]}
+{"kind":"textbox","id":"sh/3ytsrmpw","slide":4,"name":"text-21","text":"ERP 등록","textPreview":"ERP 등록","textChars":6,"textLines":1,"bbox":[858,191,153,25]}
+{"kind":"textbox","id":"sh/2xkrih8b","slide":4,"name":"text-22","text":"주문 재입력","textPreview":"주문 재입력","textChars":6,"textLines":1,"bbox":[858,219,153,25]}
+{"kind":"textbox","id":"sh/1wbapc7q","slide":4,"name":"text-23","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[1025,202,13,28]}
+{"kind":"shape","id":"sh/gv29g7q5","slide":4,"name":"사각형: 둥근 모서리 24","bbox":[1039,179,181,74]}
+{"kind":"textbox","id":"sh/fu9sn2p0","slide":4,"name":"text-25","text":"월말 정산","textPreview":"월말 정산","textChars":5,"textLines":1,"bbox":[1053,191,153,25]}
+{"kind":"textbox","id":"sh/et0reh8f","slide":4,"name":"text-26","text":"자료 대조","textPreview":"자료 대조","textChars":5,"textLines":1,"bbox":[1053,219,153,25]}
+{"kind":"textbox","id":"sh/tsrqlc7u","slide":4,"name":"text-27","text":"운영에서 확인한 부담","textPreview":"운영에서 확인한 부담","textChars":11,"textLines":1,"bbox":[64,300,552,30]}
+{"kind":"shape","id":"sh/sri9s7q9","slide":4,"name":"사각형: 둥근 모서리 28","bbox":[64,344,552,58]}
+{"kind":"textbox","id":"sh/ilwf69kv","slide":4,"name":"text-29","text":"매일 입금 대조","textPreview":"매일 입금 대조","textChars":8,"textLines":1,"bbox":[82,359,177,25]}
+{"kind":"textbox","id":"sh/jm5gze1g","slide":4,"name":"text-30","text":"15~30분","textPreview":"15~30분","textChars":6,"textLines":1,"bbox":[268,359,141,27]}
+{"kind":"textbox","id":"sh/knex8j21","slide":4,"name":"text-31","text":"입금자명·금액을 주문과 확인","textPreview":"입금자명·금액을 주문과 확인","textChars":15,"textLines":1,"bbox":[431,352,168,40]}
+{"kind":"shape","id":"sh/5ony1oj6","slide":4,"name":"사각형: 둥근 모서리 32","bbox":[64,418,552,58]}
+{"kind":"textbox","id":"sh/axcf29kj","slide":4,"name":"text-33","text":"오출고","textPreview":"오출고","textChars":3,"textLines":1,"bbox":[82,433,177,25]}
+{"kind":"textbox","id":"sh/vy5gbe14","slide":4,"name":"text-34","text":"월 2~3건","textPreview":"월 2~3건","textChars":6,"textLines":1,"bbox":[268,433,141,27]}
+{"kind":"textbox","id":"sh/wzex4z2p","slide":4,"name":"text-35","text":"직전 6개월 월평균","textPreview":"직전 6개월 월평균","textChars":10,"textLines":1,"bbox":[431,426,168,40]}
+{"kind":"shape","id":"sh/xknyx4ja","slide":4,"name":"사각형: 둥근 모서리 36","bbox":[64,492,552,58]}
+{"kind":"textbox","id":"sh/mtcfypkn","slide":4,"name":"text-37","text":"CS 문의","textPreview":"CS 문의","textChars":5,"textLines":1,"bbox":[82,507,177,25]}
+{"kind":"textbox","id":"sh/nulw7u18","slide":4,"name":"text-38","text":"2주 환산 32건","textPreview":"2주 환산 32건","textChars":9,"textLines":1,"bbox":[268,507,141,27]}
+{"kind":"textbox","id":"sh/fm5c3q54","slide":4,"name":"text-39","text":"2026-01~06 인입 이력 기준","textPreview":"2026-01~06 인입 이력 기준","textChars":19,"textLines":1,"bbox":[431,500,168,40]}
+{"kind":"textbox","id":"sh/elwba54j","slide":4,"name":"text-40","text":"입금 대조는 도입 전 소요시간 / 오출고·문의는 운영팀 출고·CS 이력","textPreview":"입금 대조는 도입 전 소요시간 / 오출고·문의는 운영팀 출고·CS 이력","textChars":39,"textLines":1,"bbox":[64,573,554,28]}
+{"kind":"textbox","id":"sh/18nu50nu","slide":4,"name":"text-41","text":"문제 정의","textPreview":"문제 정의","textChars":5,"textLines":1,"bbox":[657,300,552,30]}
+{"kind":"shape","id":"sh/0netcvm9","slide":4,"name":"사각형: 둥근 모서리 42","bbox":[657,344,559,106]}
+{"kind":"textbox","id":"sh/rilczq5s","slide":4,"name":"text-43","text":"계약·결제·주문 상태를\n사람의 기억으로 매번 판단하는 구조","textPreview":"계약·결제·주문 상태를 | 사람의 기억으로 매번 판단하는 구조","textChars":32,"textLines":2,"bbox":[682,365,510,67]}
+{"kind":"textbox","id":"sh/qhcb6l47","slide":4,"name":"text-44","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[657,479,36,26]}
+{"kind":"textbox","id":"sh/dknu10ny","slide":4,"name":"text-45","text":"등급별 상품과 결제 조건이 화면·서버에서 일치해야 함","textPreview":"등급별 상품과 결제 조건이 화면·서버에서 일치해야 함","textChars":29,"textLines":1,"bbox":[697,479,508,54]}
+{"kind":"textbox","id":"sh/sjut8vmd","slide":4,"name":"text-46","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[657,557,36,26]}
+{"kind":"textbox","id":"sh/3elcv65w","slide":4,"name":"text-47","text":"잘못된 조합은 주문 전에 막고 고객이 다음 행동을 알 수 있어야 함","textPreview":"잘못된 조합은 주문 전에 막고 고객이 다음 행동을 알 수 있어야 함","textChars":37,"textLines":1,"bbox":[697,557,508,54]}
+{"kind":"textbox","id":"sh/idcb2lob","slide":4,"name":"사각형: 둥근 모서리 48","text":"우선 해결할 문제를 주문 오류 예방과 반복 확인 업무의 감소로 정했습니다.","textPreview":"우선 해결할 문제를 주문 오류 예방과 반복 확인 업무의 감소로 정했습니다.","textChars":41,"textLines":1,"bbox":[64,644,1152,48]}
+{"kind":"notes","id":"nt/jyx0ra1s","slide":4,"text":"근거: 경력 사실 원장 C-030·035·040·042·043. 기준 디자인 원본 10장 업무 흐름. 초기 오출고 전체 측정 범위와 문의 환산 기준은 결과 장에 명시.\n"}
+{"kind":"slide","id":"sl/i107q5of","slide":5,"title":"05 / 24","textShapes":12}
+{"kind":"textbox","id":"sh/k7mxovud","slide":5,"name":"text-0","text":"05 / 24","textPreview":"05 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/dgbulwnm","slide":5,"name":"text-1","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/cf2tcr61","slide":5,"name":"text-2","text":"대안 비교와 오픈 범위","textPreview":"대안 비교와 오픈 범위","textChars":12,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/z2tcnm5s","slide":5,"name":"text-3","text":"운영팀이 익숙한 플랫폼 위에 계약별 정책을 추가하는 방식을 선택했습니다.","textPreview":"운영팀이 익숙한 플랫폼 위에 계약별 정책을 추가하는 방식을 선택했습니다.","textChars":40,"textLines":1,"bbox":[64,125,1152,31]}
+{"kind":"textbox","id":"sh/l4bupwny","slide":5,"name":"사각형: 둥근 모서리 5","text":"결정 기준  ① 운영팀 학습 부담    ② 기존 인프라    ③ 유지보수 책임    ④ 구축비용","textPreview":"결정 기준  ① 운영팀 학습 부담    ② 기존 인프라    ③ 유지보수 책임    ④ 구축비용","textChars":53,"textLines":1,"bbox":[64,431,1152,39]}
+{"kind":"textbox","id":"sh/032tgr6d","slide":5,"name":"text-5","text":"범위에서 뺀 기능과 이유","textPreview":"범위에서 뺀 기능과 이유","textChars":13,"textLines":1,"bbox":[64,509,1152,30]}
+{"kind":"textbox","id":"sh/n6dcr65o","slide":5,"name":"사각형: 둥근 모서리 7","text":"PG 결제","textPreview":"PG 결제","textChars":5,"textLines":1,"bbox":[64,553,370,38]}
+{"kind":"textbox","id":"sh/m5kbi1oj","slide":5,"name":"text-7","text":"B2B 마진 대비 수수료 부담","textPreview":"B2B 마진 대비 수수료 부담","textChars":16,"textLines":1,"bbox":[78,608,342,57]}
+{"kind":"textbox","id":"sh/w32dkbuh","slide":5,"name":"사각형: 둥근 모서리 9","text":"견적서 신규 개발","textPreview":"견적서 신규 개발","textChars":9,"textLines":1,"bbox":[458,553,370,38]}
+{"kind":"textbox","id":"sh/x4vedgvm","slide":5,"name":"text-9","text":"기존 거래명세서로 대체","textPreview":"기존 거래명세서로 대체","textChars":12,"textLines":1,"bbox":[472,608,342,57]}
+{"kind":"textbox","id":"sh/ahkvi1cb","slide":5,"name":"사각형: 둥근 모서리 11","text":"포인트 완전 자동화","textPreview":"포인트 완전 자동화","textChars":10,"textLines":1,"bbox":[852,553,370,38]}
+{"kind":"textbox","id":"sh/v2twb6dw","slide":5,"name":"text-11","text":"계약 변경과 비가역 차감 위험\n담당자 확인 후 실행","textPreview":"계약 변경과 비가역 차감 위험 | 담당자 확인 후 실행","textChars":28,"textLines":2,"bbox":[866,608,342,57]}
+{"kind":"table","id":"tb/ql47mto7","slide":5,"name":"표 17","rows":4,"cols":4,"preview":"대안 | 장점 | 판단한 제약 | 결정","bbox":[64,178,1152,234]}
+{"kind":"notes","id":"nt/i107q5of","slide":5,"text":"근거: 경력 사실 원장 C-035·036·130. 대안 비교와 범위 제외 근거. 공급사 직접 입력·입금자동매칭은 구현 증빙 수준이 달라 핵심 성과에서 제외.\n"}
+{"kind":"slide","id":"sl/x8f69ofe","slide":6,"title":"06 / 24","textShapes":9}
+{"kind":"textbox","id":"sh/u1kbu1ov","slide":6,"name":"text-0","text":"06 / 24","textPreview":"06 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/yhg7epsj","slide":6,"name":"text-1","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/zi98nu94","slide":6,"name":"text-2","text":"계정 정책을 설정표로 고정","textPreview":"계정 정책을 설정표로 고정","textChars":14,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/87ipkzal","slide":6,"name":"text-3","text":"회원 등급과 상품 카테고리를 조합해, 고객 화면과 서버가 같은 결제 규칙을 쓰도록 했습니다.","textPreview":"회원 등급과 상품 카테고리를 조합해, 고객 화면과 서버가 같은 결제 규칙을 쓰도록 했습니다.","textChars":51,"textLines":1,"bbox":[64,125,1152,31]}
+{"kind":"textbox","id":"sh/98rqt4r6","slide":6,"name":"text-4","text":"회원 등급 × 상품 카테고리","textPreview":"회원 등급 × 상품 카테고리","textChars":15,"textLines":1,"bbox":[64,178,734,30]}
+{"kind":"shape","id":"sh/7m98ru9g","slide":6,"name":"사각형: 둥근 모서리 6","bbox":[969,221,247,216]}
+{"kind":"textbox","id":"sh/oryp8fah","slide":6,"name":"text-6","text":"설계한 규칙","textPreview":"설계한 규칙","textChars":6,"textLines":1,"bbox":[991,238,203,29]}
+{"kind":"textbox","id":"sh/pc76hkr2","slide":6,"name":"text-7","text":"새 등급·카테고리 설정\n\n미분류 상품의 기본값 관리\n\n서버에서 결제수단 재검증","textPreview":"새 등급·카테고리 설정 |  | 미분류 상품의 기본값 관리 |  | 서버에서 결제수단 재검증","textChars":43,"textLines":5,"bbox":[991,284,204,137]}
+{"kind":"textbox","id":"sh/h4bupgn6","slide":6,"name":"text-8","text":"운영자가 직접 수정하는 설정 화면 · 핵심 2개 등급 발췌","textPreview":"운영자가 직접 수정하는 설정 화면 · 핵심 2개 등급 발췌","textChars":32,"textLines":1,"bbox":[64,464,1152,30]}
+{"kind":"textbox","id":"sh/ml07i9sv","slide":6,"name":"TextBox 5","text":"개발사 처리결과의 기능 화면 · 직접 운영 캡처 아님 · 고객정보·내부 수치 제외","textPreview":"개발사 처리결과의 기능 화면 · 직접 운영 캡처 아님 · 고객정보·내부 수치 제외","textChars":45,"textLines":1,"bbox":[64,686,1152,14.86]}
+{"kind":"table","id":"tb/ql8zq5kf","slide":6,"name":"표 17","rows":5,"cols":4,"preview":"회원 등급 | 분유 | 물품 | 미분류","bbox":[64,221,770,216]}
+{"kind":"image","id":"im/ju1cfeto","slide":6,"name":"그림 22","bbox":[76.47,508,1127.05,172]}
+{"kind":"notes","id":"nt/x8f69ofe","slide":6,"text":"근거: 경력 사실 원장 C-033·129. 산후조리원몰_과업내역_처리결과.html 과업1, 228~250행. 수치가 포함된 계정·상품 데이터는 캡처에서 제외.\n"}
+{"kind":"slide","id":"sl/gnmp4jqx","slide":7,"title":"07 / 24","textShapes":11}
+{"kind":"textbox","id":"sh/25ojml43","slide":7,"name":"text-0","text":"07 / 24","textPreview":"07 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/cb2tkvap","slide":7,"name":"text-1","text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/dcbud0ra","slide":7,"name":"text-2","text":"결제방식이 같아도 혼합주문을 차단","textPreview":"결제방식이 같아도 혼합주문을 차단","textChars":18,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/ydkbm5sv","slide":7,"name":"text-3","text":"결제방식이 같은 경우에도 분유와 물품은 나눠 주문해야 한다는 운영 규칙을 반영했습니다.","textPreview":"결제방식이 같은 경우에도 분유와 물품은 나눠 주문해야 한다는 운영 규칙을 반영했습니다.","textChars":48,"textLines":1,"bbox":[64,125,1152,31]}
+{"kind":"textbox","id":"sh/zedcfa9g","slide":7,"name":"사각형: 둥근 모서리 4","text":"가상 예시: 선불입금 회원","textPreview":"가상 예시: 선불입금 회원","textChars":14,"textLines":1,"bbox":[64,180,549,35]}
+{"kind":"textbox","id":"sh/kzmdova1","slide":7,"name":"사각형: 둥근 모서리 5","text":"분유\n무통장 입금","textPreview":"분유 | 무통장 입금","textChars":9,"textLines":2,"bbox":[64,234,253,79]}
+{"kind":"textbox","id":"sh/l0vuh0rm","slide":7,"name":"text-6","text":"+","textPreview":"+","textChars":1,"textLines":1,"bbox":[326,252,36,34]}
+{"kind":"textbox","id":"sh/eh0ba1sr","slide":7,"name":"사각형: 둥근 모서리 7","text":"물품\n무통장 입금","textPreview":"물품 | 무통장 입금","textChars":9,"textLines":2,"bbox":[370,234,243,79]}
+{"kind":"textbox","id":"sh/baxkjqlk","slide":7,"name":"text-8","text":"고객에게 보여준 다음 행동","textPreview":"고객에게 보여준 다음 행동","textChars":14,"textLines":1,"bbox":[656,180,560,30]}
+{"kind":"textbox","id":"sh/xcz2l03q","slide":7,"name":"text-9","text":"막힌 이유와 분류별 주문 방법을 함께 안내","textPreview":"막힌 이유와 분류별 주문 방법을 함께 안내","textChars":23,"textLines":1,"bbox":[656,501,560,45]}
+{"kind":"textbox","id":"sh/cbq1sv25","slide":7,"name":"사각형: 둥근 모서리 12","text":"정책의 기준을 결제수단에서 상품 분류로 옮겨, 같은 결제수단의 예외까지 막았습니다.","textPreview":"정책의 기준을 결제수단에서 상품 분류로 옮겨, 같은 결제수단의 예외까지 막았습니다.","textChars":46,"textLines":1,"bbox":[64,595,1152,48]}
+{"kind":"table","id":"tb/a9cnq1g3","slide":7,"name":"표 22","rows":3,"cols":2,"preview":"판단 기준 | 처리 결과","bbox":[64,356,613,160]}
+{"kind":"image","id":"im/j2xwvyhk","slide":7,"name":"그림 24","bbox":[740.22,228,374.55,244]}
+{"kind":"notes","id":"nt/gnmp4jqx","slide":7,"text":"근거: 경력 사실 원장 C-034. 산후조리원몰_과업내역_처리결과.html 322~327행. 실제 주문을 재현한 로그가 아닌 정책 설명 시뮬레이션.\n"}
+{"kind":"slide","id":"sl/fu1gfa1s","slide":8,"title":"08 / 24","textShapes":18}
+{"kind":"textbox","id":"sh/jq5w365o","slide":8,"name":"text-0","text":"08 / 24","textPreview":"08 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/18byd4zy","slide":8,"name":"text-1","text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/g72x4zyd","slide":8,"name":"text-2","text":"포인트 정리의 실행 안전장치","textPreview":"포인트 정리의 실행 안전장치","textChars":15,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/ri9g7uhw","slide":8,"name":"text-3","text":"월 1회 발생하는 비가역 작업이어서, 대상과 차감 결과를 확인한 뒤 실행하도록 범위를 조정했습니다.","textPreview":"월 1회 발생하는 비가역 작업이어서, 대상과 차감 결과를 확인한 뒤 실행하도록 범위를 조정했습니다.","textChars":55,"textLines":1,"bbox":[64,125,1152,31]}
+{"kind":"shape","id":"sh/6h0fypgb","slide":8,"name":"사각형: 둥근 모서리 4","bbox":[64,182,276,74]}
+{"kind":"textbox","id":"sh/tkby9kzm","slide":8,"name":"text-5","text":"미리보기","textPreview":"미리보기","textChars":4,"textLines":1,"bbox":[78,194,248,25]}
+{"kind":"textbox","id":"sh/sjix0zy1","slide":8,"name":"text-6","text":"현재·차감·잔여 확인","textPreview":"현재·차감·잔여 확인","textChars":11,"textLines":1,"bbox":[78,222,248,25]}
+{"kind":"textbox","id":"sh/je9g3ahk","slide":8,"name":"text-7","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[341,204,14,28]}
+{"kind":"shape","id":"sh/id0fu50z","slide":8,"name":"사각형: 둥근 모서리 8","bbox":[356,182,276,74]}
+{"kind":"textbox","id":"sh/o7ydoret","slide":8,"name":"text-9","text":"대상 선택","textPreview":"대상 선택","textChars":5,"textLines":1,"bbox":[370,194,248,25]}
+{"kind":"textbox","id":"sh/98rehwve","slide":8,"name":"text-10","text":"처리할 회원 선택","textPreview":"처리할 회원 선택","textChars":9,"textLines":1,"bbox":[370,222,248,25]}
+{"kind":"textbox","id":"sh/m5gvmhwn","slide":8,"name":"text-11","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[633,204,14,28]}
+{"kind":"shape","id":"sh/n6pwfmd8","slide":8,"name":"사각형: 둥근 모서리 12","bbox":[648,182,276,74]}
+{"kind":"textbox","id":"sh/0jydkreh","slide":8,"name":"text-13","text":"최종 확인","textPreview":"최종 확인","textChars":5,"textLines":1,"bbox":[662,194,248,25]}
+{"kind":"textbox","id":"sh/1k7edwv2","slide":8,"name":"text-14","text":"대상과 합계를 재확인","textPreview":"대상과 합계를 재확인","textChars":11,"textLines":1,"bbox":[662,222,248,25]}
+{"kind":"textbox","id":"sh/ehgvihwr","slide":8,"name":"text-15","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[925,204,14,28]}
+{"kind":"shape","id":"sh/zipwbmdc","slide":8,"name":"사각형: 둥근 모서리 16","bbox":[940,182,276,74]}
+{"kind":"textbox","id":"sh/kfixwbe1","slide":8,"name":"text-17","text":"실행·기록","textPreview":"실행·기록","textChars":5,"textLines":1,"bbox":[954,194,248,25]}
+{"kind":"textbox","id":"sh/lgbepgvm","slide":8,"name":"text-18","text":"현재 상태 재검증","textPreview":"현재 상태 재검증","textChars":9,"textLines":1,"bbox":[954,222,248,25]}
+{"kind":"textbox","id":"sh/tw7e9gnq","slide":8,"name":"text-19","text":"조회한 뒤 회원 상태가 바뀐다면","textPreview":"조회한 뒤 회원 상태가 바뀐다면","textChars":17,"textLines":1,"bbox":[64,305,1152,30]}
+{"kind":"shape","id":"sh/7u5w765k","slide":8,"name":"사각형: 둥근 모서리 21","bbox":[64,615,1152,51]}
+{"kind":"textbox","id":"sh/6twve1oz","slide":8,"name":"text-21","text":"판단","textPreview":"판단","textChars":2,"textLines":1,"bbox":[82,629,73,25]}
+{"kind":"textbox","id":"sh/5sne5wne","slide":8,"name":"text-22","text":"정기 자동 실행의 추가 운영 부담과 잘못된 회수 위험을 비교해, 담당자 확인 방식으로 조정했습니다.","textPreview":"정기 자동 실행의 추가 운영 부담과 잘못된 회수 위험을 비교해, 담당자 확인 방식으로 조정했습니다.","textChars":55,"textLines":1,"bbox":[166,628,1024,31]}
+{"kind":"table","id":"tb/10fqp4ba","slide":8,"name":"표 45","rows":4,"cols":4,"preview":"가상 대상 | 조회 후 상황 | 실행 시 처리 | 막으려는 문제","bbox":[64,350,1152,230]}
+{"kind":"notes","id":"nt/fu1gfa1s","slide":8,"text":"근거: 경력 사실 원장 C-036·130. 산후조리원몰_과업내역_처리결과.html 452~477행. 자동 실행 대신 담당자 확인 후 실행 결정과 안전장치 근거.\n"}
+{"kind":"slide","id":"sl/udsvah03","slide":9,"title":"09 / 24","textShapes":20}
+{"kind":"textbox","id":"sh/wba1cjqp","slide":9,"name":"text-0","text":"09 / 24","textPreview":"09 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/1cfmhgne","slide":9,"name":"text-1","text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/0b65obm9","slide":9,"name":"text-2","text":"고객 화면에서 검수하고, 운영 요청을 반영","textPreview":"고객 화면에서 검수하고, 운영 요청을 반영","textChars":23,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/nex4jq5k","slide":9,"name":"text-3","text":"개발 완료 통보 뒤에도 운영 서버에서 재현하고 실제 사용 흐름을 다시 확인했습니다.","textPreview":"개발 완료 통보 뒤에도 운영 서버에서 재현하고 실제 사용 흐름을 다시 확인했습니다.","textChars":46,"textLines":1,"bbox":[64,125,1152,42]}
+{"kind":"textbox","id":"sh/mdonql4z","slide":9,"name":"text-4","text":"정보 수정 화면이 열리지 않았던 사례","textPreview":"정보 수정 화면이 열리지 않았던 사례","textChars":20,"textLines":1,"bbox":[64,182,552,30]}
+{"kind":"textbox","id":"sh/9gzml0nq","slide":9,"name":"사각형: 둥근 모서리 5","text":"현상","textPreview":"현상","textChars":2,"textLines":1,"bbox":[64,232,85,38]}
+{"kind":"textbox","id":"sh/ofq5svm5","slide":9,"name":"text-6","text":"마이페이지 정보 수정에 진입할 수 없음","textPreview":"마이페이지 정보 수정에 진입할 수 없음","textChars":21,"textLines":1,"bbox":[170,239,430,48]}
+{"kind":"textbox","id":"sh/bih4na5w","slide":9,"name":"사각형: 둥근 모서리 7","text":"확인","textPreview":"확인","textChars":2,"textLines":1,"bbox":[64,298,85,38]}
+{"kind":"textbox","id":"sh/ah8nu54b","slide":9,"name":"text-8","text":"운영 서버 미반영과 구 차단 로직 잔존","textPreview":"운영 서버 미반영과 구 차단 로직 잔존","textChars":21,"textLines":1,"bbox":[170,305,430,48]}
+{"kind":"textbox","id":"sh/oza1gfyh","slide":9,"name":"사각형: 둥근 모서리 9","text":"기준","textPreview":"기준","textChars":2,"textLines":1,"bbox":[64,364,85,38]}
+{"kind":"textbox","id":"sh/p0ji9kf2","slide":9,"name":"text-10","text":"실제 계정에서 기대한 화면까지 진입","textPreview":"실제 계정에서 기대한 화면까지 진입","textChars":19,"textLines":1,"bbox":[170,371,430,48]}
+{"kind":"textbox","id":"sh/2xsjepgb","slide":9,"name":"text-11","text":"거래명세서 접근을 주문내역으로 이동","textPreview":"거래명세서 접근을 주문내역으로 이동","textChars":19,"textLines":1,"bbox":[656,182,552,30]}
+{"kind":"textbox","id":"sh/cnu1kzyd","slide":9,"name":"text-12","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[923,286,24,28]}
+{"kind":"textbox","id":"sh/qlcjipgn","slide":9,"name":"text-13","text":"변경 전","textPreview":"변경 전","textChars":4,"textLines":1,"bbox":[657,390,245,31]}
+{"kind":"textbox","id":"sh/bml0buxs","slide":9,"name":"text-14","text":"반영 후","textPreview":"반영 후","textChars":4,"textLines":1,"bbox":[964,390,245,31]}
+{"kind":"textbox","id":"sh/0ru1ozyp","slide":9,"name":"text-15","text":"주문당 버튼 1개 · 취소·환불 주문 제외\n2026-08-13 운영 반영 후 고객 화면 확인","textPreview":"주문당 버튼 1개 · 취소·환불 주문 제외 | 2026-08-13 운영 반영 후 고객 화면 확인","textChars":51,"textLines":2,"bbox":[656,431,552,67]}
+{"kind":"shape","id":"sh/lsn2h4fa","slide":9,"name":"직선 연결선 18","bbox":[64,475,552,0]}
+{"kind":"textbox","id":"sh/98ji147e","slide":9,"name":"text-17","text":"기획·검수: 본인 / 수정 구현: 개발사","textPreview":"기획·검수: 본인 / 수정 구현: 개발사","textChars":22,"textLines":1,"bbox":[64,493,552,31]}
+{"kind":"shape","id":"sh/87a18zqt","slide":9,"name":"사각형: 둥근 모서리 20","bbox":[64,550,1152,103]}
+{"kind":"textbox","id":"sh/76h0zup8","slide":9,"name":"text-19","text":"현장 요청을 다시 반영","textPreview":"현장 요청을 다시 반영","textChars":12,"textLines":1,"bbox":[85,570,252,28]}
+{"kind":"textbox","id":"sh/ml8j6p8n","slide":9,"name":"text-20","text":"1차 QA에서 제거한 배송 메시지 입력칸을 복원했습니다.\n화면 정리 뒤에도 실제 배송 요청을 받을 수 있어야 했습니다.","textPreview":"1차 QA에서 제거한 배송 메시지 입력칸을 복원했습니다. | 화면 정리 뒤에도 실제 배송 요청을 받을 수 있어야 했습니다.","textChars":66,"textLines":2,"bbox":[350,568,841,70]}
+{"kind":"textbox","id":"sh/hcji5o7a","slide":9,"name":"text-21","text":"개발사 처리결과 문서의 기능 화면 · 직접 운영 캡처 아님 · 고객정보·주문번호·가격 영역 제외","textPreview":"개발사 처리결과 문서의 기능 화면 · 직접 운영 캡처 아님 · 고객정보·주문번호·가격 영역 제외","textChars":53,"textLines":1,"bbox":[64,673,1152,31]}
+{"kind":"image","id":"im/wj6p4ve1","slide":9,"name":"그림 36","bbox":[694.29,230,170.42,148]}
+{"kind":"image","id":"im/xkfqd0fm","slide":9,"name":"그림 38","bbox":[1001.29,230,170.42,148]}
+{"kind":"notes","id":"nt/udsvah03","slide":9,"text":"근거: career_facts.md C-038·046·131.\n화면: .build/v4_3/b2b_raw/safe-statement-before.png, safe-statement-after.png. 운영 회의·문의 피드백이며 정식 사용자 인터뷰/실험으로 확대하지 않음."}
+{"kind":"slide","id":"sl/m90b6t0r","slide":10,"title":"10 / 24","textShapes":17}
+{"kind":"textbox","id":"sh/wvetgbud","slide":10,"name":"text-0","text":"10 / 24","textPreview":"10 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/xc3mho32","slide":10,"name":"text-1","text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/cbu58j2h","slide":10,"name":"text-2","text":"초기 운영 결과와 측정 범위","textPreview":"초기 운영 결과와 측정 범위","textChars":15,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/zelojyl8","slide":10,"name":"text-3","text":"출고·문의 지표의 초기 관찰과, 계약상 전체 개발요구의 검수를 구분했습니다.","textPreview":"출고·문의 지표의 초기 관찰과, 계약상 전체 개발요구의 검수를 구분했습니다.","textChars":42,"textLines":1,"bbox":[64,125,1152,31]}
+{"kind":"textbox","id":"sh/ydcnatkn","slide":10,"name":"text-4","text":"오출고","textPreview":"오출고","textChars":3,"textLines":1,"bbox":[64,184,552,30]}
+{"kind":"textbox","id":"sh/l036l83y","slide":10,"name":"text-5","text":"월평균 2~3건","textPreview":"월평균 2~3건","textChars":8,"textLines":1,"bbox":[64,229,319,40]}
+{"kind":"textbox","id":"sh/kzu5c32t","slide":10,"name":"text-6","text":"0건","textPreview":"0건","textChars":2,"textLines":1,"bbox":[408,222,192,71]}
+{"kind":"shape","id":"sh/725onyl4","slide":10,"name":"직선 연결선 7","bbox":[64,314,552,0]}
+{"kind":"textbox","id":"sh/m1cnetkj","slide":10,"name":"text-8","text":"직전 6개월 월평균과 2026-07-16 전체 가동 후\n약 1개월을 비교한 전체 측정 범위의 관찰값","textPreview":"직전 6개월 월평균과 2026-07-16 전체 가동 후 | 약 1개월을 비교한 전체 측정 범위의 관찰값","textChars":55,"textLines":2,"bbox":[64,338,552,71]}
+{"kind":"textbox","id":"sh/s7yt4b21","slide":10,"name":"text-9","text":"CS 문의","textPreview":"CS 문의","textChars":5,"textLines":1,"bbox":[664,184,552,30]}
+{"kind":"textbox","id":"sh/d87uxg3m","slide":10,"name":"text-10","text":"2주 32건","textPreview":"2주 32건","textChars":6,"textLines":1,"bbox":[664,229,279,40]}
+{"kind":"textbox","id":"sh/q5gb21kb","slide":10,"name":"text-11","text":"2주 19건","textPreview":"2주 19건","textChars":6,"textLines":1,"bbox":[959,228,257,55]}
+{"kind":"shape","id":"sh/r6pcv6lw","slide":10,"name":"직선 연결선 12","bbox":[664,314,552,0]}
+{"kind":"textbox","id":"sh/0bit8b2d","slide":10,"name":"text-13","text":"2026-01~06 CS 인입의 2주 환산치와\n2026-07~08 배포 구간 2주 집계를 비교","textPreview":"2026-01~06 CS 인입의 2주 환산치와 | 2026-07~08 배포 구간 2주 집계를 비교","textChars":52,"textLines":2,"bbox":[664,338,552,71]}
+{"kind":"shape","id":"sh/1cru1g3y","slide":10,"name":"사각형: 둥근 모서리 14","bbox":[64,459,1152,141]}
+{"kind":"textbox","id":"sh/e9gb61k7","slide":10,"name":"text-15","text":"운영과 검수의 경계","textPreview":"운영과 검수의 경계","textChars":10,"textLines":1,"bbox":[85,478,299,29]}
+{"kind":"textbox","id":"sh/fapcz6ls","slide":10,"name":"text-16","text":"핵심 흐름은 2026-07-16 가동 후 약 1개월 관찰\n계약상 기본 개발요구 22건은 2026-08-31 최종검수까지 운영 QA 지속","textPreview":"핵심 흐름은 2026-07-16 가동 후 약 1개월 관찰 | 계약상 기본 개발요구 22건은 2026-08-31 최종검수까지 운영 QA 지속","textChars":75,"textLines":2,"bbox":[364,477,826,60]}
+{"kind":"textbox","id":"sh/ozitcv29","slide":10,"name":"text-17","text":"2026-08-13 검수 기록: 배포·QA 필요 17건 / 부분·수정·구현변경 후 QA 각 1건 / 진행 중 계약 항목 2건","textPreview":"2026-08-13 검수 기록: 배포·QA 필요 17건 / 부분·수정·구현변경 후 QA 각 1건 / 진행 중 계약 항목 2건","textChars":69,"textLines":1,"bbox":[85,557,1103,28]}
+{"kind":"textbox","id":"sh/p0ru503u","slide":10,"name":"사각형: 둥근 모서리 18","text":"다음 측정은 입금 대조 시간과 오출고·CS 문의의 장기 추이입니다.","textPreview":"다음 측정은 입금 대조 시간과 오출고·CS 문의의 장기 추이입니다.","textChars":37,"textLines":1,"bbox":[64,632,1152,48]}
+{"kind":"textbox","id":"sh/xwnupgvy","slide":10,"name":"TextBox 19","text":"원천: 운영팀 출고·CS 이력과 사용자 확인 · 초기 관찰이며 장기 지속 효과와 단독 인과는 미검증","textPreview":"원천: 운영팀 출고·CS 이력과 사용자 확인 · 초기 관찰이며 장기 지속 효과와 단독 인과는 미검증","textChars":55,"textLines":1,"bbox":[64,686,1152,14.86]}
+{"kind":"notes","id":"nt/m90b6t0r","slide":10,"text":"근거: 경력 사실 원장 C-031·040·042·043·044. 정산시간 C-041은 비교 월 미확인으로 제외. 입금자동매칭 완료·서비스 밖 문의 개선을 주장하지 않음.\n"}
+{"kind":"slide","id":"sl/jetc3ut0","slide":11,"title":"11 / 24","textShapes":28}
+{"kind":"textbox","id":"sh/z2hw72lc","slide":11,"name":"text-0","text":"11 / 24","textPreview":"11 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/xcryxg7y","slide":11,"name":"text-1","text":"Project 02.  발주 검토 자료 자동취합","textPreview":"Project 02.  발주 검토 자료 자동취합","textChars":26,"textLines":1,"bbox":[64,76,1130,34]}
+{"kind":"textbox","id":"sh/wbih4b6d","slide":11,"name":"사각형: 둥근 모서리 2","text":"SCM","textPreview":"SCM","textChars":3,"textLines":1,"bbox":[64,168,93,92]}
+{"kind":"textbox","id":"sh/n69grmpw","slide":11,"name":"text-3","text":"발주 검토 자료 자동취합 대시보드","textPreview":"발주 검토 자료 자동취합 대시보드","textChars":18,"textLines":1,"bbox":[184,176,601,46]}
+{"kind":"textbox","id":"sh/250zy18b","slide":11,"name":"text-4","text":"판매·출고·재고 자료를 Excel 업로드로 모아,\n월간 발주 검토에 사용할 수 있는 기준 자료로 만들었습니다.","textPreview":"판매·출고·재고 자료를 Excel 업로드로 모아, | 월간 발주 검토에 사용할 수 있는 기준 자료로 만들었습니다.","textChars":61,"textLines":2,"bbox":[184,236,597,75]}
+{"kind":"textbox","id":"sh/98rytw72","slide":11,"name":"text-5","text":"문제","textPreview":"문제","textChars":2,"textLines":1,"bbox":[184,339,82,24]}
+{"kind":"textbox","id":"sh/o7ih0r6h","slide":11,"name":"text-6","text":"담당자 1명이 매월 6~12시간 취합 · 값 오류 보통 2~3건","textPreview":"담당자 1명이 매월 6~12시간 취합 · 값 오류 보통 2~3건","textChars":35,"textLines":1,"bbox":[275,337,505,53]}
+{"kind":"textbox","id":"sh/72t03qp0","slide":11,"name":"text-7","text":"대상","textPreview":"대상","textChars":2,"textLines":1,"bbox":[184,405,82,24]}
+{"kind":"textbox","id":"sh/61kzalof","slide":11,"name":"text-8","text":"상품별 재고와 공급사 발주안을 검토하는 SCM 담당자","textPreview":"상품별 재고와 공급사 발주안을 검토하는 SCM 담당자","textChars":29,"textLines":1,"bbox":[275,403,505,53]}
+{"kind":"textbox","id":"sh/ofqtgnyt","slide":11,"name":"text-9","text":"목표","textPreview":"목표","textChars":2,"textLines":1,"bbox":[184,471,82,24]}
+{"kind":"textbox","id":"sh/9gza9sze","slide":11,"name":"text-10","text":"반복 취합을 줄이고 자료 확인과 발주 검토에 집중","textPreview":"반복 취합을 줄이고 자료 확인과 발주 검토에 집중","textChars":27,"textLines":1,"bbox":[275,469,505,53]}
+{"kind":"shape","id":"sh/mdobedg3","slide":11,"name":"사각형: 둥근 모서리 11","bbox":[812,168,404,325]}
+{"kind":"textbox","id":"sh/nehs7iho","slide":11,"name":"text-12","text":"직접 구현하고 운영에서 검증","textPreview":"직접 구현하고 운영에서 검증","textChars":15,"textLines":1,"bbox":[842,193,343,25]}
+{"kind":"shape","id":"sh/0b6tc3yx","slide":11,"name":"사각형: 둥근 모서리 13","bbox":[844,231,340,53]}
+{"kind":"textbox","id":"sh/1cfa58zi","slide":11,"name":"text-14","text":"기획·설계","textPreview":"기획·설계","textChars":5,"textLines":1,"bbox":[861,238,305,20]}
+{"kind":"textbox","id":"sh/epobatgr","slide":11,"name":"text-15","text":"판매·출고 구분과 데이터 구조","textPreview":"판매·출고 구분과 데이터 구조","textChars":16,"textLines":1,"bbox":[861,260,305,20]}
+{"kind":"shape","id":"sh/zaxs3yhc","slide":11,"name":"사각형: 둥근 모서리 16","bbox":[844,291,340,53]}
+{"kind":"textbox","id":"sh/cn6t83y1","slide":11,"name":"text-17","text":"개발·배포","textPreview":"개발·배포","textChars":5,"textLines":1,"bbox":[861,298,305,20]}
+{"kind":"textbox","id":"sh/dofa18z6","slide":11,"name":"text-18","text":"AI 코딩 도구로 직접 구현","textPreview":"AI 코딩 도구로 직접 구현","textChars":15,"textLines":1,"bbox":[861,320,305,20]}
+{"kind":"shape","id":"sh/tsnip0ny","slide":11,"name":"사각형: 둥근 모서리 19","bbox":[844,351,340,53]}
+{"kind":"textbox","id":"sh/87ehgv6d","slide":11,"name":"text-20","text":"검증·협업","textPreview":"검증·협업","textChars":5,"textLines":1,"bbox":[861,358,305,20]}
+{"kind":"textbox","id":"sh/7650nq5s","slide":11,"name":"text-21","text":"기존 시트 대조 · 팀원 의견 반영","textPreview":"기존 시트 대조 · 팀원 의견 반영","textChars":19,"textLines":1,"bbox":[861,380,305,20]}
+{"kind":"shape","id":"sh/65wzelo7","slide":11,"name":"사각형: 둥근 모서리 22","bbox":[844,411,340,53]}
+{"kind":"textbox","id":"sh/l43ilgn2","slide":11,"name":"text-23","text":"운영","textPreview":"운영","textChars":2,"textLines":1,"bbox":[861,418,305,20]}
+{"kind":"textbox","id":"sh/k3uhcb6h","slide":11,"name":"text-24","text":"월간 검토 자료로 사용·개선","textPreview":"월간 검토 자료로 사용·개선","textChars":15,"textLines":1,"bbox":[861,440,305,20]}
+{"kind":"shape","id":"sh/j2lgjq5w","slide":11,"name":"직선 연결선 25","bbox":[64,548,1152,0]}
+{"kind":"textbox","id":"sh/y1czalob","slide":11,"name":"text-26","text":"기간","textPreview":"기간","textChars":2,"textLines":1,"bbox":[64,573,112,24]}
+{"kind":"textbox","id":"sh/p07ixkn6","slide":11,"name":"text-27","text":"2026-04 시범 배포 ~ 현재 / 약 2개월 병행 검증 / 2026-06 기준 자료 사용","textPreview":"2026-04 시범 배포 ~ 현재 / 약 2개월 병행 검증 / 2026-06 기준 자료 사용","textChars":51,"textLines":1,"bbox":[191,573,1015,26]}
+{"kind":"textbox","id":"sh/4zyhofml","slide":11,"name":"text-28","text":"역할","textPreview":"역할","textChars":2,"textLines":1,"bbox":[64,603,112,24]}
+{"kind":"textbox","id":"sh/m58fih43","slide":11,"name":"text-29","text":"문제 정의, 기획·데이터 설계·개발·배포, 운영 피드백 반영","textPreview":"문제 정의, 기획·데이터 설계·개발·배포, 운영 피드백 반영","textChars":33,"textLines":1,"bbox":[191,603,1015,26]}
+{"kind":"textbox","id":"sh/n61wbmlo","slide":11,"name":"text-30","text":"협업","textPreview":"협업","textChars":2,"textLines":1,"bbox":[64,633,112,24]}
+{"kind":"textbox","id":"sh/o7axk7m9","slide":11,"name":"text-31","text":"SCM 팀원과 자료·사용 흐름 확인 / 담당자 발주안 작성 / 팀장 협의·승인","textPreview":"SCM 팀원과 자료·사용 흐름 확인 / 담당자 발주안 작성 / 팀장 협의·승인","textChars":43,"textLines":1,"bbox":[191,633,1015,26]}
+{"kind":"textbox","id":"sh/98jedc3u","slide":11,"name":"text-32","text":"실무 적용","textPreview":"실무 적용","textChars":5,"textLines":1,"bbox":[64,663,112,24]}
+{"kind":"textbox","id":"sh/eh8fex47","slide":11,"name":"text-33","text":"2026-04~08 월간 공급사 발주 검토 5회에 취합 자료 활용","textPreview":"2026-04~08 월간 공급사 발주 검토 5회에 취합 자료 활용","textChars":36,"textLines":1,"bbox":[191,663,1015,26]}
+{"kind":"notes","id":"nt/jetc3ut0","slide":11,"text":"근거: career_facts.md C-050·050a·050b·054·055·058·059, 11절.\n기간 C-051 제외. 기출시 SaaS 인수/단독 개발/PMF 완료 표현 사용하지 않음."}
+{"kind":"slide","id":"sl/8f2psfyx","slide":12,"title":"12 / 24","textShapes":9}
+{"kind":"textbox","id":"sh/xw3q94ne","slide":12,"name":"text-0","text":"12 / 24","textPreview":"12 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/1gbm9s3a","slide":12,"name":"text-1","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/0f2lgnmp","slide":12,"name":"text-2","text":"자료를 모으기 전에 숫자의 의미부터 맞췄습니다","textPreview":"자료를 모으기 전에 숫자의 의미부터 맞췄습니다","textChars":25,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/ra943il8","slide":12,"name":"text-3","text":"판매량과 재고 감소량이 달라지는 업무를 구분하고, 발주 검토에 필요한 집계 기준을 정했습니다.","textPreview":"판매량과 재고 감소량이 달라지는 업무를 구분하고, 발주 검토에 필요한 집계 기준을 정했습니다.","textChars":52,"textLines":1,"bbox":[64,125,1152,42]}
+{"kind":"textbox","id":"sh/dcbm583y","slide":12,"name":"text-4","text":"기존 취합에서 발생한 부담","textPreview":"기존 취합에서 발생한 부담","textChars":14,"textLines":1,"bbox":[64,508,546,30]}
+{"kind":"textbox","id":"sh/sb2lcnmd","slide":12,"name":"text-5","text":"담당자 1명이 매월 약 6~12시간 사용\n자료를 합치는 과정에서 값 오류 보통 2~3건 발생","textPreview":"담당자 1명이 매월 약 6~12시간 사용 | 자료를 합치는 과정에서 값 오류 보통 2~3건 발생","textChars":51,"textLines":2,"bbox":[64,550,553,71]}
+{"kind":"textbox","id":"sh/b6d4f2lc","slide":12,"name":"text-6","text":"먼저 맞춘 데이터의 기준","textPreview":"먼저 맞춘 데이터의 기준","textChars":13,"textLines":1,"bbox":[665,508,551,30]}
+{"kind":"textbox","id":"sh/a543mx4r","slide":12,"name":"text-7","text":"판매실적과 교환·영업용 사용을 포함한 출고량을 구분\n상품 합계와 함께 창고·유통기한별 재고를 확인","textPreview":"판매실적과 교환·영업용 사용을 포함한 출고량을 구분 | 상품 합계와 함께 창고·유통기한별 재고를 확인","textChars":54,"textLines":2,"bbox":[665,550,551,75]}
+{"kind":"textbox","id":"sh/wvupgz6t","slide":12,"name":"text-8","text":"원천: SCM 실무 기록·사용자 확인 / 시간과 오류는 도입 전 자료 취합 업무 기준","textPreview":"원천: SCM 실무 기록·사용자 확인 / 시간과 오류는 도입 전 자료 취합 업무 기준","textChars":47,"textLines":1,"bbox":[64,673,1152,31]}
+{"kind":"table","id":"tb/pk3y1ovi","slide":12,"name":"표 14","rows":4,"cols":3,"preview":"자료 | 실무에서 확인한 차이 | 정한 집계·조회 기준","bbox":[64,187,1152,279]}
+{"kind":"notes","id":"nt/8f2psfyx","slide":12,"text":"근거: career_facts.md C-056·060b·060c·059.\n표의 제안 문구는 정본의 고객별 업무를 요약. 사용 빈도·시간 절감 수치는 근거가 없어 제외."}
+{"kind":"slide","id":"sl/hgzapcr6","slide":13,"title":"13 / 24","textShapes":20}
+{"kind":"textbox","id":"sh/q18f65cr","slide":13,"name":"text-0","text":"13 / 24","textPreview":"13 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/q50nydsj","slide":13,"name":"text-1","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/bq9orito","slide":13,"name":"text-2","text":"자료 취합부터 발주 검토까지 범위를 정했습니다","textPreview":"자료 취합부터 발주 검토까지 범위를 정했습니다","textChars":25,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/o3i5w3ad","slide":13,"name":"text-3","text":"Excel 자료를 저장·집계하는 흐름을 구현하고, 발주안을 정할 때 담당자가 확인할 조건을 구분했습니다.","textPreview":"Excel 자료를 저장·집계하는 흐름을 구현하고, 발주안을 정할 때 담당자가 확인할 조건을 구분했습니다.","textChars":58,"textLines":1,"bbox":[64,125,1152,42]}
+{"kind":"textbox","id":"sh/p4r6p8by","slide":13,"name":"text-4","text":"구현한 자료 처리 흐름","textPreview":"구현한 자료 처리 흐름","textChars":12,"textLines":1,"bbox":[64,184,560,30]}
+{"kind":"textbox","id":"sh/21gnuts7","slide":13,"name":"사각형: 둥근 모서리 5","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[64,236,44,37]}
+{"kind":"textbox","id":"sh/32ponyts","slide":13,"name":"text-6","text":"자료 입력","textPreview":"자료 입력","textChars":5,"textLines":1,"bbox":[125,234,164,28]}
+{"kind":"textbox","id":"sh/gzy5s3a1","slide":13,"name":"text-7","text":"판매·출고·재고·입고계획 업로드","textPreview":"판매·출고·재고·입고계획 업로드","textChars":17,"textLines":1,"bbox":[291,238,318,44]}
+{"kind":"textbox","id":"sh/1076lobm","slide":13,"name":"사각형: 둥근 모서리 8","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[64,313,44,37]}
+{"kind":"textbox","id":"sh/hcfy9k3u","slide":13,"name":"text-9","text":"저장·집계","textPreview":"저장·집계","textChars":5,"textLines":1,"bbox":[125,311,164,28]}
+{"kind":"textbox","id":"sh/gb6x0zm9","slide":13,"name":"text-10","text":"데이터를 DB에 저장하고 취합","textPreview":"데이터를 DB에 저장하고 취합","textChars":16,"textLines":1,"bbox":[291,315,318,44]}
+{"kind":"textbox","id":"sh/vaxg7ulo","slide":13,"name":"사각형: 둥근 모서리 11","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[64,390,44,37]}
+{"kind":"textbox","id":"sh/u9ofyp43","slide":13,"name":"text-12","text":"자료 확인","textPreview":"자료 확인","textChars":5,"textLines":1,"bbox":[125,388,164,28]}
+{"kind":"textbox","id":"sh/t8fy5k3i","slide":13,"name":"text-13","text":"상품·창고·유통기한별 재고 조회","textPreview":"상품·창고·유통기한별 재고 조회","textChars":17,"textLines":1,"bbox":[291,392,318,44]}
+{"kind":"textbox","id":"sh/876xwfmx","slide":13,"name":"사각형: 둥근 모서리 14","text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[64,467,44,37]}
+{"kind":"textbox","id":"sh/7mdg3als","slide":13,"name":"text-15","text":"발주 검토","textPreview":"발주 검토","textChars":5,"textLines":1,"bbox":[125,465,164,28]}
+{"kind":"textbox","id":"sh/6l4fu547","slide":13,"name":"text-16","text":"가정에 따른 재고 시나리오 확인","textPreview":"가정에 따른 재고 시나리오 확인","textChars":17,"textLines":1,"bbox":[291,469,318,44]}
+{"kind":"textbox","id":"sh/lkvy103m","slide":13,"name":"text-17","text":"발주 판단에 남긴 확인 기준","textPreview":"발주 판단에 남긴 확인 기준","textChars":15,"textLines":1,"bbox":[657,184,560,30]}
+{"kind":"textbox","id":"sh/cnqh8fux","slide":13,"name":"사각형: 둥근 모서리 19","text":"Excel 업로드  →  자동 취합·조회  →  담당자 발주안  →  팀장 협의·승인","textPreview":"Excel 업로드  →  자동 취합·조회  →  담당자 발주안  →  팀장 협의·승인","textChars":47,"textLines":1,"bbox":[64,592,1152,49]}
+{"kind":"textbox","id":"sh/xozyhkbi","slide":13,"name":"text-19","text":"구현 범위: 자료 취합·조회와 가중치 시나리오 / 원천 Excel 업로드와 발주 판단·승인은 담당자 수행","textPreview":"구현 범위: 자료 취합·조회와 가중치 시나리오 / 원천 Excel 업로드와 발주 판단·승인은 담당자 수행","textChars":58,"textLines":1,"bbox":[64,673,1152,31]}
+{"kind":"table","id":"tb/gbi9sr2h","slide":13,"name":"표 39","rows":4,"cols":2,"preview":"검토 조건 | 담당자가 확인할 내용","bbox":[657,230,559,277]}
+{"kind":"notes","id":"nt/hgzapcr6","slide":13,"text":"근거: career_facts.md C-055·060d·060e·058.\n제외 이유 문구는 출처의 범위 결정을 요약한 기획 해석. 배포/개발 완료 주장 없음."}
+{"kind":"slide","id":"sl/6lsnupw7","slide":14,"title":"14 / 24","textShapes":20}
+{"kind":"textbox","id":"sh/fqdg3q98","slide":14,"name":"text-0","text":"14 / 24","textPreview":"14 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/xc7eds76","slide":14,"name":"text-1","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/wbydknq1","slide":14,"name":"text-2","text":"창고·유통기한별 재고를 한 화면에서 확인","textPreview":"창고·유통기한별 재고를 한 화면에서 확인","textChars":22,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/jepwf2pc","slide":14,"name":"text-3","text":"상품별 합계에서 필요한 재고를 다시 찾는 부담을 줄이도록, 창고와 유통기한을 함께 조회하게 했습니다.","textPreview":"상품별 합계에서 필요한 재고를 다시 찾는 부담을 줄이도록, 창고와 유통기한을 함께 조회하게 했습니다.","textChars":56,"textLines":1,"bbox":[64,125,1152,42]}
+{"kind":"textbox","id":"sh/idgvmx8r","slide":14,"name":"사각형: 둥근 모서리 4","text":"고객·SKU","textPreview":"고객·SKU","textChars":6,"textLines":1,"bbox":[64,202,220,43]}
+{"kind":"textbox","id":"sh/5grehs7i","slide":14,"name":"사각형: 둥근 모서리 5","text":"조사할 맥락","textPreview":"조사할 맥락","textChars":6,"textLines":1,"bbox":[64,257,220,75]}
+{"kind":"textbox","id":"sh/kfidonqx","slide":14,"name":"text-6","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[285,280,24,28]}
+{"kind":"textbox","id":"sh/zi5c3y98","slide":14,"name":"사각형: 둥근 모서리 7","text":"조사 브리프","textPreview":"조사 브리프","textChars":6,"textLines":1,"bbox":[297,202,220,43]}
+{"kind":"textbox","id":"sh/ehwvat8n","slide":14,"name":"사각형: 둥근 모서리 8","text":"목적·대상·기간","textPreview":"목적·대상·기간","textChars":8,"textLines":1,"bbox":[297,257,220,75]}
+{"kind":"textbox","id":"sh/c3e1gjyd","slide":14,"name":"text-9","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[518,280,24,28]}
+{"kind":"textbox","id":"sh/x4ni9ofy","slide":14,"name":"사각형: 둥근 모서리 10","text":"근거 기반 초안","textPreview":"근거 기반 초안","textChars":8,"textLines":1,"bbox":[530,202,220,43]}
+{"kind":"textbox","id":"sh/a1wze9g7","slide":14,"name":"사각형: 둥근 모서리 11","text":"출처와 미확인값","textPreview":"출처와 미확인값","textChars":8,"textLines":1,"bbox":[530,257,220,75]}
+{"kind":"textbox","id":"sh/b2507exs","slide":14,"name":"text-12","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[751,280,24,28]}
+{"kind":"textbox","id":"sh/kre1k3y9","slide":14,"name":"사각형: 둥근 모서리 13","text":"사람 승인","textPreview":"사람 승인","textChars":5,"textLines":1,"bbox":[763,202,220,43]}
+{"kind":"textbox","id":"sh/ls7idofu","slide":14,"name":"사각형: 둥근 모서리 14","text":"게시 전 확인","textPreview":"게시 전 확인","textChars":7,"textLines":1,"bbox":[763,257,220,75]}
+{"kind":"textbox","id":"sh/y5wjitgj","slide":14,"name":"text-15","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[984,280,24,28]}
+{"kind":"textbox","id":"sh/z650byxo","slide":14,"name":"사각형: 둥근 모서리 16","text":"캠페인 연결","textPreview":"캠페인 연결","textChars":6,"textLines":1,"bbox":[996,202,220,43]}
+{"kind":"textbox","id":"sh/0buh8zy5","slide":14,"name":"사각형: 둥근 모서리 17","text":"추적 링크·후속 결과","textPreview":"추적 링크·후속 결과","textChars":11,"textLines":1,"bbox":[996,257,220,75]}
+{"kind":"textbox","id":"sh/1w3i14fq","slide":14,"name":"text-18","text":"Excel 업로드와 창고별 현재고 조회","textPreview":"Excel 업로드와 창고별 현재고 조회","textChars":21,"textLines":1,"bbox":[64,185.33,1152,30.67]}
+{"kind":"textbox","id":"sh/grmxwvqt","slide":14,"name":"text-19","text":"샘플 실행 화면 · 합성 데이터 시연 / 화면의 수량·금액은 성과 측정값이 아님","textPreview":"샘플 실행 화면 · 합성 데이터 시연 / 화면의 수량·금액은 성과 측정값이 아님","textChars":44,"textLines":1,"bbox":[64,673,1152,31]}
+{"kind":"table","id":"tb/1sjap8zi","slide":14,"name":"표 40","rows":4,"cols":3,"preview":"구간 | 기획한 기준 | 남길 정보","bbox":[64,420,1152,227]}
+{"kind":"image","id":"im/ulgfat4j","slide":14,"name":"","alt":"창고·유통기한별 재고 조회. 격리 앱에서 합성 데이터로 실행한 샘플 화면.","bbox":[64,234.67,1152,412.85]}
+{"kind":"notes","id":"nt/6lsnupw7","slide":14,"text":"근거: career_facts.md C-060d·058·057.\n원장의 흐름을 요약한 편집 가능한 설계 도표. 상태는 기획이며 모든 분기 구현 완료와 구분."}
+{"kind":"slide","id":"sl/vaxsvy10","slide":15,"title":"15 / 24","textShapes":14}
+{"kind":"textbox","id":"sh/it4rm5wv","slide":15,"name":"text-0","text":"15 / 24","textPreview":"15 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/547mhg3m","slide":15,"name":"text-1","text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/k3y5ov21","slide":15,"name":"text-2","text":"가중치 시나리오를 발주 검토에 활용","textPreview":"가중치 시나리오를 발주 검토에 활용","textChars":19,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/76p4jqls","slide":15,"name":"text-3","text":"담당자가 설정한 가정으로 재고를 검토하고, 실제 발주안은 사업 조건을 함께 확인한 뒤 정했습니다.","textPreview":"담당자가 설정한 가정으로 재고를 검토하고, 실제 발주안은 사업 조건을 함께 확인한 뒤 정했습니다.","textChars":54,"textLines":1,"bbox":[64,125,1152,42]}
+{"kind":"textbox","id":"sh/65gnqlk7","slide":15,"name":"사각형: 둥근 모서리 4","text":"가정 설정","textPreview":"가정 설정","textChars":5,"textLines":1,"bbox":[64,182.67,364,33.33]}
+{"kind":"textbox","id":"sh/t87ml0ji","slide":15,"name":"사각형: 둥근 모서리 5","text":"기간별 가중치와 수량 설정","textPreview":"기간별 가중치와 수량 설정","textChars":14,"textLines":1,"bbox":[64,221.33,364,48]}
+{"kind":"textbox","id":"sh/s7y5sv2x","slide":15,"name":"text-6","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[433,230.67,24,28]}
+{"kind":"textbox","id":"sh/na5476l8","slide":15,"name":"사각형: 둥근 모서리 7","text":"시나리오 검토","textPreview":"시나리오 검토","textChars":7,"textLines":1,"bbox":[458,182.67,364,33.33]}
+{"kind":"textbox","id":"sh/m9c3e1kn","slide":15,"name":"사각형: 둥근 모서리 8","text":"가정에 따른 재고 변화를 확인","textPreview":"가정에 따른 재고 변화를 확인","textChars":16,"textLines":1,"bbox":[458,221.33,364,48]}
+{"kind":"textbox","id":"sh/wrm9kvep","slide":15,"name":"text-9","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[827,230.67,24,28]}
+{"kind":"textbox","id":"sh/hsvat0fa","slide":15,"name":"사각형: 둥근 모서리 10","text":"발주안·승인","textPreview":"발주안·승인","textChars":6,"textLines":1,"bbox":[852,182.67,364,33.33]}
+{"kind":"textbox","id":"sh/upkrilwj","slide":15,"name":"사각형: 둥근 모서리 11","text":"세일즈 전망·납기·자금 조건 검토","textPreview":"세일즈 전망·납기·자금 조건 검토","textChars":18,"textLines":1,"bbox":[852,221.33,364,48]}
+{"kind":"textbox","id":"sh/vqdsrqx4","slide":15,"name":"text-12","text":"담당자가 직접 조정하는 검토 화면","textPreview":"담당자가 직접 조정하는 검토 화면","textChars":18,"textLines":1,"bbox":[64,285.33,1152,30.67]}
+{"kind":"textbox","id":"sh/5wvax0f6","slide":15,"name":"text-13","text":"샘플 실행 화면 · 합성 데이터 시연 / 가중치는 담당자 가정이며 발주 수량과 승인 결과가 아님","textPreview":"샘플 실행 화면 · 합성 데이터 시연 / 가중치는 담당자 가정이며 발주 수량과 승인 결과가 아님","textChars":53,"textLines":1,"bbox":[64,673,1152,31]}
+{"kind":"table","id":"tb/g72xwbu5","slide":15,"name":"표 28","rows":4,"cols":2,"preview":"입력·초안 상황 | 정책에 따른 처리","bbox":[64,441,1152,200]}
+{"kind":"image","id":"im/zihkze9o","slide":15,"name":"","alt":"발주 검토 가중치와 수량 설정. 담당자 가정에 따른 시나리오 샘플 화면.","bbox":[126.45,328,1027.09,325.33]}
+{"kind":"notes","id":"nt/vaxsvy10","slide":15,"text":"근거: career_facts.md C-058.\n포트폴리오/evidence/bigsee/current/마켓빅시_AI응답정책_발췌_2026-09-03.md. 정책은 설계 확정, 항목별 구현 완료 별도."}
+{"kind":"slide","id":"sl/gny5sjyp","slide":16,"title":"16 / 24","textShapes":12}
+{"kind":"textbox","id":"sh/nqlg3a5k","slide":16,"name":"text-0","text":"16 / 24","textPreview":"16 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/8z2h8bq1","slide":16,"name":"text-1","text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/9kby1g7m","slide":16,"name":"text-2","text":"기존 시트와 병행하며 팀의 사용 방식에 맞췄습니다","textPreview":"기존 시트와 병행하며 팀의 사용 방식에 맞췄습니다","textChars":27,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/ytkf2h8j","slide":16,"name":"text-3","text":"약 2개월 동안 업로드 결과를 기존 자료와 대조하고, 팀원들의 확인 순서와 사용 의견을 반영했습니다.","textPreview":"약 2개월 동안 업로드 결과를 기존 자료와 대조하고, 팀원들의 확인 순서와 사용 의견을 반영했습니다.","textChars":56,"textLines":1,"bbox":[64,125,1152,42]}
+{"kind":"textbox","id":"sh/zutgvm94","slide":16,"name":"text-4","text":"시범 배포에서 월간 검토 기준 자료로","textPreview":"시범 배포에서 월간 검토 기준 자료로","textChars":20,"textLines":1,"bbox":[64,184,1152,30]}
+{"kind":"textbox","id":"sh/kv2h4rqp","slide":16,"name":"사각형: 둥근 모서리 5","text":"2026-04  시범 배포\n기존 시트와 대시보드 결과를 병행 확인","textPreview":"2026-04  시범 배포 | 기존 시트와 대시보드 결과를 병행 확인","textChars":36,"textLines":2,"bbox":[64,231,500,100]}
+{"kind":"textbox","id":"sh/lwbyxwra","slide":16,"name":"text-6","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[602,266,24,28]}
+{"kind":"textbox","id":"sh/ip4zel83","slide":16,"name":"사각형: 둥근 모서리 7","text":"2026-06  실무 기준 자료로 사용\n월간 발주 검토에 필요한 자료를 대시보드로 확인","textPreview":"2026-06  실무 기준 자료로 사용 | 월간 발주 검토에 필요한 자료를 대시보드로 확인","textChars":48,"textLines":2,"bbox":[656,231,560,100]}
+{"kind":"textbox","id":"sh/3qdg7qpo","slide":16,"name":"text-8","text":"먼저 익숙한 자료와 결과를 비교할 수 있게 하고, 실제로 사용하는 동료들의 의견을 받아 개선했습니다.","textPreview":"먼저 익숙한 자료와 결과를 비교할 수 있게 하고, 실제로 사용하는 동료들의 의견을 받아 개선했습니다.","textChars":56,"textLines":1,"bbox":[64,350,1152,41]}
+{"kind":"textbox","id":"sh/fm1gzq5o","slide":16,"name":"text-9","text":"검증과 협업에서 확인한 기준","textPreview":"검증과 협업에서 확인한 기준","textChars":15,"textLines":1,"bbox":[64,425,1152,30]}
+{"kind":"textbox","id":"sh/1ojy10ne","slide":16,"name":"text-10","text":"적용 기준  취합 결과의 일치와 동료의 자료 확인 흐름을 함께 확인하며 운영에 반영했습니다.","textPreview":"적용 기준  취합 결과의 일치와 동료의 자료 확인 흐름을 함께 확인하며 운영에 반영했습니다.","textChars":51,"textLines":1,"bbox":[64,615,1152,34]}
+{"kind":"textbox","id":"sh/gnax8v6t","slide":16,"name":"text-11","text":"원천: SCM 업무성과 C-081·C-094·C-095 및 사용자 확인 / 병행 검증 약 2개월","textPreview":"원천: SCM 업무성과 C-081·C-094·C-095 및 사용자 확인 / 병행 검증 약 2개월","textChars":53,"textLines":1,"bbox":[64,673,1152,31]}
+{"kind":"table","id":"tb/18nehone","slide":16,"name":"표 23","rows":2,"cols":4,"preview":"결과 대조 | 사용 의견 | 개선 반영 | 실무 적용","bbox":[64,468,1152,127]}
+{"kind":"notes","id":"nt/gny5sjyp","slide":16,"text":"근거: career_facts.md C-059·059a·059b.\nH-011→H-012는 문서상의 가설 수정. 동일 기간 비교 의미는 설계에 대한 해석이며 실험 실행·결과로 확대하지 않음."}
+{"kind":"slide","id":"sl/14bup87q","slide":17,"title":"17 / 24","textShapes":6}
+{"kind":"textbox","id":"sh/ihcvml4j","slide":17,"name":"text-0","text":"17 / 24","textPreview":"17 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/1c7e50ni","slide":17,"name":"text-1","text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/gbedwfmx","slide":17,"name":"text-2","text":"취합 시간을 줄이고, 결과의 범위를 확인했습니다","textPreview":"취합 시간을 줄이고, 결과의 범위를 확인했습니다","textChars":26,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/rm5czq50","slide":17,"name":"text-3","text":"업로드와 검토에 드는 시간, 취합 과정 오류, 실제 발주 검토 활용을 나누어 확인했습니다.","textPreview":"업로드와 검토에 드는 시간, 취합 과정 오류, 실제 발주 검토 활용을 나누어 확인했습니다.","textChars":50,"textLines":1,"bbox":[64,125,1152,42]}
+{"kind":"textbox","id":"sh/t8ne10n6","slide":17,"name":"text-4","text":"실무 적용과 결과를 읽는 기준","textPreview":"실무 적용과 결과를 읽는 기준","textChars":16,"textLines":1,"bbox":[64,390,1140,30]}
+{"kind":"textbox","id":"sh/jilcvq54","slide":17,"name":"text-5","text":"원천: SCM 업무성과 C-080·C-081·C-104·C-113 및 사용자 확인 / 초기 관찰값으로 장기 효과와 구분","textPreview":"원천: SCM 업무성과 C-080·C-081·C-104·C-113 및 사용자 확인 / 초기 관찰값으로 장기 효과와 구분","textChars":66,"textLines":1,"bbox":[64,673,1152,31]}
+{"kind":"table","id":"tb/jet0vi5k","slide":17,"name":"표 12","rows":2,"cols":3,"preview":"자료 취합 시간 | 취합 과정 오류 | 월간 발주 검토 활용","bbox":[64,188,1152,154]}
+{"kind":"table","id":"tb/idkzmd4z","slide":17,"name":"표 14","rows":4,"cols":3,"preview":"구분 | 확인한 내용 | 해석 범위","bbox":[64,433,1152,205]}
+{"kind":"notes","id":"nt/14bup87q","slide":17,"text":"근거: career_facts.md C-050·050b·054~059.\n유입부터 팀 초대까지의 전체 이벤트 정의안은 C-057. 표는 제품 판단에 필요한 일부를 발췌. 상단 첫 열은 현재 운영 사실, 후속 두 열은 설계·검증 범위. 하단 이벤트는 정의안이며 구현·측정 완료 아님."}
+{"kind":"slide","id":"sl/y5wne50z","slide":18,"title":"18 / 24","textShapes":27}
+{"kind":"textbox","id":"sh/u1sridc7","slide":18,"name":"text-0","text":"18 / 24","textPreview":"18 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/wrelszu9","slide":18,"name":"text-1","text":"Project 03.  규제 대응","textPreview":"Project 03.  규제 대응","textChars":18,"textLines":1,"bbox":[64,76,1130,34]}
+{"kind":"textbox","id":"sh/hsn2l4bu","slide":18,"name":"사각형: 둥근 모서리 2","text":"KCS","textPreview":"KCS","textChars":3,"textLines":1,"bbox":[64,168,93,92]}
+{"kind":"textbox","id":"sh/itw3upcf","slide":18,"name":"text-3","text":"관세법 개정 대응, ERP·통관 연동 기획","textPreview":"관세법 개정 대응, ERP·통관 연동 기획","textChars":23,"textLines":1,"bbox":[184,176,601,46]}
+{"kind":"textbox","id":"sh/je5knut0","slide":18,"name":"text-4","text":"개인통관고유부호 관련 요건 강화에 대응해,\n채널 주문부터 ERP·WMS·통관까지 처리 흐름을 조율했습니다.","textPreview":"개인통관고유부호 관련 요건 강화에 대응해, | 채널 주문부터 ERP·WMS·통관까지 처리 흐름을 조율했습니다.","textChars":59,"textLines":2,"bbox":[184,225,597,71]}
+{"kind":"textbox","id":"sh/4felwzu5","slide":18,"name":"text-5","text":"문제","textPreview":"문제","textChars":2,"textLines":1,"bbox":[184,318,90,24]}
+{"kind":"textbox","id":"sh/5gnmp4bq","slide":18,"name":"text-6","text":"시스템마다 다른 주문 단위와 완료 기준","textPreview":"시스템마다 다른 주문 단위와 완료 기준","textChars":21,"textLines":1,"bbox":[184,348,604,37]}
+{"kind":"textbox","id":"sh/6hw3y9sb","slide":18,"name":"text-7","text":"대상","textPreview":"대상","textChars":2,"textLines":1,"bbox":[184,397,90,24]}
+{"kind":"textbox","id":"sh/rip4retw","slide":18,"name":"text-8","text":"해외직구 고객과 주문·출고·통관 운영팀","textPreview":"해외직구 고객과 주문·출고·통관 운영팀","textChars":21,"textLines":1,"bbox":[184,427,604,37]}
+{"kind":"textbox","id":"sh/fapkr6pw","slide":18,"name":"text-9","text":"목표","textPreview":"목표","textChars":2,"textLines":1,"bbox":[184,476,90,24]}
+{"kind":"textbox","id":"sh/upg3i18r","slide":18,"name":"text-10","text":"누락을 발견하고 오류를 수정·재제출할 수 있는 흐름","textPreview":"누락을 발견하고 오류를 수정·재제출할 수 있는 흐름","textChars":28,"textLines":1,"bbox":[184,506,604,37]}
+{"kind":"shape","id":"sh/1cr2tg72","slide":18,"name":"사각형: 둥근 모서리 11","bbox":[812,168,404,319]}
+{"kind":"textbox","id":"sh/gbylkbqh","slide":18,"name":"text-12","text":"데이터를 나눠 가진 주체","textPreview":"데이터를 나눠 가진 주체","textChars":13,"textLines":1,"bbox":[842,193,343,25]}
+{"kind":"shape","id":"sh/7mpknmp0","slide":18,"name":"사각형: 둥근 모서리 13","bbox":[844,230,340,54]}
+{"kind":"textbox","id":"sh/6lg3e18f","slide":18,"name":"text-14","text":"자사몰","textPreview":"자사몰","textChars":3,"textLines":1,"bbox":[864,236,298,22]}
+{"kind":"textbox","id":"sh/to72pw76","slide":18,"name":"text-15","text":"주문·결제·고객","textPreview":"주문·결제·고객","textChars":8,"textLines":1,"bbox":[864,259,298,18]}
+{"kind":"shape","id":"sh/snylgrql","slide":18,"name":"사각형: 둥근 모서리 16","bbox":[844,290,340,54]}
+{"kind":"textbox","id":"sh/bi94zqp4","slide":18,"name":"text-17","text":"본인확인기관","textPreview":"본인확인기관","textChars":6,"textLines":1,"bbox":[864,296,298,22]}
+{"kind":"textbox","id":"sh/qh03ql8j","slide":18,"name":"text-18","text":"개인통관고유부호 검증","textPreview":"개인통관고유부호 검증","textChars":11,"textLines":1,"bbox":[864,319,298,18]}
+{"kind":"shape","id":"sh/md4nipsr","slide":18,"name":"사각형: 둥근 모서리 19","bbox":[844,350,340,54]}
+{"kind":"textbox","id":"sh/nedoru9c","slide":18,"name":"text-20","text":"ERP·WMS","textPreview":"ERP·WMS","textChars":7,"textLines":1,"bbox":[864,356,298,22]}
+{"kind":"textbox","id":"sh/8zm5kzax","slide":18,"name":"text-21","text":"상품·포장·운송장","textPreview":"상품·포장·운송장","textChars":9,"textLines":1,"bbox":[864,379,298,18]}
+{"kind":"shape","id":"sh/90v6t4ri","slide":18,"name":"사각형: 둥근 모서리 22","bbox":[844,410,340,54]}
+{"kind":"textbox","id":"sh/a14nm9s3","slide":18,"name":"text-23","text":"통관대행사","textPreview":"통관대행사","textChars":5,"textLines":1,"bbox":[864,416,298,22]}
+{"kind":"textbox","id":"sh/v2xovu9o","slide":18,"name":"text-24","text":"데이터 병합·수입신고","textPreview":"데이터 병합·수입신고","textChars":11,"textLines":1,"bbox":[864,439,298,18]}
+{"kind":"shape","id":"sh/w36poza9","slide":18,"name":"직선 연결선 25","bbox":[64,542,1152,0]}
+{"kind":"textbox","id":"sh/x4f6x4re","slide":18,"name":"text-26","text":"기간","textPreview":"기간","textChars":2,"textLines":1,"bbox":[64,566,75,24]}
+{"kind":"textbox","id":"sh/q5kna5sz","slide":18,"name":"text-27","text":"2026-02 ~ 2026-08-28 / 신규 연동과 기존 통관 방식 병행","textPreview":"2026-02 ~ 2026-08-28 / 신규 연동과 기존 통관 방식 병행","textChars":41,"textLines":1,"bbox":[149,566,1058,25]}
+{"kind":"textbox","id":"sh/b6toja94","slide":18,"name":"text-28","text":"역할","textPreview":"역할","textChars":2,"textLines":1,"bbox":[64,595,75,24]}
+{"kind":"textbox","id":"sh/t0zqp8bm","slide":18,"name":"text-29","text":"프로젝트 PM: 정책·데이터 계약 정의, API 요건 조율, 오류 복구와 운영 검증","textPreview":"프로젝트 PM: 정책·데이터 계약 정의, API 요건 조율, 오류 복구와 운영 검증","textChars":46,"textLines":1,"bbox":[149,595,1058,25]}
+{"kind":"textbox","id":"sh/szq9g3uh","slide":18,"name":"text-30","text":"협업","textPreview":"협업","textChars":2,"textLines":1,"bbox":[64,624,75,24]}
+{"kind":"textbox","id":"sh/7yh8nytw","slide":18,"name":"text-31","text":"자사몰 개발사, ERP 개발사, 물류 개발사, 통관대행사, 본인확인기관","textPreview":"자사몰 개발사, ERP 개발사, 물류 개발사, 통관대행사, 본인확인기관","textChars":39,"textLines":1,"bbox":[149,624,1058,25]}
+{"kind":"textbox","id":"sh/6x8retcb","slide":18,"name":"TextBox 32","text":"기획·조율·검증: 본인 / 각 시스템 구현: 해당 개발사","textPreview":"기획·조율·검증: 본인 / 각 시스템 구현: 해당 개발사","textChars":31,"textLines":1,"bbox":[64,686,1152,14.86]}
+{"kind":"notes","id":"nt/y5wne50z","slide":18,"text":"근거: 경력 사실 원장 C-020~028·101·126. 운영 시작과 전체 자동화 완료는 구분.\n"}
+{"kind":"slide","id":"sl/nid43ytk","slide":19,"title":"19 / 24","textShapes":22}
+{"kind":"textbox","id":"sh/07ehknip","slide":19,"name":"text-0","text":"19 / 24","textPreview":"19 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/9gb6xgbi","slide":19,"name":"text-1","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/8v2pobax","slide":19,"name":"text-2","text":"배경과 문제 정의","textPreview":"배경과 문제 정의","textChars":9,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/vitozqt8","slide":19,"name":"text-3","text":"주문 한 건이 통관·출고로 이어지는 과정에서 데이터와 책임이 갈라져 있었습니다.","textPreview":"주문 한 건이 통관·출고로 이어지는 과정에서 데이터와 책임이 갈라져 있었습니다.","textChars":44,"textLines":1,"bbox":[64,125,1152,31]}
+{"kind":"textbox","id":"sh/ahk7qls3","slide":19,"name":"text-4","text":"데이터는 각 시스템에, 판단은 담당자에게","textPreview":"데이터는 각 시스템에, 판단은 담당자에게","textChars":22,"textLines":1,"bbox":[64,176,555,30]}
+{"kind":"shape","id":"sh/xkbq10be","slide":19,"name":"사각형: 둥근 모서리 5","bbox":[64,217,552,49]}
+{"kind":"textbox","id":"sh/wj2psvat","slide":19,"name":"text-6","text":"자사몰","textPreview":"자사몰","textChars":3,"textLines":1,"bbox":[84,231,168,24]}
+{"kind":"textbox","id":"sh/jmd83atk","slide":19,"name":"text-7","text":"주문·결제·고객 정보","textPreview":"주문·결제·고객 정보","textChars":11,"textLines":1,"bbox":[258,231,335,26]}
+{"kind":"shape","id":"sh/il47u5sz","slide":19,"name":"사각형: 둥근 모서리 8","bbox":[64,281,552,49]}
+{"kind":"textbox","id":"sh/cri1gnql","slide":19,"name":"text-9","text":"본인확인기관","textPreview":"본인확인기관","textChars":6,"textLines":1,"bbox":[84,295,168,24]}
+{"kind":"textbox","id":"sh/dsri9sr6","slide":19,"name":"text-10","text":"개인통관고유부호 검증","textPreview":"개인통관고유부호 검증","textChars":11,"textLines":1,"bbox":[258,295,335,26]}
+{"kind":"shape","id":"sh/qpgjex8f","slide":19,"name":"사각형: 둥근 모서리 11","bbox":[64,345,552,49]}
+{"kind":"textbox","id":"sh/rqp07290","slide":19,"name":"text-12","text":"ERP·WMS","textPreview":"ERP·WMS","textChars":7,"textLines":1,"bbox":[84,359,168,24]}
+{"kind":"textbox","id":"sh/0vi1k7qx","slide":19,"name":"text-13","text":"상품·포장·운송장","textPreview":"상품·포장·운송장","textChars":9,"textLines":1,"bbox":[258,359,335,26]}
+{"kind":"shape","id":"sh/1gridcr2","slide":19,"name":"사각형: 둥근 모서리 14","bbox":[64,409,552,49]}
+{"kind":"textbox","id":"sh/et0jix8r","slide":19,"name":"text-15","text":"통관대행사","textPreview":"통관대행사","textChars":5,"textLines":1,"bbox":[84,423,168,24]}
+{"kind":"textbox","id":"sh/zu90b29c","slide":19,"name":"text-16","text":"병합·수입신고·통관 상태","textPreview":"병합·수입신고·통관 상태","textChars":13,"textLines":1,"bbox":[258,423,335,26]}
+{"kind":"textbox","id":"sh/oj21o7qt","slide":19,"name":"text-17","text":"수기 전송만으로 남는 운영 공백","textPreview":"수기 전송만으로 남는 운영 공백","textChars":17,"textLines":1,"bbox":[656,176,552,30]}
+{"kind":"textbox","id":"sh/9kb2hcre","slide":19,"name":"text-18","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[656,226,36,26]}
+{"kind":"textbox","id":"sh/x07i1cji","slide":19,"name":"text-19","text":"주문번호와 포장번호가 달라 같은 주문을 대조하기 어려움","textPreview":"주문번호와 포장번호가 달라 같은 주문을 대조하기 어려움","textChars":30,"textLines":1,"bbox":[696,226,498,54]}
+{"kind":"textbox","id":"sh/wfy1s7ix","slide":19,"name":"text-20","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[656,307,36,26]}
+{"kind":"textbox","id":"sh/vep0z21c","slide":19,"name":"text-21","text":"접수 응답과 통관 완료를 같은 상태로 오인할 수 있음","textPreview":"접수 응답과 통관 완료를 같은 상태로 오인할 수 있음","textChars":29,"textLines":1,"bbox":[696,307,498,54]}
+{"kind":"textbox","id":"sh/adgjqx0r","slide":19,"name":"text-22","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[656,388,36,26]}
+{"kind":"textbox","id":"sh/54ri5wje","slide":19,"name":"text-23","text":"오류가 났을 때 수정할 원천과 재처리 담당이 불명확함","textPreview":"오류가 났을 때 수정할 원천과 재처리 담당이 불명확함","textChars":29,"textLines":1,"bbox":[696,388,498,54]}
+{"kind":"shape","id":"sh/k3y1wri9","slide":19,"name":"사각형: 둥근 모서리 24","bbox":[64,523,1152,113]}
+{"kind":"textbox","id":"sh/j2p03m1o","slide":19,"name":"text-25","text":"문제 정의","textPreview":"문제 정의","textChars":5,"textLines":1,"bbox":[84,541,134,26]}
+{"kind":"textbox","id":"sh/i1gjuh03","slide":19,"name":"text-26","text":"누가 어떤 데이터를 책임지고,\n어느 상태를 근거로 다음 작업을 진행할 것인가","textPreview":"누가 어떤 데이터를 책임지고, | 어느 상태를 근거로 다음 작업을 진행할 것인가","textChars":42,"textLines":2,"bbox":[228,542,960,71]}
+{"kind":"notes","id":"nt/nid43ytk","slide":19,"text":"근거: 경력 사실 원장 C-025·028·101·126. planning_v7.html 4·8·9절. 원본은 내부 문서로 도표를 일반화해 재구성.\n"}
+{"kind":"slide","id":"sl/zyxsni5k","slide":20,"title":"20 / 24","textShapes":17}
+{"kind":"textbox","id":"sh/za50r2ds","slide":20,"name":"text-0","text":"20 / 24","textPreview":"20 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/qpwjmh8n","slide":20,"name":"text-1","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/rq50vmp8","slide":20,"name":"text-2","text":"주문번호와 포장번호를 분리","textPreview":"주문번호와 포장번호를 분리","textChars":14,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/4nu1krqh","slide":20,"name":"text-3","text":"주문 추적 기준을 유지하면서 분할 출고와 합배송을 설명할 수 있도록 관계를 정의했습니다.","textPreview":"주문 추적 기준을 유지하면서 분할 출고와 합배송을 설명할 수 있도록 관계를 정의했습니다.","textChars":49,"textLines":1,"bbox":[64,125,1152,31]}
+{"kind":"textbox","id":"sh/po3itc72","slide":20,"name":"text-4","text":"분할 출고","textPreview":"분할 출고","textChars":5,"textLines":1,"bbox":[64,179,549,30]}
+{"kind":"textbox","id":"sh/2lczih8r","slide":20,"name":"text-5","text":"합배송","textPreview":"합배송","textChars":3,"textLines":1,"bbox":[660,179,548,30]}
+{"kind":"shape","id":"sh/3ml0rmpw","slide":20,"name":"사각형: 둥근 모서리 6","bbox":[64,221,552,282]}
+{"kind":"shape","id":"sh/gjuhg7ql","slide":20,"name":"사각형: 둥근 모서리 7","bbox":[660,221,556,282]}
+{"kind":"textbox","id":"sh/hk3ipcr6","slide":20,"name":"사각형: 둥근 모서리 8","text":"원주문 A","textPreview":"원주문 A","textChars":5,"textLines":1,"bbox":[89,306,171,54]}
+{"kind":"textbox","id":"sh/dkfmp4zy","slide":20,"name":"사각형: 둥근 모서리 9","text":"포장 A-1\n운송장 1","textPreview":"포장 A-1 | 운송장 1","textChars":12,"textLines":2,"bbox":[345,247,233,82]}
+{"kind":"textbox","id":"sh/cj65wzyd","slide":20,"name":"사각형: 둥근 모서리 10","text":"포장 A-2\n운송장 2","textPreview":"포장 A-2 | 운송장 2","textChars":12,"textLines":2,"bbox":[345,349,233,82]}
+{"kind":"shape","id":"sh/rid4nuhs","slide":20,"name":"직선 연결선 11","bbox":[260,333,40,0]}
+{"kind":"shape","id":"sh/qh4nupg7","slide":20,"name":"직선 연결선 12","bbox":[300,288,0,102]}
+{"kind":"shape","id":"sh/pwvmlkzm","slide":20,"name":"직선 연결선 13","bbox":[300,288,30,0]}
+{"kind":"shape","id":"sh/4vm5sfy1","slide":20,"name":"직선 연결선 14","bbox":[300,390,30,0]}
+{"kind":"textbox","id":"sh/3ud4juhg","slide":20,"name":"text-15","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[326,274,18,28]}
+{"kind":"textbox","id":"sh/2t4nqpgb","slide":20,"name":"text-16","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[326,376,18,28]}
+{"kind":"textbox","id":"sh/hsvmhkzq","slide":20,"name":"text-17","text":"외부에 보내는 원주문번호는 A로 유지","textPreview":"외부에 보내는 원주문번호는 A로 유지","textChars":20,"textLines":1,"bbox":[91,450,487,33]}
+{"kind":"textbox","id":"sh/grm5ofy5","slide":20,"name":"사각형: 둥근 모서리 18","text":"원주문 B","textPreview":"원주문 B","textChars":5,"textLines":1,"bbox":[689,256,206,61]}
+{"kind":"textbox","id":"sh/8b654f61","slide":20,"name":"사각형: 둥근 모서리 19","text":"원주문 C","textPreview":"원주문 C","textChars":5,"textLines":1,"bbox":[689,350,206,61]}
+{"kind":"shape","id":"sh/tcz6dk7m","slide":20,"name":"직선 연결선 20","bbox":[895,287,33,0]}
+{"kind":"shape","id":"sh/69on25ov","slide":20,"name":"직선 연결선 21","bbox":[895,381,33,0]}
+{"kind":"shape","id":"sh/7ax4bapg","slide":20,"name":"직선 연결선 22","bbox":[928,287,0,94]}
+{"kind":"shape","id":"sh/k7650f6p","slide":20,"name":"직선 연결선 23","bbox":[928,340,24,0]}
+{"kind":"textbox","id":"sh/l8fm907a","slide":20,"name":"text-24","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[949,326,18,28]}
+{"kind":"textbox","id":"sh/y5ony58z","slide":20,"name":"사각형: 둥근 모서리 25","text":"운송장 3\n주문별 거래정보 2건","textPreview":"운송장 3 | 주문별 거래정보 2건","textChars":17,"textLines":2,"bbox":[969,280,208,121]}
+{"kind":"textbox","id":"sh/j6x47ap4","slide":20,"name":"text-26","text":"운송장 하나에 묶여도 거래정보는 주문별 유지","textPreview":"운송장 하나에 묶여도 거래정보는 주문별 유지","textChars":24,"textLines":1,"bbox":[690,451,490,33]}
+{"kind":"table","id":"tb/58jato76","slide":20,"name":"표 56","rows":4,"cols":2,"preview":"보존할 기준 | 설계 의미","bbox":[64,523,1152,136]}
+{"kind":"notes","id":"nt/zyxsni5k","slide":20,"text":"근거: 경력 사실 원장 C-029. planning_v7.html 8절 공통 식별자. orderNo는 원주문번호, erpPackageOrderNo는 ERP 포장번호, 병합키는 hwbNo+orderNo. 시뮬레이션은 실제 주문·운영 로그가 아님.\n"}
+{"kind":"slide","id":"sl/m1wvqtk3","slide":21,"title":"21 / 24","textShapes":14}
+{"kind":"textbox","id":"sh/9sze58rq","slide":21,"name":"text-0","text":"21 / 24","textPreview":"21 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/1gbmxs7a","slide":21,"name":"text-1","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/0f2lon6p","slide":21,"name":"text-2","text":"혼재 주문의 선출고 요청을 조정","textPreview":"혼재 주문의 선출고 요청을 조정","textChars":17,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/ra9kryp8","slide":21,"name":"text-3","text":"2026-08-26 협의 사례: 국내 상품과 해외직구 상품이 섞인 주문의 처리 단위를 맞췄습니다.","textPreview":"2026-08-26 협의 사례: 국내 상품과 해외직구 상품이 섞인 주문의 처리 단위를 맞췄습니다.","textChars":54,"textLines":1,"bbox":[64,125,1152,31]}
+{"kind":"textbox","id":"sh/qp03yt8n","slide":21,"name":"사각형: 둥근 모서리 4","text":"처음 요청","textPreview":"처음 요청","textChars":5,"textLines":1,"bbox":[64,182,370,41]}
+{"kind":"shape","id":"sh/dcb2t87y","slide":21,"name":"사각형: 둥근 모서리 5","bbox":[64,237,370,132]}
+{"kind":"textbox","id":"sh/sb2lk36t","slide":21,"name":"text-6","text":"국내 상품은 통관과 무관하므로 먼저 출고","textPreview":"국내 상품은 통관과 무관하므로 먼저 출고","textChars":22,"textLines":1,"bbox":[86,245,326,116]}
+{"kind":"textbox","id":"sh/b6d432pc","slide":21,"name":"text-7","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[438,285,17,28]}
+{"kind":"textbox","id":"sh/al43uxor","slide":21,"name":"사각형: 둥근 모서리 8","text":"확인한 제약","textPreview":"확인한 제약","textChars":6,"textLines":1,"bbox":[458,182,370,41]}
+{"kind":"shape","id":"sh/4jax4nqd","slide":21,"name":"사각형: 둥근 모서리 9","bbox":[458,237,370,132]}
+{"kind":"textbox","id":"sh/5kjydsri","slide":21,"name":"text-10","text":"ERP는 원주문 단위로 삭제·재생성\n부분 재처리 시 내수 주문의 중복 위험","textPreview":"ERP는 원주문 단위로 삭제·재생성 | 부분 재처리 시 내수 주문의 중복 위험","textChars":41,"textLines":2,"bbox":[480,245,326,116]}
+{"kind":"textbox","id":"sh/ixsf2d87","slide":21,"name":"text-11","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[832,285,17,28]}
+{"kind":"textbox","id":"sh/jy1gbi9s","slide":21,"name":"사각형: 둥근 모서리 12","text":"최종 결정","textPreview":"최종 결정","textChars":5,"textLines":1,"bbox":[852,182,370,41]}
+{"kind":"shape","id":"sh/wvax03q1","slide":21,"name":"사각형: 둥근 모서리 13","bbox":[852,237,370,132]}
+{"kind":"textbox","id":"sh/hwjy98rm","slide":21,"name":"text-14","text":"내수 선출고 요청을 철회\n해외직구 신고가 확정될 때까지 함께 보류","textPreview":"내수 선출고 요청을 철회 | 해외직구 신고가 확정될 때까지 함께 보류","textChars":36,"textLines":2,"bbox":[874,245,326,116]}
+{"kind":"textbox","id":"sh/utsfyt8v","slide":21,"name":"text-15","text":"대안의 이익과 감수할 영향","textPreview":"대안의 이익과 감수할 영향","textChars":14,"textLines":1,"bbox":[64,406,1152,30]}
+{"kind":"textbox","id":"sh/8rqxw3q5","slide":21,"name":"사각형: 둥근 모서리 17","text":"배송 속도와 중복 위험을 비교하고, 시스템 제약을 운영 기준으로 합의했습니다.","textPreview":"배송 속도와 중복 위험을 비교하고, 시스템 제약을 운영 기준으로 합의했습니다.","textChars":43,"textLines":1,"bbox":[64,638,1152,48]}
+{"kind":"table","id":"tb/a50jmt07","slide":21,"name":"표 34","rows":3,"cols":3,"preview":"대안 | 얻는 것 | 위험·수용한 영향","bbox":[64,449,1152,165]}
+{"kind":"notes","id":"nt/m1wvqtk3","slide":21,"text":"근거: 경력 사실 원장 C-127. 리스크·질의대장 2026-08-26 협의 이력(572·622행). 실제 당시 의사결정 사례이며 현재 모든 채널에 적용되는 일괄 정책으로 확대하지 않음.\n"}
+{"kind":"slide","id":"sl/5onypobq","slide":22,"title":"22 / 24","textShapes":28}
+{"kind":"textbox","id":"sh/qtwz2547","slide":22,"name":"text-0","text":"22 / 24","textPreview":"22 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/6987itcr","slide":22,"name":"text-1","text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/7a18rydc","slide":22,"name":"text-2","text":"접수 이후의 상태와 오류 복구","textPreview":"접수 이후의 상태와 오류 복구","textChars":16,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/k7qpgjul","slide":22,"name":"text-3","text":"접수, 상대 데이터 대기, 병합, 통관 결과를 서로 다른 근거로 판단하도록 설계했습니다.","textPreview":"접수, 상대 데이터 대기, 병합, 통관 결과를 서로 다른 근거로 판단하도록 설계했습니다.","textChars":49,"textLines":1,"bbox":[64,125,1152,31]}
+{"kind":"textbox","id":"sh/58zqpov6","slide":22,"name":"text-4","text":"같은 주문이 두 시스템에서 도착하는 상황","textPreview":"같은 주문이 두 시스템에서 도착하는 상황","textChars":22,"textLines":1,"bbox":[64,178,1144,30]}
+{"kind":"textbox","id":"sh/il87etcv","slide":22,"name":"사각형: 둥근 모서리 5","text":"01  접수","textPreview":"01  접수","textChars":6,"textLines":1,"bbox":[64,223,276,39]}
+{"kind":"textbox","id":"sh/jmh8nyd0","slide":22,"name":"사각형: 둥근 모서리 6","text":"물류 데이터 도착","textPreview":"물류 데이터 도착","textChars":9,"textLines":1,"bbox":[64,274,276,56]}
+{"kind":"textbox","id":"sh/43u9snu5","slide":22,"name":"text-7","text":"HTTP 202 응답\n접수 사실만 확인","textPreview":"HTTP 202 응답 | 접수 사실만 확인","textChars":21,"textLines":2,"bbox":[80,347,244,68]}
+{"kind":"textbox","id":"sh/p43q1sva","slide":22,"name":"text-8","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[339,289,19,28]}
+{"kind":"textbox","id":"sh/p4z6tcri","slide":22,"name":"사각형: 둥근 모서리 9","text":"02  대기","textPreview":"02  대기","textChars":6,"textLines":1,"bbox":[356,223,276,39]}
+{"kind":"textbox","id":"sh/436507qx","slide":22,"name":"사각형: 둥근 모서리 10","text":"짝이 되는 정보 미도착","textPreview":"짝이 되는 정보 미도착","textChars":12,"textLines":1,"bbox":[356,274,276,56]}
+{"kind":"textbox","id":"sh/3ixor29c","slide":22,"name":"text-11","text":"상태 조회로\n대기와 검증 실패 구분","textPreview":"상태 조회로 | 대기와 검증 실패 구분","textChars":19,"textLines":2,"bbox":[372,347,244,68]}
+{"kind":"textbox","id":"sh/2honyx8r","slide":22,"name":"text-12","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[631,289,19,28]}
+{"kind":"textbox","id":"sh/hgf6pcr6","slide":22,"name":"사각형: 둥근 모서리 13","text":"03  병합","textPreview":"03  병합","textChars":6,"textLines":1,"bbox":[648,223,276,39]}
+{"kind":"textbox","id":"sh/gf65w7ql","slide":22,"name":"사각형: 둥근 모서리 14","text":"주문·운송장 기준 일치","textPreview":"주문·운송장 기준 일치","textChars":12,"textLines":1,"bbox":[648,274,276,56]}
+{"kind":"textbox","id":"sh/fexon290","slide":22,"name":"text-15","text":"병합 결과를 확인\n통관 완료와 구분","textPreview":"병합 결과를 확인 | 통관 완료와 구분","textChars":19,"textLines":2,"bbox":[664,347,244,68]}
+{"kind":"textbox","id":"sh/udonux8v","slide":22,"name":"text-16","text":"›","textPreview":"›","textChars":1,"textLines":1,"bbox":[923,289,19,28]}
+{"kind":"textbox","id":"sh/1cj61w7q","slide":22,"name":"사각형: 둥근 모서리 17","text":"04  결과","textPreview":"04  결과","textChars":6,"textLines":1,"bbox":[940,223,276,39]}
+{"kind":"textbox","id":"sh/0bap8rq5","slide":22,"name":"사각형: 둥근 모서리 18","text":"신고·통관 상태 조회","textPreview":"신고·통관 상태 조회","textChars":11,"textLines":1,"bbox":[940,274,276,56]}
+{"kind":"textbox","id":"sh/krihkz2d","slide":22,"name":"text-19","text":"최종 결과를 근거로\n후속 운영 판단","textPreview":"최종 결과를 근거로 | 후속 운영 판단","textChars":19,"textLines":2,"bbox":[956,347,244,68]}
+{"kind":"shape","id":"sh/lsrit4jy","slide":22,"name":"직선 연결선 20","bbox":[64,438,1152,0]}
+{"kind":"textbox","id":"sh/yp0zipk7","slide":22,"name":"text-21","text":"오류가 확인되면 원천과 재처리 기준을 먼저 구분","textPreview":"오류가 확인되면 원천과 재처리 기준을 먼저 구분","textChars":26,"textLines":1,"bbox":[64,464,1152,30]}
+{"kind":"textbox","id":"sh/jq90ru1s","slide":22,"name":"사각형: 둥근 모서리 22","text":"원천 확인","textPreview":"원천 확인","textChars":5,"textLines":1,"bbox":[64,507,370,36]}
+{"kind":"textbox","id":"sh/wnihgf2h","slide":22,"name":"text-23","text":"고객·인증 / 상품·포장 / 제출 필드를 구분","textPreview":"고객·인증 / 상품·포장 / 제출 필드를 구분","textChars":25,"textLines":1,"bbox":[78,558,342,67]}
+{"kind":"textbox","id":"sh/xoripkj2","slide":22,"name":"사각형: 둥근 모서리 24","text":"보완과 재처리","textPreview":"보완과 재처리","textChars":7,"textLines":1,"bbox":[458,507,370,36]}
+{"kind":"textbox","id":"sh/al0zepkb","slide":22,"name":"text-25","text":"제공자별 식별자와 공식 처리 규칙 적용","textPreview":"제공자별 식별자와 공식 처리 규칙 적용","textChars":21,"textLines":1,"bbox":[472,558,342,67]}
+{"kind":"textbox","id":"sh/bm9gnu1w","slide":22,"name":"사각형: 둥근 모서리 26","text":"다시 확인","textPreview":"다시 확인","textChars":5,"textLines":1,"bbox":[852,507,370,36]}
+{"kind":"textbox","id":"sh/ozyhcf25","slide":22,"name":"text-27","text":"응답 원문·제출 이력·최종 상태를 대사","textPreview":"응답 원문·제출 이력·최종 상태를 대사","textChars":21,"textLines":1,"bbox":[866,558,342,67]}
+{"kind":"textbox","id":"sh/907ylkjq","slide":22,"name":"사각형: 둥근 모서리 28","text":"필드 매핑표는 값의 계약, 상태 정의는 다음 작업을 시작할 조건이 됐습니다.","textPreview":"필드 매핑표는 값의 계약, 상태 정의는 다음 작업을 시작할 조건이 됐습니다.","textChars":42,"textLines":1,"bbox":[64,637,1152,48]}
+{"kind":"notes","id":"nt/5onypobq","slide":22,"text":"근거: 경력 사실 원장 C-128. planning_v7.html 9절 상태와 재시도. merged는 통관 완료가 아니며 pending은 대기와 검증 실패를 조회로 구분. 구현 완료 상태는 주장하지 않음.\n"}
+{"kind":"slide","id":"sl/c7uhcr6t","slide":23,"title":"23 / 24","textShapes":22}
+{"kind":"textbox","id":"sh/k3y9g3u9","slide":23,"name":"text-0","text":"23 / 24","textPreview":"23 / 24","textChars":7,"textLines":1,"bbox":[1143,30,73,18]}
+{"kind":"textbox","id":"sh/90vqdczq","slide":23,"name":"text-1","text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[64,78,41,35]}
+{"kind":"textbox","id":"sh/8zm9k7y5","slide":23,"name":"text-2","text":"정상·오류·재제출 시나리오를 검증했습니다","textPreview":"정상·오류·재제출 시나리오를 검증했습니다","textChars":22,"textLines":1,"bbox":[108,78,1080,40]}
+{"kind":"textbox","id":"sh/v2d8fmhw","slide":23,"name":"text-3","text":"운영환경의 기대 결과 검증과, 신규·기존 방식이 함께 사용된 주문 집계 결과를 구분했습니다.","textPreview":"운영환경의 기대 결과 검증과, 신규·기존 방식이 함께 사용된 주문 집계 결과를 구분했습니다.","textChars":51,"textLines":1,"bbox":[64,125,1152,42]}
+{"kind":"textbox","id":"sh/a14rmhgb","slide":23,"name":"text-4","text":"운영 환경에서 확인한 테스트 목적","textPreview":"운영 환경에서 확인한 테스트 목적","textChars":18,"textLines":1,"bbox":[64,183,545,30]}
+{"kind":"textbox","id":"sh/xovqhcz2","slide":23,"name":"사각형: 둥근 모서리 5","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[64,241,44,36]}
+{"kind":"textbox","id":"sh/w3m9o7yh","slide":23,"name":"text-6","text":"정상 접수","textPreview":"정상 접수","textChars":5,"textLines":1,"bbox":[129,237,154,29]}
+{"kind":"textbox","id":"sh/jqd8jmhs","slide":23,"name":"text-7","text":"정상 요청의 접수 확인","textPreview":"정상 요청의 접수 확인","textChars":12,"textLines":1,"bbox":[287,243,327,45]}
+{"kind":"textbox","id":"sh/ip4rqhgn","slide":23,"name":"사각형: 둥근 모서리 8","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[64,310,44,36]}
+{"kind":"textbox","id":"sh/sby90zm1","slide":23,"name":"text-9","text":"의도 오류","textPreview":"의도 오류","textChars":5,"textLines":1,"bbox":[129,306,154,29]}
+{"kind":"textbox","id":"sh/tc7at436","slide":23,"name":"text-10","text":"오류 조건에서 기대한 응답 확인","textPreview":"오류 조건에서 기대한 응답 확인","textChars":17,"textLines":1,"bbox":[287,312,327,45]}
+{"kind":"textbox","id":"sh/69gry94v","slide":23,"name":"사각형: 둥근 모서리 11","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[64,379,44,36]}
+{"kind":"textbox","id":"sh/rapsrelg","slide":23,"name":"text-12","text":"수정 재제출","textPreview":"수정 재제출","textChars":6,"textLines":1,"bbox":[129,375,154,29]}
+{"kind":"textbox","id":"sh/0fi94jmx","slide":23,"name":"text-13","text":"원천 보완 후 다시 제출해 성공 확인","textPreview":"원천 보완 후 다시 제출해 성공 확인","textChars":20,"textLines":1,"bbox":[287,381,327,45]}
+{"kind":"shape","id":"sh/1graxo3i","slide":23,"name":"사각형: 둥근 모서리 14","bbox":[660,185,556,209]}
+{"kind":"textbox","id":"sh/edgr294r","slide":23,"name":"text-15","text":"30 / 30","textPreview":"30 / 30","textChars":7,"textLines":1,"bbox":[692,215,490,75]}
+{"kind":"textbox","id":"sh/fepsvelc","slide":23,"name":"text-16","text":"운영 환경 30건 · 테스트 목적 통과\n의도 오류를 포함한 검증으로, 전건 정상 신고 성공과 구분","textPreview":"운영 환경 30건 · 테스트 목적 통과 | 의도 오류를 포함한 검증으로, 전건 정상 신고 성공과 구분","textChars":54,"textLines":2,"bbox":[691,309,492,67]}
+{"kind":"shape","id":"sh/oji9832t","slide":23,"name":"직선 연결선 17","bbox":[64,468,1152,0]}
+{"kind":"textbox","id":"sh/p4ra1o3e","slide":23,"name":"text-18","text":"집계 기간의 운영 결과","textPreview":"집계 기간의 운영 결과","textChars":12,"textLines":1,"bbox":[64,501,554,30]}
+{"kind":"textbox","id":"sh/x0nalovi","slide":23,"name":"text-19","text":"일평균 약 300건","textPreview":"일평균 약 300건","textChars":10,"textLines":1,"bbox":[64,544,554,54]}
+{"kind":"textbox","id":"sh/wze9cjud","slide":23,"name":"text-20","text":"2026-08-28 ~ 2026-09-15 집계\n자사몰 약 230건 · 외부 채널 약 70건","textPreview":"2026-08-28 ~ 2026-09-15 집계 | 자사몰 약 230건 · 외부 채널 약 70건","textChars":51,"textLines":2,"bbox":[64,612,554,55]}
+{"kind":"textbox","id":"sh/by58jeds","slide":23,"name":"text-21","text":"통관 완료 범위와 후속 보완","textPreview":"통관 완료 범위와 후속 보완","textChars":15,"textLines":1,"bbox":[660,501,556,30]}
+{"kind":"textbox","id":"sh/axwratc7","slide":23,"name":"text-22","text":"집계 대상 주문은 전체 통관 완료\n신규 연동과 기존 방식이 함께 사용된 운영 결과","textPreview":"집계 대상 주문은 전체 통관 완료 | 신규 연동과 기존 방식이 함께 사용된 운영 결과","textChars":45,"textLines":2,"bbox":[660,543,556,58]}
+{"kind":"textbox","id":"sh/l47ap8vu","slide":23,"name":"text-23","text":"오류 주문의 출고 보류·정보 보완·재처리를 관리","textPreview":"오류 주문의 출고 보류·정보 보완·재처리를 관리","textChars":26,"textLines":1,"bbox":[660,620,556,44]}
+{"kind":"notes","id":"nt/c7uhcr6t","slide":23,"text":"근거: career_facts.md C-022·027·100·102·103.\n일평균 300건은 발생 주문 규모이고 API 호출/전량 신규 자동화율이 아님. 원천: 2026-09-15 사용자 운영기간 집계 확인. 테스트 세부 건수 배분/개선율 없음."}
+{"kind":"slide","id":"sl/7qto7e10","slide":24,"title":"문제를 구체적인 기준으로 바꾸고,","textShapes":14}
+{"kind":"shape","id":"sh/axgza10b","slide":24,"name":"직사각형 15","bbox":[871,0,409,720]}
+{"kind":"textbox","id":"sh/1sfqxsv6","slide":24,"name":"text-1","text":"문제를 구체적인 기준으로 바꾸고,\n확인한 결과로 다음 판단을 합니다.","textPreview":"문제를 구체적인 기준으로 바꾸고, | 확인한 결과로 다음 판단을 합니다.","textChars":38,"textLines":2,"bbox":[64,92,741,84]}
+{"kind":"textbox","id":"sh/0r6p4nul","slide":24,"name":"text-2","text":"세 프로젝트에서 보여드린 일하는 방식","textPreview":"세 프로젝트에서 보여드린 일하는 방식","textChars":20,"textLines":1,"bbox":[104,253,697,36]}
+{"kind":"textbox","id":"sh/nux8zidc","slide":24,"name":"text-3","text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[64,331,37,26]}
+{"kind":"textbox","id":"sh/2to76dcr","slide":24,"name":"text-4","text":"먼저 바꿀 범위와 제외할 일을 정합니다","textPreview":"먼저 바꿀 범위와 제외할 일을 정합니다","textChars":21,"textLines":1,"bbox":[104,327,709,33]}
+{"kind":"textbox","id":"sh/9wzq1svi","slide":24,"name":"text-5","text":"B2B몰의 도입 범위를 선택하고, 발주 검토에 필요한 자료의 취합 흐름을 구현했습니다.","textPreview":"B2B몰의 도입 범위를 선택하고, 발주 검토에 필요한 자료의 취합 흐름을 구현했습니다.","textChars":48,"textLines":1,"bbox":[104,373,711,53]}
+{"kind":"textbox","id":"sh/ov6p8nux","slide":24,"name":"text-6","text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[64,439,37,26]}
+{"kind":"textbox","id":"sh/3ydonyd8","slide":24,"name":"text-7","text":"사용자와 운영자의 예외를 정책으로 구체화합니다","textPreview":"사용자와 운영자의 예외를 정책으로 구체화합니다","textChars":25,"textLines":1,"bbox":[104,435,709,33]}
+{"kind":"textbox","id":"sh/ix47utcn","slide":24,"name":"text-8","text":"카테고리 혼합주문, 판매와 출고의 구분, 주문·포장의 처리 단위를 정의했습니다.","textPreview":"카테고리 혼합주문, 판매와 출고의 구분, 주문·포장의 처리 단위를 정의했습니다.","textChars":44,"textLines":1,"bbox":[104,481,711,53]}
+{"kind":"textbox","id":"sh/8veh8ril","slide":24,"name":"text-9","text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[64,547,37,26]}
+{"kind":"textbox","id":"sh/9wni1wjq","slide":24,"name":"text-10","text":"운영에서 검증하고, 동료의 사용 방식에 맞춥니다","textPreview":"운영에서 검증하고, 동료의 사용 방식에 맞춥니다","textChars":26,"textLines":1,"bbox":[104,543,709,33]}
+{"kind":"textbox","id":"sh/mtwz6h0f","slide":24,"name":"text-11","text":"고객 화면과 오류 복구를 검수하고, 대시보드는 기존 시트와 대조하며 개선했습니다.","textPreview":"고객 화면과 오류 복구를 검수하고, 대시보드는 기존 시트와 대조하며 개선했습니다.","textChars":45,"textLines":1,"bbox":[104,589,711,53]}
+{"kind":"textbox","id":"sh/nu50zm10","slide":24,"name":"text-12","text":"박종혁","textPreview":"박종혁","textChars":3,"textLines":1,"bbox":[892,317,354,54]}
+{"kind":"textbox","id":"sh/wzyhcrih","slide":24,"name":"text-13","text":"PM PORTFOLIO","textPreview":"PM PORTFOLIO","textChars":12,"textLines":1,"bbox":[893,382,353,26]}
+{"kind":"textbox","id":"sh/x07i5wj2","slide":24,"name":"text-14","text":"감사합니다","textPreview":"감사합니다","textChars":5,"textLines":1,"bbox":[894,445,352,37]}
+{"kind":"notes","id":"nt/7qto7e10","slide":24,"text":"근거: career_facts.md C-025·027·029·034~040·050·055·058·059.\n"}
